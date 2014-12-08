@@ -1,0 +1,46 @@
+<div class="col-sm-9 col-md-6 col-lg-4" style="background-color: #C0C0C0; box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;"> 
+              <div id="home-container">
+                    <div id="myCarousel" class="carousel slide">
+                
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="" alt="building1"/>
+                                <p class="slider-description-title">Tunasan Elementary School</p>
+                                <p class="slider-description-content">
+                                    Tunasan Elementary School
+                                </p>
+                            </div>
+                        </div>
+                
+                 <div class="item">
+                        <img src="" alt="building2"/>
+                        <div class="slider-image-div-two">
+							<p class="slider-description-title"> Tunasan Elementary School </p>
+							<p class="slider-description-content">
+									 Tunasan Elementary School
+							</p>
+                </div>
+             
+                 <div class="item">
+                        <img src="" alt="building3"/>
+                        <div class="slider-image-div-two">
+							<p class="slider-description-title"> Tunasan Elementary School </p>
+							<p class="slider-description-content">
+									Tunasan Elementary School
+						</p>
+                </div>
+                
+                 <div class="item">
+                        <img src="" alt="building4"/>
+                        <div class="slider-image-div-one">
+							<p class="slider-description-title"> </p>
+							<p class="slider-description-content">
+								
+							</p>
+                </div>
+                
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+				<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            
+            </div>
+        </div>

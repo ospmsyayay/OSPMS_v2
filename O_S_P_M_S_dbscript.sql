@@ -15,6 +15,7 @@ reg_gender varchar(6),
 reg_status varchar(10),
 reg_birthday date not null,
 reg_address  varchar(150),
+image varchar(100),
 constraint PK_registration primary key (reg_id)
 );
 
@@ -24,7 +25,7 @@ create table teacher(
 
 teacherID varchar(16) not null,
 t_position varchar(20),
-image varchar(100),
+
 constraint PK_teacher primary key (teacherID),
 constraint FK_teacher foreign key (teacherID) references registration(reg_id)
 );
@@ -45,7 +46,7 @@ create table student(
 
 student_lrn varchar(16) not null,
 parentID varchar(16),
-image varchar(100),
+
 constraint PK_student primary key (student_lrn),
 constraint FK1_student foreign key (student_lrn) references registration(reg_id),
 constraint FK2_student foreign key (parentID) references parent(parentID)
@@ -80,27 +81,13 @@ constraint FK_create_user foreign key (account_id) references registration(reg_i
 drop table if exists rating;
 create table rating(
 
-rateID varchar(3) not null,
-range_value varchar(6),
-constraint PK_rating primary key (rateID)
+legendID varchar(2) not null,
+description varchar(25),
+equivalent varchar(25),
+constraint PK_rating primary key (legendID)
 );
 
-drop table if exists assessment;
-create table assessment(
 
-assessmentID varchar(16) not null,
-teacherID varchar(16),
-student_lrn varchar(16),
-ratingID varchar(3),
-parentID varchar(16),
-
-constraint PK_assessment primary key (assessmentID),
-constraint FK_assessment1 foreign key (teacherID) references teacher(teacherID),
-constraint FK_assessment2 foreign key (student_lrn) references student(student_lrn),
-constraint FK_assessment3 foreign key (ratingID) references rating (rateID),
-constraint FK_assessment4 foreign key (parentID) references parent (parentID)
-
-);
 
 drop table if exists grade_level;
 create table grade_level(
@@ -220,14 +207,17 @@ constraint FK_oe_choice foreign key(questionNo) references create_questions(ques
 drop table if exists post_ol_exer;
 create table post_ol_exer(
 
+class_rec_no varchar(10) not null,
 exerciseID int not null,
 
-constraint PK_post_oe primary key(exerciseID),
-constraint FK_post_oe foreign key(exerciseID) references create_ol_exercise(exerciseID)
+
+constraint PK_post_oe primary key(class_rec_no,exerciseID),
+constraint FK1_post_oe foreign key(exerciseID) references create_ol_exercise(exerciseID),
+constraint FK2_post_oe foreign key (class_rec_no) references section(class_rec_no)
 
 );
 
-
+/*
 drop table if exists write_announcement;
 create table write_announcement
 (
@@ -254,5 +244,73 @@ create table post_lecture
   constraint FK1_post_lecture foreign key (teacherID) references teacher(teacherID),
   constraint FK2_post_lecture foreign key (class_rec_no) references section(class_rec_no)
 
+
+);
+*/
+
+drop table if exists announcement_lecture;
+create table announcement_lecture
+(
+date_created datetime not null,
+messageorfile_caption varchar(255) null,
+file_path varchar(200) null,
+file_name varchar(100) null,
+
+constraint PK_announcement_lecture primary key (date_created)
+);
+
+drop table if exists post_announcement_lecture;
+create table post_announcement_lecture
+(
+class_rec_no varchar(10) not null,
+date_created datetime not null,
+
+constraint PK_post_announcement_lecture primary key (class_rec_no,date_created),
+constraint FK1_post_announcement_lecture foreign key (class_rec_no) references section(class_rec_no),
+constraint FK2_post_announcement_lecture foreign key (date_created) references announcement_lecture(date_created)
+);
+
+/*DROP TABLE IF EXISTS `grading`;
+CREATE TABLE `grading` (
+  `student_lrn` varchar(16) CHARACTER SET utf8 NOT NULL,
+  `grading_period` varchar(3) NOT NULL,
+  `week_number` int(3) NOT NULL,
+  `k_quizzes` double NOT NULL,
+  `k_recitation` double NOT NULL,
+  `k_raw_score` double NOT NULL,
+  `ps_quizzes` double NOT NULL,
+  `ps_recitation` double NOT NULL,
+  `ps_raw_score` double NOT NULL,
+  `u_quizzes` double NOT NULL,
+  `u_recitation` double NOT NULL,
+  `u_open_ended_q` double NOT NULL,
+  `pp_group_work` double NOT NULL,
+  `pp_project` double NOT NULL,
+  `pp_homework` double NOT NULL,
+  `pp_others` double NOT NULL,
+  `tentative_grade` double NOT NULL,
+  `legend` varchar(2) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+*/
+drop table if exists student_rating;
+create table student_rating
+(
+grading_id varchar(10) character set utf8 not null,
+student_lrn varchar(16) character set utf8 not null,
+class_rec_no varchar(10) not null,
+grading_period varchar(3) NOT NULL,
+week_number int(3) not null,
+knowledge double not null,
+processskills double not null,
+understanding double not null,
+performanceproducts double not null,
+tentative_grade double not null,
+legend varchar(2) CHARACTER SET utf8 DEFAULT NULL,
+
+
+constraint PK_student_rating primary key (grading_id,student_lrn,class_rec_no),
+constraint FK1_student_rating foreign key (student_lrn) references student(student_lrn),
+constraint FK2_student_rating foreign key (legend) references rating(legendID),
+constraint FK3_student_rating foreign key (class_rec_no) references section(class_rec_no)
 
 );

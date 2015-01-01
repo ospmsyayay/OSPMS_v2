@@ -4,18 +4,22 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
+    
 		<title>Online Student Performance Monitoring System</title>
-        <!--<link rel="stylesheet" type="text/css" href="views/bootstrap.min.css"/>-->
-        <link href="views/carousel.css" rel="stylesheet"/>
+ 
 		<link href="views/bootstrap.css" rel="stylesheet"/>
         <link href="views/exDesign.css" rel="stylesheet"/>
+
+       
 	</head>
     
 	<body>
+		
 <div class="header-wrapper">
 	<?php include "views/parts/navi-bar-teacher.php";?>
+
 </div><!--header-wrapper-->
 
 <div class="viewport">
@@ -24,69 +28,65 @@
 			<?php include "views/parts/side-bar-teacher.php";?>
 			<div class="right-wrapper">
 					<div class="right-column">
-						
+						<div class="right-column-fixed">
+							<div class="student-list-title-holder">
+								<div id="student-list-title">
+									<h4>Student List</h4>
+
+									<!-- search form -->
+				                    <form action="#" method="get" class="sidebar-form">
+				                        <div class="input-group">
+				                            <input type="text" name="q" class="form-control " placeholder="Search..."/>
+				                            <span class="input-group-btn">
+				                                <button type='submit' name='search' id='search-btn' class="btn btn-flat">
+				                                	<span class="glyphicon glyphicon-search"></span></button>
+				                            </span>
+				                        </div>
+				                    </form>
+				                
+                   			 <!-- /.search form --> 
+								</div>
+								  
+							</div>
+							
+								
+
+							
+							  
+						</div><!--right-column-fixed-->	
 						<div id="student-progress-container">
-							<div id="student-list-title">Student List</div>
-											
-											<div class="student-container">
-												<img src="views/res/student1.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Alcantara, Jerome L.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student2.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Aquino, Reanne Jane B.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student3.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Dalan, Justin C.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student4.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Dayrit, Kristine May A.<p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student5.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Eroma, Joaquin G.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student6.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Tony Dela Cruz</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student7.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Lazaro,Raphael John S.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student8.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Leyeza, Christopher T.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student9.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Loresca, Kylon D.</p></a>
-											</div>
-											
-											<div class="student-container">
-												<img src="views/res/student10.jpg" class="img-rounded shadow student-img" />
-												<a class="navbar-link" href="index.php?request=spage"><p class="student-name">Redilla, Mart Lloyd P.</p></a>
-											</div>
-							
+							<div id="result"></div>
+								<div class="student_table">
+									<?php
+
+										foreach ($display_students as $display) 
+										{
+									?>		
+											<div class="progress-student-container">
+									     			<div class="progress-student-img-holder">
+									     			<?php echo '<img src="' .$display['image'] . '" class="student-img"/>';?>
+									     			</div>
+
+											     	<div class="progress-student-details">						     	
+												    <?php echo '<a class="navbar-link" href="index.php?r=lss&tr=s" id="'.$display['student_lrn'].'" onclick="getLRN(this)">';
+												     	  echo '<p class="student-name">' .$display['reg_lname']. ', '.$display['reg_fname'].' '.$display['reg_mname'].'</p></a>'; 
+												     	  echo '<p class="student-lrn">'.$display['student_lrn'].'</p>';
+												    ?> 	  
+											     	</div> 
+							     				  </div>
+							     	<?php			  
+										}
+									 	
+							     	?>
+								</div><!--student table-->							
 						</div><!--student-progress-container-->
-							
 					</div><!--right-column-->
 				</div><!--right-wrapper-->	
 		</div><!--container-->
 	</div><!--content-->
 </div><!--viewport-->
 
-  <script src="views/jquery.min.js"></script>
+ 
         <script src="views/transition.js"></script>
      
         <script src="views/jquery.min.js"></script>
@@ -96,16 +96,171 @@
 	
 		<script src="views/tooltip.js"></script>
 		<script src="views/popover.js"></script>
+		<script src="views/scripts.js"></script>
 		
 		
-        <!--<script src="../../assets/js/docs.min.js"></script>-->
      <!-- JavaScript Test -->
 <script>
-$(function () {
-  $('.js-popover').popover()
-  $('.js-tooltip').tooltip()
-})
-</script>		
+
+
+		        function getSubjectId(menu) 
+		        {
+		        	
+		        	var subject=menu.id;
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_student_list.php',
+			            type: 'GET',
+			            data: {
+			            	subject:subject
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							/*  alert(JSON.stringify(response['student_list_bySubject']));*/
+								
+			           			displayStudents(response['student_list_bySubject']);
+			           		 
+						}
+
+
+			            });
+
+		         }
+
+
+		          function getGradeId(menu) 
+		        {
+		        	
+		        	var grade=menu.id;
+		        	
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_student_list.php',
+			            type: 'GET',
+			            data: {
+			            	grade:grade
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							  /*alert(JSON.stringify(response['student_list_byGrade']));*/
+								
+			           			displayStudents(response['student_list_byGrade']);
+			           		 
+						}
+
+
+			            });
+
+		         }
+
+		           function getSectionId(menu) 
+		        {
+		        	
+		        	var section=menu.id;
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_student_list.php',
+			            type: 'GET',
+			            data: {
+			            	section:section
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							/*  alert(JSON.stringify(response['student_list_bySection']));*/
+								
+			           			displayStudents(response['student_list_bySection']);
+			           		 
+						}
+
+
+			            });
+
+		         }
+
+						function displayStudents(data) 
+						{
+							$(".student_table").empty();
+
+							    for (var i = 0; i < data.length; i++) 
+							    {
+
+							    		drawStudentRow(data[i]);
+							  
+							    }
+
+						}
+
+						function drawStudentRow(rowData) 
+						{
+
+
+							if(rowData.image!=null && rowData.reg_lname!=null && rowData.reg_fname!=null && rowData.reg_mname!=null && rowData.student_lrn!=null)
+							{	
+								  
+							     var display = $('<div class="progress-student-container">' +
+							     					'<div class="progress-student-img-holder">' +
+							     						'<img src="' + rowData.image + '" class="student-img"/>' +
+							     					'</div>' +
+							     					'<div class="progress-student-details">' +							     	
+							     						'<a class="navbar-link" href="index.php?r=lss&tr=s" id="'+rowData.student_lrn+'" onclick="getLRN(this)">' +
+							     						'<p class="student-name">' +rowData.reg_lname+', '+rowData.reg_fname+' '+rowData.reg_mname+'</p></a>' +
+							     						'<p class="student-lrn">'+rowData.student_lrn+'</p>'+
+							     					'</div>' +
+							     				  '</div>');
+
+
+							   	 $(".student_table").append(display); 
+						   	}
+						    
+
+						}
+
+						function getLRN(p)
+						{
+							var lrn=p.id;
+							/*alert(lrn);*/
+		        	
+		        	
+				        	$.ajax({
+					 
+					            url: 'views/get_for_chart.php',
+					            type: 'GET',
+					            data: {
+					            	lrn:lrn
+					            },
+					           dataType: 'json',
+					           success: function(response) 
+					           {
+					           		
+									  /*alert(JSON.stringify(response['lrn']));*/
+					           		 
+								}
+
+					          
+					            });
+
+
+						}
+			        
+		       
+
+		       
+        </script>		
 	</body>
     
     

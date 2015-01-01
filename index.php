@@ -23,7 +23,12 @@ else
 				{
 					switch($_SESSION['user_type'])
 					{
-						case 'admin':break;
+						case 'admin':if(!isset($GET['an']))
+										{
+											admin();break;
+										}
+
+										break;
 						case 'teacher': 
 										if(!isset($_GET['tr']))
 										{
@@ -32,9 +37,11 @@ else
 										else{
 											switch($_GET['tr'])
 											{
+											
 												case 'trp':tpage_progress();break;
 												case 'tre':tpage_encode();break;
 												case 'ce':createexer(); break;
+												case 's':t_spage_progress();break;	
 											}
 										}
 										break;
@@ -46,7 +53,8 @@ else
 										else{
 											switch($_GET['st'])
 											{
-												
+												case 'stp':spage_progress();break;
+												case 'sep':spage_exercise();break;
 											}
 										}
 										break;
@@ -87,12 +95,13 @@ function login()
 	$username=$password=$user_type=$user_pass="";
     
 include "model/login_model.php";
+include "model/utility.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
 
-		$username = $_POST['user'];
-		$password = $_POST['pass'];
+		$username = clean($_POST['user']);
+		$password = clean($_POST['pass']);
        
 	   if (!empty($username)AND!empty($password))
 	   {
@@ -117,11 +126,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 							   $_SESSION['user_type'] = $user_type;
 							   $_SESSION['account_id'] = $account_id;
 							   
-									$profilename=get_profilename($_SESSION['account_id']);
-									 $profilename=mysqli_fetch_array($profilename);
+									$profile=get_profile($_SESSION['account_id']);
+									 $fetch_profile=mysqli_fetch_array($profile);
 									 
-										$_SESSION['reg_lname']=$profilename['reg_lname'];
-										$_SESSION['reg_fname']=$profilename['reg_fname'];
+										$_SESSION['reg_lname']=$fetch_profile['reg_lname'];
+										$_SESSION['reg_fname']=$fetch_profile['reg_fname'];
+										$_SESSION['profile_pic']=$fetch_profile['image'];
 							
 					           header("Location: index.php?r=lss&ss");
 					           exit();
@@ -146,19 +156,174 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	include "views/HomePage.php";
 }
 
-function signup()
+function admin()
 {
+	include "model/administrator.php";
 
-	include "views/Signup_Page.php";
+	$adminlist=array();
+	$teacherlist=array();
+	$studentlist=array();
+	$subjectlist=array();
+	$sectionlist=array();
+	$gradelevellist=array();
+	$announcementlist=array();
+	$uploadlist=array();
+	if($_SERVER['REQUEST_METHOD']=='GET')
+	{
+
+		if (isset($_GET['ap']))
+		{
+			$fetch=get_alladmin();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['reg_id']=$row['reg_id'];
+				$pass['reg_lname']=$row['reg_lname'];
+				$pass['reg_fname']=$row['reg_fname'];
+				$pass['reg_mname']=$row['reg_mname'];
+				$pass['reg_gender']=$row['reg_gender'];
+				$pass['reg_status']=$row['reg_status'];
+				$pass['reg_birthday']=$row['reg_birthday'];
+				$pass['reg_address']=$row['reg_address'];
+				$pass['image']=$row['image'];
+				$adminlist[]=$pass;
+			}
+
+		}	
+
+		if (isset($_GET['tp']))
+		{
+			$fetch=get_allteacher();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['reg_id']=$row['reg_id'];
+				$pass['reg_lname']=$row['reg_lname'];
+				$pass['reg_fname']=$row['reg_fname'];
+				$pass['reg_mname']=$row['reg_mname'];
+				$pass['reg_gender']=$row['reg_gender'];
+				$pass['reg_status']=$row['reg_status'];
+				$pass['reg_birthday']=$row['reg_birthday'];
+				$pass['reg_address']=$row['reg_address'];
+				$pass['t_position']=$row['t_position'];
+				$pass['image']=$row['image'];
+
+				$teacherlist[]=$pass;
+			}
+
+		}	
+
+		if(isset($_GET['sp']))
+		{
+			$fetch=get_allstudent();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['reg_id']=$row[0];
+				$pass['reg_lname']=$row[1];
+				$pass['reg_fname']=$row[2];
+				$pass['reg_mname']=$row[3];
+				$pass['reg_gender']=$row[4];
+				$pass['reg_status']=$row[5];
+				$pass['reg_birthday']=$row[6];
+				$pass['reg_address']=$row[7];
+				$pass['image']=$row[8];
+				$pass['p_reg_lname']=$row[9];
+				$pass['p_reg_fname']=$row[10];
+				$pass['p_reg_mname']=$row[11];
+
+				$studentlist[]=$pass;
+			}
+		}	
+
+		if(isset($_GET['sbs']))
+		{
+			$fetch=get_allsubject();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['subjectID']=$row[0];
+				$pass['subject_title']=$row[1];
+				
+
+				$subjectlist[]=$pass;
+			}
+		}	
+
+		if(isset($_GET['scs']))
+		{
+			$fetch=get_allsection();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['sectionNo']=$row[0];
+				$pass['section_name']=$row[1];
+				
+
+				$sectionlist[]=$pass;
+			}
+		}	
+
+		if(isset($_GET['gl']))
+		{
+			$fetch=get_allgradelevel();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['levelID']=$row[0];
+				$pass['level_description']=$row[1];
+				
+
+				$gradelevellist[]=$pass;
+			}
+		}	
+
+		if(isset($_GET['ps']))
+		{
+			$fetch= get_allannouncement();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['teacherID']=$row[0];
+				$pass['class_rec_no']=$row[1];
+				$pass['date_created']=$row[2];
+				$pass['message']=$row[3];
+				
+
+				$announcementlist[]=$pass;
+			}
+
+
+			$fetch= get_allupload();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['teacherID']=$row[0];
+				$pass['class_rec_no']=$row[1];
+				$pass['date_created']=$row[2];
+				$pass['file_caption']=$row[3];
+				$pass['file_path']=$row[4];
+				$pass['file_name']=$row[5];
+				
+
+				$uploadlist[]=$pass;
+			}
+		}	
+
+	}	
+					
+
+	include "views/admin.php";
 }
+
 
 function tpage()
 {
 
-include "model/announcement.php";
-include "model/teacher_load.php";
-include "model/insert_upload.php";
-include "model/get_post.php";
+		include "model/teacher_load.php";
+		include "model/announcement_lecture.php";
+		include "model/utility.php";
+
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 		{
@@ -166,21 +331,15 @@ include "model/get_post.php";
 		if(isset($_POST['message']))
 		   {
 		   	
-				$message=$_POST['message'];
+				$message=clean($_POST['message']);
 				if(!empty($message))
 				{
-					//$t_loadID = get_t_loadID($_SESSION['account_id']);
-					//$row = mysqli_fetch_array($t_loadID);
-					//$_SESSION['loadID'] = $row[0];
+					
 					
 					$message_date_created= date("Y-m-d H:i:s");  
 						
-					$announcement_inserted=write_announcement($_SESSION['account_id'],'ECRN-79542',
-																$message_date_created,$message);
-					if($announcement_inserted)
-					{
-						//
-					}
+					write_announcement_to_all_subjects($_SESSION['account_id'],$message_date_created,$message);
+
 					header("Location: index.php?r=lss&w");
 				}
 
@@ -188,7 +347,7 @@ include "model/get_post.php";
 			
 			if(isset($_POST['lecture-caption']))
 		   	{
-				$file_caption=$_POST['lecture-caption'];
+				$file_caption=clean($_POST['lecture-caption']);
 					
 				
 				if(!empty($file_caption))
@@ -200,14 +359,8 @@ include "model/get_post.php";
 						
 						$upload_date= date("Y-m-d H:i:s"); 
 					
+						upload_lecture_to_all_subjects($_SESSION['account_id'],$upload_date,$file_caption,'model/uploaded_files/',$filename);
 
-						$lecture_inserted=insert_upload($_SESSION['account_id'],'ECRN-79542',$upload_date,$file_caption,$filename);
-					
-
-						if($lecture_inserted)
-						{
-							//
-						}
 						header("Location:index.php?r=lss&l");
 					}
 
@@ -240,8 +393,6 @@ include "model/get_post.php";
 			}
 			
 		}
-		
-		
 		
 		$_SESSION['TeacherLoad']=array();
 		
@@ -294,89 +445,34 @@ include "model/get_post.php";
 
 	
 		}
-		//$display_message=array();
+
+
 		$display_box=array();
-		$post_message=get_announcement($_SESSION['account_id']);
+		$announce_lecture=get_announcement_lecture_to_all_subjects($_SESSION['account_id']);
 		
-		while($post = mysqli_fetch_array($post_message))
+		while($display = mysqli_fetch_array($announce_lecture))
 		{
-			$passer=array();
-			
-			$passer['date_created']=$post['date_created'];
-			$passer['timespan']=get_time_difference_php($passer['date_created']);
-			$passer['message']=$post['message'];
-			$passer['file_path']=null;
-			$passer['file']=null;
 
-			$display_box[]=$passer;
-		
+
+				$passer=array();
+
+				$passer['date_created']=$display['date_created'];
+				$passer['timespan']=get_time_difference_php($passer['date_created']);
+				$passer['messageorfile_caption']=$display['messageorfile_caption'];
+				$passer['file_path']=$display['file_path'];
+				$passer['file_name']=$display['file_name'];
+				$passer['sectionNo']=$display['sectionNo'];
+				$passer['section_name']=$display['section_name'];
+
+				$display_box[]=$passer;
+				
 		}
-
-		//$display_lecture_post=array();
-		$post_lecture=get_upload($_SESSION['account_id']);
-
-		while($post = mysqli_fetch_array($post_lecture))
-		{
-			$passer=array();
-
-			$passer['date_created']=$post['date_created'];
-			$passer['timespan']=get_time_difference_php($passer['date_created']);
-			$passer['message']=$post['file_caption'];
-			$passer['file_path']=$post['file_path'];
-			$passer['file']=$post['file_name'];
-
-			/*
-			foreach($display_box as $display)
-			{
-				if($display['date_created']<$passer['date_created'])
-				{
-
-					insert_to_array($display, $passer, $display_box);
-				}
-			}	
-			*/
-			$display_box[]=$passer;
-
-
-		}	
-
-
 
 	include "views/Teachers_Page.php";	
 	
 }
-/*
-function insert_to_array(&$edit_array, $insert_array, &$main_array)
-{
-	$temp=array();
-	$temp_remaining=array();
-	$temp[]=$edit_array;
-
-	$readyToInsert;
-	foreach($main_array as $displayBox)
-	{
-		if(empty($displayBox))
-		{
-			$readyToInsert=true;
-			continue;
-		}
-
-		if($readyToInsert)
-		{
-			$temp_remaining[]=$displayBox;
-		}
-	}
-
-	$edit_array['date_created']=$insert_array['date_created'];
-	$edit_array['timespan']=$insert_array['timespan'];
-	$edit_array['message']=$insert_array['message'];
-	$edit_array['image']=$insert_array['image'];
 
 
-
-}
-
-*/
 function lecture_uploaded()
 {
 	$name = $_FILES['upload_lecture']['name'];
@@ -493,9 +589,36 @@ function send_download($file,$mime)
 
 }
 
+
+
 function tpage_progress()
 {
-	include "views/Teachers_Page_Progress.php";
+	include "model/students.php";
+
+	$display_students=array();
+
+	$students=get_students($_SESSION['account_id']);
+
+	while($display = mysqli_fetch_array($students))
+	{
+					$passer=array();
+						
+					$passer['student_lrn']=$display['student_lrn'];
+					$passer['reg_lname']=$display['reg_lname'];
+					$passer['reg_fname']=$display['reg_fname'];
+					$passer['reg_mname']=$display['reg_mname'];
+					$passer['image']=$display['image'];
+					
+					$display_students[]=$passer;
+	}
+
+	include "views/Teachers_Page_Progress.php";		
+	
+}
+
+function t_spage_progress()
+{
+	include "views/Teacher_Student_Page_Progress.php";
 }
 
 function tpage_encode()
@@ -505,8 +628,131 @@ function tpage_encode()
 
 function spage()
 {
+	include "model/student_schedule_line.php";
+	include "model/announcement_lecture.php";
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+		{
+
+			if(isset($_POST['student_file_name']))
+			{
+				$file = $_POST['student_file_name'];
+				$path = 'model/uploaded_files/'.$file;
+
+				if(!is_file($path))
+				{
+					//echo "<script>alert('File not found.('".$path."')')</script>";
+					header("Location:index.php?r=lss&fnf");
+				}
+				elseif (is_dir($path))
+				{
+					//echo "<script>alert('Cannot download folder')</script>";
+					header("Location:index.php?r=lss&dnf");
+				}
+				else
+				{
+					$mime=get_mime($file);
+					
+					send_download($path,$mime);
+				}
+
+				
+			}
+
+		}	
+
+
+		$_SESSION['Student_Schedule_Line']=array();
+		
+		$subjects=get_subjectByStudentID($_SESSION['account_id']);
+	
+		while($travsubjects = mysqli_fetch_array($subjects))
+		{
+			
+			$subjectIdPasser=array();
+		
+			$subjectIdPasser['subjectID']=$travsubjects['subjectID'];
+			
+			$subject_title = $travsubjects['subject_title'];
+					
+			$_SESSION['Student_Schedule_Line'][$subject_title ]=null;
+			
+	
+					$grades=get_gradeByStudentIDSubjectID($_SESSION['account_id'],$subjectIdPasser['subjectID']);
+								
+						while($travgrades = mysqli_fetch_array($grades))
+						{
+							$levelIdPasser=array();
+							
+							$levelIdPasser['levelID']=$travgrades['levelID'];
+							
+							$level_description=$travgrades ['level_description'];
+												
+								$_SESSION['Student_Schedule_Line'][$subject_title][$level_description]=null;
+							
+								
+									$section=get_sectionByStudentIDSubjectIDLevelID($_SESSION['account_id'],$subjectIdPasser['subjectID'],$levelIdPasser['levelID']);
+											
+											while($travsectionNo=mysqli_fetch_array($section))
+											{
+											
+												$sectionNo=$travsectionNo['sectionNo'];
+												$sectionName=$travsectionNo['section_name'];
+												
+												$_SESSION['Student_Schedule_Line'][$subject_title][$level_description][$sectionNo][$sectionName]=null;
+									
+											
+												
+											}
+					
+						}
+						
+			
+		
+					
+
+	
+		}
+
+		
+		$display_box=array();
+		$announce_lecture=post_announcement_lecture_to_all_students($_SESSION['account_id']);
+		
+		while($display = mysqli_fetch_array($announce_lecture))
+		{
+
+
+				$passer=array();
+
+				$passer['date_created']=$display['date_created'];
+				$passer['timespan']=get_time_difference_php($passer['date_created']);
+				$passer['messageorfile_caption']=$display['messageorfile_caption'];
+				$passer['file_path']=$display['file_path'];
+				$passer['file_name']=$display['file_name'];
+				$passer['sectionNo']=$display['sectionNo'];
+				$passer['section_name']=$display['section_name'];
+				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
+				$passer['image']=$display['image']; 
+
+				$display_box[]=$passer;
+				
+		}
 
 	include "views/Student_Page.php";
+}
+
+function spage_progress()
+{
+	$result=get_all_student_exercise();
+	include "views/Student_Page_Progress.php";
+
+}
+
+function spage_exercise()
+{
+	$student_exercise=array();
+
+	include "views/Student_Exercise_Page.php";
 }
 
 function ppage()
@@ -645,11 +891,10 @@ function multiplechoice()
 		
 				$_SESSION['date_created']= date("Y-m-d H:i:s"); 
 				
-				$multi_created=create_exercise($_SESSION['exerciseName'],'multi',$_SESSION['date_created'],$_SESSION['question_date_created']);
-				if(!$multi_created)
-				{
-					//
-				}
+				$multi_id=create_exercise($_SESSION['exerciseName'],'multi',$_SESSION['date_created'],$_SESSION['question_date_created']);
+				
+				post_ol_exercise_to_all($multi_id);
+				
 				
 				$_SESSION['questionNo']=null;
 				$_SESSION['question_date_created']=null;
@@ -758,11 +1003,9 @@ function trueorfalse()
 		
 				$_SESSION['date_created']= date("Y-m-d H:i:s"); 
 				
-				$multi_created=create_exercise($_SESSION['exerciseName'],'multi',$_SESSION['date_created'],$_SESSION['question_date_created']);
-				if(!$multi_created)
-				{
-					//
-				}
+				$true_id=create_exercise($_SESSION['exerciseName'],'true',$_SESSION['date_created'],$_SESSION['question_date_created']);
+				
+				post_ol_exercise_to_all($true_id);
 				
 				$_SESSION['questionNo']=null;
 				$_SESSION['question_date_created']=null;
@@ -872,11 +1115,9 @@ function matchingtype()
 		
 				$_SESSION['date_created']= date("Y-m-d H:i:s"); 
 				
-				$multi_created=create_exercise($_SESSION['exerciseName'],'multi',$_SESSION['date_created'],$_SESSION['question_date_created']);
-				if(!$multi_created)
-				{
-					//
-				}
+				$mat_id=create_exercise($_SESSION['exerciseName'],'mat',$_SESSION['date_created'],$_SESSION['question_date_created']);
+				
+				post_ol_exercise_to_all($mat_id);
 				
 				$_SESSION['questionNo']=null;
 				$_SESSION['question_date_created']=null;
@@ -985,11 +1226,9 @@ function fillintheblanks()
 		
 				$_SESSION['date_created']= date("Y-m-d H:i:s"); 
 				
-				$multi_created=create_exercise($_SESSION['exerciseName'],'multi',$_SESSION['date_created'],$_SESSION['question_date_created']);
-				if(!$multi_created)
-				{
-					//
-				}
+				$fill_id=create_exercise($_SESSION['exerciseName'],'fill',$_SESSION['date_created'],$_SESSION['question_date_created']);
+				
+				post_ol_exercise_to_all($fill_id);
 				
 				$_SESSION['questionNo']=null;
 				$_SESSION['question_date_created']=null;

@@ -24,12 +24,12 @@ body
 	background-repeat:  no-repeat; 
 	background-position: center center; 
 	background-attachment:fixed;
-    -webkit-filter: blur(100px) grayscale(50%);
+   /* -webkit-filter: blur(100px) grayscale(50%);*/
 
-    scrollbar-face-color : RGB(70, 70, 70);
+   /* scrollbar-face-color : RGB(70, 70, 70);
 	scrollbar-shadow-color: black;
 	scrollbar-track-color: RGB(140, 140, 140);
-	scrollbar-arrow-color: RGB(50, 50, 50);
+	scrollbar-arrow-color: RGB(50, 50, 50);*/
 	margin: 0px auto;
 
 }
@@ -127,10 +127,10 @@ margin-bottom:0px;
 	background-repeat:  no-repeat; 
 	background-position: center center; 
 	background-attachment:fixed;
-    scrollbar-face-color : RGB(70, 70, 70);
+    /*scrollbar-face-color : RGB(70, 70, 70);
 	scrollbar-shadow-color: black;
 	scrollbar-track-color: RGB(140, 140, 140);
-	scrollbar-arrow-color: RGB(50, 50, 50);
+	scrollbar-arrow-color: RGB(50, 50, 50);*/
 	height:30px;
 	width:100%;
 	margin: 0px auto;
@@ -486,6 +486,7 @@ border-bottom-left-radius: 2px;
 }
 
 
+
 .right-column
 {
 	background-color: transparent;
@@ -765,53 +766,87 @@ background-color: transparent;
 border-radius: 2px;
 box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 margin-bottom: 14px;
-
+position:relative;
+top:100px;
 }
 
+.student-list-title-holder
+{
+border-radius: 4px 4px 0px 0px;
+box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+}
 
 #student-list-title
 {
 padding: 15px 20px;
 background-color: #FFF;
 border-bottom: 1px solid #DFE4E8;
-border-radius: 2px 2px 0px 0px;
+border-radius: 4px 4px 4px 4px;
 box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 
-    font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
-    color: #383D48;
-    margin: 0px;
-    padding: 0px;
+font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
+color: #383D48;
+margin: 0px;
+padding: 0px;
 }
 
-.student-container
+.sidebar-form {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 0px solid #555;
+  margin: 10px 10px;
+  
+}
+
+.progress-student-container
 {
+	float:left;
+	width:225px;
+	height:150px;
 	background-color: #FFF;
-    border-radius: 2px;
+    border-radius: 3px;
     box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-    margin-bottom: 14px;
+    margin-left:5px;
+    margin-right: 3px;
+    margin-bottom: 5px;
 
 }
+
+/*.progress-student-img-holder
+{
+	
+}*/
+
+.progress-student-details
+{
+	text-align: center 
+
+}
+
 .student-img
 {
-margin: 5px 5px 5px 5px;
-height:70px;
-width:70px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
+	display:block;
+	margin:auto auto;
+	height:80px;
+	width:80px;
+	border-radius: 50%;
 }
 .student-name
 {
-
-	margin: 0px 0px 0px 50px;
+	
 	width: 599px;
 	display:inline;
 	padding:1px;
 
 	
 }
+.student-lrn
+{
 
+	font-size: 12px;
+	color:#9197a3;
+}
 
 
 /**Encoding Page**/
@@ -861,24 +896,25 @@ border-bottom-left-radius: 2px;
 #student-container
 {
 background-color: transparent;
-border-radius: 2px;
+border-radius: 10px;
 box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-margin-bottom: 14px;
 
 }
 
-#student-title
+.student-title
 {
-padding: 15px 20px;
-background-color: #FFF;
-border-bottom: 1px solid #DFE4E8;
-border-radius: 2px 2px 0px 0px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+	padding: 15px 20px;
+	background-color: #FFF;
+	border-bottom: 1px solid #DFE4E8;
+	border-radius: 2px 2px 0px 0px;
+	box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 
     font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
     color: #383D48;
     margin: 0px;
     padding: 0px;
+    margin-bottom: 14px;
+
 }
 
 .student-page-space
@@ -888,16 +924,6 @@ box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
     box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
     margin-bottom: 14px;
 
-}
-.progress-img
-{
-margin: 5px 5px 5px 5px;
-height:500px;
-width:700px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
 }
 
 #thumbnail-student{
@@ -924,7 +950,7 @@ border-bottom-left-radius: 2px;
 	padding:1px;
 }
 
-#profile-student-img
+.profile-student-img
 {
 margin: 5px 5px 5px 5px;
 height:50px;
@@ -934,6 +960,115 @@ border-top-right-radius: 2px;
 border-bottom-right-radius: 2px;
 border-bottom-left-radius: 2px;
 }
+
+#student-post-title-fixed
+{
+
+	position:fixed;
+	top:102px;
+	width:inherit;
+	z-index:10;
+
+}
+
+
+#student-post-title
+{
+padding: 15px 20px;
+border-bottom: 1px solid #DFE4E8;
+border-radius: 2px 2px 2px 2px;
+box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+background: rgba(204, 204, 255, .9);
+font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
+color: #333;
+margin: 0px;
+padding: 0px;
+
+width:700px;
+height:30px;
+}
+
+#student-post-container-relative
+{
+	margin-bottom: 14px;
+	position:relative;
+	top:45px;
+	width:inherit;
+
+
+}
+
+#student-post-container
+{
+background-color: transparent;
+border-radius: 2px;
+box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+width:700px;
+}
+
+#student-message-container
+{
+	width:700px;
+
+}
+
+/*Student-Exercise-Page*/
+#student-exercise-title-fixed
+{
+	position:fixed;
+	top:102px;
+	width:inherit;
+	z-index:10;
+}
+
+#student-exercise-title
+{
+	padding: 15px 20px;
+	border-bottom: 1px solid #DFE4E8;
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+	background: rgba(204, 204, 255, .9);
+	font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
+	color: #333;
+	margin: 0px;
+	padding: 0px;
+
+	width:700px;
+	height:30px;
+}
+
+#student-exercise-container-relative
+{
+	margin-bottom: 14px;
+	position:relative;
+	top:35px;
+	width:inherit;
+}
+
+#student-exercise-container
+{
+	background-color: transparent;
+	border-radius: 2px;
+	box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+	width:700px;
+}
+
+#student-exercise
+{
+	background-color: #FFF;
+    border-radius: 2px;
+    box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+    margin-bottom: 14px;
+}
+
+/*#question-container
+{
+	background-color: #FFF;
+    border-radius: 2px;
+    box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
+    margin-bottom: 14px;
+}*/
+
 
 /**Parent Page**/
 #parent-container

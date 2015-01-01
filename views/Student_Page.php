@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- <meta charset="UTF-8"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
@@ -12,173 +13,204 @@
         <link href="views/exDesign.css" rel="stylesheet"/>
 	</head>
     
-		<body onload="check()">
+	<body onload="check()">
 		<script>
 		function check()
 		{
 		<?php
-			if ($_GET['p']=="success")
-			{								
+			if (isset($_GET['ss']))
+			{
+					
 		?>
 				alert('Login Successful');
 		<?php					
 			}
+			
+			if(isset($_GET['fnf']))
+			{	
+		?>	
+			alert('File not found!');
+		<?php
+			}
+			if(isset($_GET['dnf']))
+			{	
 		?>
+				alert('Directory not found');
+		<?php
+			}
+		?>	
+
 		}
 		</script>
+		
 <div class="header-wrapper">
-
-<div id="t-page-header" class="header shadow">
-
-	<div id="t-page-header-inner" class="navbar navbar-default header-inner shadow" role="navigation" > 
-		
-        <div class="container">
-            <div id="t-page-header-content" class="navbar-header header-content">
-					<div class="navbar-header">
-						<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="user-dropdown">
-						  <span class="sr-only">Toggle navigation</span>
-						  <span class="icon-bar"></span>
-						  <span class="icon-bar"></span>
-						  <span class="icon-bar"></span>
-						</button>
-						<!--<a class="navbar-brand" href="#">Project Name</a>-->
-					  </div>
-					  
-                    <ul class="nav navbar-nav">
-                       <li>
-    						<a class="navbar-brand" href="index.php?r=lss">Home</a>
-    					</li>
-    					<li>
-    						<a class="navbar-brand" href="index.php?r=lss&st=stp">Progress</a>
-    					</li>
-                        <li>
-    						<a class="navbar-brand" href="index.php?r=lss&st=ste">Encode</a>
-    					</li>
-                        <li>
-    						<a class="navbar-brand" href="#">Reports</a>
-    					</li>
-				
-				    </ul>
-                    
-                    <div class="form-group" id="nav-search"> 
-							<input type="text" class="form-control" placeholder="Search" />
-								<span id="search-icon"class="glyphicon glyphicon-search"></span>
-					</div>
-		
-                    
-                     <img src="views/res/teacher.jpg" class="img-rounded shadow profile-teacher-img" />
-			
-					<div id="user-dropdown" class="dropdown"> 
-						<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> 
-							<span class="caret"></span> 
-						</button> 
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"> 
-								<li role="presentation"> 
-								<a role="menuitem" tabindex="-1" href="#">Account Settings</a> </li>
-									<li class="divider"></li>
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="#">Profile</a> </li> 
-									<li class="divider"></li>
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="#"> Settings </a> </li> 
-									<li class="divider"></li>
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="#"> Help </a> </li> 
-									<li class="divider"></li>	
-								<li role="presentation" class="divider"></li> 
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="index.php?">Logout</a> </li> 
-							</ul> 
-							
-							
-					</div>
-			</div><!--header content-->
-	
-	</div><!-- /.container-->
-	</div><!--header-inner-->
-</div><!--/#header-->   
+	<?php include "views/parts/navi-bar-student.php";?>   
 </div><!--header-wrapper-->
 
+<div class="wrapper-separator"></div>
 <div class="viewport">
 	<div class="content">
 		<div class="container">
-			<div class="left-wrapper">
-				<div class="left-column" >
-					 <div id="thumbnail-student">
-						<img src="views/res/student1.jpg" class="img-rounded shadow" id="thumbnail-student-img"/>
-						<a href="#" class="navbar-link" ><h5 id="greetings-student">Hi, Student</h5></a>
-					</div> 
-					
-					<div id="parent-profile">
-						<h3 id="parent-profile-title"></h3>
-						<div class="panel-group" id="accordion">
-											<div class="panel panel-default">
-											  <div class="panel-heading">
-												<h4 class="panel-title">
-												  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-														Profile Overview
-												  </a>
-												</h4>
-											  </div>
-											  <div id="collapseOne" class="panel-collapse collapse in">
-												<div class="panel-body">
-													
-												</div>
-											  </div>
-											</div>
-											<div class="panel panel-default">
-											  <div class="panel-heading">
-												<h4 class="panel-title">
-												  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-													Progress
-												  </a>
-												</h4>
-											  </div>
-											  <div id="collapseTwo" class="panel-collapse collapse">
-												<div class="panel-body">
-													
-												</div>
-											  </div>
-											</div>
-											
-											<div class="panel panel-default">
-											  <div class="panel-heading">
-												<h4 class="panel-title">
-												  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-													Activity
-												  </a>
-												</h4>
-											  </div>
-											  <div id="collapseThree" class="panel-collapse collapse">
-												<div class="panel-body">
-													
-												</div>
-											  </div>
-											</div>
-						</div>
-					</div><!--subject-list-->
-				</div>
-			</div><!--left-wrapper-->	
+			<?php include "views/parts/side-bar-student.php";?>
 			<div class="right-wrapper">
 					<div class="right-column">
+						<div id="student-post-title-fixed">
+					<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Latest Post</div>
 						
-						<div id="student-container">
-							<div id="student-title"></div>
-											
-											<div class="student-container">
-												<img src="views/res/student1.jpg" class="img-rounded shadow student-img" />
-												<p class="student-name"><a class="navbar-link"><h1 id="greetings-student">Alcantara, Jerome L.</h1></a></p>
-											</div>
-											
-											<div class="student-page-space">
-												<img src="views/res/graph.jpg" class="img-rounded shadow progress-img" />
-										
-											</div>
-											
-											<!--<div class="encoding-page-space">
-												<img src="views/res/" class="img-rounded shadow process-img" />
+					</div>
+					<div id="student-post-container-relative">
+								<div id="student-post-container">
+								
+										<div id="student-message-container">
+											<?php 	
+											foreach($display_box as $display)
+											{
+											?>	
+
+												<div class="post-messages panel panel-default">
+														
+													<div class="panel-heading">
+															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
+															<?php echo '<div><img src="'.$display['image'].'" class="shadow post-message-img pull-left" /></div>'; ?>
+															<div><a class="navbar-link message-author"><h5><?php echo $display['teacher'] . ' >> ' . $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
+															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
+															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
+													</div>
+
+													<div class="panel-body">
+														<h4 class="post-teacher"><?php echo $display['messageorfile_caption']; ?></h4>
+														<span class="glyphicon glyphicon-pushpin pull-right"></span>
+														
+													</div>
+
+														<?php 
+															if( (!empty($display['file_path'])) and (!empty($display['file_name'])) )
+															{
+
+														?>
+															<div class="panel-footer">
+																<form action="" method="post" name="download">
+																<?php 
+
+																		$temp = explode(".",$display['file_name']);
+																		$nameoffile = $temp[0];
+																		$extension = end($temp);
+																if(
+																	($extension=='doc')||($extension=='docx')||($extension=='docm')||
+																	($extension=='docb')||($extension=='dotm')||
+																	($extension=='dotx')
+																  )	
+																  {
+
+																  	echo '<div><a><img src="views/res/word.png" class="img-thumbnail post-lecture-image">';
+																  }
+
+																else if ($extension=='pdf') 
+																{
+																	echo '<div><a><img src="views/res/adobe.png" class="img-thumbnail post-lecture-image">';
+																}	
+
+																else if(
+																 	($extension=='xls')||($extension=='xlsx')||($extension=='xlsm')
+																 	||($extension=='xltx')||($extension=='xltm')||($extension=='xlsb')
+																 	)
+																  {
+
+
+																  		echo '<div><a><img src="views/res/excel.png" class="img-thumbnail post-lecture-image">';
+																  }
+																else if
+																  (	
+																  	($extension=='ppt')||($extension=='pptx')||($extension=='pptm')||($extension=='potx')||
+																  	($extension=='potm')||($extension=='ppam')||($extension=='ppsx')||($extension=='ppsm')||
+																  	($extension=='sldx')||($extension=='sldm')
+																  )
+																{
+
+																		echo '<div><a><img src="views/res/powerpoint.png" class="img-thumbnail post-lecture-image">';
+																}
+
+																else if
+																  (	
+																  	$extension=='7z'
+																  )
+																{
+																		echo '<div><a><img src="views/res/7z.png" class="img-thumbnail post-lecture-image">';
+
+																}
+
+																else if(
+																	$extension=='rar'
+																   )
+																{
+
+																		echo '<div><a><img src="views/res/rar.jpg" class="img-thumbnail post-lecture-image">';
+																}	
+
+																else if(
+																	$extension=='swf'
+																   )
+																{
+
+																		echo '<div><a><img src="views/res/swf.jpg" class="img-thumbnail post-lecture-image">';
+																}
+
+																else if(
+																	$extension=='zip'
+
+																   )
+																{
+																		echo '<div><a><img src="views/res/zip.jpg" class="img-thumbnail post-lecture-image">';
+																}
+
+																else
+																{
+																	echo '<div><a><img src="'.$display['file_path'].$display['file_name'].'" class="img-thumbnail post-lecture-image">';
+																}
+
+
+
+
+																echo '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
+																					
+																	<input name="student_file_name" value="'.$display['file_name'].'" type="hidden"/>
+																
+																	<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
+																			</a>
+																		</div>	
+																';?>
+
+																</form>
+															</div>
+														<?php 
+															}
+															else
+															{	
+														?>
+															
+														<div class="panel-footer">
+															<span class="glyphicon glyphicon-fire"></span>
+															<span class="glyphicon glyphicon-tags pull-right"></span>
+														</div>
+														<?php 
+															}
+														?>
+														
+												</div>
 												
-											</div>-->
-											
+												
+											<?php
+											}	
+											?>
+
+
+
+										</div>
+
+
 										
-							
-						</div><!--parent-container-->
+								</div><!--post-container-->
+					</div><!--post-container-relative-->
 							
 					</div><!--right-column-->
 			</div><!--right-wrapper-->
@@ -196,16 +228,150 @@
 		<script src="views/modal.js"></script>
 		<script src="views/tooltip.js"></script>
 		<script src="views/popover.js"></script>
+		<script src="views/Chart.js"></script>
 		
 		
         <!--<script src="../../assets/js/docs.min.js"></script>-->
      <!-- JavaScript Test -->
 <script>
+
 $(function () {
   $('.js-popover').popover()
   $('.js-tooltip').tooltip()
-})
-</script>		
+});
+
+</script>
+
+<script>
+
+
+		        function getSubjectId(menu) 
+		        {
+		        	
+		        	var subject=menu.id;
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_for_student_announcement_lecture.php',
+			            type: 'POST',
+			            data: {
+			            	subject:subject
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							/*  alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
+								
+			           			display_announcement_lecture(response['announcement_lecture_bySubject']);
+			           		 
+						},
+
+
+			            });
+
+		         }
+
+
+		          function getGradeId(menu) 
+		        {
+		        	
+		        	var grade=menu.id;
+		        	
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_for_student_announcement_lecture.php',
+			            type: 'POST',
+			            data: {
+			            	grade:grade
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							 /* alert(JSON.stringify(response['announcement_lecture_byGrade']));*/
+								
+			           			display_announcement_lecture(response['announcement_lecture_byGrade']);
+			           		 
+						},
+
+
+			            });
+
+		         }
+
+		           function getSectionId(menu) 
+		        {
+		        	
+		        	var section=menu.id;
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_for_student_announcement_lecture.php',
+			            type: 'POST',
+			            data: {
+			            	section:section
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							 /* alert(JSON.stringify(response['announcement_lecture_bySection']));*/
+								
+			           			display_announcement_lecture(response['announcement_lecture_bySection']);
+			           		 
+						},
+
+
+			            });
+
+		         }
+
+		         		function display_announcement_lecture(data) 
+						{
+							$("#student-message-container").empty();
+
+							    for (var i = 0; i < data.length; i++) 
+							    {
+
+							    		drawRow(data[i]);
+							  
+							    }
+
+						}
+
+						function drawRow(rowData) 
+						{
+
+							var display = $('<div class="post-messages panel panel-default">'+
+												'<div class="panel-heading">'+
+													'<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>'+
+													'<div><img src="'+rowData.image+'" class="shadow post-message-img pull-left" /></div>'+
+													'<div><a class="navbar-link message-author"><h5><?php echo "'+rowData.teacher+'" . " >> " . "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+' " ;?></h5></a></div>'+
+													'</span><abbr class="timespan" title="'+rowData.date_created+'">'+
+													'<span class="glyphicon glyphicon-dashboard"></span>  '+rowData.timespan+'<abbr>'+
+												'</div>'+
+												'<div class="panel-body">'+
+													'<h4 class="post-teacher">'+rowData.messageorfile_caption+'</h4><span class="glyphicon glyphicon-pushpin pull-right"></span>'+
+												'</div>'+
+												rowData.display_footer+
+											'</div>');
+
+
+
+							$("#student-message-container").append(display);
+
+						}
+
+
+        </script>		
 	</body>
     
     

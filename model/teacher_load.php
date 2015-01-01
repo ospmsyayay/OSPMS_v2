@@ -5,7 +5,7 @@
 function get_teacherload($teacherID){
 include "config/conn.php";
 	
-	$sql="Select * from teacher_load where teacherID ='".$teacherID."'";
+	$sql="Select * from section where teacherID ='".$teacherID."'";
 						
 	$teacherload= mysqli_query($cxn,$sql);
 	
@@ -50,17 +50,5 @@ function get_sectionByTeacherIDSubjectIDLevelID($teacherID,$subjectID,$levelID)
 	
 	return $join_result;
 }
-/*
-function get_t_loadID($account_id)
-{
-	include "config/conn.php";
-	
-	$sql="";
-	
-	
 
-
-
-}
-*/
 ?>

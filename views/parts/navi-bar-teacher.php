@@ -31,8 +31,11 @@
     					</li>
 				
 				    </ul>
-                   
-                    <img src="views/res/teacher.jpg" class="img-rounded shadow profile-teacher-img" />
+                   <?php if(isset($_SESSION['profile_pic']))
+                   	{
+                    	echo '<img src="'.$_SESSION['profile_pic'].'" class="shadow profile-teacher-img" />';
+                    }
+                    ?>
 					<div id="user-dropdown" class="dropdown"> 
 						<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> 
 							<span class="caret"></span> 

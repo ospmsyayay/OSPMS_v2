@@ -2,6 +2,22 @@
   <!--@copyright 2014-->
 <?php
 
+function post_ol_exercise_to_all($exerciseId)
+{
+	include "config/conn.php";
+
+	$query="Select class_rec_no from section where teacherID = '".$_SESSION['account_id']."'"; 
+        $fetch_class_rec= mysqli_query($cxn,$query);
+
+
+        while($each_rec = mysqli_fetch_array($fetch_class_rec))
+        {
+            
+            $insert="INSERT INTO post_ol_exer VALUES('".$each_rec['class_rec_no']."','".$exerciseId."')";
+
+            $insert_done=mysqli_query($cxn,$insert);
+        }
+}
 
 function create_exercise($exerciseName,$desc,$date_created,$question_date_created)
 {
@@ -33,7 +49,7 @@ function create_exercise($exerciseName,$desc,$date_created,$question_date_create
 	$update_create_questions="UPDATE create_questions SET exerciseID='".$exerciseId."' WHERE date_created='".$question_date_created."'";
 	$update_successful=mysqli_query($cxn,$update_create_questions);
 	
-	return $update_successful;
+	return $exerciseId;
  	
 
 }
@@ -92,6 +108,20 @@ if($choices_discarded)
 
 	return $questions_discarded;
 
+}
+
+function get_all_student_exercise()
+{
+	include "config/conn.php";
+
+	$sql="Select section.sectionNo, section.section_name, create_ol_exercise.* 
+	from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+	inner join post_ol_exer on student_schedule_line.class_rec_no=post_ol_exer.class_rec_no 
+	inner join create_ol_exercise on post_ol_exer.exerciseID=create_ol_exercise.exerciseID where student_schedule_line.student_lrn = '".$_SESSION['account_id']."'";
+
+	$result=mysqli_query($cxn,$sql);
+
+	return $result;
 }
 
 ?>	

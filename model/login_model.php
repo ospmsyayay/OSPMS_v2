@@ -11,25 +11,17 @@ include "config/conn.php";
 
 }
 
-function get_profilename($reg_id)
+function get_profile($reg_id)
 {
 include "config/conn.php";
 
- $profilename = mysqli_query ($cxn,"SELECT reg_lname, reg_fname FROM registration  WHERE reg_id='".$reg_id."'");
+ $profilename = mysqli_query ($cxn,"SELECT reg_lname, reg_fname, image FROM registration  WHERE reg_id='".$reg_id."'");
   
  return $profilename;
 
 
 }
 
-/*
-function clean_input($input){
-$input=trim($input);
-$input=stripslashes($input);
-$input=htmlspecialchars($input);
-return $input;
-}
-*/
 
 
 ?>	

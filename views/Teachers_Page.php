@@ -1,9 +1,10 @@
 <!--@author Darryl-->
-  <!--@copyright 2014-->
- 
+<!--@copyright 2014-->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- <meta charset="UTF-8"> -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
@@ -18,7 +19,8 @@
 		{
 		<?php
 			if (isset($_GET['ss']))
-			{								
+			{
+					
 		?>
 				alert('Login Successful');
 		<?php					
@@ -99,7 +101,7 @@
 												<div class="row">
 													<div class="col-md-12 col-md-12">
 													
-															<div class="panel-body">                
+															<div class="panel-body" id="announce-box">                
 																<form accept-charset="UTF-8" action="" method="POST">
 																	<textarea class="form-control counted" name="message" placeholder="Type in your announcement" 
 																	rows="1" required="required"></textarea>
@@ -122,9 +124,9 @@
 													<div class="row">
 														<div class="col-md-12 col-md-12">
 															
-																<div class="panel-body">       
+																<div class="panel-body" id="upload-box">       
 																	<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-																			<textarea class="form-control counted" name="lecture-caption" placeholder="Create Title/Caption" 
+																			<textarea id="caption-box" class="form-control counted" name="lecture-caption" placeholder="Create Title/Caption" 
 																						rows="1" required="required"></textarea>
 																			
 																			<div class="choose-file-container">
@@ -214,34 +216,37 @@
 					</div><!--right-column-fixed-->
 					<div class="post-separator"></div>
 					<div id="post-title-fixed">
-						<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Latest Post</div>
+						
+							<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Latest Post</div>
+						
 					</div>
 					<div id="post-container-relative">
 								<div id="post-container">
 								
 										<div id="message-container">
-
 											<?php 	
 											foreach($display_box as $display)
 											{
 											?>	
 
 												<div class="post-messages panel panel-default">
+														
 													<div class="panel-heading">
-														<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
-															<div><img src="views/res/teacher.jpg" class="img-rounded shadow post-message-img pull-left" /></div>
-															<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'];?></h5></a></div>
+															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
+															<?php echo '<div><img src="'.$_SESSION['profile_pic'].'" class="shadow post-message-img pull-left" /></div>';?>
+															<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'] . ' >> ' . $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
 															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
 															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
-														</div>
+													</div>
 
-														<div class="panel-body">
-															<h4 class="post-teacher"><?php echo $display['message']; ?></h4><span class="glyphicon glyphicon-pushpin pull-right"></span>
-															
-														</div>
+													<div class="panel-body">
+														<h4 class="post-teacher"><?php echo $display['messageorfile_caption']; ?></h4>
+														<span class="glyphicon glyphicon-pushpin pull-right"></span>
+														
+													</div>
 
 														<?php 
-															if(    (!empty($display['file_path'])) and (!empty($display['file'])) )
+															if( (!empty($display['file_path'])) and (!empty($display['file_name'])) )
 															{
 
 														?>
@@ -249,7 +254,7 @@
 																<form action="" method="post" name="download">
 																<?php 
 
-																		$temp = explode(".",$display['file']);
+																		$temp = explode(".",$display['file_name']);
 																		$nameoffile = $temp[0];
 																		$extension = end($temp);
 																if(
@@ -322,15 +327,15 @@
 
 																else
 																{
-																	echo '<div><a><img src="'.$display['file_path'].$display['file'].'" class="img-thumbnail post-lecture-image">';
+																	echo '<div><a><img src="'.$display['file_path'].$display['file_name'].'" class="img-thumbnail post-lecture-image">';
 																}
 
 
 
 
-																echo '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file'].'</p>
+																echo '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
 																					
-																	<input name="file_name" value="'.$display['file'].'" type="hidden"/>
+																	<input name="file_name" value="'.$display['file_name'].'" type="hidden"/>
 																
 																	<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
 																			</a>
@@ -359,15 +364,15 @@
 											<?php
 											}	
 											?>
+
+
+
+										</div>
+
+
 										
-									<!--<div class="post-messages">
-										<img src="views/res/teacher.jpg" class="img-rounded shadow post-message-img" />
-										<img src="views/res/sample_lecture.jpg" class="img-rounded shadow sample_lecture" />
-									</div>-->
-									
-					
 								</div><!--post-container-->
-						</div><!--post-container-fixed-->
+					</div><!--post-container-relative-->
 				</div><!--right-column-->		
 				
 			</div><!--right-wrapper-->	
@@ -388,6 +393,7 @@
 		<script src="views/popover.js"></script>
 		<script src="views/msgbox.js"></script>
 		<script src="views/scripts.js"></script>
+		<script src="views/ajax_script.js"></script>
 	
 		<!-- JavaScript Test -->
 <script>
@@ -397,6 +403,264 @@ $(function () {
 })
 </script>
 
+<script>
+
+
+		        function getSubjectId(menu) 
+		        {
+		        	
+		        	var subject=menu.id;
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_announcement_lecture.php',
+			            type: 'POST',
+			            data: {
+			            	subject:subject
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							 /* alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
+								change_announce_box('subject');
+								change_upload_box('subject');
+			           			display_announcement_lecture(response['announcement_lecture_bySubject']);
+			           		 
+						},
+
+
+			            });
+
+		         }
+
+
+		          function getGradeId(menu) 
+		        {
+		        	
+		        	var grade=menu.id;
+		        	
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_announcement_lecture.php',
+			            type: 'POST',
+			            data: {
+			            	grade:grade
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							  /*alert(JSON.stringify(response['announcement_lecture_byGrade']));*/
+								change_announce_box('grade');
+								change_upload_box('grade');
+			           			display_announcement_lecture(response['announcement_lecture_byGrade']);
+			           		 
+						},
+
+
+			            });
+
+		         }
+
+		           function getSectionId(menu) 
+		        {
+		        	
+		        	var section=menu.id;
+		        	
+		        	
+		        	$.ajax({
+			 
+			            url: 'views/get_announcement_lecture.php',
+			            type: 'POST',
+			            data: {
+			            	section:section
+			            },
+			           dataType: 'json',
+
+			           success: function(response) 
+			           {
+			           		
+							 /* alert(JSON.stringify(response['announcement_lecture_bySection']));*/
+
+								change_announce_box('section');
+								change_upload_box('section');
+			           			display_announcement_lecture(response['announcement_lecture_bySection']);
+			           		 
+						},
+
+
+			            });
+
+		         }
+
+		         		function change_announce_box(category)
+		         		{
+							$('#announce-box').empty();
+
+							var display = $('<textarea class="form-control counted" name="get_message" id="message'+category+'" placeholder="Type in your announcement"'+ 
+												'rows="1" required="required"></textarea>'+
+												'<h6 class="pull-left" id="counter">320 characters remaining</h6>'+
+												'<button class="pull-right btn btn-info" onclick="getMessage'+category+'()">'+
+												'<span class="glyphicon glyphicon-send"></span>Post</button>');
+
+							$('#announce-box').append(display);
+
+
+							
+		         		}
+
+		         		function change_upload_box(category)
+		         		{
+		         			$('#upload-box').empty();
+
+		         			var display = $('<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" id="upload">'+
+		         							'<textarea id="caption'+category+'" class="form-control counted" name="get_lecture-caption"'+ 
+		         								'placeholder="Create Title/Caption" rows="1" required="required"></textarea>'+
+															'<div class="choose-file-container">'+
+																'<div style="position:relative;">'+
+																
+																						'<input type="file"'+  
+																						'name="upload_lecture_ajax" size="40"' +
+																						'id="upload_lecture_ajax" accept="*" class="pull-left"/>'+
+																			
+																					'<button class="pull-right btn btn-info" type="submit" onclick="getFile'+category+'()"><span class="glyphicon glyphicon-send"></span>Post</button>'+
+																				'</div>'+
+
+																			'</div>'+
+																			'</form>');
+
+		         			$('#upload-box').append(display);
+		         		}
+
+		         		function display_announcement_lecture(data) 
+						{
+							$("#message-container").empty();
+							
+
+							    for (var i = 0; i < data.length; i++) 
+							    {
+
+							    		drawRow(data[i]);
+							  
+							    }
+
+						}
+
+						function drawRow(rowData) 
+						{
+
+							var display = $('<div class="post-messages panel panel-default">'+
+												'<div class="panel-heading">'+
+													'<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>'+
+													'<div><img src="<?php echo $_SESSION["profile_pic"];?>" class="shadow post-message-img pull-left" /></div>'+
+													'<div><a class="navbar-link message-author"><h5><?php echo $_SESSION["reg_fname"] . " >> " . "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+' " ;?></h5></a></div>'+
+													'</span><abbr class="timespan" title="'+rowData.date_created+'">'+
+													'<span class="glyphicon glyphicon-dashboard"></span>  '+rowData.timespan+'<abbr>'+
+												'</div>'+
+												'<div class="panel-body">'+
+													'<h4 class="post-teacher">'+rowData.messageorfile_caption+'</h4><span class="glyphicon glyphicon-pushpin pull-right"></span>'+
+												'</div>'+
+												rowData.display_footer+
+											'</div>');
+
+
+
+							$("#message-container").append(display);
+
+						}
+
+						function getMessagesubject()
+						{
+							var ajax_message = $('#messagesubject').val();
+				
+				        	$.ajax({
+					 
+					            url: 'views/get_announcement_lecture.php',
+					            type: 'POST',
+					            data: {
+					            	ajax_message_subject:ajax_message
+					            },
+					           dataType: 'json',
+
+					           success: function(response)
+								{
+					           		 /*alert(JSON.stringify(response['ajax_message_subject']));*/
+					           		
+			           				 display_announcement_lecture(response['announcement_lecture_bySubject']);
+
+
+								}
+
+
+					            });
+
+						}
+
+
+						function getMessagegrade()
+						{
+							var ajax_message = $('#messagegrade').val();
+						
+				        	$.ajax({
+					 
+					            url: 'views/get_announcement_lecture.php',
+					            type: 'POST',
+					            data: {
+					            	ajax_message_grade:ajax_message
+					            },
+					           dataType: 'json',
+
+					           success: function(response) 
+					           {
+
+					           		/*alert(JSON.stringify(response['ajax_message_grade']));*/
+					           		
+			           				display_announcement_lecture(response['announcement_lecture_byGrade']);
+					           		
+								}
+
+
+					            });
+
+						}
+
+						function getMessagesection()
+						{
+							var ajax_message = $('#messagesection').val();
+			
+				        	$.ajax({
+					 
+					            url: 'views/get_announcement_lecture.php',
+					            type: 'POST',
+					            data: {
+					            	ajax_message_section:ajax_message
+					            },
+					           dataType: 'json',
+
+					           success: function(response) 
+					           {
+
+			           				display_announcement_lecture(response['announcement_lecture_bySection']);
+			           				
+					           		 
+								}
+
+
+					            });
+
+						}
+
+
+					
+
+
+        </script>		
 	</body>
     
 

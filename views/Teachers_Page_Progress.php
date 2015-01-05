@@ -16,12 +16,14 @@
 	</head>
     
 	<body>
-		
+	
 <div class="header-wrapper">
 	<?php include "views/parts/navi-bar-teacher.php";?>
 
 </div><!--header-wrapper-->
-
+<div class="wrapper-separator-holder">
+	<div class="wrapper-separator"></div>
+</div>	
 <div class="viewport">
 	<div class="content">
 		<div class="container">
@@ -29,31 +31,30 @@
 			<div class="right-wrapper">
 					<div class="right-column">
 						<div class="right-column-fixed">
-							<div class="student-list-title-holder">
+							<div class="student-list-title-holder panel panel-default ">
 								<div id="student-list-title">
-									<h4>Student List</h4>
+									<h5>Student List</h5>
 
-									<!-- search form -->
-				                    <form action="#" method="get" class="sidebar-form">
-				                        <div class="input-group">
-				                            <input type="text" name="q" class="form-control " placeholder="Search..."/>
-				                            <span class="input-group-btn">
-				                                <button type='submit' name='search' id='search-btn' class="btn btn-flat">
-				                                	<span class="glyphicon glyphicon-search"></span></button>
-				                            </span>
-				                        </div>
-				                    </form>
-				                
-                   			 <!-- /.search form --> 
 								</div>
-								  
+
+									<div>
+										<form id="student-search-form" class="form-search form-horizontal pull-right">
+							                <div class="input-append span12" id="search-query-holder">
+							                    <input type="text" class="search-query" placeholder="Search Student" id="student-search">
+							                    <i class="icon-search"></i>
+							                    
+							                </div>
+							            </form>
+							    	</div>
+								
 							</div>
 							
-								
-
+						
 							
-							  
-						</div><!--right-column-fixed-->	
+					
+
+						</div><!--right-column-fixed-->
+
 						<div id="student-progress-container">
 							<div id="result"></div>
 								<div class="student_table">
@@ -122,7 +123,7 @@
 			           {
 			           		
 							/*  alert(JSON.stringify(response['student_list_bySubject']));*/
-								
+								setsearch_ajax('subject');
 			           			displayStudents(response['student_list_bySubject']);
 			           		 
 						}
@@ -153,7 +154,7 @@
 			           {
 			           		
 							  /*alert(JSON.stringify(response['student_list_byGrade']));*/
-								
+								setsearch_ajax('grade');
 			           			displayStudents(response['student_list_byGrade']);
 			           		 
 						}
@@ -182,7 +183,7 @@
 			           {
 			           		
 							/*  alert(JSON.stringify(response['student_list_bySection']));*/
-								
+								setsearch_ajax('section');
 			           			displayStudents(response['student_list_bySection']);
 			           		 
 						}
@@ -190,6 +191,16 @@
 
 			            });
 
+		         }
+
+		         function setsearch_ajax(category)
+		         {
+		         	$('#search-query-holder').empty();
+
+		         	var display=$('<input type="text" class="search-query" placeholder="Search Student" id="student-search-'+category+'" onkeyup="student_filter_'+category+'()">'+
+							            '<i class="icon-search"></i>');
+
+		         	$('#search-query-holder').append(display);
 		         }
 
 						function displayStudents(data) 
@@ -230,6 +241,118 @@
 
 						}
 
+						
+
+						$('#student-search').on('keyup', student_filter);
+						
+						function student_filter()
+						{
+							var filter=$('#student-search').val();
+							/*alert(filter);*/
+
+							$.ajax({
+			 
+						            url: 'views/get_student_list.php',
+						            type: 'GET',
+						            data: {
+						            	student_search:filter
+						            },
+						           dataType: 'json',
+
+						           success: function(response) 
+						           {
+						           		
+										 /* alert(JSON.stringify(response['student_filter']));*/
+											
+						           			displayStudents(response['student_filter']);
+						           		 
+									}
+
+
+			            		   });
+						}
+
+						function student_filter_subject()
+						{
+							var filter=$('#student-search-subject').val();
+							/*alert(filter);*/
+
+							$.ajax({
+			 
+						            url: 'views/get_student_list.php',
+						            type: 'GET',
+						            data: {
+						            	student_search_subject:filter
+						            },
+						           dataType: 'json',
+
+						           success: function(response) 
+						           {
+						           		
+										  /*alert(JSON.stringify(response['student_filter']));*/
+											
+						           			displayStudents(response['student_filter_subject']);
+						           		 
+									}
+
+
+			            		   });
+						}
+
+						function student_filter_grade()
+						{
+							var filter=$('#student-search-grade').val();
+							/*alert(filter);*/
+
+							$.ajax({
+			 
+						            url: 'views/get_student_list.php',
+						            type: 'GET',
+						            data: {
+						            	student_search_grade:filter
+						            },
+						           dataType: 'json',
+
+						           success: function(response) 
+						           {
+						           		
+										 /*alert(JSON.stringify(response['student_filter']));*/
+											
+						           			displayStudents(response['student_filter_grade']);
+						           		 
+									}
+
+
+			            		   });
+						}
+
+						function student_filter_section()
+						{
+							var filter=$('#student-search-section').val();
+							/*alert(filter);*/
+
+							$.ajax({
+			 
+						            url: 'views/get_student_list.php',
+						            type: 'GET',
+						            data: {
+						            	student_search_section:filter
+						            },
+						           dataType: 'json',
+
+						           success: function(response) 
+						           {
+						           		
+										  /*alert(JSON.stringify(response['student_filter']));*/
+											
+						           			displayStudents(response['student_filter_section']);
+						           		 
+									}
+
+
+			            		   });
+						}
+						
 						function getLRN(p)
 						{
 							var lrn=p.id;

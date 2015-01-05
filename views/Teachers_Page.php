@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- <meta charset="UTF-8"> -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
@@ -78,7 +77,9 @@
 	<?php include "views/parts/navi-bar-teacher.php";?>
 </div><!--header-wrapper-->
 
-<div class="wrapper-separator"></div>
+<div class="wrapper-separator-holder">
+	<div class="wrapper-separator"></div>
+</div>	
 <div class="viewport">
 	<div class="content">
 		<div class="container">
@@ -392,8 +393,7 @@
 		<script src="views/tooltip.js"></script>
 		<script src="views/popover.js"></script>
 		<script src="views/msgbox.js"></script>
-		<script src="views/scripts.js"></script>
-		<script src="views/ajax_script.js"></script>
+		<script src="views/scripts.js"></script>		
 	
 		<!-- JavaScript Test -->
 <script>
@@ -498,7 +498,6 @@ $(function () {
 			            });
 
 		         }
-
 		         		function change_announce_box(category)
 		         		{
 							$('#announce-box').empty();
@@ -514,12 +513,13 @@ $(function () {
 
 							
 		         		}
-
+		         		
+		         		
 		         		function change_upload_box(category)
 		         		{
 		         			$('#upload-box').empty();
 
-		         			var display = $('<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" id="upload">'+
+		         			var display = $('<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" id="upload" onsubmit="uploadFiles(this)">'+
 		         							'<textarea id="caption'+category+'" class="form-control counted" name="get_lecture-caption"'+ 
 		         								'placeholder="Create Title/Caption" rows="1" required="required"></textarea>'+
 															'<div class="choose-file-container">'+
@@ -527,9 +527,9 @@ $(function () {
 																
 																						'<input type="file"'+  
 																						'name="upload_lecture_ajax" size="40"' +
-																						'id="upload_lecture_ajax" accept="*" class="pull-left"/>'+
+																						'id="upload_lecture_ajax" accept="*" class="pull-left" onchange="prepareUpload(this)"/>'+
 																			
-																					'<button class="pull-right btn btn-info" type="submit" onclick="getFile'+category+'()"><span class="glyphicon glyphicon-send"></span>Post</button>'+
+																					'<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>'+
 																				'</div>'+
 
 																			'</div>'+
@@ -648,17 +648,33 @@ $(function () {
 
 			           				display_announcement_lecture(response['announcement_lecture_bySection']);
 			           				
-					           		 
-								}
+							   }
 
 
 					            });
 
 						}
 
+		
+							/*var files;*/
 
-					
-
+							/*$('#upload_lecture_ajax').on('change', prepareUpload);
+							$('#upload').on('submit', uploadFiles);
+*/
+						
+							/*function prepareUpload(event)
+							{
+								files = event.target.files;
+								alert(files);
+							}
+*/
+		
+						/*	function uploadFiles(event)
+							{
+						        event.preventDefault(); 
+						    }*/
+	    
+						       
 
         </script>		
 	</body>

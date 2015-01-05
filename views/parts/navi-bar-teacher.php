@@ -29,6 +29,9 @@
                         <li>
     						<a class="navbar-brand" href="#">Reports</a>
     					</li>
+    					<li>
+    						<a class="navbar-brand" href="index.php?r=lss&tr=testing">Testing</a>
+    					</li>
 				
 				    </ul>
                    <?php if(isset($_SESSION['profile_pic']))

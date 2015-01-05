@@ -2,6 +2,7 @@
 <?php 
 	session_start();
 
+	
 		if(isset ($_POST['subject']))
 		{	
 
@@ -37,10 +38,11 @@
 			
 			$message=clean($_POST['ajax_message_subject']);
 
-			postBySubject($message);
-		
 			/*echo "{\"ajax_message_subject\": [" . json_encode($message). "]}";*/
 
+			postBySubject($message);
+		
+			
 		}
 
 		if(isset($_POST['ajax_message_grade']))
@@ -48,10 +50,12 @@
 			
 			$message=clean($_POST['ajax_message_grade']);
 
+			/*echo "{\"ajax_message_grade\": [" . json_encode($message). "]}";*/
+
 			postByGrade($message);
 		
-			/*echo "{\"ajax_message_grade\": [" . json_encode($message). "]}";
-*/
+			
+
 		}
 
 		if(isset($_POST['ajax_message_section']))
@@ -59,9 +63,11 @@
 			
 			$message=clean($_POST['ajax_message_section']);
 
+			/*echo "{\"ajax_message_section\": [" . json_encode($message). "]}";*/
+
 			postBySection($message);
 		
-		/*	echo "{\"ajax_message_section\": [" . json_encode($message). "]}";*/
+			
 
 		}
 

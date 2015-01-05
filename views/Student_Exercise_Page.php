@@ -20,7 +20,9 @@
 	<?php include "views/parts/navi-bar-student.php";?>
 </div><!--header-wrapper-->
 
-<div class="wrapper-separator"></div>
+<div class="wrapper-separator-holder">
+	<div class="wrapper-separator"></div>
+</div>	
 <div class="viewport">
 	<div class="content">
 		<div class="container">
@@ -35,39 +37,74 @@
 					</div>
 
 					<div id="student-exercise-container-relative">
-								<div id="student-exercise-container">
-
+							<div id="student-exercise-container">
+								<?php 
+									/*foreach($all_exercises as $exercise)
+									{*/
+								?>
 										<div id="student-exercise">
-
-											<div id="exercise-title">
-												<h4>Exercise Name: Exercise Name</h4>
-											</div>
-										
-											<div class="panel panel-default">
-												
-													<div class="panel-heading">
-														<h5>Question No: <h5/>
-														<p>Question:</p>
+												<form class="form-horizontal" role="form">
+													<div id="exercise-title">
+														<?php
+														/*echo '<h4>Exercise Name: '.$exercise['exerciseName'].'</h4>'*/
+														echo '<div>'.print_r($all_exercises).'</div>';
+														?>
 													</div>
+													<?php
+													/*foreach($exercise['exerciseID'] as $eidHolder)
+													{	
+														foreach($eidHolder as $question)
+														{	
+															echo '<div>'.print_r($eidHolder).'</div>';*/
+															/*foreach($question['questionNo'] as $qidHolder)
+															{
+																foreach($qidHolder as $questionNo => $choices)
+																{*/
+													?>	
+																<!-- <div class="panel panel-default">
+																	<div class="panel-heading">
+																		<?php
+																	
+																			/*echo '<h5>Question No: 1 <h5/>';*/
+																			/*echo '<h6>Question: '.$question['oe_question'].'</h6>';*/
+																		
+																		?>
+																	</div>
+																
+																	<div class="panel panel-body">
+																		<?php
+																			/*foreach ($choices['choices'] as $choice)*/
+																			{ 
+																				/*foreach($choice as $oe_choices => $value)*/
+																				{	
+																					/*echo '<h5>Choices: '.$oe_choices.'</h5>';*/
+																					/*echo '<p>A) '.$oe_choices.' </p>';*/
+																				}
+																			}
+																		?>
+																	</div>
 
-													<div class="panel-body">
-														<h5>Choices:</h5>
-														<p>A:) TAMA </p>
-													</div>
+																	<div class="panel panel-footer">
+																		<input placeholder="answer" name="qanswer" type="text" id="answer-box"/>
+																	</div>	
 
-													<div class="panel-footer">
-														<label for="answer-box"><h6>Answer:</h6></label>
-													</div>
-													<input placeholder="Answer" name="answer" type="text" id="answer-box" size="2" max-length="2"/>
-											
-						
-											</div><!--question container-->
+																</div> -->
 
-											
+													<?php
+															/*	}
+															}*/
+
+													/*	}
+													}		*/	
+													?>
+
+												</form>	
 										</div><!--student-exercise-->
+								<?php
+									/*} */
+								?>			
 
-										
-								</div><!--student-exercise-container-->
+							</div><!--student-exercise-container-->	
 					</div><!--student-exercise-container-relative-->
 				</div><!--right-column-->		
 				

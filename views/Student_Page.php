@@ -46,8 +46,9 @@
 <div class="header-wrapper">
 	<?php include "views/parts/navi-bar-student.php";?>   
 </div><!--header-wrapper-->
-
-<div class="wrapper-separator"></div>
+<div class="wrapper-separator-holder">
+	<div class="wrapper-separator"></div>
+</div>	
 <div class="viewport">
 	<div class="content">
 		<div class="container">

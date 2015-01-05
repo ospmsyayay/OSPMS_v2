@@ -61,7 +61,7 @@ CREATE TABLE `announcement_lecture` (
 
 LOCK TABLES `announcement_lecture` WRITE;
 /*!40000 ALTER TABLE `announcement_lecture` DISABLE KEYS */;
-INSERT INTO `announcement_lecture` VALUES ('2014-12-25 10:09:05','Testing',NULL,NULL),('2014-12-25 10:10:05','Hello',NULL,NULL),('2014-12-26 08:22:05','Build a Mini Golf','model/uploaded_files/','Build a Mini Golf Game with ActionScript 3.docx'),('2014-12-26 08:23:05','Computer Ethics','model/uploaded_files/','Computer Ethics.pdf'),('2014-12-26 08:24:05','hit test','model/uploaded_files/','hit test.pptx'),('2014-12-26 08:25:05','K12','model/uploaded_files/','K12 Encoding Sheets .xlsx'),('2014-12-26 08:26:06','mini golf','model/uploaded_files/','miniGolf.swf'),('2014-12-26 08:27:07','preview','model/uploaded_files/','preview.gif'),('2014-12-28 11:22:00','buchi','model/uploaded_files/','Buchi Recipe.docx'),('2014-12-28 11:24:00','filipino cookbook','model/uploaded_files/','The Filipino Cookbook - Miki Garcia.pdf'),('2014-12-28 11:25:00','japanese cuisine','model/uploaded_files/','Cooking_The_Japanese_Way.pdf'),('2014-12-28 11:26:00','japanese cooking','model/uploaded_files/','Japanese_Cooking_-_Schinner__Miyoko_Nishimoto.pdf');
+INSERT INTO `announcement_lecture` VALUES ('2014-12-25 10:09:05','Testing',NULL,NULL),('2014-12-25 10:10:05','Hello',NULL,NULL),('2014-12-26 08:22:05','Build a Mini Golf','model/uploaded_files/','Build a Mini Golf Game with ActionScript 3.docx'),('2014-12-26 08:23:05','Computer Ethics','model/uploaded_files/','Computer Ethics.pdf'),('2014-12-26 08:24:05','hit test','model/uploaded_files/','hit test.pptx'),('2014-12-26 08:25:05','K12','model/uploaded_files/','K12 Encoding Sheets .xlsx'),('2014-12-26 08:26:06','mini golf','model/uploaded_files/','miniGolf.swf'),('2014-12-26 08:27:07','preview','model/uploaded_files/','preview.gif'),('2014-12-28 11:22:00','buchi','model/uploaded_files/','Buchi Recipe.docx'),('2014-12-28 11:24:00','filipino cookbook','model/uploaded_files/','The Filipino Cookbook - Miki Garcia.pdf'),('2014-12-28 11:25:00','japanese cuisine','model/uploaded_files/','Cooking_The_Japanese_Way.pdf'),('2014-12-28 11:26:00','japanese cooking','model/uploaded_files/','Japanese_Cooking_-_Schinner__Miyoko_Nishimoto.pdf'),('2015-01-05 11:02:43','Hi',NULL,NULL);
 /*!40000 ALTER TABLE `announcement_lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,7 +110,7 @@ CREATE TABLE `create_ol_exercise` (
   PRIMARY KEY (`exerciseID`),
   KEY `FK_exerciseID` (`typeID`),
   CONSTRAINT `FK_exerciseID` FOREIGN KEY (`typeID`) REFERENCES `ol_exercise_type` (`typeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +119,7 @@ CREATE TABLE `create_ol_exercise` (
 
 LOCK TABLES `create_ol_exercise` WRITE;
 /*!40000 ALTER TABLE `create_ol_exercise` DISABLE KEYS */;
-INSERT INTO `create_ol_exercise` VALUES (1,'OETMUL','multi all','2014-12-31 02:19:35');
+INSERT INTO `create_ol_exercise` VALUES (1,'OETMUL','Sample Multiple Choice','2014-12-31 02:19:35'),(2,'OETMUL','Sample 2','2014-01-02 05:15:00'),(3,'OETMUL','Sample3','2014-01-02 05:22:00');
 /*!40000 ALTER TABLE `create_ol_exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,7 @@ CREATE TABLE `create_questions` (
   PRIMARY KEY (`questionNo`),
   KEY `FK_create_questions` (`exerciseID`),
   CONSTRAINT `FK_create_questions` FOREIGN KEY (`exerciseID`) REFERENCES `create_ol_exercise` (`exerciseID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `create_questions` (
 
 LOCK TABLES `create_questions` WRITE;
 /*!40000 ALTER TABLE `create_questions` DISABLE KEYS */;
-INSERT INTO `create_questions` VALUES (3,1,'gasd','a','2014-12-31 02:19:32');
+INSERT INTO `create_questions` VALUES (3,1,'gasd','a','2014-12-31 02:19:32'),(4,1,'who','me','2015-01-02 10:37:05'),(5,2,'yuuu','ko','2014-01-02 05:18:00'),(6,3,'ok','ok','2014-01-02 05:23:00');
 /*!40000 ALTER TABLE `create_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `oe_choices` (
 
 LOCK TABLES `oe_choices` WRITE;
 /*!40000 ALTER TABLE `oe_choices` DISABLE KEYS */;
-INSERT INTO `oe_choices` VALUES (3,'a','2014-12-31 02:19:32'),(3,'b','2014-12-31 02:19:32'),(3,'c','2014-12-31 02:19:32'),(3,'d','2014-12-31 02:19:32');
+INSERT INTO `oe_choices` VALUES (3,'a','2014-12-31 02:19:32'),(3,'b','2014-12-31 02:19:32'),(3,'c','2014-12-31 02:19:32'),(3,'d','2014-12-31 02:19:32'),(4,'he','2015-01-02 10:37:05'),(4,'i','2015-01-02 10:37:05'),(4,'me','2015-01-02 10:37:05'),(4,'you','2015-01-02 10:37:05'),(5,'ki','2014-01-02 05:18:00'),(5,'ko','2014-01-02 05:18:00'),(5,'lo','2014-01-02 05:18:00'),(5,'op','2014-01-02 05:18:00'),(6,'ko','2014-01-02 05:23:00'),(6,'l','2014-01-02 05:23:00'),(6,'ok','2014-01-02 05:23:00'),(6,'ty','2014-01-02 05:23:00');
 /*!40000 ALTER TABLE `oe_choices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `post_announcement_lecture` (
 
 LOCK TABLES `post_announcement_lecture` WRITE;
 /*!40000 ALTER TABLE `post_announcement_lecture` DISABLE KEYS */;
-INSERT INTO `post_announcement_lecture` VALUES ('ECRN-79542','2014-12-25 10:09:05'),('ECRN-91165','2014-12-25 10:10:05'),('ECRN-79542','2014-12-26 08:22:05'),('ECRN-89847','2014-12-26 08:22:05'),('ECRN-79542','2014-12-26 08:23:05'),('ECRN-89847','2014-12-26 08:23:05'),('ECRN-79542','2014-12-26 08:24:05'),('ECRN-89847','2014-12-26 08:24:05'),('ECRN-79542','2014-12-26 08:26:06'),('ECRN-89847','2014-12-26 08:26:06'),('ECRN-79542','2014-12-26 08:27:07'),('ECRN-89847','2014-12-26 08:27:07'),('ECRN-89462','2014-12-28 11:22:00'),('ECRN-89462','2014-12-28 11:24:00'),('ECRN-89462','2014-12-28 11:25:00'),('ECRN-89462','2014-12-28 11:26:00');
+INSERT INTO `post_announcement_lecture` VALUES ('ECRN-79542','2014-12-25 10:09:05'),('ECRN-91165','2014-12-25 10:10:05'),('ECRN-79542','2014-12-26 08:22:05'),('ECRN-89847','2014-12-26 08:22:05'),('ECRN-79542','2014-12-26 08:23:05'),('ECRN-89847','2014-12-26 08:23:05'),('ECRN-79542','2014-12-26 08:24:05'),('ECRN-89847','2014-12-26 08:24:05'),('ECRN-79542','2014-12-26 08:26:06'),('ECRN-89847','2014-12-26 08:26:06'),('ECRN-79542','2014-12-26 08:27:07'),('ECRN-89847','2014-12-26 08:27:07'),('ECRN-89462','2014-12-28 11:22:00'),('ECRN-89462','2014-12-28 11:24:00'),('ECRN-89462','2014-12-28 11:25:00'),('ECRN-89462','2014-12-28 11:26:00'),('ECRN-91165','2015-01-05 11:02:43');
 /*!40000 ALTER TABLE `post_announcement_lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +300,7 @@ CREATE TABLE `post_ol_exer` (
 
 LOCK TABLES `post_ol_exer` WRITE;
 /*!40000 ALTER TABLE `post_ol_exer` DISABLE KEYS */;
-INSERT INTO `post_ol_exer` VALUES ('ECRN-54544',1),('ECRN-54644',1),('ECRN-79542',1),('ECRN-89462',1),('ECRN-89544',1),('ECRN-89755',1),('ECRN-89847',1),('ECRN-91165',1);
+INSERT INTO `post_ol_exer` VALUES ('ECRN-89462',1),('ECRN-89847',2),('ECRN-91165',3);
 /*!40000 ALTER TABLE `post_ol_exer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,7 +513,7 @@ CREATE TABLE `student_rating` (
 
 LOCK TABLES `student_rating` WRITE;
 /*!40000 ALTER TABLE `student_rating` DISABLE KEYS */;
-INSERT INTO `student_rating` VALUES ('GR-1520966','MS1411301-657755','ECRN-89847','2nd',4,98,85,74,55,74.65,'D'),('GR-1544915','MS1411301-657755','ECRN-89847','1st',5,50,51,52,53,54,'B'),('GR-1548177','MS1411301-657755','ECRN-89847','1st',1,90,90,90,90,90,'A'),('GR-1631797','MS1411301-657755','ECRN-89847','2nd',5,69,68,67,52,63.05,'B'),('GR-1693461','MS1411301-657755','ECRN-89847','3rd',1,25,10,15,30,19.75,'B'),('GR-1795438','MS1412057-798461','ECRN-89847','1st',1,73,73,73,73,73,'B'),('GR-1914941','MS1411301-657755','ECRN-89462','3rd',3,10,9,8,6,7.95,'B'),('GR-1942187','MS1411301-657755','ECRN-89847','2nd',6,30,25,15,50,30.25,'B'),('GR-2072741','MS1401011-436135','ECRN-79542','1st',1,85,84,86,82,84.15,'P'),('GR-2191899','MS1411301-657755','ECRN-91165','1st',7,94,93,92,99,94.65,'A'),('GR-2281214','MS1412057-798461','ECRN-89847','1st',2,90,90,90,90,90,'A'),('GR-3704030','MS1401011-436135','ECRN-79542','3rd',1,89,90,90,90,89.85,'A'),('GR-3772761','MS1411301-657755','ECRN-89847','1st',6,60,61,62,63,64,'B'),('GR-3792792','MS1401011-436135','ECRN-79542','1st',4,90,95,95,95,94.25,'A'),('GR-3838611','MS1401011-436135','ECRN-79542','1st',3,100,100,100,100,100,'A'),('GR-4199509','MS1411301-657755','ECRN-89847','3rd',2,100,99,98,99,98.85,'A'),('GR-4740822','MS1411301-657755','ECRN-89847','1st',3,30,31,32,33,34,'B'),('GR-5389730','MS1411301-657755','ECRN-89847','2nd',1,85,85,84,80,83.2,'AP'),('GR-6054908','MS1411301-657755','ECRN-89847','1st',2,20,21,22,23,24,'B'),('GR-6172842','MS1412045-798461','ECRN-89847','1st',1,85,90.6,85.5,90,88.05,'P'),('GR-6263719','MS1411301-657755','ECRN-89462','3rd',5,7,7,7,7,7,'B'),('GR-8075021','MS1411301-657755','ECRN-89847','1st',4,40,41,42,43,44,'B'),('GR-8262986','MS1401011-436135','ECRN-79542','1st',2,88,73,89,56,74.95,'D'),('GR-8610677','MS1411301-657755','ECRN-89462','3rd',4,100,100,100,100,100,'A'),('GR-9774750','MS1411301-657755','ECRN-89847','2nd',2,83,82,82,82,82.15,'AP'),('GR-9999922','MS1411301-657755','ECRN-89847','2nd',3,90,89,88,86,87.95,'P');
+INSERT INTO `student_rating` VALUES ('GR-1520966','MS1411301-657755','ECRN-89847','2nd',4,98,85,74,55,74.65,'D'),('GR-1544915','MS1411301-657755','ECRN-89847','1st',5,50,51,52,53,54,'B'),('GR-1548177','MS1411301-657755','ECRN-89847','1st',1,90,90,90,90,90,'A'),('GR-1631797','MS1411301-657755','ECRN-89847','2nd',5,69,68,67,52,63.05,'B'),('GR-1693461','MS1411301-657755','ECRN-89847','3rd',1,25,10,15,30,19.75,'B'),('GR-1795438','MS1412057-798461','ECRN-89847','1st',1,73,73,73,73,73,'B'),('GR-1914941','MS1411301-657755','ECRN-89462','3rd',3,10,9,8,6,7.95,'B'),('GR-1917316','MS1411301-657755','ECRN-89462','1st',1,100,100,100,100,100,'A'),('GR-1942187','MS1411301-657755','ECRN-89847','2nd',6,30,25,15,50,30.25,'B'),('GR-2072741','MS1401011-436135','ECRN-79542','1st',1,85,84,86,82,84.15,'P'),('GR-2191899','MS1411301-657755','ECRN-91165','1st',7,94,93,92,99,94.65,'A'),('GR-2281214','MS1412057-798461','ECRN-89847','1st',2,90,90,90,90,90,'A'),('GR-3155516','MS1411301-657755','ECRN-89847','4th',1,50,10,99,100,69.7,'B'),('GR-3195718','MS1411301-657755','ECRN-89462','3rd',2,100,90,75,55,76.5,'D'),('GR-3284939','MS1411301-657755','ECRN-89462','2nd',2,100,90,70,40,70.5,'B'),('GR-3704030','MS1401011-436135','ECRN-79542','3rd',1,89,90,90,90,89.85,'A'),('GR-3709629','MS1411301-657755','ECRN-89462','2nd',1,100,50,40,20,45.5,'B'),('GR-3772761','MS1411301-657755','ECRN-89847','1st',6,60,61,62,63,64,'B'),('GR-3792792','MS1401011-436135','ECRN-79542','1st',4,90,95,95,95,94.25,'A'),('GR-3838611','MS1401011-436135','ECRN-79542','1st',3,100,100,100,100,100,'A'),('GR-4199509','MS1411301-657755','ECRN-89847','3rd',2,100,99,98,99,98.85,'A'),('GR-4740822','MS1411301-657755','ECRN-89847','1st',3,30,31,32,33,34,'B'),('GR-5389730','MS1411301-657755','ECRN-89847','2nd',1,85,85,84,80,83.2,'AP'),('GR-5799113','MS1411301-657755','ECRN-89462','4th',1,90,91,92,93,91.75,'A'),('GR-6054908','MS1411301-657755','ECRN-89847','1st',2,20,21,22,23,24,'B'),('GR-6172842','MS1412045-798461','ECRN-89847','1st',1,85,90.6,85.5,90,88.05,'P'),('GR-6263719','MS1411301-657755','ECRN-89462','3rd',5,7,7,7,7,7,'B'),('GR-8075021','MS1411301-657755','ECRN-89847','1st',4,40,41,42,43,44,'B'),('GR-8262986','MS1401011-436135','ECRN-79542','1st',2,88,73,89,56,74.95,'D'),('GR-8610677','MS1411301-657755','ECRN-89462','3rd',4,100,100,100,100,100,'A'),('GR-9774750','MS1411301-657755','ECRN-89847','2nd',2,83,82,82,82,82.15,'AP'),('GR-9999922','MS1411301-657755','ECRN-89847','2nd',3,90,89,88,86,87.95,'P');
 /*!40000 ALTER TABLE `student_rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -603,4 +603,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-02  7:47:42
+-- Dump completed on 2015-01-05 13:39:10

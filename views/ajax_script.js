@@ -4,7 +4,7 @@ $(function()
 	var files;
 
 	$('input[type=file]').on('change', prepareUpload);
-	$('#upload').on('submit', uploadFiles);
+	$('form').on('submit', uploadFiles);
 
 	function prepareUpload(event)
 	{
@@ -23,7 +23,7 @@ $(function()
 		});
         
         $.ajax({
-            url: 'ajax_upload.php?files',
+            url: 'views/get_upload_lecture.php?files',
             type: 'POST',
             data: data,
             cache: false,

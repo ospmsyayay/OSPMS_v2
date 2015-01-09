@@ -22,6 +22,8 @@
 
 						<div class="panel-group" id="Menu1">
 							<?php 
+							if(isset($_SESSION['TeacherLoad']))
+							{	
 							foreach($_SESSION['TeacherLoad'] as $subjectName => $grade)
 							{
 					
@@ -113,6 +115,7 @@
 								</div><!--subject menu-->	
 						<?php 
 								
+						}
 						}
 					 	?>
 					</div><!--Menu 1-->	

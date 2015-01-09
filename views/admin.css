@@ -1,21 +1,15 @@
 
 html,
 body {
-  overflow-x: hidden!important;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100%;
-
-  background-image: url('res/carousel_1.jpg');
-  background-repeat:  no-repeat; 
-  background-position: center center; 
-  background-attachment:fixed;
-   /* -webkit-filter: blur(100px) grayscale(50%);
-*/
-    scrollbar-face-color : RGB(70, 70, 70);
+  background-color : RGB(30, 30, 30);
+  background-image : url('res/TES_BACKGROUND.jpg');
+  background-size : 100% 100%;
+  background-attachment : fixed;
+  
+  scrollbar-face-color : RGB(70, 70, 70);
   scrollbar-shadow-color: black;
   scrollbar-track-color: RGB(140, 140, 140);
   scrollbar-arrow-color: RGB(50, 50, 50);
-  margin: 0px auto;
 }
 
 @font-face 
@@ -113,6 +107,20 @@ body.fixed .navbar {
 }
 body.fixed .wrapper {
   margin-top: 50px;
+}
+/*Welcome Content*/
+.welcome-content
+{
+  background-color : RGB(30, 30, 30);
+  background-image : url('res/TES_BACKGROUND.jpg');
+  background-size : 100% 100%;
+  background-attachment : fixed;
+  
+  scrollbar-face-color : RGB(70, 70, 70);
+  scrollbar-shadow-color: black;
+  scrollbar-track-color: RGB(140, 140, 140);
+  scrollbar-arrow-color: RGB(50, 50, 50);
+  min-height: 400px;
 }
 /* Content */
 .content {
@@ -3563,15 +3571,14 @@ fieldset[disabled] .btn-vk.active {
     background-color: white;
     margin-top: 8px;
     width: 100%;
-    color:#000000;
+    color:#3C8DBC;
   }
 #resultTable th.sortable {
-  background: url("bg_header.jpg") no-repeat scroll 0 0 #CAE8EA;
+  background-color:#b6e6fc;
   border-bottom: 1px solid #C1DAD7;
   border-right: 1px solid #C1DAD7;
   border-top: 1px solid #C1DAD7;
   color: #4F6B72;
-  font: normal 11px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
   letter-spacing: 2px;
   padding: 3px 3px 3px 6px;
   text-align: left;
@@ -3582,13 +3589,12 @@ fieldset[disabled] .btn-vk.active {
 }
 #resultTable th.sortable:hover { color: black; }
 #resultTable th {
-  background: url("bg_header.jpg") no-repeat scroll 0 0 #CAE8EA;
+  background-color:#b6e6fc;
   border-bottom: 1px solid #C1DAD7;
   border-right: 1px solid #C1DAD7;
   border-top: 1px solid #C1DAD7;
   border-left: 1px solid #C1DAD7;
   color: #4F6B72;
-  font: normal 11px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
   letter-spacing: 2px;
   padding: 3px 3px 3px 6px;
   text-align: left;
@@ -3607,12 +3613,12 @@ fieldset[disabled] .btn-vk.active {
   border-left: 1px solid #C1DAD7;
   color: #4F6B72;
   padding: 3px 3px 3px 6px;
-  font: normal 11px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+  font-size:14px;
 }
 #resultTable td.odd {
   background: none repeat scroll 0 0 #F5FAFA;
   color: #797268;
-  font: normal 11px "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+  font-size:14px;
 }
 
 #resultTable td.hovered {

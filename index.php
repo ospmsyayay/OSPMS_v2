@@ -41,7 +41,8 @@ else
 												case 'trp':tpage_progress();break;
 												case 'tre':tpage_encode();break;
 												case 'ce':createexer(); break;
-												case 's':t_spage_progress();break;	
+												case 's':t_spage_progress();break;
+												case 'testing':Teacher_testing();break;	
 											}
 										}
 										break;
@@ -89,6 +90,12 @@ function testing()
 
 	include "views/TESTING/Admin_Page.php";
 }
+
+function Teacher_testing()
+{
+	include "views/Testing.html";
+}
+
 function login()
 {
 		
@@ -166,8 +173,8 @@ function admin()
 	$subjectlist=array();
 	$sectionlist=array();
 	$gradelevellist=array();
-	$announcementlist=array();
-	$uploadlist=array();
+	$announcement_lecturelist=array();
+	
 	if($_SERVER['REQUEST_METHOD']=='GET')
 	{
 
@@ -280,34 +287,21 @@ function admin()
 
 		if(isset($_GET['ps']))
 		{
-			$fetch= get_allannouncement();
+			$fetch = get_allannouncement_lecture(); 
 			while($row=mysqli_fetch_array($fetch))
 			{
 				$pass=array();
-				$pass['teacherID']=$row[0];
-				$pass['class_rec_no']=$row[1];
-				$pass['date_created']=$row[2];
-				$pass['message']=$row[3];
-				
+				$pass['date_created']=$row[0];
+				$pass['messageorfile_caption']=$row[1];
+				$pass['file_path']=$row[2];
+				$pass['file_name']=$row[3];
+				$pass['sectionNo']=$row[4];
+				$pass['section_name']=$row[5];
 
-				$announcementlist[]=$pass;
+				$announcement_lecturelist[]=$pass;
 			}
 
 
-			$fetch= get_allupload();
-			while($row=mysqli_fetch_array($fetch))
-			{
-				$pass=array();
-				$pass['teacherID']=$row[0];
-				$pass['class_rec_no']=$row[1];
-				$pass['date_created']=$row[2];
-				$pass['file_caption']=$row[3];
-				$pass['file_path']=$row[4];
-				$pass['file_name']=$row[5];
-				
-
-				$uploadlist[]=$pass;
-			}
 		}	
 
 	}	
@@ -743,14 +737,68 @@ function spage()
 
 function spage_progress()
 {
-	$result=get_all_student_exercise();
+
 	include "views/Student_Page_Progress.php";
 
 }
 
 function spage_exercise()
 {
-	$student_exercise=array();
+	include "model/online_exercise.php";
+
+	$all_exercises=array();
+
+	$result=get_all_student_exercise();
+
+
+		while($travexercises = mysqli_fetch_array($result))
+		{
+			$passer=array();
+			$eidHolder=array();
+
+			$passer['sectionNo']=$travexercises['sectionNo'];
+			$passer['section_name']=$travexercises['section_name'];
+			$passer['typeID']=$travexercises['typeID'];
+			$passer['exerciseName']=$travexercises['exerciseName'];
+			$passer['date_created']=$travexercises['date_created'];
+
+			$exerciseID=$travexercises['exerciseID'];
+
+			$eidHolder[$exerciseID]=null;
+				
+			/*$questions=get_all_student_exercise_questions($exerciseID);*/
+
+			/*while($travquestions = mysqli_fetch_array($questions))
+			{
+				$qidHolder=array();
+
+				$questionNo=$travquestions['questionNo'];
+
+				$qidHolder[$questionNo]=null;
+
+				$choices=get_all_student_exercise_choices($questionNo);*/
+
+			/*	while($travquestions=mysqli_fetch_array($choices))
+				{
+					$cidHolder=array();
+
+					$oe_choices=$travquestions['oe_choices'];
+
+					$cidHolder[$oe_choices]=null;
+
+					$qidHolder[$questionNo]['choices']=$cidHolder;
+				}*/
+
+				/*$eidHolder[$exerciseID]['questionNo'][]=$qidHolder;
+
+				$eidHolder[$exerciseID]['oe_question'][]=$travquestions['oe_question'];*/
+			/*}*/
+
+				$passer['exerciseID']=$eidHolder;
+
+				$all_exercises[]=$passer;	
+
+		}
 
 	include "views/Student_Exercise_Page.php";
 }

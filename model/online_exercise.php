@@ -124,4 +124,26 @@ function get_all_student_exercise()
 	return $result;
 }
 
+function get_all_student_exercise_questions($exerciseID)
+{
+	include "config/conn.php";
+
+	$sql="select * from create_questions where exerciseID='".$exerciseID."'";
+
+	$result=mysqli_query($cxn,$sql);
+
+	return $result;
+}
+
+function get_all_student_exercise_choices($questionNo)
+{
+	include "config/conn.php";
+
+	$sql="select * from oe_choices where questionNo='".$questionNo."'";
+
+	$result=mysqli_query($cxn,$sql);
+
+	return $result;
+}
+
 ?>	

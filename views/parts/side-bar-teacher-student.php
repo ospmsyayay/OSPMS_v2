@@ -20,7 +20,9 @@
 						<h4 id="subject-list-title"><i class="glyphicon glyphicon-book"></i> Subjects</h4> 
 
 						<div class="panel-group" id="Menu1">
-							<?php 
+							<?php
+							if(isset($_SESSION['Teacher_Student_Schedule_Line']))
+							{  
 							foreach($_SESSION['Teacher_Student_Schedule_Line'] as $subjectName => $grade)
 							{
 					
@@ -111,7 +113,7 @@
 												
 								</div><!--subject menu-->	
 						<?php 
-								
+						}		
 						}
 					 	?>
 					</div><!--Menu 1-->	

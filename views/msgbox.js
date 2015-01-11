@@ -92,5 +92,5 @@
 })(jQuery);
 
 $(function() {
-    $(".counted").charCounter(320,{container: "#counter"});
+    $(".counted").charCounter(255,{container: "#counter"});
 });

@@ -42,7 +42,7 @@ else
 												case 'tre':tpage_encode();break;
 												case 'ce':createexer(); break;
 												case 's':t_spage_progress();break;
-												case 'testing':Teacher_testing();break;	
+												/*case 'testing':Teacher_testing();break;	*/
 											}
 										}
 										break;
@@ -79,13 +79,13 @@ else
 				break;
 
 		case 'xt':logout();break;								
-		case 'testing':testing();break;
+/*		case 'testing':testing();break;*/
 
 
 				default: header("Location: index.php");
 			}
 		}
-function testing()
+/*function testing()
 {
 
 	include "views/TESTING/Admin_Page.php";
@@ -94,7 +94,7 @@ function testing()
 function Teacher_testing()
 {
 	include "views/Testing.html";
-}
+}*/
 
 function login()
 {
@@ -322,14 +322,13 @@ function tpage()
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 		{
 		
-		if(isset($_POST['message']))
-		   {
+			if(isset($_POST['message']))
+		    {
 		   	
 				$message=clean($_POST['message']);
 				if(!empty($message))
 				{
-					
-					
+				
 					$message_date_created= date("Y-m-d H:i:s");  
 						
 					write_announcement_to_all_subjects($_SESSION['account_id'],$message_date_created,$message);
@@ -346,7 +345,7 @@ function tpage()
 				
 				if(!empty($file_caption))
 				{
-					$filename=lecture_uploaded();
+					$filename=lecture_uploaded($file_caption);
 					
 					if(!empty($filename))
 					{
@@ -457,6 +456,8 @@ function tpage()
 				$passer['file_name']=$display['file_name'];
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 
 				$display_box[]=$passer;
 				
@@ -467,7 +468,7 @@ function tpage()
 }
 
 
-function lecture_uploaded()
+function lecture_uploaded($caption)
 {
 	$name = $_FILES['upload_lecture']['name'];
 	$tmp_name = $_FILES['upload_lecture']['tmp_name'];
@@ -490,11 +491,21 @@ function lecture_uploaded()
 		}
 		else
 		{
-			if(file_exists('model/uploaded_files/'.$name))
+			include "config/conn.php";
+			
+			$sql="SELECT messageorfile_caption, file_path, file_name FROM announcement_lecture 
+			where messageorfile_caption = '".$caption."' and file_name = '".$name."'";
+
+			$result=mysqli_query($cxn,$sql);
+
+			$file_exists = mysqli_num_rows($result);
+
+
+			if($file_exists > 0)
 			{
 				//echo "<script>alert('File already exist')</script>";
 				header("Location:index.php?r=lss&fe");
-			}
+			} 
 			else
 			{
 				$location = "model/uploaded_files/";
@@ -725,6 +736,8 @@ function spage()
 				$passer['file_name']=$display['file_name'];
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
 				$passer['image']=$display['image']; 
 

@@ -15,9 +15,12 @@
 			$subject_row = mysqli_fetch_row($subject_result);
 			$_SESSION['student_subjectID'] = $subject_row[0];
 
-			$subject_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, 
-		    announcement_lecture.file_name, section.sectionNo, section.section_name, registration.reg_fname, registration.reg_lname, registration.image 
+			$subject_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+		    section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description, 
+		    registration.reg_fname, registration.reg_lname, registration.image 
 		    from registration inner join section on registration.reg_id=section.teacherID 
+		    inner join subject_ on section.subjectID=subject_.subjectID 
+		    inner join grade_level on section.levelID=grade_level.levelID 
 		    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 		    inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
 		    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
@@ -126,6 +129,8 @@
 
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
 				$passer['image']=$display['image']; 
 				$passer['display_footer']=$footer;
@@ -144,7 +149,7 @@
 				}
 			}
 				
-			echo "]}";	
+			echo "],\"category\": [".json_encode($clicked_subject)."]}";	
 
 		}
 
@@ -159,9 +164,12 @@
 			$grade_row = mysqli_fetch_row($grade_result);
 			$_SESSION['student_levelID'] = $grade_row[0];
 
-			$grade_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, 
-		    announcement_lecture.file_name, section.sectionNo, section.section_name, registration.reg_fname, registration.reg_lname, registration.image 
+			$grade_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+		    section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description, 
+		    registration.reg_fname, registration.reg_lname, registration.image 
 		    from registration inner join section on registration.reg_id=section.teacherID 
+		    inner join subject_ on section.subjectID=subject_.subjectID 
+		    inner join grade_level on section.levelID=grade_level.levelID 
 		    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 		    inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
 		    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
@@ -269,6 +277,8 @@
 
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
 				$passer['image']=$display['image']; 
 				$passer['display_footer']=$footer;
@@ -284,7 +294,7 @@
 				}
 			}
 			
-			echo "]}";	
+			echo "],\"category\": [".json_encode($clicked_grade)."]}";	
 
 		}
 			
@@ -294,9 +304,12 @@
 
 			$clicked_section = $_POST['section'];
 
-			$section_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, 
-		    announcement_lecture.file_name, section.sectionNo, section.section_name, registration.reg_fname, registration.reg_lname, registration.image 
+			$section_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+		    section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description, 
+		    registration.reg_fname, registration.reg_lname, registration.image 
 		    from registration inner join section on registration.reg_id=section.teacherID 
+		    inner join subject_ on section.subjectID=subject_.subjectID 
+		    inner join grade_level on section.levelID=grade_level.levelID 
 		    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 		    inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
 		    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
@@ -405,6 +418,8 @@
 
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
 				$passer['image']=$display['image']; 
 				$passer['display_footer']=$footer;
@@ -418,7 +433,7 @@
 					echo ',' . json_encode($passer);
 				}
 			}
-			echo "]}";	
+			echo "],\"category\": [".json_encode($clicked_section)."]}";	
 
 		}
 

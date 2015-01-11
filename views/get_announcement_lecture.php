@@ -72,7 +72,6 @@
 		}
 
 
-
 function postBySubject($message)
 {
 			if(!empty($message))
@@ -199,10 +198,12 @@ function clickedBySubject()
 			$subject_row = mysqli_fetch_row($subject_result);
 			$_SESSION['subjectID'] = $subject_row[0];
 
-			$subject_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, 
-			announcement_lecture.file_path, announcement_lecture.file_name, section.sectionNo, section.section_name from section 
-			inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-			inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+			$subject_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+	        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
+	        from subject_ inner join section on subject_.subjectID=section.subjectID 
+	        inner join grade_level on section.levelID=grade_level.levelID 
+	        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
+	        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
 			where section.teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' order by date_created desc";
 	 
 				
@@ -308,6 +309,8 @@ function clickedBySubject()
 
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['display_footer']=$footer;
 
 
@@ -324,7 +327,7 @@ function clickedBySubject()
 				}
 			}
 				
-			echo "]}";	
+			echo "],\"success\": [".json_encode("Message Posted")."],\"category\": [".json_encode($_SESSION['clicked_subject'])."]}";
 }
 
 function clickedByGrade()
@@ -337,9 +340,12 @@ function clickedByGrade()
 			$grade_row = mysqli_fetch_row($grade_result);
 			$_SESSION['levelID'] = $grade_row[0];
 
-			$grade_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, section.sectionNo, section.section_name from section 
-			inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-			inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+			$grade_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+	        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
+	        from subject_ inner join section on subject_.subjectID=section.subjectID 
+	        inner join grade_level on section.levelID=grade_level.levelID 
+	        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
+	        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
 			where section.teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' order by date_created desc";	 
 
 
@@ -444,6 +450,8 @@ function clickedByGrade()
 
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['display_footer']=$footer;
 
 				if($first) 
@@ -457,7 +465,7 @@ function clickedByGrade()
 				}
 			}
 			
-			echo "]}";	
+			echo "],\"success\": [".json_encode("Message Posted")."],\"category\": [".json_encode($_SESSION['clicked_grade'])."]}";
 
 }
 
@@ -466,9 +474,12 @@ function clickedBySection()
 
 	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 			
-			$section_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, section.sectionNo, section.section_name from section 
-			inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-			inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+			$section_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+	        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
+	        from subject_ inner join section on subject_.subjectID=section.subjectID 
+	        inner join grade_level on section.levelID=grade_level.levelID 
+	        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
+	        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created  
 			where section.teacherID = '".$_SESSION['account_id']."' 
 			and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$_SESSION['clicked_section']."' order by date_created desc";		
 
@@ -574,6 +585,8 @@ function clickedBySection()
 
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['display_footer']=$footer;
 				if($first) 
 				{
@@ -585,7 +598,7 @@ function clickedBySection()
 					echo ',' . json_encode($passer);
 				}
 			}
-			echo "]}";	
+			echo "],\"success\": [".json_encode("Message Posted")."],\"category\": [".json_encode($_SESSION['clicked_section'])."]}";
 }
 
 function clean($str)

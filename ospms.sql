@@ -61,7 +61,7 @@ CREATE TABLE `announcement_lecture` (
 
 LOCK TABLES `announcement_lecture` WRITE;
 /*!40000 ALTER TABLE `announcement_lecture` DISABLE KEYS */;
-INSERT INTO `announcement_lecture` VALUES ('2014-12-25 10:09:05','Testing',NULL,NULL),('2014-12-25 10:10:05','Hello',NULL,NULL),('2014-12-26 08:22:05','Build a Mini Golf','model/uploaded_files/','Build a Mini Golf Game with ActionScript 3.docx'),('2014-12-26 08:23:05','Computer Ethics','model/uploaded_files/','Computer Ethics.pdf'),('2014-12-26 08:24:05','hit test','model/uploaded_files/','hit test.pptx'),('2014-12-26 08:25:05','K12','model/uploaded_files/','K12 Encoding Sheets .xlsx'),('2014-12-26 08:26:06','mini golf','model/uploaded_files/','miniGolf.swf'),('2014-12-26 08:27:07','preview','model/uploaded_files/','preview.gif'),('2014-12-28 11:22:00','buchi','model/uploaded_files/','Buchi Recipe.docx'),('2014-12-28 11:24:00','filipino cookbook','model/uploaded_files/','The Filipino Cookbook - Miki Garcia.pdf'),('2014-12-28 11:25:00','japanese cuisine','model/uploaded_files/','Cooking_The_Japanese_Way.pdf'),('2014-12-28 11:26:00','japanese cooking','model/uploaded_files/','Japanese_Cooking_-_Schinner__Miyoko_Nishimoto.pdf'),('2015-01-05 11:02:43','Hi',NULL,NULL);
+INSERT INTO `announcement_lecture` VALUES ('2014-12-25 10:09:05','Testing',NULL,NULL),('2014-12-25 10:10:05','Hello',NULL,NULL),('2014-12-26 08:22:05','Build a Mini Golf','model/uploaded_files/','Build a Mini Golf Game with ActionScript 3.docx'),('2014-12-26 08:23:05','Computer Ethics','model/uploaded_files/','Computer Ethics.pdf'),('2014-12-26 08:24:05','hit test','model/uploaded_files/','hit test.pptx'),('2014-12-26 08:25:05','K12','model/uploaded_files/','K12 Encoding Sheets .xlsx'),('2014-12-26 08:26:06','mini golf','model/uploaded_files/','miniGolf.swf'),('2014-12-26 08:27:07','preview','model/uploaded_files/','preview.gif'),('2014-12-28 11:22:00','buchi','model/uploaded_files/','Buchi Recipe.docx'),('2014-12-28 11:24:00','filipino cookbook','model/uploaded_files/','The Filipino Cookbook - Miki Garcia.pdf'),('2014-12-28 11:25:00','japanese cuisine','model/uploaded_files/','Cooking_The_Japanese_Way.pdf'),('2014-12-28 11:26:00','japanese cooking','model/uploaded_files/','Japanese_Cooking_-_Schinner__Miyoko_Nishimoto.pdf');
 /*!40000 ALTER TABLE `announcement_lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,7 @@ CREATE TABLE `create_questions` (
   PRIMARY KEY (`questionNo`),
   KEY `FK_create_questions` (`exerciseID`),
   CONSTRAINT `FK_create_questions` FOREIGN KEY (`exerciseID`) REFERENCES `create_ol_exercise` (`exerciseID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +273,7 @@ CREATE TABLE `post_announcement_lecture` (
 
 LOCK TABLES `post_announcement_lecture` WRITE;
 /*!40000 ALTER TABLE `post_announcement_lecture` DISABLE KEYS */;
-INSERT INTO `post_announcement_lecture` VALUES ('ECRN-79542','2014-12-25 10:09:05'),('ECRN-91165','2014-12-25 10:10:05'),('ECRN-79542','2014-12-26 08:22:05'),('ECRN-89847','2014-12-26 08:22:05'),('ECRN-79542','2014-12-26 08:23:05'),('ECRN-89847','2014-12-26 08:23:05'),('ECRN-79542','2014-12-26 08:24:05'),('ECRN-89847','2014-12-26 08:24:05'),('ECRN-79542','2014-12-26 08:26:06'),('ECRN-89847','2014-12-26 08:26:06'),('ECRN-79542','2014-12-26 08:27:07'),('ECRN-89847','2014-12-26 08:27:07'),('ECRN-89462','2014-12-28 11:22:00'),('ECRN-89462','2014-12-28 11:24:00'),('ECRN-89462','2014-12-28 11:25:00'),('ECRN-89462','2014-12-28 11:26:00'),('ECRN-91165','2015-01-05 11:02:43');
+INSERT INTO `post_announcement_lecture` VALUES ('ECRN-79542','2014-12-25 10:09:05'),('ECRN-91165','2014-12-25 10:10:05'),('ECRN-79542','2014-12-26 08:22:05'),('ECRN-89847','2014-12-26 08:22:05'),('ECRN-79542','2014-12-26 08:23:05'),('ECRN-89847','2014-12-26 08:23:05'),('ECRN-79542','2014-12-26 08:24:05'),('ECRN-89847','2014-12-26 08:24:05'),('ECRN-79542','2014-12-26 08:26:06'),('ECRN-89847','2014-12-26 08:26:06'),('ECRN-79542','2014-12-26 08:27:07'),('ECRN-89847','2014-12-26 08:27:07'),('ECRN-89462','2014-12-28 11:22:00'),('ECRN-89462','2014-12-28 11:24:00'),('ECRN-89462','2014-12-28 11:25:00'),('ECRN-89462','2014-12-28 11:26:00');
 /*!40000 ALTER TABLE `post_announcement_lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -603,4 +603,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-05 13:39:10
+-- Dump completed on 2015-01-11 19:46:33

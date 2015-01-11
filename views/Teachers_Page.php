@@ -218,7 +218,7 @@
 					<div class="post-separator"></div>
 					<div id="post-title-fixed">
 						
-							<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Latest Post</div>
+							<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Post to All Subjects</div>
 						
 					</div>
 					<div id="post-container-relative">
@@ -228,6 +228,7 @@
 											<?php 	
 											foreach($display_box as $display)
 											{
+													
 											?>	
 
 												<div class="post-messages panel panel-default">
@@ -235,7 +236,7 @@
 													<div class="panel-heading">
 															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
 															<?php echo '<div><img src="'.$_SESSION['profile_pic'].'" class="shadow post-message-img pull-left" /></div>';?>
-															<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'] . ' >> ' . $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
+															<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'] . ' <i class="glyphicon glyphicon-chevron-right"></i>' .$display['subject_title'].'::'.$display['level_description']. '-'. $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
 															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
 															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
 													</div>
@@ -405,7 +406,6 @@ $(function () {
 
 <script>
 
-
 		        function getSubjectId(menu) 
 		        {
 		        	
@@ -424,7 +424,9 @@ $(function () {
 			           success: function(response) 
 			           {
 			           		
-							 /* alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
+							  /*alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
+						
+							  	change_post_title(response['category']);
 								change_announce_box('subject');
 								change_upload_box('subject');
 			           			display_announcement_lecture(response['announcement_lecture_bySubject']);
@@ -457,6 +459,7 @@ $(function () {
 			           {
 			           		
 							  /*alert(JSON.stringify(response['announcement_lecture_byGrade']));*/
+							  	change_post_title(response['category']);
 								change_announce_box('grade');
 								change_upload_box('grade');
 			           			display_announcement_lecture(response['announcement_lecture_byGrade']);
@@ -487,7 +490,7 @@ $(function () {
 			           {
 			           		
 							 /* alert(JSON.stringify(response['announcement_lecture_bySection']));*/
-
+							 	change_post_title(response['category']);
 								change_announce_box('section');
 								change_upload_box('section');
 			           			display_announcement_lecture(response['announcement_lecture_bySection']);
@@ -498,6 +501,16 @@ $(function () {
 			            });
 
 		         }
+		         		function change_post_title(category)
+		         		{
+		         			$('#post-title-fixed').empty();
+
+		         			var display = $('<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Post to '+category+'</div>');
+
+		         			$('#post-title-fixed').append(display);
+		         			/*alert(category);*/
+		         		}
+
 		         		function change_announce_box(category)
 		         		{
 							$('#announce-box').empty();
@@ -519,7 +532,7 @@ $(function () {
 		         		{
 		         			$('#upload-box').empty();
 
-		         			var display = $('<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" id="upload" onsubmit="uploadFiles(this)">'+
+		         			var display = $('<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" id="upload_ajax_'+category+'">'+
 		         							'<textarea id="caption'+category+'" class="form-control counted" name="get_lecture-caption"'+ 
 		         								'placeholder="Create Title/Caption" rows="1" required="required"></textarea>'+
 															'<div class="choose-file-container">'+
@@ -527,7 +540,7 @@ $(function () {
 																
 																						'<input type="file"'+  
 																						'name="upload_lecture_ajax" size="40"' +
-																						'id="upload_lecture_ajax" accept="*" class="pull-left" onchange="prepareUpload(this)"/>'+
+																						'id="upload_lecture_ajax_'+category+'" accept="*" class="pull-left"/>'+
 																			
 																					'<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>'+
 																				'</div>'+
@@ -559,7 +572,7 @@ $(function () {
 												'<div class="panel-heading">'+
 													'<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>'+
 													'<div><img src="<?php echo $_SESSION["profile_pic"];?>" class="shadow post-message-img pull-left" /></div>'+
-													'<div><a class="navbar-link message-author"><h5><?php echo $_SESSION["reg_fname"] . " >> " . "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+' " ;?></h5></a></div>'+
+													'<div><a class="navbar-link message-author"><h5><?php echo $_SESSION["reg_fname"] . "<i class=\"glyphicon glyphicon-chevron-right\"></i>" . "'+rowData.subject_title+'"."::"."'+rowData.level_description+'". "-". "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+'" . " " ;?></h5></a></div>'+
 													'</span><abbr class="timespan" title="'+rowData.date_created+'">'+
 													'<span class="glyphicon glyphicon-dashboard"></span>  '+rowData.timespan+'<abbr>'+
 												'</div>'+
@@ -588,14 +601,27 @@ $(function () {
 					            },
 					           dataType: 'json',
 
-					           success: function(response)
-								{
-					           		 /*alert(JSON.stringify(response['ajax_message_subject']));*/
-					           		
-			           				 display_announcement_lecture(response['announcement_lecture_bySubject']);
+								success: function(response, textStatus, jqXHR)
+					            {
+									
+									if(typeof response.error === 'undefined')
+									{
+										alert(response.success);
+										display_announcement_lecture(response['announcement_lecture_bySubject']);
 
-
-								}
+									}
+									
+					          	},
+					          	error: function(jqXHR, textStatus, errorThrown)
+					          	{
+					            	
+					            		alert('ERRORS: ' + textStatus);
+					            	
+					          	},
+					          	complete: function()
+					            {
+					            	// Completed
+					            }
 
 
 					            });
@@ -616,14 +642,27 @@ $(function () {
 					            },
 					           dataType: 'json',
 
-					           success: function(response) 
-					           {
+								success: function(response, textStatus, jqXHR)
+					            {
+									
+									if(typeof response.error === 'undefined')
+									{
+										alert(response.success);
+										display_announcement_lecture(response['announcement_lecture_byGrade']);
 
-					           		/*alert(JSON.stringify(response['ajax_message_grade']));*/
-					           		
-			           				display_announcement_lecture(response['announcement_lecture_byGrade']);
-					           		
-								}
+									}
+									
+					          	},
+					          	error: function(jqXHR, textStatus, errorThrown)
+					          	{
+					            	
+					            		alert('ERRORS: ' + textStatus);
+					            	
+					          	},
+					          	complete: function()
+					            {
+					            	// Completed
+					            }
 
 
 					            });
@@ -643,38 +682,195 @@ $(function () {
 					            },
 					           dataType: 'json',
 
-					           success: function(response) 
-					           {
+							   success: function(response, textStatus, jqXHR)
+					            {
+									
+									if(typeof response.error === 'undefined')
+									{
+										alert(response.success);
+										display_announcement_lecture(response['announcement_lecture_bySection']);
+									}
+									
+					          	},
+					          	error: function(jqXHR, textStatus, errorThrown)
+					          	{
+					            	
+					            		alert('ERRORS: ' + textStatus);
+					            	
+					          	},
+					          	complete: function()
+					            {
+					            	// Completed
+					            }
 
-			           				display_announcement_lecture(response['announcement_lecture_bySection']);
-			           				
-							   }
+
 
 
 					            });
 
 						}
 
-		
-							/*var files;*/
+						$(function(){
 
-							/*$('#upload_lecture_ajax').on('change', prepareUpload);
-							$('#upload').on('submit', uploadFiles);
-*/
+							var files;
+
+							
 						
-							/*function prepareUpload(event)
+							$(document.body).on('submit', '#upload_ajax_subject',  uploadFilesSubject);
+							$(document.body).on('submit', '#upload_ajax_grade', uploadFilesGrade);
+							$(document.body).on('submit', '#upload_ajax_section', uploadFilesSection);
+
+	
+							function uploadFilesSubject(event)
 							{
-								files = event.target.files;
-								alert(files);
-							}
-*/
-		
-						/*	function uploadFiles(event)
+								var ajax_message = $('#captionsubject').val();
+								/*alert(ajax_message);*/
+
+								event.stopPropagation();
+						        event.preventDefault();
+
+							    $.ajax({
+							            url: 'views/get_upload_lecture.php?captionsubject='+ajax_message,
+							            type: 'POST',
+							            data: new FormData(this),
+							            contentType: false, 
+							            cache: false,
+							            processData: false,
+							            dataType: 'json',
+							            success: function(data, textStatus, jqXHR)
+							            {
+											
+											if(typeof data.error === 'undefined')
+											{
+												alert(data.success);
+												display_announcement_lecture(data.announcement_lecture_bySubject);
+
+											}
+											else
+											{
+												alert('Errors: '+data.error);
+											}	
+
+											
+							          	},
+							          	error: function(jqXHR, textStatus, errorThrown)
+							          	{
+							            	
+							            		alert('ERRORS: ' + textStatus);
+							            	
+							          	},
+							          	complete: function()
+							            {
+							            	// Completed
+							            }
+							
+							        });    
+
+
+						    }
+
+
+						    function uploadFilesGrade(event)
 							{
-						        event.preventDefault(); 
-						    }*/
-	    
-						       
+								var ajax_message = $('#captiongrade').val();
+								/*alert(ajax_message);*/
+
+								event.stopPropagation();
+						        event.preventDefault();
+
+							    $.ajax({
+							            url: 'views/get_upload_lecture.php?captiongrade='+ajax_message,
+							            type: 'POST',
+							            data: new FormData(this),
+							            contentType: false, 
+							            cache: false,
+							            processData: false,
+							            dataType: 'json',
+							            success: function(data, textStatus, jqXHR)
+							            {
+											
+											if(typeof data.error === 'undefined')
+											{
+												alert(data.success);
+												display_announcement_lecture(data.announcement_lecture_byGrade);
+
+											}
+											else
+											{
+												alert('Errors: '+data.error);
+											}	
+
+											
+							          	},
+							          	error: function(jqXHR, textStatus, errorThrown)
+							          	{
+							            	
+							            		alert('ERRORS: ' + textStatus);
+							            	
+							          	},
+							          	complete: function()
+							            {
+							            	// Completed
+							            }
+							
+							        });    
+
+
+						    }
+
+						    function uploadFilesSection(event)
+							{
+								var ajax_message = $('#captionsection').val();
+								/*alert(ajax_message);*/
+
+								event.stopPropagation();
+						        event.preventDefault();
+
+							    $.ajax({
+							            url: 'views/get_upload_lecture.php?captionsection='+ajax_message,
+							            type: 'POST',
+							            data: new FormData(this),
+							            contentType: false, 
+							            cache: false,
+							            processData: false,
+							            dataType: 'json',
+							            success: function(data, textStatus, jqXHR)
+							            {
+											
+											if(typeof data.error === 'undefined')
+											{
+												alert(data.success);
+												display_announcement_lecture(data.announcement_lecture_bySection);
+
+											}
+											else
+											{
+												alert('Errors: '+data.error);
+											}	
+
+											
+							          	},
+							          	error: function(jqXHR, textStatus, errorThrown)
+							          	{
+							            	
+							            		alert('ERRORS: ' + textStatus);
+							            	
+							          	},
+							          	complete: function()
+							            {
+							            	// Completed
+							            }
+							
+							        });    
+
+
+						    }
+
+
+
+						    
+						});//End of ready
+						
 
         </script>		
 	</body>

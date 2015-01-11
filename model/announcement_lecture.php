@@ -2,7 +2,7 @@
   <!--@copyright 2014-->
 <?php 
 
-function write_announcement_to_all_subjects($teacherID,$date_created,$messageorfile_caption)
+function write_announcement_to_all_subjects($teacherID,$message_date_created,$message)
 {
 
 include "config/conn.php";
@@ -22,7 +22,7 @@ include "config/conn.php";
         {
             $passer=array();
             
-            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$date_created."')";
+            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$message_date_created."')";
 
             $insert_done=mysqli_query($cxn,$insert);
         }
@@ -66,11 +66,13 @@ function get_announcement_lecture_to_all_subjects($teacherID)
 
     include "config/conn.php";
 
-        $sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, 
-            announcement_lecture.file_path, announcement_lecture.file_name, section.sectionNo, section.section_name from section 
-            inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-            inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
-            where section.teacherID = '".$teacherID."' order by date_created desc";
+        $sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
+        from subject_ inner join section on subject_.subjectID=section.subjectID 
+        inner join grade_level on section.levelID=grade_level.levelID 
+        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
+        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+        where section.teacherID = '".$teacherID."' order by date_created desc";
 
         $result=mysqli_query($cxn,$sql);
 
@@ -82,12 +84,15 @@ function post_announcement_lecture_to_all_students($studentID)
 {
     include "config/conn.php";
 
-    $sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, 
-    announcement_lecture.file_name, section.sectionNo, section.section_name, registration.reg_fname, registration.reg_lname, registration.image 
+    $sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
+    section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description, 
+    registration.reg_fname, registration.reg_lname, registration.image 
     from registration inner join section on registration.reg_id=section.teacherID 
+    inner join subject_ on section.subjectID=subject_.subjectID 
+    inner join grade_level on section.levelID=grade_level.levelID 
     inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
     inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
-    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created
     where student_schedule_line.student_lrn = '".$studentID."' order by date_created desc";
 
      $result=mysqli_query($cxn,$sql);

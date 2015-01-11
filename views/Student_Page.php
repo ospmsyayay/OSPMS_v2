@@ -56,9 +56,10 @@
 			<div class="right-wrapper">
 					<div class="right-column">
 						<div id="student-post-title-fixed">
-					<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Latest Post</div>
+
+							<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Post From Subjects</div>
 						
-					</div>
+						</div>
 					<div id="student-post-container-relative">
 								<div id="student-post-container">
 								
@@ -73,7 +74,7 @@
 													<div class="panel-heading">
 															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
 															<?php echo '<div><img src="'.$display['image'].'" class="shadow post-message-img pull-left" /></div>'; ?>
-															<div><a class="navbar-link message-author"><h5><?php echo $display['teacher'] . ' >> ' . $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
+															<div><a class="navbar-link message-author"><h5><?php echo $display['teacher'] . ' <i class="glyphicon glyphicon-chevron-right"></i>' .$display['subject_title'].'::'.$display['level_description']. '-'. $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
 															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
 															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
 													</div>
@@ -265,7 +266,7 @@ $(function () {
 			           {
 			           		
 							/*  alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
-								
+								change_post_title(response['category']);
 			           			display_announcement_lecture(response['announcement_lecture_bySubject']);
 			           		 
 						},
@@ -296,7 +297,7 @@ $(function () {
 			           {
 			           		
 							 /* alert(JSON.stringify(response['announcement_lecture_byGrade']));*/
-								
+								change_post_title(response['category']);
 			           			display_announcement_lecture(response['announcement_lecture_byGrade']);
 			           		 
 						},
@@ -325,7 +326,7 @@ $(function () {
 			           {
 			           		
 							 /* alert(JSON.stringify(response['announcement_lecture_bySection']));*/
-								
+								change_post_title(response['category']);
 			           			display_announcement_lecture(response['announcement_lecture_bySection']);
 			           		 
 						},
@@ -334,6 +335,16 @@ $(function () {
 			            });
 
 		         }
+
+		         		function change_post_title(category)
+		         		{
+		         			$('#student-post-title-fixed').empty();
+
+		         			var display = $('<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Post From '+category+'</div>');
+
+		         			$('#student-post-title-fixed').append(display);
+		         			/*alert(category);*/
+		         		}
 
 		         		function display_announcement_lecture(data) 
 						{
@@ -355,7 +366,7 @@ $(function () {
 												'<div class="panel-heading">'+
 													'<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>'+
 													'<div><img src="'+rowData.image+'" class="shadow post-message-img pull-left" /></div>'+
-													'<div><a class="navbar-link message-author"><h5><?php echo "'+rowData.teacher+'" . " >> " . "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+' " ;?></h5></a></div>'+
+													'<div><a class="navbar-link message-author"><h5><?php echo "'+rowData.teacher+'" . "<i class=\"glyphicon glyphicon-chevron-right\"></i>" . "'+rowData.subject_title+'"."::"."'+rowData.level_description+'". "-". "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+'" . " " ;?></h5></a></div>'+
 													'</span><abbr class="timespan" title="'+rowData.date_created+'">'+
 													'<span class="glyphicon glyphicon-dashboard"></span>  '+rowData.timespan+'<abbr>'+
 												'</div>'+

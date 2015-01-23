@@ -44,7 +44,8 @@ function get_sectionByTeacherIDSubjectIDLevelID($teacherID,$subjectID,$levelID)
 {
 	include "config/conn.php";
 
-	$join="Select distinct section.sectionNo,section.section_name from section where teacherID = '".$teacherID."' and subjectID ='".$subjectID."' and levelID = '".$levelID."'";
+	$join="Select distinct section.sectionID, section_list.sectionNo,section_list.section_name from section left outer join section_list on
+	section.sectionID=section_list.sectionID where teacherID = '".$teacherID."' and subjectID ='".$subjectID."' and levelID = '".$levelID."'";
 	
 	$join_result=mysqli_query($cxn,$join);
 	

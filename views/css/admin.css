@@ -2,7 +2,7 @@
 html,
 body {
   background-color : RGB(30, 30, 30);
-  background-image : url('res/TES_BACKGROUND.jpg');
+  background-image : url('../res/TES_BACKGROUND.jpg');
   background-size : 100% 100%;
   background-attachment : fixed;
   
@@ -15,7 +15,7 @@ body {
 @font-face 
 {
     font-family: Gotham;
-    src: url('res/Gotham.woff')
+    src: url('../res/Gotham.woff')
 }
 a {
   color: #3c8dbc;
@@ -112,7 +112,7 @@ body.fixed .wrapper {
 .welcome-content
 {
   background-color : RGB(30, 30, 30);
-  background-image : url('res/TES_BACKGROUND.jpg');
+  background-image : url('../res/TES_BACKGROUND.jpg');
   background-size : 100% 100%;
   background-attachment : fixed;
   
@@ -3607,7 +3607,7 @@ fieldset[disabled] .btn-vk.active {
 #resultTable th.sorted-asc, th.sorted-desc  { color: black; }
 
 #resultTable td {
-  background: none repeat scroll 0 0 #FFFFFF;
+  background-color:#FFFFFF;
   border-bottom: 1px solid #C1DAD7;
   border-right: 1px solid #C1DAD7;
   border-left: 1px solid #C1DAD7;
@@ -3615,16 +3615,20 @@ fieldset[disabled] .btn-vk.active {
   padding: 3px 3px 3px 6px;
   font-size:14px;
 }
-#resultTable td.odd {
-  background: none repeat scroll 0 0 #F5FAFA;
-  color: #797268;
-  font-size:14px;
+
+
+#resultTable td.odd 
+{
+background-color:#F5FAFA;
+color: #797268;
+font-size:14px;
 }
 
-#resultTable td.hovered {
-  background-color: lightblue;
-  color: #666;
-}
+#resultTable td.hovered
+ {
+background-color: lightblue;
+color: #666;
+ }
                       
 #filter{
   width: 230px;
@@ -3644,3 +3648,65 @@ fieldset[disabled] .btn-vk.active {
 .clearfix{
   clear:both;
 }
+/*Edit Admin*/
+.edit-admin-image
+{
+  margin: auto auto;
+  height:120px;
+  width:120px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-top:20px;
+  margin-left:30px;
+}
+.admin-edit-image-browse
+{
+  margin-top:8px;
+  margin-left:30px;
+}
+/*Edit Teacher*/
+.edit-teacher-image
+{
+  margin: auto auto;
+  height:120px;
+  width:120px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-top:20px;
+  margin-left:30px;
+}
+.teacher-edit-image-browse
+{
+  margin-top:8px;
+  margin-left:30px;
+}
+/*Edit Student*/
+.edit-student-image
+{
+  margin: auto auto;
+  height:120px;
+  width:120px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-top:20px;
+  margin-left:30px;
+}
+.student-edit-image-browse
+{
+  margin-top:8px;
+  margin-left:30px;
+}
+/*Edit Post*/
+.post-edit-file-browse
+{
+  position: relative;
+  top:10px;
+  left:180px;
+}
+

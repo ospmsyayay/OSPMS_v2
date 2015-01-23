@@ -34,7 +34,7 @@
 
                     <?php if(isset($_SESSION['profile_pic']))
                    	{
-                    	echo '<img src="'.$_SESSION['profile_pic'].'" class="shadow profile-student-img" />';
+                    	echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow profile-student-img" />';
                     }
                     ?>
                 

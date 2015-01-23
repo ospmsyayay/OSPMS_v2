@@ -33,7 +33,7 @@
 				    </ul>
                    <?php if(isset($_SESSION['profile_pic']))
                    	{
-                    	echo '<img src="'.$_SESSION['profile_pic'].'" class="shadow profile-teacher-img" />';
+                    	echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow profile-teacher-img" />';
                     }
                     ?>
 					<div id="user-dropdown" class="dropdown"> 

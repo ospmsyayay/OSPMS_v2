@@ -27,7 +27,7 @@ else
 										{
 											admin();break;
 										}
-
+										
 										break;
 						case 'teacher': 
 										if(!isset($_GET['tr']))
@@ -174,6 +174,7 @@ function admin()
 	$sectionlist=array();
 	$gradelevellist=array();
 	$announcement_lecturelist=array();
+	$edit_admin=array();
 	
 	if($_SERVER['REQUEST_METHOD']=='GET')
 	{
@@ -263,8 +264,9 @@ function admin()
 			while($row=mysqli_fetch_array($fetch))
 			{
 				$pass=array();
-				$pass['sectionNo']=$row[0];
-				$pass['section_name']=$row[1];
+				$pass['sectionID']=$row[0];
+				$pass['sectionNo']=$row[1];
+				$pass['section_name']=$row[2];
 				
 
 				$sectionlist[]=$pass;
@@ -302,14 +304,52 @@ function admin()
 			}
 
 
-		}	
+		}
+		
+	}//End of Get
 
-	}	
+/*	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	{
+		include "model/utility.php";
+
+				$id = $_POST['edadmid'];
+				$reg_lname = clean($_POST['edadmlname']);
+				$reg_fname = clean($_POST['edadmfname']);
+				$reg_mname = clean($_POST['edadmmname']);
+				$reg_gender = clean($_POST['edadmgender']);
+				$reg_status = clean($_POST['edadmstatus']);
+			
+				$reg_address = clean($_POST['edadmaddress']);
+
+				if( !empty($reg_lname) and !empty($reg_fname) )
+				{
+				
+						$image=admin_img();
+
+						if(!empty($image))
+						{
+							$successful = update_administrator_with_image($id, $reg_lname, $reg_fname, $reg_mname, $reg_gender, $reg_status, $reg_address, $image);
+							if($successful)
+							{
+								header("Location:index.php?r=lss&ap");
+							}
+						}	
+						else
+						{
+							$successful = update_administrator($id, $reg_lname, $reg_fname, $reg_mname, $reg_gender, $reg_status, $reg_address);
+							if($successful)
+							{
+								header("Location:index.php?r=lss&ap");
+							}						
+						}	
+
 					
+				}			
+
+	}//End of Post*/	
 
 	include "views/admin.php";
 }
-
 
 function tpage()
 {

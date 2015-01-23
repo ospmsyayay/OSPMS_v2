@@ -56,7 +56,8 @@
                                 $_SESSION['Teacher_Student_Schedule_Line'][$subject_title][$level_description]=null;
                             
 
-                                    $join="Select section.sectionNo,section.section_name from section 
+                                    $join="Select section_list.sectionNo,section_list.section_name from section_list 
+                                    inner join section on section_list.sectionID=section.sectionID 
                                     inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
                                     where student_lrn = '".$_SESSION['lrn']."' and subjectID ='".$subjectIdPasser['subjectID']."' and levelID = '".$levelIdPasser['levelID']."'";
 
@@ -121,7 +122,8 @@
                 $subject_row = mysqli_fetch_row($subject_result);
                 $_SESSION['ts_chart_subjectID'] = $subject_row[0];
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -141,7 +143,8 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -161,7 +164,8 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -181,7 +185,8 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID  
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -212,7 +217,8 @@
                 $grade_row = mysqli_fetch_row($grade_result);
                 $_SESSION['ts_chart_levelID'] = $grade_row[0];
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
                 and section.levelID='".$_SESSION['ts_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -233,7 +239,8 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
                 and section.levelID='".$_SESSION['ts_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -254,7 +261,8 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
                 and section.levelID='".$_SESSION['ts_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -275,7 +283,8 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID  
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
                 and section.levelID='".$_SESSION['ts_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -302,10 +311,11 @@
             if($_GET['ts_onload']=='section')
             {
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
-                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
+                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section_list.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
 
                 /*$query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
                 $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
@@ -323,10 +333,11 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID 
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
-                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
+                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section_list.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
 
                /* $query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
                 $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
@@ -344,10 +355,11 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID  
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
-                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
+                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section_list.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
 
                 /* $query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
                 $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
@@ -365,10 +377,11 @@
                     }
                 }
 
-                $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts FROM section 
+                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
+                FROM section_list inner join section on section_list.sectionID=section.sectionID  
                 inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
                 where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' 
-                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
+                and section.levelID='".$_SESSION['ts_chart_levelID']."' and section_list.section_name='".$_SESSION['ts_clicked_section']."' and grading_period='$gp' order by week_number";
 
                 /*$query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
                 $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
@@ -428,7 +441,8 @@
             $subject_row = mysqli_fetch_row($subject_result);
             $_SESSION['student_chart_subjectID'] = $subject_row[0];
             
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID 
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -448,7 +462,8 @@
                 }
             }
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID  
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -467,7 +482,8 @@
                 }
             }
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID  
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
             
@@ -487,7 +503,8 @@
             }
 
             
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID 
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
 
@@ -516,7 +533,8 @@
             $grade_row = mysqli_fetch_row($grade_result);
             $_SESSION['student_chart_levelID'] = $grade_row[0];
             
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID 
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
             and section.levelID='".$_SESSION['student_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -537,7 +555,8 @@
                 }
             }
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID  
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
             and section.levelID='".$_SESSION['student_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -557,7 +576,8 @@
                 }
             }
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
             and section.levelID='".$_SESSION['student_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -578,7 +598,8 @@
             }
 
             
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
             and section.levelID='".$_SESSION['student_chart_levelID']."' and grading_period='$gp' order by week_number";
@@ -604,10 +625,11 @@
         if($_GET['onload']=='section')
         { 
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
-            and section.levelID='".$_SESSION['student_chart_levelID']."' and section.section_name='".$_SESSION['clicked_section']."' 
+            and section.levelID='".$_SESSION['student_chart_levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."' 
             and grading_period='$gp' order by week_number";
 
 
@@ -626,10 +648,11 @@
                 }
             }
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
              where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
-            and section.levelID='".$_SESSION['student_chart_levelID']."' and section.section_name='".$_SESSION['clicked_section']."' 
+            and section.levelID='".$_SESSION['student_chart_levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."' 
             and grading_period='$gp' order by week_number";
 
             $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
@@ -647,10 +670,11 @@
                 }
             }
 
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
-            and section.levelID='".$_SESSION['student_chart_levelID']."' and section.section_name='".$_SESSION['clicked_section']."' 
+            and section.levelID='".$_SESSION['student_chart_levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."' 
             and grading_period='$gp' order by week_number";
             
             $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
@@ -669,10 +693,11 @@
             }
 
             
-            $query="SELECT section.sectionNo, section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts FROM section 
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
+            FROM section_list inner join section on section_list.sectionID=section.sectionID
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
             where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' 
-            and section.levelID='".$_SESSION['student_chart_levelID']."' and section.section_name='".$_SESSION['clicked_section']."' 
+            and section.levelID='".$_SESSION['student_chart_levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."' 
             and grading_period='$gp' order by week_number";
 
             $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');

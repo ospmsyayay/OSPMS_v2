@@ -67,8 +67,9 @@ function get_announcement_lecture_to_all_subjects($teacherID)
     include "config/conn.php";
 
         $sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
-        from subject_ inner join section on subject_.subjectID=section.subjectID 
+        section_list.sectionNo, section_list.section_name, subject_.subject_title, grade_level.level_description 
+        from section_list inner join section on section_list.sectionID=section.sectionID
+        inner join subject_ on section.subjectID=subject_.subjectID 
         inner join grade_level on section.levelID=grade_level.levelID 
         inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
         inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
@@ -85,9 +86,10 @@ function post_announcement_lecture_to_all_students($studentID)
     include "config/conn.php";
 
     $sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-    section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description, 
+    section_list.sectionNo, section_list.section_name, subject_.subject_title, grade_level.level_description, 
     registration.reg_fname, registration.reg_lname, registration.image 
-    from registration inner join section on registration.reg_id=section.teacherID 
+    from registration inner join section on registration.reg_id=section.teacherID
+    inner join section_list on section.sectionID=section_list.sectionID 
     inner join subject_ on section.subjectID=subject_.subjectID 
     inner join grade_level on section.levelID=grade_level.levelID 
     inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 

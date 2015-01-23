@@ -7,9 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
-        <!--<link rel="stylesheet" type="text/css" href="views/bootstrap.min.css"/>-->
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
     
 		<body onload="check()">
@@ -235,7 +234,7 @@
 														
 													<div class="panel-heading">
 															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
-															<?php echo '<div><img src="'.$_SESSION['profile_pic'].'" class="shadow post-message-img pull-left" /></div>';?>
+															<?php echo '<div><img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow post-message-img pull-left" /></div>';?>
 															<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'] . ' <i class="glyphicon glyphicon-chevron-right"></i>' .$display['subject_title'].'::'.$display['level_description']. '-'. $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
 															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
 															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
@@ -385,16 +384,14 @@
 	</div><!--content-->
 </div><!--viewport-->
        
-        <script src="views/transition.js"></script>
-        <script src="views/jquery.min.js"></script>
-        <script src="views/bootstrap.min.js"></script>
-		<script src="views/tab.js"></script>
-		
-
-		<script src="views/tooltip.js"></script>
-		<script src="views/popover.js"></script>
-		<script src="views/msgbox.js"></script>
-		<script src="views/scripts.js"></script>		
+        <script src="views/plugins/bootstrap/transition.js"></script>
+        <script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
+		<script src="views/plugins/bootstrap/tab.js"></script>
+		<script src="views/plugins/bootstrap/tooltip.js"></script>
+		<script src="views/plugins/bootstrap/popover.js"></script>
+		<script src="views/js/msgbox.js"></script>
+		<script src="views/js/scripts.js"></script>		
 	
 		<!-- JavaScript Test -->
 <script>
@@ -414,7 +411,7 @@ $(function () {
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_announcement_lecture.php',
+			            url: 'views/ajax/get_announcement_lecture.php',
 			            type: 'POST',
 			            data: {
 			            	subject:subject
@@ -424,8 +421,8 @@ $(function () {
 			           success: function(response) 
 			           {
 			           		
-							  /*alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
-						
+								
+								/*alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
 							  	change_post_title(response['category']);
 								change_announce_box('subject');
 								change_upload_box('subject');
@@ -439,16 +436,14 @@ $(function () {
 		         }
 
 
-		          function getGradeId(menu) 
+		        function getGradeId(menu) 
 		        {
 		        	
 		        	var grade=menu.id;
 		        	
-		        	
-		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_announcement_lecture.php',
+			            url: 'views/ajax/get_announcement_lecture.php',
 			            type: 'POST',
 			            data: {
 			            	grade:grade
@@ -457,7 +452,7 @@ $(function () {
 
 			           success: function(response) 
 			           {
-			           		
+			           			
 							  /*alert(JSON.stringify(response['announcement_lecture_byGrade']));*/
 							  	change_post_title(response['category']);
 								change_announce_box('grade');
@@ -479,7 +474,7 @@ $(function () {
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_announcement_lecture.php',
+			            url: 'views/ajax/get_announcement_lecture.php',
 			            type: 'POST',
 			            data: {
 			            	section:section
@@ -571,7 +566,7 @@ $(function () {
 							var display = $('<div class="post-messages panel panel-default">'+
 												'<div class="panel-heading">'+
 													'<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>'+
-													'<div><img src="<?php echo $_SESSION["profile_pic"];?>" class="shadow post-message-img pull-left" /></div>'+
+													'<div><img src="views/res/<?php echo $_SESSION["profile_pic"];?>" class="shadow post-message-img pull-left" /></div>'+
 													'<div><a class="navbar-link message-author"><h5><?php echo $_SESSION["reg_fname"] . "<i class=\"glyphicon glyphicon-chevron-right\"></i>" . "'+rowData.subject_title+'"."::"."'+rowData.level_description+'". "-". "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+'" . " " ;?></h5></a></div>'+
 													'</span><abbr class="timespan" title="'+rowData.date_created+'">'+
 													'<span class="glyphicon glyphicon-dashboard"></span>  '+rowData.timespan+'<abbr>'+
@@ -594,7 +589,7 @@ $(function () {
 				
 				        	$.ajax({
 					 
-					            url: 'views/get_announcement_lecture.php',
+					            url: 'views/ajax/get_announcement_lecture.php',
 					            type: 'POST',
 					            data: {
 					            	ajax_message_subject:ajax_message
@@ -615,7 +610,7 @@ $(function () {
 					          	error: function(jqXHR, textStatus, errorThrown)
 					          	{
 					            	
-					            		alert('ERRORS: ' + textStatus);
+					            		alert('ERROR: ' + textStatus);
 					            	
 					          	},
 					          	complete: function()
@@ -635,7 +630,7 @@ $(function () {
 						
 				        	$.ajax({
 					 
-					            url: 'views/get_announcement_lecture.php',
+					            url: 'views/ajax/get_announcement_lecture.php',
 					            type: 'POST',
 					            data: {
 					            	ajax_message_grade:ajax_message
@@ -656,7 +651,7 @@ $(function () {
 					          	error: function(jqXHR, textStatus, errorThrown)
 					          	{
 					            	
-					            		alert('ERRORS: ' + textStatus);
+					            		alert('ERROR: ' + textStatus);
 					            	
 					          	},
 					          	complete: function()
@@ -675,7 +670,7 @@ $(function () {
 			
 				        	$.ajax({
 					 
-					            url: 'views/get_announcement_lecture.php',
+					            url: 'views/ajax/get_announcement_lecture.php',
 					            type: 'POST',
 					            data: {
 					            	ajax_message_section:ajax_message
@@ -695,7 +690,7 @@ $(function () {
 					          	error: function(jqXHR, textStatus, errorThrown)
 					          	{
 					            	
-					            		alert('ERRORS: ' + textStatus);
+					            		alert('ERROR: ' + textStatus);
 					            	
 					          	},
 					          	complete: function()
@@ -712,10 +707,6 @@ $(function () {
 
 						$(function(){
 
-							var files;
-
-							
-						
 							$(document.body).on('submit', '#upload_ajax_subject',  uploadFilesSubject);
 							$(document.body).on('submit', '#upload_ajax_grade', uploadFilesGrade);
 							$(document.body).on('submit', '#upload_ajax_section', uploadFilesSection);
@@ -730,7 +721,7 @@ $(function () {
 						        event.preventDefault();
 
 							    $.ajax({
-							            url: 'views/get_upload_lecture.php?captionsubject='+ajax_message,
+							            url: 'views/ajax/get_upload_lecture.php?captionsubject='+ajax_message,
 							            type: 'POST',
 							            data: new FormData(this),
 							            contentType: false, 
@@ -748,7 +739,7 @@ $(function () {
 											}
 											else
 											{
-												alert('Errors: '+data.error);
+												alert('Error: '+data.error);
 											}	
 
 											
@@ -756,7 +747,7 @@ $(function () {
 							          	error: function(jqXHR, textStatus, errorThrown)
 							          	{
 							            	
-							            		alert('ERRORS: ' + textStatus);
+							            		alert('ERROR: ' + textStatus);
 							            	
 							          	},
 							          	complete: function()
@@ -779,7 +770,7 @@ $(function () {
 						        event.preventDefault();
 
 							    $.ajax({
-							            url: 'views/get_upload_lecture.php?captiongrade='+ajax_message,
+							            url: 'views/ajax/get_upload_lecture.php?captiongrade='+ajax_message,
 							            type: 'POST',
 							            data: new FormData(this),
 							            contentType: false, 
@@ -797,7 +788,7 @@ $(function () {
 											}
 											else
 											{
-												alert('Errors: '+data.error);
+												alert('Error: '+data.error);
 											}	
 
 											
@@ -805,7 +796,7 @@ $(function () {
 							          	error: function(jqXHR, textStatus, errorThrown)
 							          	{
 							            	
-							            		alert('ERRORS: ' + textStatus);
+							            		alert('ERROR: ' + textStatus);
 							            	
 							          	},
 							          	complete: function()
@@ -827,7 +818,7 @@ $(function () {
 						        event.preventDefault();
 
 							    $.ajax({
-							            url: 'views/get_upload_lecture.php?captionsection='+ajax_message,
+							            url: 'views/ajax/get_upload_lecture.php?captionsection='+ajax_message,
 							            type: 'POST',
 							            data: new FormData(this),
 							            contentType: false, 
@@ -845,7 +836,7 @@ $(function () {
 											}
 											else
 											{
-												alert('Errors: '+data.error);
+												alert('Error: '+data.error);
 											}	
 
 											
@@ -853,7 +844,7 @@ $(function () {
 							          	error: function(jqXHR, textStatus, errorThrown)
 							          	{
 							            	
-							            		alert('ERRORS: ' + textStatus);
+							            		alert('ERROR: ' + textStatus);
 							            	
 							          	},
 							          	complete: function()

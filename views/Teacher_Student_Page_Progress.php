@@ -8,9 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
-        <!--<link rel="stylesheet" type="text/css" href="views/bootstrap.min.css"/>-->
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
     
 	<!-- 	<body onload="init()"> -->
@@ -292,17 +291,15 @@
 	</div><!--content-->
 </div><!--viewport-->
 
-  <script src="views/jquery.min.js"></script>
-        <script src="views/transition.js"></script>
-        <script src="views/carousel.js"></script>
-        <script src="views/jquery.min.js"></script>
-        <script src="views/bootstrap.min.js"></script>
-		<script src="views/tab.js"></script>
-		
-		<script src="views/modal.js"></script>
-		<script src="views/tooltip.js"></script>
-		<script src="views/popover.js"></script>
-		<script src="views/Chart.js"></script>
+  		<script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/transition.js"></script>
+        <script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
+		<script src="views/plugins/bootstrap/tab.js"></script>
+		<script src="views/plugins/bootstrap/modal.js"></script>
+		<script src="views/plugins/bootstrap/tooltip.js"></script>
+		<script src="views/plugins/bootstrap/popover.js"></script>
+		<script src="views/plugins/chartjs/Chart.js"></script>
 		
 		
         <!--<script src="../../assets/js/docs.min.js"></script>-->
@@ -324,7 +321,7 @@ function getSubjectId(menu)
 	
 	$.ajax({
 
-        url: 'views/get_for_chart.php',
+        url: 'views/ajax/get_for_chart.php',
         type: 'GET',
         data: {
         	ts_subject_chart:subject
@@ -356,7 +353,7 @@ var grade=menu.id;
 
 $.ajax({
 
-    url: 'views/get_for_chart.php',
+    url: 'views/ajax/get_for_chart.php',
     type: 'GET',
     data: {
     	ts_grade_chart:grade
@@ -384,10 +381,9 @@ function getSectionId(menu)
 
 var section=menu.id;
 
-
 $.ajax({
 
-    url: 'views/get_for_chart.php',
+    url: 'views/ajax/get_for_chart.php',
     type: 'GET',
     data: {
     	ts_section_chart:section
@@ -444,7 +440,7 @@ function chart(category)
 		        {
 		        
 		        	$.ajax({
-			            url: 'views/get_for_chart.php',
+			            url: 'views/ajax/get_for_chart.php',
 			            method: 'GET',
 			            data: {
 			            	gradingPeriod: '1st', ts_onload:category
@@ -503,7 +499,7 @@ function chart(category)
 		        function getSecondChart(category) 
 		        {
 		        	$.ajax({
-			            url: 'views/get_for_chart.php',
+			            url: 'views/ajax/get_for_chart.php',
 			            method: 'GET',
 			            data: {
 			            	gradingPeriod: '2nd', ts_onload:category
@@ -561,7 +557,7 @@ function chart(category)
 		        function getThirdChart(category) 
 		        {
 		        	$.ajax({
-			            url: 'views/get_for_chart.php',
+			            url: 'views/ajax/get_for_chart.php',
 			            method: 'GET',
 			            data: {
 			            	gradingPeriod: '3rd', ts_onload:category
@@ -619,7 +615,7 @@ function chart(category)
 		        function getFourthChart(category) 
 		        {
 		        	$.ajax({
-			            url: 'views/get_for_chart.php',
+			            url: 'views/ajax/get_for_chart.php',
 			            method: 'GET',
 			            data: {
 			            	gradingPeriod: '4th', ts_onload:category

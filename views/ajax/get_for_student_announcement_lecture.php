@@ -2,209 +2,30 @@
 <?php 
 	session_start();
 
-	
 		if(isset ($_POST['subject']))
 		{	
 
-		    $_SESSION['clicked_subject'] = $_POST['subject'];
-
-		    clickedBySubject();
-
-		}
-
-		if(isset($_POST['grade']))
-		{
-			
-
-			$_SESSION['clicked_grade'] = $_POST['grade'];
-
-			clickedByGrade();
+		    $clicked_subject = $_POST['subject'];
 
 
-		}
-			
-		if(isset($_POST['section']))
-		{
-			 
-
-			$_SESSION['clicked_section'] = $_POST['section'];
-
-			clickedBySection();
-		}
-
-
-		if(isset($_POST['ajax_message_subject']))
-		{
-			
-			$message=clean($_POST['ajax_message_subject']);
-
-			/*echo "{\"ajax_message_subject\": [" . json_encode($message). "]}";*/
-
-			postBySubject($message);
-		
-			
-		}
-
-		if(isset($_POST['ajax_message_grade']))
-		{
-			
-			$message=clean($_POST['ajax_message_grade']);
-
-			/*echo "{\"ajax_message_grade\": [" . json_encode($message). "]}";*/
-
-			postByGrade($message);
-		
-			
-
-		}
-
-		if(isset($_POST['ajax_message_section']))
-		{
-			
-			$message=clean($_POST['ajax_message_section']);
-
-			/*echo "{\"ajax_message_section\": [" . json_encode($message). "]}";*/
-
-			postBySection($message);
-		
-			
-
-		}
-
-
-function postBySubject($message)
-{
-			if(!empty($message))
-			{
-				
-				
-				$message_date_created= date("Y-m-d H:i:s");  
-
-				$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-				$sql="INSERT INTO announcement_lecture(date_created, messageorfile_caption) VALUES('".$message_date_created."','".$message."')";
-						
-					$announcement_lecture_inserted= mysqli_query($cxn,$sql) or die('Unable to connect to Database.');
-					
-					if($announcement_lecture_inserted)
-				    {
-				        $query="Select class_rec_no from section where teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."'"; 
-
-				        $fetch_class_rec= mysqli_query($cxn,$query);
-
-
-				        while($each_rec = mysqli_fetch_array($fetch_class_rec))
-				        {
-				            
-				            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$message_date_created."')";
-
-				            $insert_done=mysqli_query($cxn,$insert);
-				        }
-
-				        clickedBySubject();
-
-				    }    
-
-
-				
-			}
-
-}
-
-function postByGrade($message)
-{
-			if(!empty($message))
-			{
-				
-				
-				$message_date_created= date("Y-m-d H:i:s");  
-
-				$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-				$sql="INSERT INTO announcement_lecture(date_created, messageorfile_caption) VALUES('".$message_date_created."','".$message."')";
-						
-					$announcement_lecture_inserted= mysqli_query($cxn,$sql) or die('Unable to connect to Database.');
-					
-					if($announcement_lecture_inserted)
-				    {
-				        $query="Select class_rec_no from section where teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."'"; 
-
-				        $fetch_class_rec= mysqli_query($cxn,$query);
-
-
-				        while($each_rec = mysqli_fetch_array($fetch_class_rec))
-				        {
-				            
-				            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$message_date_created."')";
-
-				            $insert_done=mysqli_query($cxn,$insert);
-				        }
-
-				        clickedByGrade();
-
-				    }    
-
-
-				
-			}
-}
-
-function postBySection($message)
-{
-			if(!empty($message))
-			{
-				
-				
-				$message_date_created= date("Y-m-d H:i:s");  
-
-				$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-				$sql="INSERT INTO announcement_lecture(date_created, messageorfile_caption) VALUES('".$message_date_created."','".$message."')";
-						
-					$announcement_lecture_inserted= mysqli_query($cxn,$sql) or die('Unable to connect to Database.');
-					
-					if($announcement_lecture_inserted)
-				    {
-				        $query="Select class_rec_no from section where teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$_SESSION['clicked_section']."'"; 
-
-				        $fetch_class_rec= mysqli_query($cxn,$query);
-
-
-				        while($each_rec = mysqli_fetch_array($fetch_class_rec))
-				        {
-				            
-				            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$message_date_created."')";
-
-				            $insert_done=mysqli_query($cxn,$insert);
-				        }
-
-				        clickedBySection();
-
-				    }    
-
-
-				
-			}
-}			
-
-
-function clickedBySubject()
-{
-
-	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		    $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 		    
-		    $subject_sql="Select subjectID from subject_ where subject_title='".$_SESSION['clicked_subject']."'";
+		    $subject_sql="Select subjectID from subject_ where subject_title='".$clicked_subject."'";
 			$subject_result=mysqli_query($cxn,$subject_sql);
 			$subject_row = mysqli_fetch_row($subject_result);
-			$_SESSION['subjectID'] = $subject_row[0];
+			$_SESSION['student_subjectID'] = $subject_row[0];
 
 			$subject_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-	        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
-	        from subject_ inner join section on subject_.subjectID=section.subjectID 
-	        inner join grade_level on section.levelID=grade_level.levelID 
-	        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-	        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
-			where section.teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' order by date_created desc";
+		    section_list.sectionNo, section_list.section_name, subject_.subject_title, grade_level.level_description, 
+		    registration.reg_fname, registration.reg_lname, registration.image 
+		    from registration inner join section on registration.reg_id=section.teacherID
+		    inner join section_list on section.sectionID=section_list.sectionID  
+		    inner join subject_ on section.subjectID=subject_.subjectID 
+		    inner join grade_level on section.levelID=grade_level.levelID 
+		    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+		    inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
+		    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+		    where student_schedule_line.student_lrn = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['student_subjectID']."' order by date_created desc";
 	 
 				
 			$subject_result=mysqli_query($cxn,$subject_join) or die('Unable to connect to Database.');
@@ -292,7 +113,7 @@ function clickedBySubject()
 					}
 
 					$footer=$footer . '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
-										<input name="file_name" value="'.$passer['file_name'].'" type="hidden"/>
+										<input name="student_file_name" value="'.$passer['file_name'].'" type="hidden"/>
 										<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
 										</a></div>	
 										</form>
@@ -311,6 +132,8 @@ function clickedBySubject()
 				$passer['section_name']=$display['section_name'];
 				$passer['subject_title']=$display['subject_title'];
 				$passer['level_description']=$display['level_description'];
+				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
+				$passer['image']=$display['image']; 
 				$passer['display_footer']=$footer;
 
 
@@ -327,26 +150,32 @@ function clickedBySubject()
 				}
 			}
 				
-			echo "],\"success\": [".json_encode("Message Posted")."],\"category\": [".json_encode($_SESSION['clicked_subject'])."]}";
-}
+			echo "],\"category\": [".json_encode($clicked_subject)."]}";	
 
-function clickedByGrade()
-{
+		}
 
-	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		if(isset($_POST['grade']))
+		{
+			 $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-			$grade_sql="Select levelID from grade_level where level_description='".$_SESSION['clicked_grade']."'";
+			$clicked_grade = $_POST['grade'];
+
+			$grade_sql="Select levelID from grade_level where level_description='".$clicked_grade."'";
 			$grade_result=mysqli_query($cxn,$grade_sql);
 			$grade_row = mysqli_fetch_row($grade_result);
-			$_SESSION['levelID'] = $grade_row[0];
+			$_SESSION['student_levelID'] = $grade_row[0];
 
 			$grade_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-	        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
-	        from subject_ inner join section on subject_.subjectID=section.subjectID 
-	        inner join grade_level on section.levelID=grade_level.levelID 
-	        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-	        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
-			where section.teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' order by date_created desc";	 
+		    section_list.sectionNo, section_list.section_name, subject_.subject_title, grade_level.level_description, 
+		    registration.reg_fname, registration.reg_lname, registration.image 
+		    from registration inner join section on registration.reg_id=section.teacherID
+		    inner join section_list on section.sectionID=section_list.sectionID  
+		    inner join subject_ on section.subjectID=subject_.subjectID 
+		    inner join grade_level on section.levelID=grade_level.levelID 
+		    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+		    inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
+		    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+			where student_schedule_line.student_lrn = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['student_subjectID']."' and section.levelID='".$_SESSION['student_levelID']."' order by date_created desc";	 
 
 
 			$grade_result=mysqli_query($cxn,$grade_join) or die('Unable to connect to Database.');
@@ -433,7 +262,7 @@ function clickedByGrade()
 					}
 
 					$footer=$footer . '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
-										<input name="file_name" value="'.$passer['file_name'].'" type="hidden"/>
+										<input name="student_file_name" value="'.$passer['file_name'].'" type="hidden"/>
 										<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
 										</a></div>	
 										</form>
@@ -452,6 +281,8 @@ function clickedByGrade()
 				$passer['section_name']=$display['section_name'];
 				$passer['subject_title']=$display['subject_title'];
 				$passer['level_description']=$display['level_description'];
+				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
+				$passer['image']=$display['image']; 
 				$passer['display_footer']=$footer;
 
 				if($first) 
@@ -465,23 +296,28 @@ function clickedByGrade()
 				}
 			}
 			
-			echo "],\"success\": [".json_encode("Message Posted")."],\"category\": [".json_encode($_SESSION['clicked_grade'])."]}";
+			echo "],\"category\": [".json_encode($clicked_grade)."]}";	
 
-}
-
-function clickedBySection()
-{
-
-	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		}
 			
+		if(isset($_POST['section']))
+		{
+			 $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+			$clicked_section = $_POST['section'];
+
 			$section_join="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-	        section.sectionNo, section.section_name, subject_.subject_title, grade_level.level_description 
-	        from subject_ inner join section on subject_.subjectID=section.subjectID 
-	        inner join grade_level on section.levelID=grade_level.levelID 
-	        inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-	        inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created  
-			where section.teacherID = '".$_SESSION['account_id']."' 
-			and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$_SESSION['clicked_section']."' order by date_created desc";		
+		    section_list.sectionNo, section_list.section_name, subject_.subject_title, grade_level.level_description, 
+		    registration.reg_fname, registration.reg_lname, registration.image 
+		    from registration inner join section on registration.reg_id=section.teacherID 
+		    inner join section_list on section.sectionID=section_list.sectionID 
+		    inner join subject_ on section.subjectID=subject_.subjectID 
+		    inner join grade_level on section.levelID=grade_level.levelID 
+		    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+		    inner join post_announcement_lecture on student_schedule_line.class_rec_no=post_announcement_lecture.class_rec_no 
+		    inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
+			where student_schedule_line.student_lrn = '".$_SESSION['account_id']."' 
+			and section.subjectID='".$_SESSION['student_subjectID']."' and section.levelID='".$_SESSION['student_levelID']."' and section_list.section_name='".$clicked_section."' order by date_created desc";		
 
 
 			$section_result=mysqli_query($cxn,$section_join) or die('Unable to connect to Database.');
@@ -568,7 +404,7 @@ function clickedBySection()
 					}
 
 					$footer=$footer . '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
-										<input name="file_name" value="'.$passer['file_name'].'" type="hidden"/>
+										<input name="student_file_name" value="'.$passer['file_name'].'" type="hidden"/>
 										<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
 										</a></div>	
 										</form>
@@ -587,6 +423,8 @@ function clickedBySection()
 				$passer['section_name']=$display['section_name'];
 				$passer['subject_title']=$display['subject_title'];
 				$passer['level_description']=$display['level_description'];
+				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
+				$passer['image']=$display['image']; 
 				$passer['display_footer']=$footer;
 				if($first) 
 				{
@@ -598,22 +436,12 @@ function clickedBySection()
 					echo ',' . json_encode($passer);
 				}
 			}
-			echo "],\"success\": [".json_encode("Message Posted")."],\"category\": [".json_encode($_SESSION['clicked_section'])."]}";
-}
+			echo "],\"category\": [".json_encode($clicked_section)."]}";	
 
-function clean($str)
-{
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-		
-		$str = @trim($str);
-		if(get_magic_quotes_gpc())
-			{
-				$str = stripslashes($str);
-			}
-		return mysqli_real_escape_string($cxn,$str);
-}
+		}
 
- function get_time_difference_php($created_time)
+
+	function get_time_difference_php($created_time)
  {
         date_default_timezone_set('Asia/Manila'); //Change as per your default time
         $str = strtotime($created_time);

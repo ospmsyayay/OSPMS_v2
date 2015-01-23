@@ -15,7 +15,8 @@
 			$_SESSION['subjectID'] = $subject_row[0];
 
 
-			$subject_sectionlist="SELECT section.class_rec_no, grade_level.level_description, section.sectionNo, section.section_name FROM section 
+			$subject_sectionlist="SELECT section.class_rec_no, grade_level.level_description, section_list.sectionNo, section_list.section_name 
+			from section_list inner join section on section_list.sectionID=section.sectionID 
 			inner join grade_level on section.levelID=grade_level.levelID 
 			where section.teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."'";
 	 
@@ -52,7 +53,8 @@
 				$grade_row = mysqli_fetch_row($grade_result);
 				$_SESSION['levelID'] = $grade_row[0];
 
-				$grade_sectionlist="SELECT section.class_rec_no, grade_level.level_description, section.sectionNo, section.section_name FROM section
+				$grade_sectionlist="SELECT section.class_rec_no, grade_level.level_description, section_list.sectionNo, section_list.section_name 
+				from section_list inner join section on section_list.sectionID=section.sectionID
 				 inner join grade_level on section.levelID=grade_level.levelID
 				 where section.teacherID = '".$_SESSION['account_id']."' and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."'";	
 
@@ -84,9 +86,10 @@
 
 				$clicked_section = $_GET['section'];
 
-				$section_sectionlist="SELECT section.class_rec_no, grade_level.level_description, section.sectionNo, section.section_name FROM section 
+				$section_sectionlist="SELECT section.class_rec_no, grade_level.level_description, section_list.sectionNo, section_list.section_name 
+				from section_list inner join section on section_list.sectionID=section.sectionID
 				inner join grade_level on section.levelID=grade_level.levelID where section.teacherID = '".$_SESSION['account_id']."' 
-				and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$clicked_section."'";	
+				and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section_list.section_name='".$clicked_section."'";	
 
 
 				$section_result=mysqli_query($cxn,$section_sectionlist) or die('Unable to connect to Database.');

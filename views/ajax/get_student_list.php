@@ -86,9 +86,10 @@
 				$_SESSION['clicked_section'] = $_GET['section'];
 
 				$section_join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image
-				from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+				from section_list inner join section on section_list.sectionID=section.sectionID
+				inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 				inner join registration on student_schedule_line.student_lrn = registration.reg_id  where section.teacherID = '".$_SESSION['account_id']."' 
-				and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$_SESSION['clicked_section']."'";	
+				and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."'";	
 
 
 				$section_result=mysqli_query($cxn,$section_join) or die('Unable to connect to Database.');
@@ -317,9 +318,9 @@
 				if(!empty($student_search_section))
 				{
 					$section_join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image
-					from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+					from section_list inner join section on section_list.sectionID=section.sectionID inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 					inner join registration on student_schedule_line.student_lrn = registration.reg_id  where section.teacherID = '".$_SESSION['account_id']."' 
-					and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$_SESSION['clicked_section']."'
+					and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."'
 					and student_lrn LIKE '%$student_search_section%' or reg_lname LIKE '%$student_search_section%' 
 					or reg_fname LIKE '%$student_search_section%' or reg_mname LIKE '%$student_search_section%'";	
 
@@ -345,9 +346,9 @@
 				else if(empty($student_search_section))
 				{
 					$section_join="Select student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image
-					from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+					from section_list inner join section on section_list.sectionID=section.sectionID inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 					inner join registration on student_schedule_line.student_lrn = registration.reg_id  where section.teacherID = '".$_SESSION['account_id']."' 
-					and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section.section_name='".$_SESSION['clicked_section']."'";	
+					and section.subjectID='".$_SESSION['subjectID']."' and section.levelID='".$_SESSION['levelID']."' and section_list.section_name='".$_SESSION['clicked_section']."'";	
 
 
 					$section_result=mysqli_query($cxn,$section_join) or die('Unable to connect to Database.');

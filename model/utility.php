@@ -49,7 +49,8 @@ function createTeacherId()
     $rand1int=$rand6int=$teacher_id=$strdate=$datetoday="";
 
         $strdate = explode('-',date("Y-m-d"));
-        $datetoday=$strdate[0].$strdate[1].$strdate[2];
+        $strdate0=substr($strdate[0], 2, 2); 
+        $datetoday=$strdate0.$strdate[1].$strdate[2];
         
         $rand1int=strval(mt_rand (0,9));
         $rand6int=strval(mt_rand (100000,999999));
@@ -66,7 +67,8 @@ function createStudentId()
     $rand1int=$rand6int=$student_id=$strdate=$datetoday="";
 
         $strdate = explode('-',date("Y-m-d"));
-        $datetoday=$strdate[0].$strdate[1].$strdate[2];
+        $strdate0=substr($strdate[0], 2, 2); 
+        $datetoday=$strdate0.$strdate[1].$strdate[2];
         
         $rand1int=strval(mt_rand (0,9));
         $rand6int=strval(mt_rand (100000,999999));
@@ -83,7 +85,8 @@ function createParentId()
     $rand1int=$rand6int=$parent_id=$strdate=$datetoday="";
 
         $strdate = explode('-',date("Y-m-d"));
-        $datetoday=$strdate[0].$strdate[1].$strdate[2];
+        $strdate0=substr($strdate[0], 2, 2); 
+        $datetoday=$strdate0.$strdate[1].$strdate[2];
         
         $rand1int=strval(mt_rand (0,9));
         $rand6int=strval(mt_rand (100000,999999));
@@ -100,7 +103,8 @@ function createAdminId()
     $rand1int=$rand6int=$admin_id=$strdate=$datetoday="";
 
         $strdate = explode('-',date("Y-m-d"));
-        $datetoday=$strdate[0].$strdate[1].$strdate[2];
+        $strdate0=substr($strdate[0], 2, 2); 
+        $datetoday=$strdate0.$strdate[1].$strdate[2];
         
         $rand1int=strval(mt_rand (0,9));
         $rand6int=strval(mt_rand (100000,999999));
@@ -111,6 +115,41 @@ function createAdminId()
         return $admin_id;
 
 }
+
+function createSubjectId()
+{
+    $rand4int=$subject_id="";
+        
+        $rand4int=strval(mt_rand ( 1000 , 9999 ));
+
+        $subject_id="EAS-" . $rand4int;
+
+        return $subject_id;
+}
+
+function createSectionId()
+{
+    $rand5int=$section_id="";
+        
+        $rand5int=strval(mt_rand ( 10000 , 99999 ));
+
+        $section_id="S" . $rand5int;
+
+        return $section_id;
+}
+
+function createGradeId()
+{
+    $rand4int=$grade_id="";
+        
+        $rand4int=strval(mt_rand ( 1000 , 9999 ));
+
+        $grade_id="G" . $rand4int;
+
+        return $grade_id;
+}
+
+
 
 function mark_proficiency($grade)
 {

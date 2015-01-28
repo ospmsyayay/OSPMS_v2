@@ -284,7 +284,7 @@ $(function () {
                  }
 
 
-                  function getGradeId(menu) 
+                function getGradeId(menu) 
                 {
                     
                     var grade=menu.id;
@@ -318,7 +318,7 @@ $(function () {
 
                  }
 
-                   function getSectionId(menu) 
+                function getSectionId(menu) 
                 {
                     
                     var section=menu.id;

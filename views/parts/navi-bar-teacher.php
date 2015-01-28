@@ -15,45 +15,44 @@
 						</button>
 						<!--<a class="navbar-brand" href="#">Project Name</a>-->
 					  </div>
-					  
-                    <ul class="nav navbar-nav">
-                        <li>
-    						<a class="navbar-brand" href="index.php?r=lss">Home</a>
-    					</li>
-    					<li>
-    						<a class="navbar-brand" href="index.php?r=lss&tr=trp">Progress</a>
-    					</li>
-                        <li>
-    						<a class="navbar-brand" href="index.php?r=lss&tr=tre">Encode</a>
-    					</li>
-                        <li>
-    						<a class="navbar-brand" href="#">Reports</a>
-    					</li>
-    			
-				    </ul>
-                   <?php if(isset($_SESSION['profile_pic']))
-                   	{
-                    	echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow profile-teacher-img" />';
-                    }
-                    ?>
-					<div id="user-dropdown" class="dropdown"> 
-						<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> 
-							<span class="caret"></span> 
-						</button> 
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"> 
-								<li role="presentation"> 
-								<a role="menuitem" tabindex="-1" href="#">Account Settings</a> </li>
-									<li class="divider"></li>
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="#">Profile</a> </li> 
-									<li class="divider"></li>
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="#"> Settings </a> </li> 
-									<li class="divider"></li>
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="#"> Help </a> </li> 
-									<li class="divider"></li>	
-								<li role="presentation" class="divider"></li> 
-								<li role="presentation"> <a role="menuitem" tabindex="-1" href="index.php?r=xt">Logout</a> </li> 
-							</ul> 
+					<div class="top-panel-left">  
+	                    <ul class="nav navbar-nav">
+	                        <li>
+	    						<a class="navbar-brand" href="index.php?r=lss">Home</a>
+	    					</li>
+	    					<li>
+	    						<a class="navbar-brand" href="index.php?r=lss&tr=trp">Progress</a>
+	    					</li>
+	                        <li>
+	    						<a class="navbar-brand" href="index.php?r=lss&tr=tre">Encode</a>
+	    					</li>
+	                        <li>
+	    						<a class="navbar-brand" href="#">Reports</a>
+	    					</li>
+	    			
+					    </ul>
+					</div>    
+					<div class="top-panel-right pull-right">
+						<?php if(isset($_SESSION['profile_pic']))
+	                   	{
+	                    	echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow profile-teacher-img" />';
+	                    }
+	                    ?>
+						<div id="user-dropdown" class="dropdown"> 
+							<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> 
+								<span class="caret"></span> 
+							</button>
+							
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+										<li role="presentation"> 
+											<a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a> </li>
+											<li class="divider"></li>	
+									<li role="presentation"> <a role="menuitem" tabindex="-1" href="index.php?r=xt"><span class="glyphicon glyphicon-off"></span> Logout</a> </li> 	
+								</ul> 
+							
+						</div>
 					</div>
+                  
 					
 			</div><!--header content-->
 	

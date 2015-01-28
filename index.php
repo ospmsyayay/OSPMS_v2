@@ -299,6 +299,9 @@ function admin()
 				$pass['file_name']=$row[3];
 				$pass['sectionNo']=$row[4];
 				$pass['section_name']=$row[5];
+				$pass['reg_lname']=$row[6];
+				$pass['reg_fname']=$row[7];
+				$pass['reg_mname']=$row[8];
 
 				$announcement_lecturelist[]=$pass;
 			}
@@ -308,45 +311,6 @@ function admin()
 		
 	}//End of Get
 
-/*	if ($_SERVER["REQUEST_METHOD"] == "POST") 
-	{
-		include "model/utility.php";
-
-				$id = $_POST['edadmid'];
-				$reg_lname = clean($_POST['edadmlname']);
-				$reg_fname = clean($_POST['edadmfname']);
-				$reg_mname = clean($_POST['edadmmname']);
-				$reg_gender = clean($_POST['edadmgender']);
-				$reg_status = clean($_POST['edadmstatus']);
-			
-				$reg_address = clean($_POST['edadmaddress']);
-
-				if( !empty($reg_lname) and !empty($reg_fname) )
-				{
-				
-						$image=admin_img();
-
-						if(!empty($image))
-						{
-							$successful = update_administrator_with_image($id, $reg_lname, $reg_fname, $reg_mname, $reg_gender, $reg_status, $reg_address, $image);
-							if($successful)
-							{
-								header("Location:index.php?r=lss&ap");
-							}
-						}	
-						else
-						{
-							$successful = update_administrator($id, $reg_lname, $reg_fname, $reg_mname, $reg_gender, $reg_status, $reg_address);
-							if($successful)
-							{
-								header("Location:index.php?r=lss&ap");
-							}						
-						}	
-
-					
-				}			
-
-	}//End of Post*/	
 
 	include "views/admin.php";
 }

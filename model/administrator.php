@@ -92,9 +92,11 @@ function get_allannouncement_lecture()
 
 	include "config/conn.php";
 	
-	$sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, 
-	announcement_lecture.file_path, announcement_lecture.file_name, section.sectionNo, section.section_name 
-	from section inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
+	$sql="SELECT announcement_lecture.date_created, announcement_lecture.messageorfile_caption,announcement_lecture.file_path, announcement_lecture.file_name, 
+	section_list.sectionNo, section_list.section_name, registration.reg_lname, registration.reg_fname, registration.reg_mname 
+	from section_list inner join section on section_list.sectionID=section.sectionID
+	inner join registration on section.teacherID=registration.reg_id 
+	inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
 	inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created order by date_created desc";
 	
 	$sql= mysqli_query($cxn,$sql);

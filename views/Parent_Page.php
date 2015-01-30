@@ -7,10 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
-        <!--<link rel="stylesheet" type="text/css" href="views/bootstrap.min.css"/>-->
-        <link href="views/carousel.css" rel="stylesheet"/>
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
     
 		<body onload="check()">
@@ -175,16 +173,14 @@
 </div><!--viewport-->
 
 
-  <script src="views/jquery.min.js"></script>
-        <script src="views/transition.js"></script>
-        <script src="views/carousel.js"></script>
-        <script src="views/jquery.min.js"></script>
-        <script src="views/bootstrap.min.js"></script>
-		<script src="views/tab.js"></script>
-		
-		<script src="views/modal.js"></script>
-		<script src="views/tooltip.js"></script>
-		<script src="views/popover.js"></script>
+  		<script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/transition.js"></script>
+        <script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
+		<script src="views/plugins/bootstrap/tab.js"></script>
+		<script src="views/plugins/bootstrap/modal.js"></script>
+		<script src="views/plugins/bootstrap/tooltip.js"></script>
+		<script src="views/plugins/bootstrap/popover.js"></script>
 		
 		
         <!--<script src="../../assets/js/docs.min.js"></script>-->

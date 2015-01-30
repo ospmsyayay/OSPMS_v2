@@ -8,9 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         
 		<title>Online Student Performance Monitoring System</title>
-        <!--<link rel="stylesheet" type="text/css" href="views/bootstrap.min.css"/>-->
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
     
 	<body onload="check()">
@@ -18,13 +17,6 @@
 		function check()
 		{
 		<?php
-			if (isset($_GET['ss']))
-			{
-					
-		?>
-				alert('Login Successful');
-		<?php					
-			}
 			
 			if(isset($_GET['fnf']))
 			{	
@@ -56,9 +48,10 @@
 			<div class="right-wrapper">
 					<div class="right-column">
 						<div id="student-post-title-fixed">
-					<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Latest Post</div>
+
+							<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Post From Subjects</div>
 						
-					</div>
+						</div>
 					<div id="student-post-container-relative">
 								<div id="student-post-container">
 								
@@ -72,8 +65,8 @@
 														
 													<div class="panel-heading">
 															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
-															<?php echo '<div><img src="'.$display['image'].'" class="shadow post-message-img pull-left" /></div>'; ?>
-															<div><a class="navbar-link message-author"><h5><?php echo $display['teacher'] . ' >> ' . $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
+															<?php echo '<div><img src="views/res/'.$display['image'].'" class="shadow post-message-img pull-left" /></div>'; ?>
+															<div><a class="navbar-link message-author"><h5><?php echo $display['teacher'] . ' <i class="glyphicon glyphicon-chevron-right"></i>' .$display['subject_title'].'::'.$display['level_description']. '-'. $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
 															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
 															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
 													</div>
@@ -219,20 +212,17 @@
 	</div><!--content-->
 </div><!--viewport-->
 
-  <script src="views/jquery.min.js"></script>
-        <script src="views/transition.js"></script>
-        <script src="views/carousel.js"></script>
-        <script src="views/jquery.min.js"></script>
-        <script src="views/bootstrap.min.js"></script>
-		<script src="views/tab.js"></script>
-		
-		<script src="views/modal.js"></script>
-		<script src="views/tooltip.js"></script>
-		<script src="views/popover.js"></script>
-		<script src="views/Chart.js"></script>
-		
-		
-        <!--<script src="../../assets/js/docs.min.js"></script>-->
+  		<script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/transition.js"></script>
+        <script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
+		<script src="views/plugins/bootstrap/tab.js"></script>
+		<script src="views/plugins/bootstrap/modal.js"></script>
+		<script src="views/plugins/bootstrap/tooltip.js"></script>
+		<script src="views/plugins/bootstrap/popover.js"></script>
+		<script src="views/plugins/chartjs/Chart.js"></script>
+		<script src="views/js/scripts.js"></script>	
+
      <!-- JavaScript Test -->
 <script>
 
@@ -254,7 +244,7 @@ $(function () {
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_for_student_announcement_lecture.php',
+			            url: 'views/ajax/get_for_student_announcement_lecture.php',
 			            type: 'POST',
 			            data: {
 			            	subject:subject
@@ -265,7 +255,7 @@ $(function () {
 			           {
 			           		
 							/*  alert(JSON.stringify(response['announcement_lecture_bySubject']));*/
-								
+								change_post_title(response['category']);
 			           			display_announcement_lecture(response['announcement_lecture_bySubject']);
 			           		 
 						},
@@ -285,7 +275,7 @@ $(function () {
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_for_student_announcement_lecture.php',
+			            url: 'views/ajax/get_for_student_announcement_lecture.php',
 			            type: 'POST',
 			            data: {
 			            	grade:grade
@@ -296,7 +286,7 @@ $(function () {
 			           {
 			           		
 							 /* alert(JSON.stringify(response['announcement_lecture_byGrade']));*/
-								
+								change_post_title(response['category']);
 			           			display_announcement_lecture(response['announcement_lecture_byGrade']);
 			           		 
 						},
@@ -314,7 +304,7 @@ $(function () {
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_for_student_announcement_lecture.php',
+			            url: 'views/ajax/get_for_student_announcement_lecture.php',
 			            type: 'POST',
 			            data: {
 			            	section:section
@@ -325,7 +315,7 @@ $(function () {
 			           {
 			           		
 							 /* alert(JSON.stringify(response['announcement_lecture_bySection']));*/
-								
+								change_post_title(response['category']);
 			           			display_announcement_lecture(response['announcement_lecture_bySection']);
 			           		 
 						},
@@ -334,6 +324,16 @@ $(function () {
 			            });
 
 		         }
+
+		         		function change_post_title(category)
+		         		{
+		         			$('#student-post-title-fixed').empty();
+
+		         			var display = $('<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Post From '+category+'</div>');
+
+		         			$('#student-post-title-fixed').append(display);
+		         			/*alert(category);*/
+		         		}
 
 		         		function display_announcement_lecture(data) 
 						{
@@ -354,8 +354,8 @@ $(function () {
 							var display = $('<div class="post-messages panel panel-default">'+
 												'<div class="panel-heading">'+
 													'<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>'+
-													'<div><img src="'+rowData.image+'" class="shadow post-message-img pull-left" /></div>'+
-													'<div><a class="navbar-link message-author"><h5><?php echo "'+rowData.teacher+'" . " >> " . "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+' " ;?></h5></a></div>'+
+													'<div><img src="views/res/'+rowData.image+'" class="shadow post-message-img pull-left" /></div>'+
+													'<div><a class="navbar-link message-author"><h5><?php echo "'+rowData.teacher+'" . "<i class=\"glyphicon glyphicon-chevron-right\"></i>" . "'+rowData.subject_title+'"."::"."'+rowData.level_description+'". "-". "'+rowData.sectionNo+'" . "-" . "'+rowData.section_name+'" . " " ;?></h5></a></div>'+
 													'</span><abbr class="timespan" title="'+rowData.date_created+'">'+
 													'<span class="glyphicon glyphicon-dashboard"></span>  '+rowData.timespan+'<abbr>'+
 												'</div>'+

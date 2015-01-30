@@ -8,12 +8,43 @@
         
 		<title>Online Student Performance Monitoring System</title>
         
-        <link href="views/carousel.css" rel="stylesheet"/>
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/bootstrap/carousel.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
     
-	<body>
+	<body onload="check()">
+        <script>
+        function check()
+        {
+        <?php
+            if(isset($_GET['ue']))
+            {   
+        ?>      
+            alert('Username doesnt exist!');
+            window.location.href='index.php?';
+        <?php 
+            }
+            else if(isset($_GET['ip']))
+            {   
+        ?>
+            alert('Incorrect Password!');
+            window.location.href='index.php?';
+        <?php
+            }
+            else if(isset($_GET['peup']))
+            {
+        ?>
+            alert('Please enter username and password!');
+            window.location.href='index.php?';
+
+        <?php
+            }
+           
+        ?>       
+        }  
+         </script>       
+
 	
 <div class="header-wrapper">
 	<?php include "views/parts/navi-bar-home.php";?>
@@ -114,11 +145,10 @@
 </div><!--viewport-->
 
        
-        <script src="views/jquery.min.js"></script>
-        <script src="views/transition.js"></script>
-        <script src="views/carousel.js"></script>
-        <script src="views/bootstrap.min.js"></script>
-        <!--<script src="../../assets/js/docs.min.js"></script>-->
+        <script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/transition.js"></script>
+        <script src="views/plugins/bootstrap/carousel.js"></script>
+        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
 		
 	</body>
 </html>

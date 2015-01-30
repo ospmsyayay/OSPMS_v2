@@ -6,8 +6,8 @@
         
 		<title>Online Student Performance Monitoring System</title>
 
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
 	<body onload="check()">
 		<script>

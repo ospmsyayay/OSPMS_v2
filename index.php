@@ -27,7 +27,7 @@ else
 										{
 											admin();break;
 										}
-
+										
 										break;
 						case 'teacher': 
 										if(!isset($_GET['tr']))
@@ -42,7 +42,7 @@ else
 												case 'tre':tpage_encode();break;
 												case 'ce':createexer(); break;
 												case 's':t_spage_progress();break;
-												case 'testing':Teacher_testing();break;	
+												case 'acc':taccount_settings();break;
 											}
 										}
 										break;
@@ -56,6 +56,7 @@ else
 											{
 												case 'stp':spage_progress();break;
 												case 'sep':spage_exercise();break;
+												case 'acc':saccount_settings();break;
 											}
 										}
 										break;
@@ -79,22 +80,12 @@ else
 				break;
 
 		case 'xt':logout();break;								
-		case 'testing':testing();break;
 
 
 				default: header("Location: index.php");
 			}
 		}
-function testing()
-{
 
-	include "views/TESTING/Admin_Page.php";
-}
-
-function Teacher_testing()
-{
-	include "views/Testing.html";
-}
 
 function login()
 {
@@ -117,7 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
           
              if ($num_rows==0)
                 { 
-                    echo "<script>alert('username doesnt exist!')</script>";
+                    /*echo "<script>alert('username doesnt exist!')</script>";*/
+                    header("Location:index.php?r=lss&ue");
                 }
                  else
                 {
@@ -130,6 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		                  if ($password==$user_pass)
                             {
 					           $_SESSION['username'] = $username;
+					           $_SESSION['password'] = $password;
 							   $_SESSION['user_type'] = $user_type;
 							   $_SESSION['account_id'] = $account_id;
 							   
@@ -141,11 +134,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 										$_SESSION['profile_pic']=$fetch_profile['image'];
 							
 					           header("Location: index.php?r=lss&ss");
-					           exit();
+					          
 				            }
                             else
                             {
-				                echo"<script>alert('Incorrect Password')</script>";
+				               /* echo"<script>alert('Incorrect Password')</script>";*/
+				               header("Location:index.php?r=lss&ip");
 								
                             }
                 }
@@ -154,14 +148,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }  
         else
 	   { 
-		echo "<script>alert('Please enter username and password')</script>";
+		/*echo "<script>alert('Please enter username and password')</script>";*/
+		header("Location:index.php?r=lss&peup");
 	   }
 	
 		
 }
-
-	include "views/HomePage.php";
+include "views/HomePage.php";	
 }
+
 
 function admin()
 {
@@ -174,6 +169,7 @@ function admin()
 	$sectionlist=array();
 	$gradelevellist=array();
 	$announcement_lecturelist=array();
+	$edit_admin=array();
 	
 	if($_SERVER['REQUEST_METHOD']=='GET')
 	{
@@ -263,8 +259,9 @@ function admin()
 			while($row=mysqli_fetch_array($fetch))
 			{
 				$pass=array();
-				$pass['sectionNo']=$row[0];
-				$pass['section_name']=$row[1];
+				$pass['sectionID']=$row[0];
+				$pass['sectionNo']=$row[1];
+				$pass['section_name']=$row[2];
 				
 
 				$sectionlist[]=$pass;
@@ -297,19 +294,21 @@ function admin()
 				$pass['file_name']=$row[3];
 				$pass['sectionNo']=$row[4];
 				$pass['section_name']=$row[5];
+				$pass['reg_lname']=$row[6];
+				$pass['reg_fname']=$row[7];
+				$pass['reg_mname']=$row[8];
 
 				$announcement_lecturelist[]=$pass;
 			}
 
 
-		}	
+		}
+		
+	}//End of Get
 
-	}	
-					
 
 	include "views/admin.php";
 }
-
 
 function tpage()
 {
@@ -322,14 +321,13 @@ function tpage()
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 		{
 		
-		if(isset($_POST['message']))
-		   {
+			if(isset($_POST['message']))
+		    {
 		   	
 				$message=clean($_POST['message']);
 				if(!empty($message))
 				{
-					
-					
+				
 					$message_date_created= date("Y-m-d H:i:s");  
 						
 					write_announcement_to_all_subjects($_SESSION['account_id'],$message_date_created,$message);
@@ -346,7 +344,7 @@ function tpage()
 				
 				if(!empty($file_caption))
 				{
-					$filename=lecture_uploaded();
+					$filename=lecture_uploaded($file_caption);
 					
 					if(!empty($filename))
 					{
@@ -457,6 +455,8 @@ function tpage()
 				$passer['file_name']=$display['file_name'];
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 
 				$display_box[]=$passer;
 				
@@ -467,7 +467,7 @@ function tpage()
 }
 
 
-function lecture_uploaded()
+function lecture_uploaded($caption)
 {
 	$name = $_FILES['upload_lecture']['name'];
 	$tmp_name = $_FILES['upload_lecture']['tmp_name'];
@@ -490,11 +490,21 @@ function lecture_uploaded()
 		}
 		else
 		{
-			if(file_exists('model/uploaded_files/'.$name))
+			include "config/conn.php";
+			
+			$sql="SELECT messageorfile_caption, file_path, file_name FROM announcement_lecture 
+			where messageorfile_caption = '".$caption."' and file_name = '".$name."'";
+
+			$result=mysqli_query($cxn,$sql);
+
+			$file_exists = mysqli_num_rows($result);
+
+
+			if($file_exists > 0)
 			{
 				//echo "<script>alert('File already exist')</script>";
 				header("Location:index.php?r=lss&fe");
-			}
+			} 
 			else
 			{
 				$location = "model/uploaded_files/";
@@ -725,6 +735,8 @@ function spage()
 				$passer['file_name']=$display['file_name'];
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
+				$passer['subject_title']=$display['subject_title'];
+				$passer['level_description']=$display['level_description'];
 				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
 				$passer['image']=$display['image']; 
 
@@ -748,12 +760,12 @@ function spage_exercise()
 
 	$all_exercises=array();
 
-	$result=get_all_student_exercise();
+	/*$result=get_all_student_exercise();*/
 
 
-		while($travexercises = mysqli_fetch_array($result))
-		{
-			$passer=array();
+		/*while($travexercises = mysqli_fetch_array($result))
+		{*/
+			/*$passer=array();
 			$eidHolder=array();
 
 			$passer['sectionNo']=$travexercises['sectionNo'];
@@ -764,7 +776,7 @@ function spage_exercise()
 
 			$exerciseID=$travexercises['exerciseID'];
 
-			$eidHolder[$exerciseID]=null;
+			$eidHolder[$exerciseID]=null;*/
 				
 			/*$questions=get_all_student_exercise_questions($exerciseID);*/
 
@@ -794,11 +806,11 @@ function spage_exercise()
 				$eidHolder[$exerciseID]['oe_question'][]=$travquestions['oe_question'];*/
 			/*}*/
 
-				$passer['exerciseID']=$eidHolder;
+			/*	$passer['exerciseID']=$eidHolder;
 
 				$all_exercises[]=$passer;	
 
-		}
+		}*/
 
 	include "views/Student_Exercise_Page.php";
 }
@@ -1290,6 +1302,78 @@ function fillintheblanks()
 		}
 	
 		
+}
+
+function taccount_settings()
+{
+	include "model/accountsettings.php";
+	include "model/utility.php";
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	{
+		$old_password=$currentpass=$newpass=$repass="";
+
+		$old_password = $_SESSION['password'];
+		$currentpass = clean($_POST['accountcurrentpass']);
+		$newpass = clean($_POST['accountnewpass']);
+		$repass = clean($_POST['accountrepass']);
+
+     	
+     	if($currentpass <> $old_password) 
+     	{
+     		/*echo "<script>alert('Invalid current password!')</script>";*/
+     		header("Location:index.php?r=lss&tr=acc&icp");
+     	}
+
+     	else if($newpass <> $repass)
+     	{
+     		/*echo "<script>alert('New passwords do not match!')</script>";*/
+     		header("Location:index.php?r=lss&tr=acc&npm");
+     	}
+
+     	else if(empty($currentpass) or empty($newpass) or empty($repass))	
+     	{
+     		/*echo "<script>alert('Password cannot be empty!')</script>";*/
+     		header("Location:index.php?r=lss&tr=acc&pce");
+     	}	
+
+     	else if(strlen($newpass)<8 or strlen($repass)<8)
+     	{
+     		/*echo "<script>alert('Password too short')</script>";*/
+     		header("Location:index.php?r=lss&tr=acc&pts");
+     	}
+
+     	else if(strlen($newpass)>16 or strlen($repass)>16)
+     	{
+     		/*echo "<script>alert('Password must be 16 characters only.')</script>";*/
+     		header("Location:index.php?r=lss&tr=acc&pmco");
+     	}
+
+     	else if($repass == $_SESSION['password'])
+     	{
+     		/*echo "<script>alert('Password must differ from old password.')</script>";*/
+     		header("Location:index.php?r=lss&tr=acc&pmd");
+     	}
+
+     	else
+     	{
+     		$updated=change_password($_SESSION['account_id'],$repass);
+			if($updated)
+			{
+				header("Location:index.php?r=lss&tr=acc&cp");
+			}
+     	}	
+
+
+		
+	}
+
+	include "views/Teachers_Account_Settings.php";
+}
+
+function saccount_settings()
+{
+	include "views/Student_Account_Settings.php";
 }
 
 function logout()

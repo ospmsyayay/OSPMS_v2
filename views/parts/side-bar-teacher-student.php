@@ -5,7 +5,7 @@
 					<div id="thumbnail-student">
 						 <?php if(isset($_SESSION['ts_profile_pic']))
                    		{
-                    		echo '<img src="'.$_SESSION['ts_profile_pic'].'" class="shadow" id="thumbnail-student-img"/>';
+                    		echo '<img src="views/res/'.$_SESSION['ts_profile_pic'].'" class="shadow" id="thumbnail-student-img"/>';
                     	}
                     	?>
 						

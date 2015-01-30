@@ -46,7 +46,8 @@ function get_sectionByStudentIDSubjectIDLevelID($studentID,$subjectID,$levelID)
 {
 	include "config/conn.php";
 
-	$join="Select section.sectionNo,section.section_name from section 
+	$join="Select section_list.sectionNo,section_list.section_name from section_list 
+	inner join section on section_list.sectionID=section.sectionID 
 	inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
 	where student_lrn = '".$studentID."' and subjectID ='".$subjectID."' and levelID = '".$levelID."'";
 

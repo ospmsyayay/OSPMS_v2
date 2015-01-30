@@ -68,8 +68,8 @@ create table create_account(
 
 username_ varchar(16) not null,
 password_ varchar(16) not null,
-secret_question varchar(30) not null,
-secret_answer varchar(30) not null,
+secret_question varchar(30),
+secret_answer varchar(30),
 user_type varchar(10),
 account_id VARCHAR(16) not null,
 constraint PK_create_user primary key (username_),
@@ -120,18 +120,18 @@ constraint PK_room primary key (roomNo)
 drop table if exists section_list;
 create table section_list(
 
+sectionID varchar(6),
 sectionNo varchar(2),
 section_name varchar(20),
 
-constraint PK_section_list primary key (sectionNo,section_name)
+constraint PK_section_list primary key (sectionID)
 );
 
 drop table if exists section;
 create table section(
 
 class_rec_no varchar(10) not null,
-sectionNo varchar(2),
-section_name varchar(20),
+sectionID varchar(6),
 sched_days varchar(7),
 sched_start_time time,
 sched_end_time time,
@@ -141,7 +141,7 @@ levelID varchar(5),
 roomNo varchar(10),
 
 constraint PK_section primary key (class_rec_no),
-constraint PK_section1 foreign key (sectionNo,section_name) references section_list(sectionNo,section_name),
+constraint FK_section2 foreign key (sectionID) references section_list(sectionID),
 constraint FK_section3 foreign key (teacherID) references teacher(teacherID),
 constraint FK_section4 foreign key (subjectID) references subject_(subjectID),
 constraint FK_section5 foreign key (levelID) references grade_level(levelID),

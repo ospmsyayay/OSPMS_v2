@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES ('MA1411302-545985');
+INSERT INTO `admin` VALUES ('MA1411302-545985'),('MA1501247-760021'),('MA1501249-179710'),('MA1501251-812331'),('MA1501270-974248'),('MA1501277-200260'),('MA1501297-766825'),('MA1501302-571871');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ CREATE TABLE `announcement_lecture` (
 
 LOCK TABLES `announcement_lecture` WRITE;
 /*!40000 ALTER TABLE `announcement_lecture` DISABLE KEYS */;
-INSERT INTO `announcement_lecture` VALUES ('2014-12-25 10:09:05','Testing',NULL,NULL),('2014-12-25 10:10:05','Hello',NULL,NULL),('2014-12-26 08:22:05','Build a Mini Golf','model/uploaded_files/','Build a Mini Golf Game with ActionScript 3.docx'),('2014-12-26 08:23:05','Computer Ethics','model/uploaded_files/','Computer Ethics.pdf'),('2014-12-26 08:24:05','hit test','model/uploaded_files/','hit test.pptx'),('2014-12-26 08:25:05','K12','model/uploaded_files/','K12 Encoding Sheets .xlsx'),('2014-12-26 08:26:06','mini golf','model/uploaded_files/','miniGolf.swf'),('2014-12-26 08:27:07','preview','model/uploaded_files/','preview.gif'),('2014-12-28 11:22:00','buchi','model/uploaded_files/','Buchi Recipe.docx'),('2014-12-28 11:24:00','filipino cookbook','model/uploaded_files/','The Filipino Cookbook - Miki Garcia.pdf'),('2014-12-28 11:25:00','japanese cuisine','model/uploaded_files/','Cooking_The_Japanese_Way.pdf'),('2014-12-28 11:26:00','japanese cooking','model/uploaded_files/','Japanese_Cooking_-_Schinner__Miyoko_Nishimoto.pdf'),('2015-01-05 11:02:43','Hi',NULL,NULL);
+INSERT INTO `announcement_lecture` VALUES ('2014-12-25 10:09:05','Testing',NULL,NULL),('2014-12-25 10:10:05','Hello',NULL,NULL),('2014-12-26 08:22:05','Build a Mini Golf','model/uploaded_files/','Build a Mini Golf Game with ActionScript 3.docx'),('2014-12-26 08:23:05','Computer Ethics','model/uploaded_files/','Computer Ethics.pdf'),('2014-12-26 08:24:05','hit test','model/uploaded_files/','hit test.pptx'),('2014-12-26 08:25:05','K12','model/uploaded_files/','K12 Encoding Sheets .xlsx'),('2014-12-26 08:26:06','mini golf','model/uploaded_files/','miniGolf.swf'),('2014-12-26 08:27:07','preview','model/uploaded_files/','preview.gif'),('2014-12-28 11:22:00','buchi','model/uploaded_files/','Buchi Recipe.docx'),('2014-12-28 11:24:00','filipino cookbook','model/uploaded_files/','The Filipino Cookbook - Miki Garcia.pdf'),('2014-12-28 11:25:00','japanese cuisine','model/uploaded_files/','Cooking_The_Japanese_Way.pdf'),('2014-12-28 11:26:00','japanese cooking','model/uploaded_files/','Japanese_Cooking_-_Schinner__Miyoko_Nishimoto.pdf'),('2015-01-29 16:09:40','asdfsadfsd','model/uploaded_files/','City5477.jpg'),('2015-01-29 16:56:56','zdfsadf','model/uploaded_files/','City5329.jpg'),('2015-01-30 07:12:50','hey',NULL,NULL),('2015-01-30 14:22:37','gf',NULL,NULL);
 /*!40000 ALTER TABLE `announcement_lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -73,10 +73,10 @@ DROP TABLE IF EXISTS `create_account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `create_account` (
-  `username_` varchar(16) NOT NULL,
+  `username_` varchar(16) NOT NULL DEFAULT '',
   `password_` varchar(16) NOT NULL,
-  `secret_question` varchar(30) NOT NULL,
-  `secret_answer` varchar(30) NOT NULL,
+  `secret_question` varchar(30) DEFAULT NULL,
+  `secret_answer` varchar(30) DEFAULT NULL,
   `user_type` varchar(10) DEFAULT NULL,
   `account_id` varchar(16) NOT NULL,
   PRIMARY KEY (`username_`),
@@ -139,7 +139,7 @@ CREATE TABLE `create_questions` (
   PRIMARY KEY (`questionNo`),
   KEY `FK_create_questions` (`exerciseID`),
   CONSTRAINT `FK_create_questions` FOREIGN KEY (`exerciseID`) REFERENCES `create_ol_exercise` (`exerciseID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `grade_level` (
 
 LOCK TABLES `grade_level` WRITE;
 /*!40000 ALTER TABLE `grade_level` DISABLE KEYS */;
-INSERT INTO `grade_level` VALUES ('G0002','Grade2'),('G0003','Grade3');
+INSERT INTO `grade_level` VALUES ('G0002','Grade2'),('G0003','Grade3'),('G1207','vbncvbn'),('G3630','Grade4'),('G7808','Grade5');
 /*!40000 ALTER TABLE `grade_level` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,7 +246,7 @@ CREATE TABLE `parent` (
 
 LOCK TABLES `parent` WRITE;
 /*!40000 ALTER TABLE `parent` DISABLE KEYS */;
-INSERT INTO `parent` VALUES ('MP1411304-789451');
+INSERT INTO `parent` VALUES ('MP1411304-789451'),('MP1501254-192288'),('MP1501259-365224'),('MP1501273-874947'),('MP1501305-323805'),('MP1501308-923519');
 /*!40000 ALTER TABLE `parent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `post_announcement_lecture` (
 
 LOCK TABLES `post_announcement_lecture` WRITE;
 /*!40000 ALTER TABLE `post_announcement_lecture` DISABLE KEYS */;
-INSERT INTO `post_announcement_lecture` VALUES ('ECRN-79542','2014-12-25 10:09:05'),('ECRN-91165','2014-12-25 10:10:05'),('ECRN-79542','2014-12-26 08:22:05'),('ECRN-89847','2014-12-26 08:22:05'),('ECRN-79542','2014-12-26 08:23:05'),('ECRN-89847','2014-12-26 08:23:05'),('ECRN-79542','2014-12-26 08:24:05'),('ECRN-89847','2014-12-26 08:24:05'),('ECRN-79542','2014-12-26 08:26:06'),('ECRN-89847','2014-12-26 08:26:06'),('ECRN-79542','2014-12-26 08:27:07'),('ECRN-89847','2014-12-26 08:27:07'),('ECRN-89462','2014-12-28 11:22:00'),('ECRN-89462','2014-12-28 11:24:00'),('ECRN-89462','2014-12-28 11:25:00'),('ECRN-89462','2014-12-28 11:26:00'),('ECRN-91165','2015-01-05 11:02:43');
+INSERT INTO `post_announcement_lecture` VALUES ('ECRN-79542','2014-12-25 10:09:05'),('ECRN-91165','2014-12-25 10:10:05'),('ECRN-79542','2014-12-26 08:22:05'),('ECRN-89847','2014-12-26 08:22:05'),('ECRN-79542','2014-12-26 08:23:05'),('ECRN-89847','2014-12-26 08:23:05'),('ECRN-79542','2014-12-26 08:24:05'),('ECRN-89847','2014-12-26 08:24:05'),('ECRN-79542','2014-12-26 08:26:06'),('ECRN-89847','2014-12-26 08:26:06'),('ECRN-79542','2014-12-26 08:27:07'),('ECRN-89847','2014-12-26 08:27:07'),('ECRN-89462','2014-12-28 11:22:00'),('ECRN-89462','2014-12-28 11:24:00'),('ECRN-89462','2014-12-28 11:25:00'),('ECRN-89462','2014-12-28 11:26:00'),('ECRN-79542','2015-01-29 16:09:40'),('ECRN-79542','2015-01-29 16:56:56'),('ECRN-54544','2015-01-30 07:12:50'),('ECRN-54644','2015-01-30 07:12:50'),('ECRN-79542','2015-01-30 07:12:50'),('ECRN-89462','2015-01-30 07:12:50'),('ECRN-89544','2015-01-30 07:12:50'),('ECRN-89755','2015-01-30 07:12:50'),('ECRN-89847','2015-01-30 07:12:50'),('ECRN-91165','2015-01-30 07:12:50'),('ECRN-89847','2015-01-30 14:22:37');
 /*!40000 ALTER TABLE `post_announcement_lecture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,12 +338,12 @@ DROP TABLE IF EXISTS `registration`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `registration` (
   `reg_id` varchar(16) NOT NULL DEFAULT '',
-  `reg_lname` varchar(30) NOT NULL,
-  `reg_fname` varchar(30) NOT NULL,
+  `reg_lname` varchar(30) NOT NULL DEFAULT '',
+  `reg_fname` varchar(30) NOT NULL DEFAULT '',
   `reg_mname` varchar(30) DEFAULT NULL,
   `reg_gender` varchar(6) DEFAULT NULL,
   `reg_status` varchar(10) DEFAULT NULL,
-  `reg_birthday` date NOT NULL,
+  `reg_birthday` date NOT NULL DEFAULT '0000-00-00',
   `reg_address` varchar(150) DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`reg_id`)
@@ -356,7 +356,7 @@ CREATE TABLE `registration` (
 
 LOCK TABLES `registration` WRITE;
 /*!40000 ALTER TABLE `registration` DISABLE KEYS */;
-INSERT INTO `registration` VALUES ('MA1411302-545985','Arandia','Darryl','Eda','Male','single','1993-12-05',NULL,'views/res/avatar5.png'),('MP1411304-789451','Arandia','Erised Faith','Mizaki','Female','married','1993-07-07',NULL,'views/res/parent.jpg'),('MS1401011-436135','Gabiana','Celina Joy','Roses','Female','single','2005-02-14',NULL,'views/res/student1.jpg'),('MS1401035-465413','Guinoban','Mareinald','Asuncion','Female','single ','2005-04-14',NULL,'views/res/student2.jpg'),('MS1403176-798463','Hacutina','Shaina Yasmien','Bongon','Female','single','2005-03-18',NULL,'views/res/student3.jpg'),('MS1404219-765416','Llandelar','Jewel Mae','Enrique','Female','single','2005-08-19',NULL,'views/res/student4.jpg'),('MS1407205-132132','Montiel','Jermerose','Mundawe','Female','single','2005-11-16',NULL,'views/res/student5.jpg'),('MS1407228-685641','Negrido','Jaycel Anne','Curtiz','Female','single','2005-07-23',NULL,'views/res/student6.jpg'),('MS1408149-436566','Ogarido','Zeikielee','Pamozo','Female','single','2005-10-25',NULL,'views/res/student7.jpg'),('MS1408213-131313','Mangabat','Jord Ashley','Peran','Female','single','2005-10-05',NULL,'views/res/student8.jpg'),('MS1409296-136131','Sadia','Vanessa','Belozo','Female','single','2005-11-23',NULL,'views/res/student9.jpg'),('MS1410109-413125','Vaso','Maricris','Culo','Female','single','2004-06-06',NULL,'views/res/student10.jpg'),('MS1411301-657755','Arandia','Kenshin','Mizaki','Male','single','2009-07-07',NULL,'views/res/student1.jpg'),('MS1412027-894643','Rosales','Lance Jayson','Benitez','Male','single','2004-03-23',NULL,'views/res/student2.jpg'),('MS1412034-897411','Mesa','Mars Ezikiel','Sumbag','Male','single','2004-02-13',NULL,'views/res/student3.jpg'),('MS1412039-789777','Dalan','Justin','Caballo','Male','single','2004-11-20',NULL,'views/res/student4.jpg'),('MS1412045-798461','Pangowen','Jodelf','Azoda','Male','single','2005-10-22',NULL,'views/res/student5.jpg'),('MS1412057-798461','Velasco','Julian','Meranda','Male','single','2005-07-29',NULL,'views/res/student6.jpg'),('MS1412067-465133','Saratan','John West','Malibago','Male','single ','2004-09-27',NULL,'views/res/student7.jpg'),('MS1412067-798423','Perez','John Levy','Pamela','Male','single','2005-04-06',NULL,'views/res/student8.jpg'),('MS1412067-978989','Lazaro','Raphael John','Santos','Male','single','2005-04-09',NULL,'views/res/student9.jpg'),('MS1412075-546651','Alcantara','Jerome','Luna','Male','single','2004-01-01',NULL,'views/res/student10.jpg'),('MS1412078-784265','Eroma','Joaquin','Gargantiel','Male','single','2004-03-08',NULL,'views/res/student1.jpg'),('MS1412078-893214','Opena','Eichi Rein','Arellano','Male','single ','2005-02-01',NULL,'views/res/student2.jpg'),('MS1412081-655155','Cabanas','Ireal Jhun','Ocava','Male','single','2005-02-28',NULL,'views/res/student3.jpg'),('MS1412083-789913','Puno','Matt Joshua','Morales','Male','single','2005-05-05',NULL,'views/res/student4.jpg'),('MS1412085-456113','Redilla','Mart Lloyd','Pangga','Male','single','2005-11-26',NULL,'views/res/student5.jpg'),('MS1412087-789411','Loresca','Kylon','DeVarga','Male','single','2005-01-11',NULL,'views/res/student6.jpg'),('MS1412089-798414','Arenda','Daren','Almoro','Male','single','2005-05-26',NULL,'views/res/student7.jpg'),('MS1412092-878789','Calda','Jeremiah','Yuson','Male','single','2005-03-14',NULL,'views/res/student8.jpg'),('MS1412093-456554','Leyeza','Christopher','Tumbaga','Male','single','2005-01-10',NULL,'views/res/student9.jpg'),('MS1412093-791613','Rebadulla',' Kyle Justin ','Perez','Male','single','2005-04-17',NULL,'views/res/student10.jpg'),('MS1412097-895123','Lazaro','Raphae John','Soriano','Male','single','2004-03-25',NULL,'views/res/student1.jpg'),('MS1412107-654313','Sabado','Alexander','Veranzo','Male','single','2005-06-15',NULL,'views/res/student2.jpg'),('MS1412108-416511','Aquino','Reanne Jane','Bayona','Female','single','2005-01-14',NULL,'views/res/student3.jpg'),('MS1412110-611233','Argana','Francine','Ocava','Female','single','2006-04-11',NULL,'views/res/student4.jpg'),('MS1412121-436111','Bombasi','Krish Abigail','Verano','Female','single','2005-05-21',NULL,'views/res/student5.jpg'),('MS1412128-132132','Baltazar','Cris Arn','Daguplo','Female','single','2006-03-03',NULL,'views/res/student6.jpg'),('MS1412134-132156','Castro','Cassandra Dhenise','Estrada','Female','single','2005-06-24',NULL,'views/res/student7.jpg'),('MS1412139-132133','Carullo','Giellian','Rebesa','Female','single','2005-04-28',NULL,'views/res/student8.jpg'),('MS1412147-746546','Dayrit','Kristine May','Alcantra','Female','single','2005-07-20',NULL,'views/res/student9.jpg'),('MS1412147-897711','Delos Santos','John Mario','Bayrante','Male','single','2005-07-26',NULL,'views/res/student10.jpg'),('MS1412159-651315','De Guzman','Chasie Trinity','Mendez','Female','single','2005-08-21',NULL,'views/res/student1.jpg'),('MS1412178-313131','Domingo','Christine Rhean','Romualdez','Female','single','2004-07-07',NULL,'views/res/student2.jpg'),('MS1412189-416313','Ferrer','Riz','Margareth','Female','single','2005-01-18',NULL,'views/res/student3.jpg'),('MS1412225-564611','Manalili','Ashley Nicole','Duran','Female','single','2005-09-24',NULL,'views/res/student4.jpg'),('MS1412236-798777','Casacop','Deniell Reye','Vitug','Male','single','2005-05-13',NULL,'views/res/student5.jpg'),('MT1411303-788915','Musashi','Miyamoto','Genbei','Male','single','1960-06-06',NULL,'views/res/avatar04.png'),('MT1411303-789121','Arandia','Emilia Eliza','Eda','Female','married','1957-09-12',NULL,'views/res/avatar2.png');
+INSERT INTO `registration` VALUES ('MA1411302-545985','Arandia','Darryl','Eda','Male','Single','1993-12-08','299 Arandia Tunasan Muntinlupa City','avatar5.png'),('MA1501247-760021','u','u','u','Male','Single','2015-01-08','g','archbridge.jpg'),('MA1501249-179710','e','e','er','Male','Single','2015-01-06','e','Animal-I Love Birds.jpg'),('MA1501251-812331','e','ad','df','Male','Single','2015-01-27','adf','CG-Cars 1.jpg'),('MA1501270-974248','vn','v','v','Male','Single','2015-01-13','v','City5571.jpg'),('MA1501277-200260','dfgdfg','sdfgdsf','gdfgs','Male','Single','2015-01-21','sdfgsdfg','City5525.jpg'),('MA1501297-766825','Naraag','Crizhaa','d','Male','Single','2015-01-14','dfasdfasdf','New_Bliss1024_768.jpg'),('MA1501302-571871','q','q','q','Female','Married','2015-01-08','g','rockface1024_768.jpg'),('MP1411304-789451','Arandia','Erised Faith','Mizaki','Female','married','1993-07-07',NULL,'parent.jpg'),('MP1501251-539825','j','j','j','Male','Single','2015-01-25',NULL,NULL),('MP1501252-207748','t','t','t','Male','Single','2015-01-25',NULL,NULL),('MP1501252-392969','a','f','f','Male','Single','2015-01-25',NULL,NULL),('MP1501254-192288','cvb','cv','cvb','Male','Single','2015-01-25',NULL,NULL),('MP1501259-365224','ghj','ghj','ghj','Male','Single','2015-01-25',NULL,NULL),('MP1501273-874947','sdf','ssadgfd','','Male','Single','2015-01-27',NULL,NULL),('MP1501305-323805','tyuty','tyu','tyu',NULL,NULL,'2015-01-30',NULL,NULL),('MP1501308-923519','sdfgsdfg','sdfgsdfg','sdfgsdfg',NULL,NULL,'2015-01-30',NULL,NULL),('MS1401011-436135','Gabiana','Celina Joy','Roses','Female','Single','2005-02-09','Putatan Muntinlupa','student1.jpg'),('MS1401035-465413','Guinoban','Mareinald','Asuncion','Female','Single','2005-04-15','Bayanan','student2.jpg'),('MS1403176-798463','Hacutina','Shaina Yasmien','Bongon','Female','Single','2005-03-18',NULL,'student3.jpg'),('MS1404219-765416','Llandelar','Jewel Mae','Enrique','Female','Single','2005-08-19',NULL,'student4.jpg'),('MS1407205-132132','Montiel','Jermerose','Mundawe','Female','Single','2005-11-16',NULL,'student5.jpg'),('MS1407228-685641','Negrido','Jaycel Anne','Curtiz','Female','Single','2005-07-23',NULL,'student6.jpg'),('MS1408149-436566','Ogarido','Zeikielee','Pamozo','Female','Single','2005-10-25',NULL,'student7.jpg'),('MS1408213-131313','Mangabat','Jord Ashley','Peran','Female','Single','2005-10-05',NULL,'student8.jpg'),('MS1409296-136131','Sadia','Vanessa','Belozo','Female','Single','2005-11-23',NULL,'student9.jpg'),('MS1410109-413125','Vaso','Maricris','Culo','Female','Single','2004-06-06',NULL,'student10.jpg'),('MS1411301-657755','Arandia','Kenshin','Mizaki','Male','Single','2009-07-15','Tunasan Muntinlupa','student1.jpg'),('MS1412027-894643','Rosales','Lance Jayson','Benitez','Male','Single','2004-03-23',NULL,'student2.jpg'),('MS1412034-897411','Mesa','Mars Ezikiel','Sumbag','Male','Single','2004-02-13',NULL,'student3.jpg'),('MS1412039-789777','Dalan','Justin','Caballo','Male','Single','2004-11-20',NULL,'student4.jpg'),('MS1412045-798461','Pangowen','Jodelf','Azoda','Male','Single','2005-10-22',NULL,'student5.jpg'),('MS1412057-798461','Velasco','Julian','Meranda','Male','Single','2005-07-29',NULL,'student6.jpg'),('MS1412067-465133','Saratan','John West','Malibago','Male','Single','2004-09-27',NULL,'student7.jpg'),('MS1412067-798423','Perez','John Levy','Pamela','Male','Single','2005-04-06',NULL,'student8.jpg'),('MS1412067-978989','Lazaro','Raphael John','Santos','Male','Single','2005-04-09',NULL,'student9.jpg'),('MS1412075-546651','Alcantara','Jerome','Luna','Male','Single','2004-01-01',NULL,'student10.jpg'),('MS1412078-784265','Eroma','Joaquin','Gargantiel','Male','Single','2004-03-08',NULL,'student1.jpg'),('MS1412078-893214','Opena','Eichi Rein','Arellano','Male','Single','2005-02-01',NULL,'student2.jpg'),('MS1412081-655155','Cabanas','Ireal Jhun','Ocava','Male','Single','2005-02-28',NULL,'student3.jpg'),('MS1412083-789913','Puno','Matt Joshua','Morales','Male','Single','2005-05-05',NULL,'student4.jpg'),('MS1412085-456113','Redilla','Mart Lloyd','Pangga','Male','Single','2005-11-26',NULL,'student5.jpg'),('MS1412087-789411','Loresca','Kylon','DeVarga','Male','Single','2005-01-11',NULL,'student6.jpg'),('MS1412089-798414','Arenda','Daren','Almoro','Male','Single','2005-05-26',NULL,'student7.jpg'),('MS1412092-878789','Calda','Jeremiah','Yuson','Male','Single','2005-03-14',NULL,'student8.jpg'),('MS1412093-456554','Leyeza','Christopher','Tumbaga','Male','Single','2005-01-10',NULL,'student9.jpg'),('MS1412093-791613','Rebadulla',' Kyle Justin ','Perez','Male','Single','2005-04-17',NULL,'student10.jpg'),('MS1412097-895123','Lazaro','Raphae John','Soriano','Male','Single','2004-03-25',NULL,'student1.jpg'),('MS1412107-654313','Sabado','Alexander','Veranzo','Male','Single','2005-06-15',NULL,'student2.jpg'),('MS1412108-416511','Aquino','Reanne Jane','Bayona','Female','Single','2005-01-14',NULL,'student3.jpg'),('MS1412110-611233','Argana','Francine','Ocava','Female','Single','2006-04-11',NULL,'student4.jpg'),('MS1412121-436111','Bombasi','Krish Abigail','Verano','Female','Single','2005-05-21',NULL,'student5.jpg'),('MS1412128-132132','Baltazar','Cris Arn','Daguplo','Female','Single','2006-03-03',NULL,'student6.jpg'),('MS1412134-132156','Castro','Cassandra Dhenise','Estrada','Female','Single','2005-06-24',NULL,'student7.jpg'),('MS1412139-132133','Carullo','Giellian','Rebesa','Female','Single','2005-04-28',NULL,'student8.jpg'),('MS1412147-746546','Dayrit','Kristine May','Alcantra','Female','Single','2005-07-20',NULL,'student9.jpg'),('MS1412147-897711','Delos Santos','John Mario','Bayrante','Male','Single','2005-07-26',NULL,'student10.jpg'),('MS1412159-651315','De Guzman','Chasie Trinity','Mendez','Female','Single','2005-08-21',NULL,'student1.jpg'),('MS1412178-313131','Domingo','Christine Rhean','Romualdez','Female','Single','2004-07-07',NULL,'student2.jpg'),('MS1412189-416313','Ferrer','Riz','Margareth','Female','Single','2005-01-18',NULL,'student3.jpg'),('MS1412225-564611','Manalili','Ashley Nicole','Duran','Female','Single','2005-09-24',NULL,'student4.jpg'),('MS1412236-798777','Casacop','Deniell Reye','Vitug','Male','Single','2005-05-13',NULL,'student5.jpg'),('MS1501250-697060','hgjg','ghj','ghj','Male','Single','2015-01-14','ghj','City5040.jpg'),('MS1501254-949394','sd','asdf','ad','Male','Single','2015-01-06','df','Animal-Leopard.jpg'),('MS1501255-947752','xcvb','cvb','cvb','Male','Single','2015-01-07','cvb','City5024.jpg'),('MS1501256-566584','k','j','j','Male','Single','2015-01-13','j','CG-Dog Bear Man.jpg'),('MS1501256-903231','t','t','','Male','Single','2015-01-13','t','Cartoon-Cat Blue.jpg'),('MS1501275-432925','sdf','ssadgfd','','Male','Single','2015-01-20','','Lush_Summer1024_768.jpg'),('MS1501300-259794','tyuty','tyu','tyu','Female','Single','2015-01-14','tyutyutyutyutu','City5328.jpg'),('MS1501301-182038','sdfgsdfg','sdfgsdfg','sdfgsdfg','Male','Single','2015-01-20','sdfgsdfg','Nature5093.jpg'),('MT1411303-788915','Musashi','Miyamoto','Genbei','Male','Single','1960-06-07','Japan','avatar04.png'),('MT1411303-789121','Arandia','Emilia Eliza','Eda','Female','Married','1957-09-12','null','avatar2.png'),('MT1501256-768569','Sirauloxdfgdf','Atom','Neutron','Male','Single','2015-01-16','Jengjeng5','CG-Atom.jpg'),('MT1501277-419740','sdfa','sdfgasdg','sdgf','asdg','Single','2015-01-20','sadg','Green_with_Envy1024_768.jpg'),('MT1501305-574371','wer','wer','wer','Female','Married','2015-01-14','wer','City5477.jpg');
 /*!40000 ALTER TABLE `registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,8 +394,7 @@ DROP TABLE IF EXISTS `section`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `section` (
   `class_rec_no` varchar(10) NOT NULL,
-  `sectionNo` varchar(2) DEFAULT NULL,
-  `section_name` varchar(20) DEFAULT NULL,
+  `sectionID` varchar(6) DEFAULT NULL,
   `sched_days` varchar(7) DEFAULT NULL,
   `sched_start_time` time DEFAULT NULL,
   `sched_end_time` time DEFAULT NULL,
@@ -404,16 +403,16 @@ CREATE TABLE `section` (
   `levelID` varchar(5) DEFAULT NULL,
   `roomNo` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`class_rec_no`),
-  KEY `PK_section1` (`sectionNo`,`section_name`),
+  KEY `FK_section2` (`sectionID`),
   KEY `FK_section3` (`teacherID`),
   KEY `FK_section4` (`subjectID`),
   KEY `FK_section5` (`levelID`),
   KEY `FK_section6` (`roomNo`),
+  CONSTRAINT `FK_section2` FOREIGN KEY (`sectionID`) REFERENCES `section_list` (`sectionID`),
   CONSTRAINT `FK_section3` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`teacherID`),
   CONSTRAINT `FK_section4` FOREIGN KEY (`subjectID`) REFERENCES `subject_` (`subjectID`),
   CONSTRAINT `FK_section5` FOREIGN KEY (`levelID`) REFERENCES `grade_level` (`levelID`),
-  CONSTRAINT `FK_section6` FOREIGN KEY (`roomNo`) REFERENCES `room` (`roomNo`),
-  CONSTRAINT `PK_section1` FOREIGN KEY (`sectionNo`, `section_name`) REFERENCES `section_list` (`sectionNo`, `section_name`)
+  CONSTRAINT `FK_section6` FOREIGN KEY (`roomNo`) REFERENCES `room` (`roomNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -423,7 +422,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES ('ECRN-23165','3','Mabini','MWF','09:00:00','10:00:00','EAS-0003','MT1411303-788915','G0003','654'),('ECRN-54544','5','Gumamela','MWF','13:00:00','14:00:00','EAS-0005','MT1411303-789121','G0003','879'),('ECRN-54644','4','Sampaguita','MWF','10:00:00','11:00:00','EAS-0004','MT1411303-789121','G0003','777'),('ECRN-79542','1','Rizal','MWF','07:00:00','08:00:00','EAS-0001','MT1411303-789121','G0003','322'),('ECRN-89462','2','Bonifacio','TTh','10:00:00','11:00:00','EAS-0005','MT1411303-789121','G0003','891'),('ECRN-89544','6','Santan','MWF','14:00:00','15:00:00','EAS-0006','MT1411303-789121','G0003','891'),('ECRN-89755','2','Bonifacio','MWF','08:00:00','09:00:00','EAS-0002','MT1411303-789121','G0003','447'),('ECRN-89847','2','Bonifacio','TTh','09:00:00','10:00:00','EAS-0001','MT1411303-789121','G0003','895'),('ECRN-91165','1','Carinosa','TTh','08:00:00','09:00:00','EAS-0003','MT1411303-789121','G0002','891');
+INSERT INTO `section` VALUES ('ECRN-23165','S00005','MWF','09:00:00','10:00:00','EAS-0003','MT1411303-788915','G0003','654'),('ECRN-54544','S00009','MWF','13:00:00','14:00:00','EAS-0005','MT1411303-789121','G0003','879'),('ECRN-54644','S00008','MWF','10:00:00','11:00:00','EAS-0004','MT1411303-789121','G0003','777'),('ECRN-79542','S00002','MWF','07:00:00','08:00:00','EAS-0001','MT1411303-789121','G0003','322'),('ECRN-89462','S00003','TTH','10:00:00','11:00:00','EAS-0005','MT1411303-789121','G0003','891'),('ECRN-89544','S00010','MWF','14:00:00','15:00:00','EAS-0006','MT1411303-789121','G0003','891'),('ECRN-89755','S00003','MWF','08:00:00','09:00:00','EAS-0002','MT1411303-789121','G0003','447'),('ECRN-89847','S00003','TTH','09:00:00','10:00:00','EAS-0001','MT1411303-789121','G0003','895'),('ECRN-91165','S00001','TTH','08:00:00','09:00:00','EAS-0003','MT1411303-789121','G0002','891');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,9 +434,10 @@ DROP TABLE IF EXISTS `section_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `section_list` (
-  `sectionNo` varchar(2) NOT NULL DEFAULT '',
-  `section_name` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`sectionNo`,`section_name`)
+  `sectionID` varchar(6) NOT NULL DEFAULT '',
+  `sectionNo` varchar(2) DEFAULT NULL,
+  `section_name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`sectionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -447,7 +447,7 @@ CREATE TABLE `section_list` (
 
 LOCK TABLES `section_list` WRITE;
 /*!40000 ALTER TABLE `section_list` DISABLE KEYS */;
-INSERT INTO `section_list` VALUES ('1','Cariñosa'),('1','Rizal'),('2','Bonifacio'),('2','Waltz'),('3','Mabini'),('3','Tango'),('4','Folkdance'),('4','Sampaguita'),('5','Gumamela'),('6','Santan');
+INSERT INTO `section_list` VALUES ('S00001','1','Carinosa'),('S00002','1','Rizal'),('S00003','2','Bonifacio'),('S00004','2','Waltz'),('S00005','3','Mabini'),('S00006','3','Tango'),('S00007','4','Folkdance'),('S00008','4','Sampaguita'),('S00009','5','Gumamela'),('S00010','6','Santan'),('S60873','1','Hitler'),('S77326','5','dgsdfgsdf');
 /*!40000 ALTER TABLE `section_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -474,7 +474,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES ('MS1401011-436135',NULL),('MS1401035-465413',NULL),('MS1403176-798463',NULL),('MS1404219-765416',NULL),('MS1407205-132132',NULL),('MS1407228-685641',NULL),('MS1408149-436566',NULL),('MS1408213-131313',NULL),('MS1409296-136131',NULL),('MS1410109-413125',NULL),('MS1412027-894643',NULL),('MS1412034-897411',NULL),('MS1412045-798461',NULL),('MS1412057-798461',NULL),('MS1412067-465133',NULL),('MS1412067-798423',NULL),('MS1412078-893214',NULL),('MS1412083-789913',NULL),('MS1412085-456113',NULL),('MS1412087-789411',NULL),('MS1412093-456554',NULL),('MS1412093-791613',NULL),('MS1412107-654313',NULL),('MS1412121-436111',NULL),('MS1412128-132132',NULL),('MS1412134-132156',NULL),('MS1412139-132133',NULL),('MS1412147-746546',NULL),('MS1412159-651315',NULL),('MS1412178-313131',NULL),('MS1412189-416313',NULL),('MS1412225-564611',NULL),('MS1411301-657755','MP1411304-789451'),('MS1412039-789777','MP1411304-789451'),('MS1412067-978989','MP1411304-789451'),('MS1412075-546651','MP1411304-789451'),('MS1412078-784265','MP1411304-789451'),('MS1412081-655155','MP1411304-789451'),('MS1412092-878789','MP1411304-789451'),('MS1412108-416511','MP1411304-789451'),('MS1412110-611233','MP1411304-789451'),('MS1412147-897711','MP1411304-789451'),('MS1412236-798777','MP1411304-789451');
+INSERT INTO `student` VALUES ('MS1401011-436135',NULL),('MS1401035-465413',NULL),('MS1403176-798463',NULL),('MS1404219-765416',NULL),('MS1407205-132132',NULL),('MS1407228-685641',NULL),('MS1408149-436566',NULL),('MS1408213-131313',NULL),('MS1409296-136131',NULL),('MS1410109-413125',NULL),('MS1412027-894643',NULL),('MS1412034-897411',NULL),('MS1412045-798461',NULL),('MS1412057-798461',NULL),('MS1412067-465133',NULL),('MS1412067-798423',NULL),('MS1412078-893214',NULL),('MS1412083-789913',NULL),('MS1412085-456113',NULL),('MS1412087-789411',NULL),('MS1412093-456554',NULL),('MS1412093-791613',NULL),('MS1412107-654313',NULL),('MS1412121-436111',NULL),('MS1412128-132132',NULL),('MS1412134-132156',NULL),('MS1412139-132133',NULL),('MS1412147-746546',NULL),('MS1412159-651315',NULL),('MS1412178-313131',NULL),('MS1412189-416313',NULL),('MS1412225-564611',NULL),('MS1411301-657755','MP1411304-789451'),('MS1412039-789777','MP1411304-789451'),('MS1412067-978989','MP1411304-789451'),('MS1412075-546651','MP1411304-789451'),('MS1412078-784265','MP1411304-789451'),('MS1412081-655155','MP1411304-789451'),('MS1412092-878789','MP1411304-789451'),('MS1412108-416511','MP1411304-789451'),('MS1412110-611233','MP1411304-789451'),('MS1412147-897711','MP1411304-789451'),('MS1412236-798777','MP1411304-789451'),('MS1501255-947752','MP1501254-192288'),('MS1501250-697060','MP1501259-365224'),('MS1501275-432925','MP1501273-874947'),('MS1501300-259794','MP1501305-323805'),('MS1501301-182038','MP1501308-923519');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,7 +513,7 @@ CREATE TABLE `student_rating` (
 
 LOCK TABLES `student_rating` WRITE;
 /*!40000 ALTER TABLE `student_rating` DISABLE KEYS */;
-INSERT INTO `student_rating` VALUES ('GR-1520966','MS1411301-657755','ECRN-89847','2nd',4,98,85,74,55,74.65,'D'),('GR-1544915','MS1411301-657755','ECRN-89847','1st',5,50,51,52,53,54,'B'),('GR-1548177','MS1411301-657755','ECRN-89847','1st',1,90,90,90,90,90,'A'),('GR-1631797','MS1411301-657755','ECRN-89847','2nd',5,69,68,67,52,63.05,'B'),('GR-1693461','MS1411301-657755','ECRN-89847','3rd',1,25,10,15,30,19.75,'B'),('GR-1795438','MS1412057-798461','ECRN-89847','1st',1,73,73,73,73,73,'B'),('GR-1914941','MS1411301-657755','ECRN-89462','3rd',3,10,9,8,6,7.95,'B'),('GR-1917316','MS1411301-657755','ECRN-89462','1st',1,100,100,100,100,100,'A'),('GR-1942187','MS1411301-657755','ECRN-89847','2nd',6,30,25,15,50,30.25,'B'),('GR-2072741','MS1401011-436135','ECRN-79542','1st',1,85,84,86,82,84.15,'P'),('GR-2191899','MS1411301-657755','ECRN-91165','1st',7,94,93,92,99,94.65,'A'),('GR-2281214','MS1412057-798461','ECRN-89847','1st',2,90,90,90,90,90,'A'),('GR-3155516','MS1411301-657755','ECRN-89847','4th',1,50,10,99,100,69.7,'B'),('GR-3195718','MS1411301-657755','ECRN-89462','3rd',2,100,90,75,55,76.5,'D'),('GR-3284939','MS1411301-657755','ECRN-89462','2nd',2,100,90,70,40,70.5,'B'),('GR-3704030','MS1401011-436135','ECRN-79542','3rd',1,89,90,90,90,89.85,'A'),('GR-3709629','MS1411301-657755','ECRN-89462','2nd',1,100,50,40,20,45.5,'B'),('GR-3772761','MS1411301-657755','ECRN-89847','1st',6,60,61,62,63,64,'B'),('GR-3792792','MS1401011-436135','ECRN-79542','1st',4,90,95,95,95,94.25,'A'),('GR-3838611','MS1401011-436135','ECRN-79542','1st',3,100,100,100,100,100,'A'),('GR-4199509','MS1411301-657755','ECRN-89847','3rd',2,100,99,98,99,98.85,'A'),('GR-4740822','MS1411301-657755','ECRN-89847','1st',3,30,31,32,33,34,'B'),('GR-5389730','MS1411301-657755','ECRN-89847','2nd',1,85,85,84,80,83.2,'AP'),('GR-5799113','MS1411301-657755','ECRN-89462','4th',1,90,91,92,93,91.75,'A'),('GR-6054908','MS1411301-657755','ECRN-89847','1st',2,20,21,22,23,24,'B'),('GR-6172842','MS1412045-798461','ECRN-89847','1st',1,85,90.6,85.5,90,88.05,'P'),('GR-6263719','MS1411301-657755','ECRN-89462','3rd',5,7,7,7,7,7,'B'),('GR-8075021','MS1411301-657755','ECRN-89847','1st',4,40,41,42,43,44,'B'),('GR-8262986','MS1401011-436135','ECRN-79542','1st',2,88,73,89,56,74.95,'D'),('GR-8610677','MS1411301-657755','ECRN-89462','3rd',4,100,100,100,100,100,'A'),('GR-9774750','MS1411301-657755','ECRN-89847','2nd',2,83,82,82,82,82.15,'AP'),('GR-9999922','MS1411301-657755','ECRN-89847','2nd',3,90,89,88,86,87.95,'P');
+INSERT INTO `student_rating` VALUES ('GR-1202157','MS1411301-657755','ECRN-89462','1st',2,100,100,100,100,100,'A'),('GR-1520966','MS1411301-657755','ECRN-89847','2nd',4,98,85,74,55,74.65,'D'),('GR-1544915','MS1411301-657755','ECRN-89847','1st',5,50,51,52,53,54,'B'),('GR-1548177','MS1411301-657755','ECRN-89847','1st',1,90,90,90,90,90,'A'),('GR-1631797','MS1411301-657755','ECRN-89847','2nd',5,69,68,67,52,63.05,'B'),('GR-1693461','MS1411301-657755','ECRN-89847','3rd',1,25,10,15,30,19.75,'B'),('GR-1795438','MS1412057-798461','ECRN-89847','1st',1,73,73,73,73,73,'B'),('GR-1914941','MS1411301-657755','ECRN-89462','3rd',3,10,9,8,6,7.95,'B'),('GR-1917316','MS1411301-657755','ECRN-89462','1st',1,100,100,100,100,100,'A'),('GR-1942187','MS1411301-657755','ECRN-89847','2nd',6,30,25,15,50,30.25,'B'),('GR-2072741','MS1401011-436135','ECRN-79542','1st',1,85,84,86,82,84.15,'P'),('GR-2191899','MS1411301-657755','ECRN-91165','1st',7,94,93,92,99,94.65,'A'),('GR-2281214','MS1412057-798461','ECRN-89847','1st',2,90,90,90,90,90,'A'),('GR-3155516','MS1411301-657755','ECRN-89847','4th',1,50,10,99,100,69.7,'B'),('GR-3195718','MS1411301-657755','ECRN-89462','3rd',2,100,90,75,55,76.5,'D'),('GR-3284939','MS1411301-657755','ECRN-89462','2nd',2,100,90,70,40,70.5,'B'),('GR-3704030','MS1401011-436135','ECRN-79542','3rd',1,89,90,90,90,89.85,'A'),('GR-3709629','MS1411301-657755','ECRN-89462','2nd',1,100,50,40,20,45.5,'B'),('GR-3772761','MS1411301-657755','ECRN-89847','1st',6,60,61,62,63,64,'B'),('GR-3792792','MS1401011-436135','ECRN-79542','1st',4,90,95,95,95,94.25,'A'),('GR-3838611','MS1401011-436135','ECRN-79542','1st',3,100,100,100,100,100,'A'),('GR-4199509','MS1411301-657755','ECRN-89847','3rd',2,100,99,98,99,98.85,'A'),('GR-4740822','MS1411301-657755','ECRN-89847','1st',3,30,31,32,33,34,'B'),('GR-5389730','MS1411301-657755','ECRN-89847','2nd',1,85,85,84,80,83.2,'AP'),('GR-5799113','MS1411301-657755','ECRN-89462','4th',1,90,91,92,93,91.75,'A'),('GR-6054908','MS1411301-657755','ECRN-89847','1st',2,20,21,22,23,24,'B'),('GR-6172842','MS1412045-798461','ECRN-89847','1st',1,85,90.6,85.5,90,88.05,'P'),('GR-6263719','MS1411301-657755','ECRN-89462','3rd',5,7,7,7,7,7,'B'),('GR-8075021','MS1411301-657755','ECRN-89847','1st',4,40,41,42,43,44,'B'),('GR-8262986','MS1401011-436135','ECRN-79542','1st',2,88,73,89,56,74.95,'D'),('GR-8610677','MS1411301-657755','ECRN-89462','3rd',4,100,100,100,100,100,'A'),('GR-9774750','MS1411301-657755','ECRN-89847','2nd',2,83,82,82,82,82.15,'AP'),('GR-9999922','MS1411301-657755','ECRN-89847','2nd',3,90,89,88,86,87.95,'P');
 /*!40000 ALTER TABLE `student_rating` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -565,7 +565,7 @@ CREATE TABLE `subject_` (
 
 LOCK TABLES `subject_` WRITE;
 /*!40000 ALTER TABLE `subject_` DISABLE KEYS */;
-INSERT INTO `subject_` VALUES ('EAS-0001','Math'),('EAS-0002','English'),('EAS-0003','Science'),('EAS-0004','Hekasi'),('EAS-0005','PE'),('EAS-0006','GMRC');
+INSERT INTO `subject_` VALUES ('EAS-0001','Math'),('EAS-0002','English'),('EAS-0003','Science'),('EAS-0004','Hekasi'),('EAS-0005','PE'),('EAS-0006','GMRC'),('EAS-5078','nmbnmbmnb'),('EAS-6085','asdfsdf');
 /*!40000 ALTER TABLE `subject_` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -590,7 +590,7 @@ CREATE TABLE `teacher` (
 
 LOCK TABLES `teacher` WRITE;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
-INSERT INTO `teacher` VALUES ('MT1411303-788915','Teacher 3'),('MT1411303-789121','Teacher 3');
+INSERT INTO `teacher` VALUES ('MT1411303-788915','undefined'),('MT1411303-789121','undefined'),('MT1501256-768569','Teacher 3'),('MT1501277-419740','asdgasd'),('MT1501305-574371','werwer');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -603,4 +603,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-05 13:39:10
+-- Dump completed on 2015-01-30 20:21:37

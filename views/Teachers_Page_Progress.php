@@ -9,8 +9,8 @@
     
 		<title>Online Student Performance Monitoring System</title>
  
-		<link href="views/bootstrap.css" rel="stylesheet"/>
-        <link href="views/exDesign.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="views/css/exDesign.css" rel="stylesheet"/>
 
        
 	</head>
@@ -65,7 +65,7 @@
 									?>		
 											<div class="progress-student-container">
 									     			<div class="progress-student-img-holder">
-									     			<?php echo '<img src="' .$display['image'] . '" class="student-img"/>';?>
+									     			<?php echo '<img src="views/res/' .$display['image'] . '" class="student-img"/>';?>
 									     			</div>
 
 											     	<div class="progress-student-details">						     	
@@ -88,16 +88,13 @@
 </div><!--viewport-->
 
  
-        <script src="views/transition.js"></script>
-     
-        <script src="views/jquery.min.js"></script>
-        <script src="views/bootstrap.min.js"></script>
-		<script src="views/tab.js"></script>
-		
-	
-		<script src="views/tooltip.js"></script>
-		<script src="views/popover.js"></script>
-		<script src="views/scripts.js"></script>
+        <script src="views/plugins/bootstrap/transition.js"></script>
+        <script src="views/plugins/bootstrap/jquery.min.js"></script>
+        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
+		<script src="views/plugins/bootstrap/tab.js"></script>
+		<script src="views/plugins/bootstrap/tooltip.js"></script>
+		<script src="views/plugins/bootstrap/popover.js"></script>
+		<script src="views/js/scripts.js"></script>
 		
 		
      <!-- JavaScript Test -->
@@ -112,7 +109,7 @@
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_student_list.php',
+			            url: 'views/ajax/get_student_list.php',
 			            type: 'GET',
 			            data: {
 			            	subject:subject
@@ -143,7 +140,7 @@
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_student_list.php',
+			            url: 'views/ajax/get_student_list.php',
 			            type: 'GET',
 			            data: {
 			            	grade:grade
@@ -172,7 +169,7 @@
 		        	
 		        	$.ajax({
 			 
-			            url: 'views/get_student_list.php',
+			            url: 'views/ajax/get_student_list.php',
 			            type: 'GET',
 			            data: {
 			            	section:section
@@ -225,7 +222,7 @@
 								  
 							     var display = $('<div class="progress-student-container">' +
 							     					'<div class="progress-student-img-holder">' +
-							     						'<img src="' + rowData.image + '" class="student-img"/>' +
+							     						'<img src="views/res/' + rowData.image + '" class="student-img"/>' +
 							     					'</div>' +
 							     					'<div class="progress-student-details">' +							     	
 							     						'<a class="navbar-link" href="index.php?r=lss&tr=s" id="'+rowData.student_lrn+'" onclick="getLRN(this)">' +
@@ -252,7 +249,7 @@
 
 							$.ajax({
 			 
-						            url: 'views/get_student_list.php',
+						            url: 'views/ajax/get_student_list.php',
 						            type: 'GET',
 						            data: {
 						            	student_search:filter
@@ -279,7 +276,7 @@
 
 							$.ajax({
 			 
-						            url: 'views/get_student_list.php',
+						            url: 'views/ajax/get_student_list.php',
 						            type: 'GET',
 						            data: {
 						            	student_search_subject:filter
@@ -306,7 +303,7 @@
 
 							$.ajax({
 			 
-						            url: 'views/get_student_list.php',
+						            url: 'views/ajax/get_student_list.php',
 						            type: 'GET',
 						            data: {
 						            	student_search_grade:filter
@@ -333,7 +330,7 @@
 
 							$.ajax({
 			 
-						            url: 'views/get_student_list.php',
+						            url: 'views/ajax/get_student_list.php',
 						            type: 'GET',
 						            data: {
 						            	student_search_section:filter
@@ -361,7 +358,7 @@
 		        	
 				        	$.ajax({
 					 
-					            url: 'views/get_for_chart.php',
+					            url: 'views/ajax/get_for_chart.php',
 					            type: 'GET',
 					            data: {
 					            	lrn:lrn

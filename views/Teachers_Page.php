@@ -16,14 +16,7 @@
 		function check()
 		{
 		<?php
-			if (isset($_GET['ss']))
-			{
-					
-		?>
-				alert('Login Successful');
-		<?php					
-			}
-			
+		
 			if (isset($_GET['w']))
 			{
 		?>

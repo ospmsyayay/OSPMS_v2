@@ -68,8 +68,8 @@ create table create_account(
 
 username_ varchar(16) not null,
 password_ varchar(16) not null,
-secret_question varchar(30) not null,
-secret_answer varchar(30) not null,
+secret_question varchar(30),
+secret_answer varchar(30),
 user_type varchar(10),
 account_id VARCHAR(16) not null,
 constraint PK_create_user primary key (username_),

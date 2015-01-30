@@ -13,7 +13,38 @@
         <link href="views/css/exDesign.css" rel="stylesheet"/>
 	</head>
     
-	<body>
+	<body onload="check()">
+        <script>
+        function check()
+        {
+        <?php
+            if(isset($_GET['ue']))
+            {   
+        ?>      
+            alert('Username doesnt exist!');
+            window.location.href='index.php?';
+        <?php 
+            }
+            else if(isset($_GET['ip']))
+            {   
+        ?>
+            alert('Incorrect Password!');
+            window.location.href='index.php?';
+        <?php
+            }
+            else if(isset($_GET['peup']))
+            {
+        ?>
+            alert('Please enter username and password!');
+            window.location.href='index.php?';
+
+        <?php
+            }
+           
+        ?>       
+        }  
+         </script>       
+
 	
 <div class="header-wrapper">
 	<?php include "views/parts/navi-bar-home.php";?>

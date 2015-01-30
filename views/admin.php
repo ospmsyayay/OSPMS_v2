@@ -16,12 +16,6 @@
         function check()
         {
         <?php
-            if (isset($_GET['ss']))
-            {                               
-        ?>
-                alert('Login Successful');
-        <?php                   
-            }
             if(isset($_GET['ex']))
             {   
         ?>      
@@ -920,7 +914,7 @@
                                             '<td>'+rowData.t_position+'</td>'+
                                             '<td><div align="left"><img src="views/res/'+rowData.image+'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>'+
                                             '<td><button type="button" id="'+rowData.reg_id+'" class="btn btn-warning teacher-id">Edit/Update</button></td>'+
-                                        '</tr>');
+                                            '</tr>');
                            
                         $('#tp-box').append(display);
                     }
@@ -1316,16 +1310,23 @@
                                                                                         '<input type="text" name="edadmmname" class="form-control edit_admin" value="'+row.reg_mname+'" readonly="true">'+
                                                                                     '</div>'+
                                                                                 '</div>'+
-                                                                                '<div class="form-group">'+
+                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmgender" class="form-control edit_admin" value="'+row.reg_gender+'" readonly="true">'+
-                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control edit_admin_select" id="edadmgender" name="edadmgender" required="required" disabled="disabled">'+
+                                                                                             '<option value="Male">Male</option>'+
+                                                                                             '<option value="Female">Female</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmstatus" class="form-control edit_admin" value="'+row.reg_status+'" readonly="true">'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control edit_admin_select" id="edadmstatus" name="edadmstatus" required="required" disabled="disabled">'+
+                                                                                             '<option value="Single">Single</option>'+
+                                                                                             '<option value="Married">Married</option>'+
+                                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                                        '</select>'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
@@ -1354,6 +1355,30 @@
                                                         '</section>');
                                            
                                         $('.content').append(content);
+
+                                        if(row.reg_gender=='Male')
+                                        {
+                                            $('#edadmgender option[value=Male]').attr('selected','selected');
+                                        }
+                                        else if (row.reg_gender=='Female')
+                                        {
+                                            $('#edadmgender option[value=Female]').attr('selected','selected');
+                                        } 
+
+                                        if(row.reg_status=='Single')
+                                        {
+                                            $('#edadmstatus option[value=Single]').attr('selected','selected');
+                                        }
+                                        else if(row.reg_status=='Married')
+                                        {
+                                            $('#edadmstatus option[value=Married]').attr('selected','selected');
+                                        }
+                                        else if(row.reg_status=='Widowed')
+                                        {
+                                            $('#edadmstatus option[value=Widowed]').attr('selected','selected');
+                                        }    
+
+
                                     }
 
                         });//end of admin id
@@ -1364,12 +1389,14 @@
                             $('#upload-edit-admin-image').removeProp("style");
                             $('#edadbday').addClass('bday_datepicker');
                             $('.bday_datepicker').datepicker('enable');
+                            $('.edit_admin_select').removeAttr('disabled');
                         });
 
                         $(document.body).on('click', '#admin-edit-reset', function(){
                             $('.edit_admin').prop("readonly","true");
                             $('#upload-edit-admin-image').css("display","none");
                             $('.bday_datepicker').datepicker('disable');
+                            $('.edit_admin_select').attr('disabled',true);
                         });
 
                        
@@ -1442,7 +1469,7 @@
                                    {
                                       /* alert(JSON.stringify(response['edit_teacher']));  */
                                         display_edit_teacher(response['edit_teacher']);
-
+                                    
                                     },
 
 
@@ -1471,7 +1498,7 @@
 
                                     function reset_table(row)
                                     {
-
+                                        
                                         var content = $('<section class="col-lg-12 connectedSortable">'+                            
                                                             '<div class="row">'+
                                                                 '<div class="col-xs-12 col-sm-12">'+
@@ -1528,14 +1555,21 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachgender" class="form-control edit_teacher" value="'+row.reg_gender+'" readonly="true">'+
-                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control edit_teacher_select" id="edteachgender" name="edteachgender" required="required" disabled="disabled">'+
+                                                                                             '<option value="Male">Male</option>'+
+                                                                                             '<option value="Female">Female</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachstatus" class="form-control edit_teacher" value="'+row.reg_status+'" readonly="true">'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control edit_teacher_select" id="edteachstatus" name="edteachstatus" required="required" disabled="disabled">'+
+                                                                                             '<option value="Single">Single</option>'+
+                                                                                             '<option value="Married">Married</option>'+
+                                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                                        '</select>'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
@@ -1564,6 +1598,31 @@
                                                         '</section>');
                                            
                                         $('.content').append(content);
+
+                                        if(row.reg_gender=='Male')
+                                        {
+                                            $('#edteachgender option[value=Male]').attr('selected','selected');
+                                        }
+                                        else if (row.reg_gender=='Female')
+                                        {
+                                            $('#edteachgender option[value=Female]').attr('selected','selected');
+                                        } 
+
+                                        if(row.reg_status=='Single')
+                                        {
+                                            $('#edteachstatus option[value=Single]').attr('selected','selected');
+                                        }
+                                        else if(row.reg_status=='Married')
+                                        {
+                                            $('#edteachstatus option[value=Married]').attr('selected','selected');
+                                        }
+                                        else if(row.reg_status=='Widowed')
+                                        {
+                                            $('#edteachstatus option[value=Widowed]').attr('selected','selected');
+                                        }    
+                         
+
+
                                     }
                         });//end of teacher id
 
@@ -1572,12 +1631,14 @@
                             $('#upload-edit-teacher-image').removeProp("style");
                             $('#edteachbday').addClass('bday_datepicker');
                             $('.bday_datepicker').datepicker('enable');
+                            $('.edit_teacher_select').removeAttr('disabled');
                         });
 
                         $(document.body).on('click', '#teacher-edit-reset', function(){
                             $('.edit_teacher').prop("readonly","true");
                             $('#upload-edit-teacher-image').css("display","none");
                             $('.bday_datepicker').datepicker('disable');
+                            $('.edit_teacher_select').attr('disabled',true);
                         });
 
                         $(document.body).on('submit', '#edit-teacher-form', submitEditTeacherForm);
@@ -1733,16 +1794,23 @@
                                                                                         '<input type="text" name="edstudmname" class="form-control edit_student" value="'+row[3]+'" readonly="true">'+
                                                                                     '</div>'+
                                                                                 '</div>'+
-                                                                                '<div class="form-group">'+
+                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudgender" class="form-control edit_student" value="'+row[4]+'" readonly="true">'+
-                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control edit_student_select" id="edstudgender" name="edstudgender" required="required" disabled="disabled">'+
+                                                                                             '<option value="Male">Male</option>'+
+                                                                                             '<option value="Female">Female</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudstatus" class="form-control edit_student" value="'+row[5]+'" readonly="true">'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control edit_student_select" id="edstudstatus" name="edstudstatus" required="required" disabled="disabled">'+
+                                                                                             '<option value="Single">Single</option>'+
+                                                                                             '<option value="Married">Married</option>'+
+                                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                                        '</select>'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
@@ -1771,6 +1839,29 @@
                                                         '</section>');
                                            
                                         $('.content').append(content);
+
+                                        if(row.reg_gender=='Male')
+                                        {
+                                            $('#edstudgender option[value=Male]').attr('selected','selected');
+                                        }
+                                        else if (row.reg_gender=='Female')
+                                        {
+                                            $('#edstudgender option[value=Female]').attr('selected','selected');
+                                        } 
+
+                                        if(row.reg_status=='Single')
+                                        {
+                                            $('#edstudstatus option[value=Single]').attr('selected','selected');
+                                        }
+                                        else if(row.reg_status=='Married')
+                                        {
+                                            $('#edstudstatus option[value=Married]').attr('selected','selected');
+                                        }
+                                        else if(row.reg_status=='Widowed')
+                                        {
+                                            $('#edstudstatus option[value=Widowed]').attr('selected','selected');
+                                        }
+
                                     }
                         });//end of student id
 
@@ -1779,12 +1870,13 @@
                             $('#upload-edit-student-image').removeProp("style");
                             $('#edstudbday').addClass('bday_datepicker');
                             $('.bday_datepicker').datepicker('enable');
+                            $('.edit_student_select').removeAttr('disabled');
                         });
 
                         $(document.body).on('click', '#student-edit-reset', function(){
                             $('.edit_student').prop("readonly","true");
                             $('#upload-edit-student-image').css("display","none");
-                            $('.bday_datepicker').datepicker('disable');
+                            $('.edit_student_select').attr('disabled',true);
                         });
 
                         $(document.body).on('submit', '#edit-student-form', submitEditStudentForm);
@@ -2565,14 +2657,21 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmgender" class="form-control add_admin">'+
-                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control add_admin_select" id="addadmgender" name="addadmgender" required="required">'+
+                                                                                             '<option value="Male">Male</option>'+
+                                                                                             '<option value="Female">Female</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmstatus" class="form-control add_admin">'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control add_admin_select" id="addadmstatus" name="addadmstatus" required="required">'+
+                                                                                             '<option value="Single">Single</option>'+
+                                                                                             '<option value="Married">Married</option>'+
+                                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                                        '</select>'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
@@ -2753,14 +2852,21 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachgender" class="form-control add_teacher">'+
-                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control add_teacher_select" id="addteachgender" name="addteachgender" required="required">'+
+                                                                                             '<option value="Male">Male</option>'+
+                                                                                             '<option value="Female">Female</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachstatus" class="form-control add_teacher">'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<select class="form-control add_teacher_select" id="addteachstatus" name="addteachstatus" required="required">'+
+                                                                                             '<option value="Single">Single</option>'+
+                                                                                             '<option value="Married">Married</option>'+
+                                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                                        '</select>'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
@@ -2940,11 +3046,15 @@
                                                                                     '</div>'+
 
                                                                                 '</div>'+
+
                                                                                 '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
+                                                                                   '<label class="col-sm-2 control-label">Gender</label>'+
                                                                                     '<div class="col-sm-3">'+
-                                                                                        '<input type="text" name="addstudgender" class="form-control add_student">'+
-                                                                                    '</div>'+
+                                                                                        '<select class="form-control add_student_select" id="addstudgender" name="addstudgender" required="required">'+
+                                                                                             '<option value="Male">Male</option>'+
+                                                                                             '<option value="Female">Female</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+       
 
                                                                                     '<label class="col-sm-2 control-label">First Name</label>'+
                                                                                     '<div class="col-sm-4">'+
@@ -2954,7 +3064,11 @@
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
                                                                                     '<div class="col-sm-3">'+
-                                                                                        '<input type="text" name="addstudstatus" class="form-control add_student">'+
+                                                                                        '<select class="form-control add_student_select" id="addstudstatus" name="addstudstatus" required="required">'+
+                                                                                             '<option value="Single">Single</option>'+
+                                                                                             '<option value="Married">Married</option>'+
+                                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                                        '</select>'+
                                                                                     '</div>'+
 
                                                                                     '<label class="col-sm-2 control-label">Middle Name</label>'+

@@ -1313,13 +1313,13 @@ text-align: right;
 /**Panel-Home Group**/
 #fs_border
 {
-border: 2px solid #009;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
-  box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.75);
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 10px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 10px 10px 10px rgba(50, 50, 50, 0.75);
+  box-shadow: 10px 10px 10px rgba(50, 50, 50, 0.75);
 }
 
 /**onlineExerMenu**/
@@ -1445,4 +1445,67 @@ footer {
    margin-left:10px;
    padding:8px;
 }
+/*Account Settings*/
+.account-settings-header {
+  background-color: rgba(210, 224, 255, 0.8);
+  border-top: 3px solid #778492;
+  border-bottom:5px solid #778492;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
 
+}
+.profile-image
+{
+	margin: 5px 5px 5px 5px;
+	height:120px;
+	width:120px;
+}
+.profile-content {
+    float: left;
+    margin-left:10px;
+  }
+.account-name
+{
+	box-sizing: border-box;
+	color: #49515B;
+	font-family: "Montserrat",sans-serif;
+	font-size: 38px;
+	font-weight: 700;
+	line-height: 41.8px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 30px;
+
+}
+.account-name-small
+{
+	box-sizing: border-box;
+	color: #434343;
+	font-family: "Lato",arial,sans-serif;
+	font-size: 20px;
+	line-height: 22.85px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	margin-top: 0px;
+	padding-left: 0px;
+
+}
+.sections-wrapper {
+  padding-top: 0px;
+  padding-bottom: 2px;
+}
+
+.section-inner {
+  background-color:  rgba(173, 204, 255, 0.7);
+  border-bottom:3px solid #778492;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+
+}

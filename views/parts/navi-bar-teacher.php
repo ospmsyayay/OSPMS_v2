@@ -45,7 +45,7 @@
 							
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 										<li role="presentation"> 
-											<a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a> </li>
+											<a role="menuitem" tabindex="-1" href="index.php?r=lss&tr=acc"><span class="glyphicon glyphicon-cog"></span>Settings</a> </li>
 											<li class="divider"></li>	
 									<li role="presentation"> <a role="menuitem" tabindex="-1" href="index.php?r=xt"><span class="glyphicon glyphicon-off"></span> Logout</a> </li> 	
 								</ul> 

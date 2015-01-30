@@ -17,13 +17,6 @@
 		function check()
 		{
 		<?php
-			if (isset($_GET['ss']))
-			{
-					
-		?>
-				alert('Login Successful');
-		<?php					
-			}
 			
 			if(isset($_GET['fnf']))
 			{	
@@ -228,6 +221,7 @@
 		<script src="views/plugins/bootstrap/tooltip.js"></script>
 		<script src="views/plugins/bootstrap/popover.js"></script>
 		<script src="views/plugins/chartjs/Chart.js"></script>
+		<script src="views/js/scripts.js"></script>	
 
      <!-- JavaScript Test -->
 <script>

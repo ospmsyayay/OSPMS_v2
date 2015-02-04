@@ -13,7 +13,7 @@
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
     
-	<body onload="check()">
+	<body onload="check()" id="homepage-body">
         <script>
         function check()
         {

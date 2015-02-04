@@ -10,7 +10,7 @@
 body 
 {
    	background-color : RGB(30, 30, 30);
-	background-image : url('../res/TES_BG.jpg');
+	background-image : url('../res/BG_OSPMS.jpg');
 	background-size : 100% 100%;
 	background-attachment : fixed;
 	
@@ -18,13 +18,6 @@ body
 	scrollbar-shadow-color: black;
 	scrollbar-track-color: RGB(140, 140, 140);
 	scrollbar-arrow-color: RGB(50, 50, 50);
-
-	/*background-image: url('res/TES_BACKGROUND.jpg');
-	background-repeat:  no-repeat; 
-	background-position: center center; 
-	background-attachment:fixed;*/
-   /* -webkit-filter: blur(100px) grayscale(50%);*/
-	/*margin: 0px auto;*/
 
 }
 
@@ -175,6 +168,19 @@ width:740px;
 }
 
 /** HomePage **/
+#homepage-body
+{
+	background-color : RGB(30, 30, 30);
+	background-image : url('../res/TES_BG.jpg');
+	background-size : 100% 100%;
+	background-attachment : fixed;
+	
+	scrollbar-face-color : RGB(70, 70, 70);
+	scrollbar-shadow-color: black;
+	scrollbar-track-color: RGB(140, 140, 140);
+	scrollbar-arrow-color: RGB(50, 50, 50);
+}
+
 #homepage-banner
 {
 

@@ -205,6 +205,21 @@
                                 <i class=""></i> <span>Manage Administrator Profile </span>
                             </a>
                         </li>
+						<!--<li>
+                            <!--<a href="index.php?r=lss&tp">
+                                <i class=""></i> <span>Manage School Year</span>
+                            </a>
+                        </li>
+						<li>
+							<!--<a href="index.php?r=lss&tp">
+                                <i class=""></i> <span>Manage Grading Period</span>
+                            </a>
+                        </li>-->
+						<li>
+                            <a href="index.php?r=lss&scs">
+                                <i class=""></i> <span>Manage Sections</span>
+                            </a>
+                        </li>
                          <li>
                             <a href="index.php?r=lss&tp">
                                 <i class=""></i> <span>Manage Teacher Profile</span>
@@ -220,21 +235,17 @@
                                 <i class=""></i> <span>Manage Subjects</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="index.php?r=lss&scs">
-                                <i class=""></i> <span>Manage Sections</span>
-                            </a>
-                        </li>
+                        
                         <li>
                             <a href="index.php?r=lss&gl">
                                 <i class=""></i> <span>Manage Grade Levels</span>
                             </a>
                         </li>
-                         <li>
+                         <!--<li>
                             <a href="index.php?r=lss&ps">
                                 <i class=""></i> <span>Manage Posts</span>
                             </a>
-                        </li>
+                        </li>-->
                         
                     </ul>
                 </section>
@@ -1330,10 +1341,10 @@
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
+                                                                                    /*'<div class="col-sm-8">'+
                                                                                         '<button type="button" class="btn btn-info btn-label-left pull-right" id="admin-edit-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="button" class="btn btn-warning btn-label-left pull-right" id="admin-edit-update">'+
@@ -1392,12 +1403,12 @@
                             $('.edit_admin_select').removeAttr('disabled');
                         });
 
-                        $(document.body).on('click', '#admin-edit-reset', function(){
+                        /*$(document.body).on('click', '#admin-edit-reset', function(){
                             $('.edit_admin').prop("readonly","true");
                             $('#upload-edit-admin-image').css("display","none");
                             $('.bday_datepicker').datepicker('disable');
                             $('.edit_admin_select').attr('disabled',true);
-                        });
+                        });*/
 
                        
                         $(document.body).on('submit', '#edit-admin-form', submitEditAdminForm);
@@ -1574,9 +1585,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="teacher-edit-reset">'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="teacher-edit-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="button" class="btn btn-warning btn-label-left pull-right" id="teacher-edit-update">'+
@@ -1634,12 +1645,12 @@
                             $('.edit_teacher_select').removeAttr('disabled');
                         });
 
-                        $(document.body).on('click', '#teacher-edit-reset', function(){
+                        /*$(document.body).on('click', '#teacher-edit-reset', function(){
                             $('.edit_teacher').prop("readonly","true");
                             $('#upload-edit-teacher-image').css("display","none");
                             $('.bday_datepicker').datepicker('disable');
                             $('.edit_teacher_select').attr('disabled',true);
-                        });
+                        });*/
 
                         $(document.body).on('submit', '#edit-teacher-form', submitEditTeacherForm);
 
@@ -1815,9 +1826,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="student-edit-reset">'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="student-edit-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="button" class="btn btn-warning btn-label-left pull-right" id="student-edit-update">'+
@@ -1873,11 +1884,11 @@
                             $('.edit_student_select').removeAttr('disabled');
                         });
 
-                        $(document.body).on('click', '#student-edit-reset', function(){
+                        /*$(document.body).on('click', '#student-edit-reset', function(){
                             $('.edit_student').prop("readonly","true");
                             $('#upload-edit-student-image').css("display","none");
                             $('.edit_student_select').attr('disabled',true);
-                        });
+                        });*/
 
                         $(document.body).on('submit', '#edit-student-form', submitEditStudentForm);
 
@@ -1990,8 +2001,8 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="subject-edit-reset">'+
-                                                                                            'Reset'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="subject-edit-reset">'+
+                                                                                            'Reset'+*/
                                                                                         '</button>'+
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
@@ -2021,9 +2032,9 @@
                             $('.edit_subject').removeProp("readonly");
                         });
 
-                        $(document.body).on('click', '#subject-edit-reset', function(){
+                        /*$(document.body).on('click', '#subject-edit-reset', function(){
                             $('.edit_subject').prop("readonly","true");
-                        });
+                        });*/
 
                         $(document.body).on('submit', '#edit-subject-form', submitEditSubjectForm);
 
@@ -2142,9 +2153,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="section-edit-reset">'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="section-edit-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="button" class="btn btn-warning btn-label-left pull-right" id="section-edit-update">'+
@@ -2173,9 +2184,9 @@
                             $('.edit_section').removeProp("readonly");
                         });
 
-                        $(document.body).on('click', '#section-edit-reset', function(){
+                        /*$(document.body).on('click', '#section-edit-reset', function(){
                             $('.edit_section').prop("readonly","true");
-                        });
+                        });*/
 
                         $(document.body).on('submit', '#edit-section-form', submitEditSectionForm);
 
@@ -2288,9 +2299,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="grade-edit-reset">'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="grade-edit-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="button" class="btn btn-warning btn-label-left pull-right" id="grade-edit-update">'+
@@ -2319,9 +2330,9 @@
                             $('.edit_grade').removeProp("readonly");
                         });
 
-                        $(document.body).on('click', '#grade-edit-reset', function(){
+                        /*$(document.body).on('click', '#grade-edit-reset', function(){
                             $('.edit_grade').prop("readonly","true");
-                        });
+                        });*/
 
                         $(document.body).on('submit', '#edit-grade-form', submitEditGradeForm);
 
@@ -2474,9 +2485,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="post-edit-reset">'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="post-edit-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="button" class="btn btn-warning btn-label-left pull-right" id="post-edit-update">'+
@@ -2506,10 +2517,10 @@
                             $('#upload-edit-post-file').removeProp("style");
                         });
 
-                        $(document.body).on('click', '#post-edit-reset', function(){
+                        /*$(document.body).on('click', '#post-edit-reset', function(){
                             $('.edit_post').prop("readonly","true");
                             ('#upload-edit-post-file').css("display","none");
-                        });
+                        });*/
 
                         $(document.body).on('submit', '#edit-post-form', submitEditPostForm);
 
@@ -2676,9 +2687,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-10">'+
-                                                                                        '<button type="reset" class="btn btn-info btn-label-left pull-right" id="admin-add-reset">'+
+                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="admin-add-reset">'+
                                                                                             'Reset All'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="submit" class="btn btn-primary btn-label-left" id="admin-add-submit">'+
@@ -2871,9 +2882,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-10">'+
-                                                                                        '<button type="reset" class="btn btn-info btn-label-left pull-right" id="teacher-add-reset">'+
+                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="teacher-add-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="submit" class="btn btn-primary btn-label-left" id="teacher-add-submit">'+
@@ -3078,9 +3089,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="reset" class="btn btn-info btn-label-left pull-right" id="student-add-reset">'+
+                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="student-add-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                             
                                                                                     '<div class="col-sm-2">'+
@@ -3207,9 +3218,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="reset" class="btn btn-info btn-label-left pull-right" id="subject-add-reset">'+
+                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="subject-add-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     
                                                                                     '<div class="col-sm-2">'+
@@ -3346,9 +3357,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="reset" class="btn btn-info btn-label-left pull-right" id="section-add-reset">'+
+                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="section-add-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                    
                                                                                     '<div class="col-sm-2">'+
@@ -3476,9 +3487,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="reset" class="btn btn-info btn-label-left pull-right" id="grade-add-reset">'+
+                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="grade-add-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     
                                                                                     '<div class="col-sm-2">'+
@@ -3640,9 +3651,9 @@
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="post-add-reset">'+
+                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="post-add-reset">'+
                                                                                             'Reset'+
-                                                                                        '</button>'+
+                                                                                        '</button>'+*/
                                                                                     '</div>'+
                                                                                     '<div class="col-sm-2">'+
                                                                                         '<button type="submit" class="btn btn-primary btn-label-left" id="post-add-submit">'+

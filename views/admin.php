@@ -6,6 +6,7 @@
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
             <link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
             <link href="views/css/admin.css" rel="stylesheet" />
+            <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
              <!-- Load jQuery UI CSS  -->
             <link href="views/plugins/jquery-ui/jquery-ui.css" rel="stylesheet"/>
             <link href="views/plugins/jquery-ui/jquery-ui.structure.css" rel="stylesheet"/>
@@ -76,6 +77,12 @@
             alert('Post Information Updated');
         <?php
             }
+            if(isset($_GET['uae']))
+            {
+        ?>
+            alert('User Account Updated');
+        <?php
+            }
             if(isset($_GET['aap']))
             {
         ?>
@@ -118,6 +125,7 @@
             alert('New Post Created');
         <?php        
             } 
+
         ?>       
         }  
          </script>   
@@ -233,6 +241,11 @@
                          <li>
                             <a href="index.php?r=lss&ps">
                                 <i class=""></i> <span>Manage Posts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php?r=lss&ua">
+                                <i class=""></i> <span>Manage User Accounts</span>
                             </a>
                         </li>
                         
@@ -442,7 +455,7 @@
                                         <th>Address</th>
                                         <th>Image</th>
                                         <th>Guardian</th>
-                                        <th></th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody id="sp-box">    
@@ -509,7 +522,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Subject Title</th>
-                                        <th></th>
+                                     
                                        
                                     </tr>
                                 </thead>
@@ -520,7 +533,7 @@
                                             echo '<tr>';
                                             echo '<td>'.$row['subjectID'].'</td>';
                                             echo '<td>'.$row['subject_title'].'</td>';
-                                            echo '<td><button type="button" id="'.$row['subjectID'].'" class="btn btn-warning col-lg-12 subject-id">Edit/Update</button></td>';
+                                            /*echo '<td><button type="button" id="'.$row['subjectID'].'" class="btn btn-warning col-lg-12 subject-id">Edit/Update</button></td>';*/
                                             echo '</tr>';
                                         }    
                                     ?>
@@ -570,7 +583,7 @@
                                         <th>ID</th>
                                         <th>Section No</th>
                                         <th>Section Name</th>
-                                        <th></th>
+                                        
                                        
                                     </tr>
                                 </thead>
@@ -582,7 +595,7 @@
                                             echo '<td>'.$row['sectionID'].'</td>';
                                             echo '<td>'.$row['sectionNo'].'</td>';
                                             echo '<td>'.$row['section_name'].'</td>';
-                                            echo '<td><button type="button" id="'.$row['sectionID'].'" class="btn btn-warning section-id col-lg-12">Edit/Update</button></td>';
+                                           /* echo '<td><button type="button" id="'.$row['sectionID'].'" class="btn btn-warning section-id col-lg-12">Edit/Update</button></td>';*/
                                             echo '</tr>';
                                         }    
                                     ?>
@@ -632,7 +645,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Grade level</th>
-                                        <th></th>
+                                        
                                        
                                     </tr>
                                 </thead>
@@ -643,7 +656,7 @@
                                             echo '<tr>';
                                             echo '<td>'.$row['levelID'].'</td>';
                                             echo '<td>'.$row['level_description'].'</td>';
-                                            echo '<td><button type="button" id="'.$row['levelID'].'" class="btn btn-warning grade-id col-lg-12">Edit/Update</button></td>';
+                                            /*echo '<td><button type="button" id="'.$row['levelID'].'" class="btn btn-warning grade-id col-lg-12">Edit/Update</button></td>';*/
                                             echo '</tr>';
                                         }    
                                     ?>
@@ -726,7 +739,79 @@
 
                 </section>
              <?php
-             } 
+             }
+             else if(isset($_GET['ua']))
+             { 
+             ?> 
+                 <section class="content-header">
+                    <h1>
+                        User Accounts
+                        <small>Control panel</small>
+                    </h1>
+                    
+                </section>
+
+                <section class="content">
+
+                    <div class="row">
+                        <!-- upper -->
+                        <!-- <form action="#" method="" class="sidebar-form"> -->
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search..." id="ua_filter"/>
+                            <span class="input-group-btn">
+                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                            
+                        </div>
+                    <!-- </form> -->
+                         
+                    </div>
+
+                    <div class="row">
+     
+                        <section class="col-lg-12 connectedSortable">                            
+
+                            <table cellpadding="1" cellspacing="1" id="resultTable">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>Secret Question</th>
+                                        <th>Secret Answer</th>
+                                        <th>User type</th>
+                                        <th>Account Id</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th></th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody id="ua-box">    
+                                     <?php   
+                                        foreach($user_accounts as $row)
+                                        {
+                                            echo '<tr>';
+                                            echo '<td>'.$row['username'].'</td>';
+                                            echo '<td>'.$row['password'].'</td>';
+                                            echo '<td>'.$row['secret_question'].'</td>';
+                                            echo '<td>'.$row['secret_answer'].'</td>';
+                                            echo '<td>'.$row['user_type'].'</td>';
+                                            echo '<td>'.$row['account_id'].'</td>';
+                                            echo '<td>'.$row['reg_fname'].'</td>';
+                                            echo '<td>'.$row['reg_lname'].'</td>';
+                                            echo '<td><button type="button" id="'.$row['account_id'].'" class="btn btn-warning user-account-id">Edit/Update</button></td>';
+                                            echo '</tr>';
+                                        }    
+                                    ?>
+                                </tbody>    
+                            </table>
+                        </section>
+
+                    </div>
+
+                </section>
+             <?php
+             }  
              else
              {
              ?>   
@@ -792,6 +877,7 @@
                 $('#scs_filter').on('keyup', scs_filter);
                 $('#gl_filter').on('keyup', gl_filter);
                 $('#ps_filter').on('keyup', ps_filter);
+                $('#ua_filter').on('keyup', ua_filter);
 
                 function ap_filter() 
                 {
@@ -1203,6 +1289,65 @@
                         }
 
                     
+                 }
+
+                 function ua_filter()
+                 {
+                    var filter=$('#ua_filter').val();
+                    /*alert(filter);*/
+                    
+                    
+                    $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php',
+                        type: 'GET',
+                        data: {
+                            ua_filter:filter
+                        },
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                            
+                            /* alert(JSON.stringify(response['ua_filter']));*/
+                            display_ua_filter(response['ua_filter']);    
+                             
+                        },
+
+
+                        });
+
+                        function display_ua_filter(data) 
+                        {
+                            $('#ua-box').empty()
+                            
+
+                                for (var i = 0; i < data.length; i++) 
+                                {
+
+                                        reset_table(data[i]);
+                              
+                                }
+
+                        }
+
+                        function reset_table(row)
+                        {
+
+                            var display = $('<tr>'+
+                                            '<td>'+row.username_+'</td>'+
+                                            '<td>'+row.password_+'</td>'+
+                                            '<td>'+row.secret_question+'</td>'+
+                                            '<td>'+row.secret_answer+'</td>'+
+                                            '<td>'+row.user_type+'</td>'+
+                                            '<td>'+row.account_id+'</td>'+
+                                            '<td>'+row.reg_fname+'</td>'+
+                                            '<td>'+row.reg_lname+'</td>'+
+                                            '<td><button type="button" id="'+row.account_id+'" class="btn btn-warning user-account-id">Edit/Update</button></td>'+
+                                            '</tr>');
+                               
+                            $('#ua-box').append(display);
+                        }
                  }
 
                 $(function()
@@ -2555,6 +2700,307 @@
                                     });    
                         }//end of submit edit post/
 
+                        $(document.body).on('click','.user-account-id',function(event)
+                        {
+                            var id=$(this).attr('id');
+                            
+                             $.ajax({
+             
+                                    url: 'views/ajax/get_for_administrator.php',
+                                    type: 'GET',
+                                    data: {
+                                        edit_user_id:id
+                                    },
+                                   dataType: 'json',
+
+                                   success: function(response) 
+                                   {
+                                       /*alert(JSON.stringify(response['edit_user'])); */ 
+                                        display_edit_user(response['edit_user']);
+
+                                    },
+
+
+                                    });
+
+                                    function display_edit_user(data) 
+                                    {
+                                        $('.content-header').empty();
+                                        $('.content').empty();
+
+                                        var header = $('<h1>'+
+                                                         'Edit User Account'+
+                                                       
+                                                      '</h1>');
+
+                                            $('.content-header').append(header);
+
+                                            for (var i = 0; i < data.length; i++) 
+                                            {
+
+                                                    reset_table(data[i]);
+                                          
+                                            }
+
+                                    } 
+
+                                    function reset_table(row)
+                                    {
+
+                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
+                                                            '<div class="row">'+
+                                                                '<div class="col-xs-12 col-sm-12">'+
+                                                                    '<div class="box">'+
+                                                                        '<div class="box-content">'+
+                                                                            '<form class="form-horizontal" role="form" id="edit-user-form" method="post">'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Username</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<input type="text" name="eduserusername" class="form-control edit_user" value="'+row.username_+'" readonly="true">'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Password</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<input type="text" name="eduserpassword" class="form-control edit_user" value="'+row.password_+'" readonly="true">'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Secret Question</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<select class="form-control edit_user_select" id="edusersecretquestion" name="edusersecretquestion" required="required" disabled="disabled">'+
+                                                                                             '<option value="childhood">What was your childhood nickname?</option>'+
+                                                                                             '<option value="city">In what city did you meet your spouse?</option>'+
+                                                                                             '<option value="friend">What is the name of your favorite childhood friend?</option>'+
+                                                                                             '<option value="street">What street did you live on in third grade?</option>'+
+                                                                                             '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                             '<option value="middle">What is the middle name of your oldest child?</option>'+
+                                                                                             '<option value="school">What school did you attend for sixth grade?</option>'+
+                                                                                           
+                                                                                             '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
+                                                                                             '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
+                                                                                             '<option value="animal">What was the name of your first stuffed animal?</option>'+
+                                                                                             '<option value="meet">In what city or town did your mother and father meet?</option>'+
+                                                                                             '<option value="teacher">What was the last name of your third grade teacher?</option>'+
+                                                                                             '<option value="live">In what city does your nearest sibling live?</option>'+
+                                                                                             '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                             '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
+                                                                                             '<option value="job">In what city or town was your first job?</option>'+
+                                                                                             '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
+                                                                                             '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
+                                                                                             '<option value="heard">Where were you when you first heard about 9/11?</option>'+
+                                                                                             '<option value="superhero">Who is your favorite superhero?</option>'+
+
+                                                                                        '</select>'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Secret Answer</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<input type="text" name="edusersecretanswer" class="form-control edit_user" value="'+row.secret_answer+'" readonly="true">'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                 '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">User Type</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<select class="form-control edit_user_select" id="edusertype" name="edusertype" required="required" disabled="disabled">'+
+                                                                                             '<option value="admin">Admin</option>'+
+                                                                                             '<option value="teacher">Teacher</option>'+
+                                                                                             '<option value="student">Student</option>'+
+                                                                                             '<option value="parent">Parent</option>'+
+                                                                                        '</select>'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Account Id</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<input type="text" name="eduserid" class="form-control" value="'+row.account_id+'" readonly="true">'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<div class="col-sm-8">'+
+                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="user-edit-reset">'+
+                                                                                            'Reset'+
+                                                                                        '</button>'+
+                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="user-edit-update">'+
+                                                                                            'Update Information'+
+                                                                                        '</button>'+
+                                                                                    '</div>'+
+                                                                                    '<div class="col-sm-2">'+
+                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="user-edit-submit">'+
+                                                                                            'Save Changes'+
+                                                                                        '</button>'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                            '</form>'+
+                                                                        '</div><!--box-content-->'+
+                                                                    '</div><!--box-->'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</section>');
+                                           
+                                        $('.content').append(content);
+
+                                        if(row.user_type=='admin')
+                                        {
+                                            $('#edusertype option[value=admin]').attr('selected','selected');
+                                        }
+                                        else if (row.user_type=='teacher')
+                                        {
+                                            $('#edusertype option[value=teacher]').attr('selected','selected');
+                                        } 
+                                        else if (row.user_type=='student')
+                                        {
+                                            $('#edusertype option[value=student]').attr('selected','selected');
+                                        } 
+                                        else if (row.user_type=='parent')
+                                        {
+                                            $('#edusertype option[value=parent]').attr('selected','selected');
+                                        } 
+
+
+                                        if(row.secret_question=='childhood')
+                                        {
+                                            $('#edusersecretquestion option[value=childhood]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='city')
+                                        {
+                                            $('#edusersecretquestion option[value=city]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='friend')
+                                        {
+                                            $('#edusersecretquestion option[value=friend]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='street')
+                                        {
+                                            $('#edusersecretquestion option[value=street]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='oldest')
+                                        {
+                                            $('#edusersecretquestion option[value=oldest]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='middle')
+                                        {
+                                            $('#edusersecretquestion option[value=middle]').attr('selected','selected');
+                                        }
+                                        
+                                        else if(row.secret_question=='school')
+                                        {
+                                            $('#edusersecretquestion option[value=school]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='phone')
+                                        {
+                                            $('#edusersecretquestion option[value=phone]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='cousin')
+                                        {
+                                            $('#edusersecretquestion option[value=cousin]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='animal')
+                                        {
+                                            $('#edusersecretquestion option[value=animal]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='meet')
+                                        {
+                                            $('#edusersecretquestion option[value=meet]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='teacher')
+                                        {
+                                            $('#edusersecretquestion option[value=teacher]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='live')
+                                        {
+                                            $('#edusersecretquestion option[value=live]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='brother')
+                                        {
+                                            $('#edusersecretquestion option[value=brother]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='maiden')
+                                        {
+                                            $('#edusersecretquestion option[value=maiden]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='job')
+                                        {
+                                            $('#edusersecretquestion option[value=job]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='wedding')
+                                        {
+                                            $('#edusersecretquestion option[value=wedding]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='college')
+                                        {
+                                            $('#edusersecretquestion option[value=college]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='heard')
+                                        {
+                                            $('#edusersecretquestion option[value=heard]').attr('selected','selected');
+                                        }
+                                        else if(row.secret_question=='superhero')
+                                        {
+                                            $('#edusersecretquestion option[value=superhero').attr('selected','selected');
+                                        }
+                                        
+
+                                    }
+                        });//end of user account
+                        
+                        $(document.body).on('click', '#user-edit-update',function(){
+                            $('.edit_user').removeProp("readonly");
+                            $('.edit_user_select').removeAttr('disabled');
+                        });
+
+                        $(document.body).on('click', '#user-edit-reset', function(){
+                            $('.edit_user').prop("readonly","true");
+                            $('.edit_user_select').attr('disabled',true);
+                        });
+
+                        $(document.body).on('submit', '#edit-user-form', submitEditUserForm);
+
+                        function submitEditUserForm(event)
+                        {
+                            event.stopPropagation();
+                            event.preventDefault();
+
+                             $.ajax({
+                                        url: 'views/ajax/get_for_administrator.php?edit-user-form',
+                                        type: 'POST',
+                                        data: new FormData(this),
+                                        contentType: false, 
+                                        cache: false,
+                                        processData: false,
+                                        dataType: 'json',
+                                        success: function(data, textStatus, jqXHR)
+                                        {
+                                            
+                                            if(typeof data.error === 'undefined')
+                                            {
+                                                window.location.href="index.php?r=lss&ua&uae";
+                                              
+                                            }
+                                            else
+                                            {
+                                                alert('Error: '+data.error);
+                                            }   
+
+                                            
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown)
+                                        {
+                                            
+                                                alert('ERROR: ' + textStatus);
+                                            
+                                        },
+                                        complete: function()
+                                        {
+                                            // Completed
+                                        }
+                            
+                                    });    
+                        }//end of submit edit user/
+
                         /**Adding for insert**/
                         $(document.body).on('change', '#upload-add-admin-image', function(e) 
                         {
@@ -2648,12 +3094,42 @@
                                                                                     '<div class="col-sm-4">'+
                                                                                         '<input type="text" name="addadmfname" class="form-control add_admin">'+
                                                                                     '</div>'+
+                                                                                    '<label class="col-sm-2 control-label">Password Recovery:</label>'+
+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Middle name</label>'+
                                                                                     '<div class="col-sm-4">'+
                                                                                         '<input type="text" name="addadmmname" class="form-control add_admin">'+
                                                                                     '</div>'+
+                                                                                    
+                                                                                        '<label class="col-sm-2 control-label">Secret Question</label>'+
+                                                                                        '<div class="col-sm-3">'+
+                                                                                                '<select class="form-control add_admin_select" id="addadminsecretquestion" name="addadminsecretquestion" required="required">'+
+                                                                                                     '<option value="childhood">What was your childhood nickname?</option>'+
+                                                                                                     '<option value="city">In what city did you meet your spouse?</option>'+
+                                                                                                     '<option value="friend">What is the name of your favorite childhood friend?</option>'+
+                                                                                                     '<option value="street">What street did you live on in third grade?</option>'+
+                                                                                                     '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                                     '<option value="middle">What is the middle name of your oldest child?</option>'+
+                                                                                                     '<option value="school">What school did you attend for sixth grade?</option>'+
+                                                                                                   
+                                                                                                     '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
+                                                                                                     '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
+                                                                                                     '<option value="animal">What was the name of your first stuffed animal?</option>'+
+                                                                                                     '<option value="meet">In what city or town did your mother and father meet?</option>'+
+                                                                                                     '<option value="teacher">What was the last name of your third grade teacher?</option>'+
+                                                                                                     '<option value="live">In what city does your nearest sibling live?</option>'+
+                                                                                                     '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                                     '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
+                                                                                                     '<option value="job">In what city or town was your first job?</option>'+
+                                                                                                     '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
+                                                                                                     '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
+                                                                                                     '<option value="heard">Where were you when you first heard about 9/11?</option>'+
+                                                                                                     '<option value="superhero">Who is your favorite superhero?</option>'+
+
+                                                                                                '</select>'+
+                                                                                        '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
@@ -2662,7 +3138,13 @@
                                                                                              '<option value="Male">Male</option>'+
                                                                                              '<option value="Female">Female</option>'+
                                                                                         '</select>'+
-                                                                                    '</div>'+        
+                                                                                    '</div>'+
+
+                                                                                    '<label class="col-sm-4 control-label">Secret Answer</label>'+
+                                                                                    '<div class="col-sm-3">'+
+                                                                                        '<input type="text" name="addadminsecretanswer" class="form-control add_admin">'+
+                                                                                    '</div>'+
+                                                                                        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
@@ -2849,6 +3331,7 @@
                                                                                     '<div class="col-sm-4">'+
                                                                                         '<input type="text" name="addteachmname" class="form-control add_teacher">'+
                                                                                     '</div>'+
+                                                                                    '<label class="col-sm-2 control-label">Password Recovery:</label>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Gender</label>'+
@@ -2857,7 +3340,35 @@
                                                                                              '<option value="Male">Male</option>'+
                                                                                              '<option value="Female">Female</option>'+
                                                                                         '</select>'+
-                                                                                    '</div>'+        
+                                                                                    '</div>'+
+
+                                                                                    '<label class="col-sm-4 control-label">Secret Question</label>'+
+                                                                                        '<div class="col-sm-3">'+
+                                                                                                '<select class="form-control add_teacher_select" id="addteachersecretquestion" name="addteachersecretquestion" required="required">'+
+                                                                                                     '<option value="childhood">What was your childhood nickname?</option>'+
+                                                                                                     '<option value="city">In what city did you meet your spouse?</option>'+
+                                                                                                     '<option value="friend">What is the name of your favorite childhood friend?</option>'+
+                                                                                                     '<option value="street">What street did you live on in third grade?</option>'+
+                                                                                                     '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                                     '<option value="middle">What is the middle name of your oldest child?</option>'+
+                                                                                                     '<option value="school">What school did you attend for sixth grade?</option>'+
+                                                                                                   
+                                                                                                     '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
+                                                                                                     '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
+                                                                                                     '<option value="animal">What was the name of your first stuffed animal?</option>'+
+                                                                                                     '<option value="meet">In what city or town did your mother and father meet?</option>'+
+                                                                                                     '<option value="teacher">What was the last name of your third grade teacher?</option>'+
+                                                                                                     '<option value="live">In what city does your nearest sibling live?</option>'+
+                                                                                                     '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                                     '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
+                                                                                                     '<option value="job">In what city or town was your first job?</option>'+
+                                                                                                     '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
+                                                                                                     '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
+                                                                                                     '<option value="heard">Where were you when you first heard about 9/11?</option>'+
+                                                                                                     '<option value="superhero">Who is your favorite superhero?</option>'+
+
+                                                                                                '</select>'+
+                                                                                        '</div>'+        
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
                                                                                     '<label class="col-sm-2 control-label">Status</label>'+
@@ -2867,6 +3378,11 @@
                                                                                              '<option value="Married">Married</option>'+
                                                                                              '<option value="Widowed">Widowed</option>'+
                                                                                         '</select>'+
+                                                                                    '</div>'+
+
+                                                                                    '<label class="col-sm-4 control-label">Secret Answer</label>'+
+                                                                                    '<div class="col-sm-3">'+
+                                                                                        '<input type="text" name="addteachersecretanswer" class="form-control add_teacher">'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+
@@ -3074,6 +3590,44 @@
                                                                                     '<label class="col-sm-2 control-label">Middle Name</label>'+
                                                                                     '<div class="col-sm-4">'+
                                                                                         '<input type="text" name="addstudparentmname" class="form-control add_student">'+
+                                                                                    '</div>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Password Recovery:</label>'+
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                    '<label class="col-sm-2 control-label">Secret Question</label>'+
+                                                                                        '<div class="col-sm-4">'+
+                                                                                                '<select class="form-control add_student_select" id="addstudentsecretquestion" name="addstudentsecretquestion" required="required">'+
+                                                                                                     '<option value="childhood">What was your childhood nickname?</option>'+
+                                                                                                     '<option value="city">In what city did you meet your spouse?</option>'+
+                                                                                                     '<option value="friend">What is the name of your favorite childhood friend?</option>'+
+                                                                                                     '<option value="street">What street did you live on in third grade?</option>'+
+                                                                                                     '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                                     '<option value="middle">What is the middle name of your oldest child?</option>'+
+                                                                                                     '<option value="school">What school did you attend for sixth grade?</option>'+
+                                                                                                   
+                                                                                                     '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
+                                                                                                     '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
+                                                                                                     '<option value="animal">What was the name of your first stuffed animal?</option>'+
+                                                                                                     '<option value="meet">In what city or town did your mother and father meet?</option>'+
+                                                                                                     '<option value="teacher">What was the last name of your third grade teacher?</option>'+
+                                                                                                     '<option value="live">In what city does your nearest sibling live?</option>'+
+                                                                                                     '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
+                                                                                                     '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
+                                                                                                     '<option value="job">In what city or town was your first job?</option>'+
+                                                                                                     '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
+                                                                                                     '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
+                                                                                                     '<option value="heard">Where were you when you first heard about 9/11?</option>'+
+                                                                                                     '<option value="superhero">Who is your favorite superhero?</option>'+
+
+                                                                                                '</select>'+
+                                                                                        '</div>'+        
+                                                                                '</div>'+
+                                                                                '<div class="form-group">'+
+                                                                                     '<label class="col-sm-2 control-label">Secret Answer</label>'+
+                                                                                    '<div class="col-sm-4">'+
+                                                                                        '<input type="text" name="addstudentsecretanswer" class="form-control add_student">'+
                                                                                     '</div>'+
                                                                                 '</div>'+
                                                                                 '<div class="form-group">'+

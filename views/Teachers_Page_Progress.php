@@ -11,6 +11,7 @@
  
 		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 
        
 	</head>
@@ -69,7 +70,7 @@
 									     			</div>
 
 											     	<div class="progress-student-details">						     	
-												    <?php echo '<a class="navbar-link" href="index.php?r=lss&tr=s" id="'.$display['student_lrn'].'" onclick="getLRN(this)">';
+												    <?php echo '<a class="navbar-link getLRN" href="index.php?r=lss&tr=s" id="'.$display['student_lrn'].'">';
 												     	  echo '<p class="student-name">' .$display['reg_lname']. ', '.$display['reg_fname'].' '.$display['reg_mname'].'</p></a>'; 
 												     	  echo '<p class="student-lrn">'.$display['student_lrn'].'</p>';
 												    ?> 	  
@@ -376,6 +377,37 @@
 
 
 						}
+
+						$(function() 
+						{
+					 
+						  $(document.body).on('click', '.getLRN', function(event)
+						  {
+
+						  		var lrn=$(this).attr('id');
+						  	
+						  			$.ajax({
+											 
+								            url: 'views/ajax/get_for_chart.php',
+								            type: 'GET',
+								            data: {
+								            	lrn:lrn
+								            },
+								           dataType: 'json',
+								           success: function(response) 
+								           {
+								           		
+												  /*alert(JSON.stringify(response['lrn']));*/
+								           		 
+											}
+
+								          
+								            });
+
+						  });
+
+						});//End of ready
+
 			        
 		       
 

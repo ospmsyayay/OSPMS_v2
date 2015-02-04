@@ -8,6 +8,7 @@
 
 		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
 	<body onload="check()">
 		<script>
@@ -62,13 +63,13 @@
 															
 						<div class="panel-body text-center "> 
 							<div class="btn-group text-center" data-toggle="buttons-radio">
-							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=mic'"><span class="glyphicon glyphicon-edit"></span>Multiple Choice</button>
+							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=trce&cc=mic'"><span class="glyphicon glyphicon-edit"></span>Multiple Choice</button>
 							  
-							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=te'"><span class="glyphicon glyphicon-edit"></span>True or False</button>
+							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=trce&cc=te'"><span class="glyphicon glyphicon-edit"></span>True or False</button>
 							  
-							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=me'"><span class="glyphicon glyphicon-edit"></span>Matching Type</button>
+							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=trce&cc=me'"><span class="glyphicon glyphicon-edit"></span>Matching Type</button>
 							  
-							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=fs'"><span class="glyphicon glyphicon-edit"></span>Fill in the blank</button>
+							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=trce&cc=fs'"><span class="glyphicon glyphicon-edit"></span>Fill in the blank</button>
 
 							  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss'"><span class="glyphicon glyphicon-log-out"></span>Go Back</button>
 							</div>

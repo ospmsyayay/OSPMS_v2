@@ -1,18 +1,31 @@
 <?php
 //Function to sanitize values received from the form. Prevents SQL injection
 function clean($str)
-	{
-		include "config/conn.php";
-		
-		$str = @trim($str);
-		if(get_magic_quotes_gpc())
-			{
-				$str = stripslashes($str);
-			}
-		return mysqli_real_escape_string($cxn,$str);
-	}
+{
+	include "config/conn.php";
 	
-function createRandomPassword() {
+	$str = @trim($str);
+	if(get_magic_quotes_gpc())
+		{
+			$str = stripslashes($str);
+		}
+	return mysqli_real_escape_string($cxn,$str);
+}
+
+function createUsername($reg_id,$reg_fname,$reg_mname,$reg_lname)
+{
+    $usertype=$finitial=$minitial=$linitial=$num="";
+
+    $usertype=substr($reg_id, 0, 2);
+    $finitial=substr($reg_fname,0,1);
+    $minitial=substr($reg_mname,0,1);
+    $linitial=substr($reg_lname,0,1);
+    $num=substr($reg_id,11,6); 
+
+    return $usertype.strtoupper($finitial).strtoupper($minitial).strtoupper($linitial).$num;
+}	
+
+function createRandomPassword_allcaps_num() {
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ023456789";
     srand((double)microtime()*1000000);
     $i = 0;
@@ -29,6 +42,34 @@ function createRandomPassword() {
 
     }
     return $pass;
+}
+
+function generate_password_chars($length)
+{
+  $chars =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.
+            '0123456789``-=~!@#$%^&*()_+,./<>?;:[]{}\|';
+
+  $str = '';
+  $max = strlen($chars) - 1;
+
+  for ($i=0; $i < $length; $i++)
+    $str .= $chars[mt_rand(0, $max)];
+
+  return $str;
+}
+
+function generate_password_alphanum($length)
+{
+  $chars =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.
+            '0123456789';
+
+  $str = '';
+  $max = strlen($chars) - 1;
+
+  for ($i=0; $i < $length; $i++)
+    $str .= $chars[mt_rand(0, $max)];
+
+  return $str;
 }
 
 

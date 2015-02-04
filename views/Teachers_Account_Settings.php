@@ -9,6 +9,7 @@
         <title>Online Student Performance Monitoring System</title>
         <link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
     </head>
     
         <body onload="check()">
@@ -108,7 +109,7 @@
                                                     <?php 
                                                     if(isset($_SESSION['account_id']))
                                                     {
-                                                        echo '<input type="text" name="accountid" class="form-control" value="'.$_SESSION['account_id'].'" readonly="true">';                     
+                                                        echo '<input type="text" name="taccountid" class="form-control" value="'.$_SESSION['account_id'].'" readonly="true">';                     
                                                     }
                                                     ?>
                                                     
@@ -120,7 +121,7 @@
                                                     <?php 
                                                     if(isset($_SESSION['username']))
                                                     {
-                                                        echo '<input type="text" name="accountusername" class="form-control" value="'.$_SESSION['username'].'"readonly="true">';                     
+                                                        echo '<input type="text" name="taccountusername" class="form-control" value="'.$_SESSION['username'].'"readonly="true">';                     
                                                     }
                                                     ?>
                                                     
@@ -130,19 +131,19 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Current Password</label>
                                                 <div class="col-sm-6">
-                                                    <input type="password" name="accountcurrentpass" class="form-control">
+                                                    <input type="password" name="taccountcurrentpass" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">New Password</label>
                                                 <div class="col-sm-6">
-                                                    <input type="password" name="accountnewpass" class="form-control">
+                                                    <input type="password" name="taccountnewpass" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Re-Type Password</label>
                                                 <div class="col-sm-6">
-                                                    <input type="password" name="accountrepass" class="form-control">
+                                                    <input type="password" name="taccountrepass" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">

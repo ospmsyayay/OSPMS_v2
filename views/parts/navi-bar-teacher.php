@@ -18,16 +18,19 @@
 					<div class="top-panel-left">  
 	                    <ul class="nav navbar-nav">
 	                        <li>
-	    						<a class="navbar-brand" href="index.php?r=lss">Home</a>
+	    						<a class="navbar-brand" href="index.php?r=lss"><i class="fa fa-home fa-lg"></i> Home</a>
 	    					</li>
 	    					<li>
-	    						<a class="navbar-brand" href="index.php?r=lss&tr=trp">Progress</a>
+	    						<a class="navbar-brand" href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-lg"></i> Progress</a>
 	    					</li>
 	                        <li>
-	    						<a class="navbar-brand" href="index.php?r=lss&tr=tre">Encode</a>
+	    						<a class="navbar-brand" href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-lg"></i> Create Exercise</a>
+	    					</li>
+	    					<li>
+	    						<a class="navbar-brand" href="index.php?r=lss&tr=tre"><i class="fa fa-calculator fa-lg"></i> Encode</a>
 	    					</li>
 	                        <li>
-	    						<a class="navbar-brand" href="#">Reports</a>
+	    						<a class="navbar-brand" href="#"><i class="fa fa-file-text-o fa-lg"></i> Reports</a>
 	    					</li>
 	    			
 					    </ul>
@@ -40,12 +43,12 @@
 	                    ?>
 						<div id="user-dropdown" class="dropdown"> 
 							<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> 
-								<span class="caret"></span> 
+								<i class="fa fa-caret-square-o-down"></i>
 							</button>
 							
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 										<li role="presentation"> 
-											<a role="menuitem" tabindex="-1" href="index.php?r=lss&tr=acc"><span class="glyphicon glyphicon-cog"></span>Settings</a> </li>
+											<a role="menuitem" tabindex="-1" href="index.php?r=lss&tr=acc"><i class="fa fa-cog fa-spin"></i> Settings</a> </li>
 											<li class="divider"></li>	
 									<li role="presentation"> <a role="menuitem" tabindex="-1" href="index.php?r=xt"><span class="glyphicon glyphicon-off"></span> Logout</a> </li> 	
 								</ul> 

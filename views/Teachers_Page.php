@@ -9,6 +9,7 @@
 		<title>Online Student Performance Monitoring System</title>
 		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
     
 		<body onload="check()">
@@ -84,8 +85,8 @@
 								<ul id="myTab" class="nav nav-tabs">
 										<li class="active"><a href="#announcement" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Write Announcement</a></li>
 										<li><a href="#lecture-exercises" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span> Post Lecture Files </a></li>
-										<li><a href="#create-exercises" data-toggle="tab" ><span class="glyphicon glyphicon-tasks"></span> Create Online Exercise</a></li>
-										<li><a href="#attendance-sheet" data-toggle="tab">Attendance Sheet</a></li>
+<!-- 										<li><a href="#create-exercises" data-toggle="tab" ><span class="glyphicon glyphicon-tasks"></span> Create Online Exercise</a></li>
+										<li><a href="#attendance-sheet" data-toggle="tab">Attendance Sheet</a></li> -->
 									  </ul>
 									  <div id="myTabContent" class="tab-content">
 										<div class="tab-pane fade in active" id="announcement">
@@ -161,7 +162,7 @@
 										  
 										</div>  
 										
-										<div class="tab-pane fade" id="create-exercises">
+										<!-- <div class="tab-pane fade" id="create-exercises">
 											<div class="msgbox">
 													<div class="row">
 														<div class="col-md-12 col-md-12">
@@ -185,7 +186,7 @@
 											
 			
 											</div>							
-										</div>	
+										</div>	 -->
 										
 										<div class="tab-pane fade" id="attendance-sheet">
 											<!--<img src="views/res/attendance.png" class="img-rounded shadow attendance" />-->	

@@ -430,6 +430,69 @@
 		
 	}
 
+	if(isset($_GET['ua_filter']))
+	{
+		$ua_filter=$_GET['ua_filter'];
+		/*echo "{\"filter\": [" . json_encode($ua_filter). "]}";*/
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		if(!empty($ua_filter))
+		{
+			$sql="SELECT create_account.*, registration.reg_fname, registration.reg_lname 
+					from create_account inner join registration on create_account.account_id=registration.reg_id 
+					where create_account.username_ LIKE '%$ua_filter%' or create_account.password_ LIKE '%$ua_filter%' 
+					or create_account.secret_question LIKE '%$ua_filter%' or create_account.secret_answer LIKE '%$ua_filter%' or create_account.user_type LIKE '%$ua_filter%'
+					or create_account.account_id LIKE '%$ua_filter%' or registration.reg_fname LIKE '%$ua_filter%' or registration.reg_lname LIKE '%$ua_filter%'";
+
+			$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+			$first = true;
+			echo "{\"ua_filter\": [";
+			while($display = mysqli_fetch_array($sql))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";
+		}	
+		else if(empty($ua_filter))
+		{
+			$sql="SELECT * from create_account inner join registration on create_account.account_id=registration.reg_id";
+
+			$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+			$first = true;
+			echo "{\"ua_filter\": [";
+			while($display = mysqli_fetch_array($sql))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+		}	
+
+		
+	}
+
+	//edit
+
 	if(isset($_GET['edit_admin_id']))
 	{
 		$edit_admin_id=$_GET['edit_admin_id'];
@@ -1273,6 +1336,73 @@
 				return $data;
 	}
 
+	if(isset($_GET['edit_user_id']))
+	{
+		$edit_user_id=$_GET['edit_user_id'];
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		$sql="SELECT * FROM create_account where account_id = '$edit_user_id'";
+
+		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+		$first = true;
+		echo "{\"edit_user\": [";
+		while($row = mysqli_fetch_array($fetch))
+		{
+			if($first) 
+			{
+				echo json_encode($row);
+				$first = false;
+			}		 
+			else 
+			{
+				echo ',' . json_encode($row);
+			}
+		}
+		
+		echo "]}";	
+	}
+
+	if(isset($_GET['edit-user-form']))
+	{
+		
+		$response = array();
+		$username=clean($_POST['eduserusername']);
+		$password=clean($_POST['eduserpassword']);
+		$secret_question=clean($_POST['edusersecretquestion']);
+		$secret_answer=clean($_POST['edusersecretanswer']);
+		$usertype=clean($_POST['edusertype']);
+		$id=$_POST['eduserid'];
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		if( !empty($username) and !empty($password) and !empty($secret_question) and !empty($secret_answer) and !empty($usertype) )
+		{ 
+		
+				$sql="UPDATE create_account SET username_ = '$username', password_ = '$password', 
+											secret_question = '$secret_question', secret_answer = '$secret_answer', 
+											user_type = '$usertype' where account_id='$id'";
+
+				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+				if($successful)
+				{
+					$response = array('success' => 'User Account Updated');
+				}	
+				else 
+				{
+					$response = array('error' => 'User Account Update Failed');
+				}
+					
+		}
+		else
+		{
+			$response = array('error' => 'The form is incomplete');
+		}	
+
+		echo json_encode($response);			
+	}
+
 	//add admin
 	if(isset($_GET['create-admin-id']))
 	{
@@ -1295,10 +1425,12 @@
 		$reg_status = clean($_POST['addadmstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addadmbirthday']));
 		$reg_address = clean($_POST['addadmaddress']);
+		$secret_question=$_POST['addadminsecretquestion'];
+		$secret_answer=$_POST['addadminsecretanswer'];
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday))
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($secret_question) and !empty($secret_answer) )
 		{
 			
 			$result=new_admin_img();
@@ -1317,7 +1449,23 @@
 					$admin_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 					if($admin_created)
 					{
-						$response = array('success' => 'New Administrator Account Created');
+
+						$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
+						$password=generate_password_alphanum(8);
+
+						$sql="INSERT INTO create_account (username_, password_, secret_question, secret_answer, user_type, account_id) 
+						VALUES ('$username', '$password', '$secret_question', '$secret_answer', 'admin', '$id')";
+
+						$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+						if($account_created)
+						{
+							$response = array('success' => 'New Administrator Account Created');
+						}
+						else
+						{
+							$response = array('error' => 'Add Administrator Failed');
+						}	
+
 					}
 					else
 					{
@@ -1440,10 +1588,12 @@
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addteachbirthday']));
 		$reg_address = clean($_POST['addteachaddress']);
 		$t_position = clean($_POST['addteachtposition']);
+		$secret_question=$_POST['addteachersecretquestion'];
+		$secret_answer=$_POST['addteachersecretanswer'];
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday))
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($secret_question) and !empty($secret_answer) )
 		{
 		
 			$result=new_teacher_img();
@@ -1461,8 +1611,24 @@
 
 					$teacher_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 					if($teacher_created)
-					{
-						$response = array('success' => 'New Teacher Account Created');
+					{	
+						$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
+						$password=generate_password_alphanum(8);
+
+						$sql="INSERT INTO create_account (username_, password_, secret_question, secret_answer, user_type, account_id) 
+						VALUES ('$username', '$password', '$secret_question', '$secret_answer', 'teacher', '$id')";
+
+						$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+						if($account_created)
+						{
+							$response = array('success' => 'New Teacher Account Created');
+						}
+						else
+						{
+							$response = array('error' => 'Add Teacher Failed');
+						}	
+
+						
 					}
 					else
 					{
@@ -1584,10 +1750,12 @@
 		$parent_fname = clean($_POST['addstudparentfname']);
 		$parent_mname = clean($_POST['addstudparentmname']);
 		$parent_defaultbday = date('Y-m-d');
+		$secret_question=$_POST['addstudentsecretquestion'];
+		$secret_answer=$_POST['addstudentsecretanswer'];
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($parent_lname) and !empty($parent_fname))
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($parent_lname) and !empty($parent_fname) and !empty($secret_question) and !empty($secret_answer) )
 		{
 		
 			$result=new_student_img();
@@ -1619,7 +1787,22 @@
 							$student_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 							if($student_created)
 							{
-								$response = array('success' => 'New Student Account Created');
+								$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
+								$password=generate_password_alphanum(8);
+
+								$sql="INSERT INTO create_account (username_, password_, secret_question, secret_answer, user_type, account_id) 
+								VALUES ('$username', '$password', '$secret_question', '$secret_answer', 'student', '$id')";
+
+								$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+								if($account_created)
+								{
+									$response = array('success' => 'New Student Account Created');
+								}
+								else
+								{
+									$response = array('error' => 'Add Student Failed');
+								}	
+
 							}
 							else
 							{
@@ -2212,6 +2395,33 @@
 	        $grade_id="G" . $rand4int;
 
 	        return $grade_id;
-	}						
+	}
+
+	function createUsername($reg_id,$reg_fname,$reg_mname,$reg_lname)
+	{
+	    $usertype=$finitial=$minitial=$linitial=$num="";
+
+	    $usertype=substr($reg_id, 0, 2);
+	    $finitial=substr($reg_fname,0,1);
+	    $minitial=substr($reg_mname,0,1);
+	    $linitial=substr($reg_lname,0,1);
+	    $num=substr($reg_id,11,6); 
+
+	    return $usertype.strtoupper($finitial).strtoupper($minitial).strtoupper($linitial).$num;
+	}
+
+	function generate_password_alphanum($length)
+	{
+	  $chars =  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.
+	            '0123456789';
+
+	  $str = '';
+	  $max = strlen($chars) - 1;
+
+	  for ($i=0; $i < $length; $i++)
+	    $str .= $chars[mt_rand(0, $max)];
+
+	  return $str;
+	}							
 		
 ?>

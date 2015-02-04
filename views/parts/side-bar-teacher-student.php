@@ -35,7 +35,7 @@
 												  
 												  echo '<a data-toggle="collapse" data-parent="#Menu1" onclick="getSubjectId(this)" href="#'.$subjectName.'GradeMenu" id="'.$subjectName.'" class="toHighlight" >
 												  <span class="glyphicon glyphicon-map-marker"></span>'.$subjectName.'
-												  <i class="glyphicon glyphicon-chevron-down"></i></a>';?>
+												  </a>';?>
 												  
 												</h4>
 											  </div><!--panel-heading-->
@@ -43,71 +43,71 @@
 										<?php 
 								
 											
-										echo '<div id="'.$subjectName.'GradeMenu" class="panel-collapse collapse">'; 
+										/*echo '<div id="'.$subjectName.'GradeMenu" class="panel-collapse collapse">'; */
 										
 										?>
-												<div class="panel-body">
+												<!-- <div class="panel-body"> -->
 															<!--//Grade level-->
 												<?php 
 												
-												foreach($grade as $gradelevel => $section)
-												{	
+												/*foreach($grade as $gradelevel => $section)
+												{	*/
 													
 							
 												?>
-																<div class="panel-heading subjectmenu">
-																	<h4 class="panel-title">
-																		<?php echo '<a id="'.$gradelevel.'" onclick="getGradeId(this)" class="toHighlight" data-toggle="collapse" data-parent="#'.$subjectName.'GradeMenu" href="#'.$subjectName.$gradelevel.'" >
+																<!-- <div class="panel-heading subjectmenu">
+																	<h4 class="panel-title"> -->
+																		<?php /*echo '<a id="'.$gradelevel.'" onclick="getGradeId(this)" class="toHighlight" data-toggle="collapse" data-parent="#'.$subjectName.'GradeMenu" href="#'.$subjectName.$gradelevel.'" >
 																			<i class="glyphicon glyphicon-pushpin"></i> '.$gradelevel.'
-																			<i class="glyphicon glyphicon-chevron-down"></i>';?>
-																		</a>
-																	</h4>
-																</div><!--panel-heading subjectmenu-->
+																			<i class="glyphicon glyphicon-chevron-down"></i>'*/;?>
+																		<!-- </a> -->
+																	<!-- </h4> -->
+																<!-- </div> --><!--panel-heading subjectmenu-->
 																 
 																<?php 
 																				
-																echo '<div id="'.$subjectName.$gradelevel.'" class="panel-collapse collapse">';
+																/*echo '<div id="'.$subjectName.$gradelevel.'" class="panel-collapse collapse">';*/
 																		
 																?>				
-																		<div class="panel-body">
+																		<!-- <div class="panel-body"> -->
 																					
 																		<?php 
 																			
-																			foreach($section as $sectionNo => $sectionName)
+																			/*foreach($section as $sectionNo => $sectionName)
 																			{				
 																			
 																					foreach($sectionName as $section_name => $end)
-																				{	
+																				{	*/
 																		?>					
 																					<!--sections-->
-																					<div class="panel-heading subjectmenu">
-																						<h4 class="panel-title">
+																					<!-- <div class="panel-heading subjectmenu">
+																						<h4 class="panel-title"> -->
 																						<?php
-																							echo '<a href="#"  onclick="getSectionId(this)" id="'.$section_name.'" class="toHighlight" ><i class="glyphicon glyphicon-pencil" ></i>'.$sectionNo.'-'.$section_name.'</a>';
+																							/*echo '<a href="#"  onclick="getSectionId(this)" id="'.$section_name.'" class="toHighlight" ><i class="glyphicon glyphicon-pencil" ></i>'.$sectionNo.'-'.$section_name.'</a>';*/
 																						?>	
-																						</h4>
+																					<!-- 	</h4>
 																					
-																					</div><!--panel-heading subjectmenu-->
+																					</div> --><!--panel-heading subjectmenu-->
 																		<?php 
-																				}
-																			}
+																			/*	}
+																			}*/
 																		?>					
 																					
-																				</div><!--panel-body-->
+																				<!-- </div> --><!--panel-body-->
 																
 						
-																		</div><!--panel-collapse collapse-->
+																		<!-- </div> --><!--panel-collapse collapse-->
 																	
 									
 												<?php 
 
-												}
+											/*	}*/
 
 												?>	
 
-												</div><!--//Grade level-->
+												<!-- </div> --><!--//Grade level-->
 						
-										</div>	
+										<!-- </div>	 -->
 												
 															
 												

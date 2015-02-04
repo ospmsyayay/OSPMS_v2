@@ -105,5 +105,17 @@ function get_allannouncement_lecture()
 
 }
 
+function get_allaccounts()
+{
+	include "config/conn.php";
+
+	$sql="SELECT create_account.*, registration.reg_fname, registration.reg_lname FROM create_account 
+	inner join registration on create_account.account_id=registration.reg_id";
+
+	$sql=mysqli_query($cxn,$sql);
+
+	return $sql;
+}
+
 
 ?>

@@ -10,6 +10,7 @@
 		<title>Online Student Performance Monitoring System</title>
 		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
     
 	<!-- 	<body onload="init()"> -->
@@ -331,7 +332,7 @@ function getSubjectId(menu)
        success: function(response) 
        {
        		/*alert(JSON.stringify(response['clicked']));*/
-       		reset_container();
+       		reset_container(subject);
 
 			chart('subject'); 
 			
@@ -404,27 +405,34 @@ $.ajax({
 
 }
 
-function reset_container()
+function reset_container(subject)
 {
 	$('.right-column').empty();
 
 	var display=$('<div id="student-container">'+
-							'<div class="student-page-space">'+
-								'<canvas id="firstChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-							'</div>'+
+		        							'<div class="progress-header">'+subject+'</div>'+
+		        							'<div class="progress-container-relative">'+
+			        							'<div class="progress-period">1st Grading Period</div>'+
+			        							'<div class="student-page-space">'+
+													'<canvas id="firstChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
+												'</div>'+
 
-							'<div class="student-page-space">'+
-								'<canvas id="secondChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-							'</div>'+
+												'<div class="progress-period">2nd Grading Period</div>'+
+												'<div class="student-page-space">'+
+													'<canvas id="secondChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
+												'</div>'+
 
-							'<div class="student-page-space">'+
-								'<canvas id="thirdChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-							'</div>'+
+												'<div class="progress-period">3rd Grading Period</div>'+
+												'<div class="student-page-space">'+
+													'<canvas id="thirdChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
+												'</div>'+
 
-							'<div class="student-page-space">'+
-								'<canvas id="fourthChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-							'</div>'+
-					'</div>');
+												'<div class="progress-period">4th Grading Period</div>'+
+												'<div class="student-page-space">'+
+													'<canvas id="fourthChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
+												'</div>'+
+											'</div>'+
+									'</div>');
 
 	$('.right-column').append(display);
 } 

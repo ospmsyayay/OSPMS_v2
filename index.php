@@ -40,7 +40,8 @@ else
 											
 												case 'trp':tpage_progress();break;
 												case 'tre':tpage_encode();break;
-												case 'ce':createexer(); break;
+												/*case 'trce':tpage_createexer(); break;*/
+												case 'trce':createexer();break;
 												case 's':t_spage_progress();break;
 												case 'acc':taccount_settings();break;
 											}
@@ -68,7 +69,8 @@ else
 										else{
 											switch($_GET['pt'])
 											{
-											
+												case 's':p_spage_progress();break;
+												case 'acc':paccount_settings();break;
 											}
 										}
 										break;
@@ -170,6 +172,7 @@ function admin()
 	$gradelevellist=array();
 	$announcement_lecturelist=array();
 	$edit_admin=array();
+	$user_accounts=array();
 	
 	if($_SERVER['REQUEST_METHOD']=='GET')
 	{
@@ -299,6 +302,27 @@ function admin()
 				$pass['reg_mname']=$row[8];
 
 				$announcement_lecturelist[]=$pass;
+			}
+
+
+		}
+
+		if(isset($_GET['ua']))
+		{
+			$fetch=get_allaccounts();
+			while($row=mysqli_fetch_array($fetch))
+			{
+				$pass=array();
+				$pass['username']=$row[0];
+				$pass['password']=$row[1];
+				$pass['secret_question']=$row[2];
+				$pass['secret_answer']=$row[3];
+				$pass['user_type']=$row[4];
+				$pass['account_id']=$row[5];
+				$pass['reg_fname']=$row[6];
+				$pass['reg_lname']=$row[7];
+
+				$user_accounts[]=$pass;
 			}
 
 
@@ -817,8 +841,70 @@ function spage_exercise()
 
 function ppage()
 {
+	include "model/parent.php";
+
+	$display_students=array();
+	$display_teachers=array();
+	$display_subjects=array();
+	$display_students=array();
+
+	$students=get_students($_SESSION['account_id']);
+
+	while($display = mysqli_fetch_array($students))
+	{
+		$passer=array();
+			
+		$passer['student_lrn']=$display['student_lrn'];
+		$passer['reg_lname']=$display['reg_lname'];
+		$passer['reg_fname']=$display['reg_fname'];
+		$passer['reg_mname']=$display['reg_mname'];
+		$passer['image']=$display['image'];
+		
+		$display_students[]=$passer;
+	}
+
+	$teachers=get_teachers($_SESSION['account_id']);
+
+	while($display = mysqli_fetch_array($teachers))
+	{
+		$passer=array();
+			
+		$passer['reg_id']=$display['reg_id'];
+		$passer['reg_lname']=$display['reg_lname'];
+		$passer['reg_fname']=$display['reg_fname'];
+		$passer['reg_mname']=$display['reg_mname'];
+		$passer['image']=$display['image'];
+
+		$display_teachers[]=$passer;
+	}
+
+	/*foreach($display_teachers as $row)
+	{
+		$row['reg_id'];
+	}	
+	$subjects=get_subjects($_SESSION['account_id'],$passer['reg_id']);*/
+
+		/*while($display = mysqli_fetch_array($subjects))
+		{
+			$passer=array();
+			$passer['subject_title']=$display['subject_title'];
+			$display_subjects[]=$passer;
+
+
+		}*/
+
 
 	include "views/Parent_Page.php";
+}
+
+function p_spage_progress()
+{
+	include "views/Parent_Student_Page_Progress.php";
+}
+
+function tpage_createexer()
+{
+	/*include "views/Teacher_CreateExercise.php";*/
 }
 
 function createexer()
@@ -1313,10 +1399,15 @@ function taccount_settings()
 	{
 		$old_password=$currentpass=$newpass=$repass="";
 
-		$old_password = $_SESSION['password'];
-		$currentpass = clean($_POST['accountcurrentpass']);
-		$newpass = clean($_POST['accountnewpass']);
-		$repass = clean($_POST['accountrepass']);
+		$fetch=getall_account($_SESSION['account_id']);
+		while($row=mysqli_fetch_array($fetch))
+		{
+			$old_password = $row['password_'];
+		}
+
+		$currentpass = clean($_POST['taccountcurrentpass']);
+		$newpass = clean($_POST['taccountnewpass']);
+		$repass = clean($_POST['taccountrepass']);
 
      	
      	if($currentpass <> $old_password) 
@@ -1349,7 +1440,7 @@ function taccount_settings()
      		header("Location:index.php?r=lss&tr=acc&pmco");
      	}
 
-     	else if($repass == $_SESSION['password'])
+     	else if($repass == $old_password)
      	{
      		/*echo "<script>alert('Password must differ from old password.')</script>";*/
      		header("Location:index.php?r=lss&tr=acc&pmd");
@@ -1373,7 +1464,147 @@ function taccount_settings()
 
 function saccount_settings()
 {
+	include "model/accountsettings.php";
+	include "model/utility.php";
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	{
+		$old_password=$currentpass=$newpass=$repass="";
+
+		$fetch=getall_account($_SESSION['account_id']);
+		while($row=mysqli_fetch_array($fetch))
+		{
+			$old_password = $row['password_'];
+		}
+
+		$currentpass = clean($_POST['saccountcurrentpass']);
+		$newpass = clean($_POST['saccountnewpass']);
+		$repass = clean($_POST['saccountrepass']);
+
+     	
+     	if($currentpass <> $old_password) 
+     	{
+     		/*echo "<script>alert('Invalid current password!')</script>";*/
+     		header("Location:index.php?r=lss&st=acc&icp");
+     	}
+
+     	else if($newpass <> $repass)
+     	{
+     		/*echo "<script>alert('New passwords do not match!')</script>";*/
+     		header("Location:index.php?r=lss&st=acc&npm");
+     	}
+
+     	else if(empty($currentpass) or empty($newpass) or empty($repass))	
+     	{
+     		/*echo "<script>alert('Password cannot be empty!')</script>";*/
+     		header("Location:index.php?r=lss&st=acc&pce");
+     	}	
+
+     	else if(strlen($newpass)<8 or strlen($repass)<8)
+     	{
+     		/*echo "<script>alert('Password too short')</script>";*/
+     		header("Location:index.php?r=lss&st=acc&pts");
+     	}
+
+     	else if(strlen($newpass)>16 or strlen($repass)>16)
+     	{
+     		/*echo "<script>alert('Password must be 16 characters only.')</script>";*/
+     		header("Location:index.php?r=lss&st=acc&pmco");
+     	}
+
+     	else if($repass == $old_password)
+     	{
+     		/*echo "<script>alert('Password must differ from old password.')</script>";*/
+     		header("Location:index.php?r=lss&st=acc&pmd");
+     	}
+
+     	else
+     	{
+     		$updated=change_password($_SESSION['account_id'],$repass);
+			if($updated)
+			{
+				header("Location:index.php?r=lss&st=acc&cp");
+			}
+     	}	
+
+
+		
+	}
+
 	include "views/Student_Account_Settings.php";
+}
+
+function paccount_settings()
+{
+	include "model/accountsettings.php";
+	include "model/utility.php";
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	{
+		$old_password=$currentpass=$newpass=$repass="";
+
+		$fetch=getall_account($_SESSION['account_id']);
+		while($row=mysqli_fetch_array($fetch))
+		{
+			$old_password = $row['password_'];
+		}
+
+		$currentpass = clean($_POST['paccountcurrentpass']);
+		$newpass = clean($_POST['paccountnewpass']);
+		$repass = clean($_POST['paccountrepass']);
+
+     	
+     	if($currentpass <> $old_password) 
+     	{
+     		/*echo "<script>alert('Invalid current password!')</script>";*/
+     		header("Location:index.php?r=lss&pt=acc&icp");
+     	}
+
+     	else if($newpass <> $repass)
+     	{
+     		/*echo "<script>alert('New passwords do not match!')</script>";*/
+     		header("Location:index.php?r=lss&pt=acc&npm");
+     	}
+
+     	else if(empty($currentpass) or empty($newpass) or empty($repass))	
+     	{
+     		/*echo "<script>alert('Password cannot be empty!')</script>";*/
+     		header("Location:index.php?r=lss&pt=acc&pce");
+     	}	
+
+     	else if(strlen($newpass)<8 or strlen($repass)<8)
+     	{
+     		/*echo "<script>alert('Password too short')</script>";*/
+     		header("Location:index.php?r=lss&pt=acc&pts");
+     	}
+
+     	else if(strlen($newpass)>16 or strlen($repass)>16)
+     	{
+     		/*echo "<script>alert('Password must be 16 characters only.')</script>";*/
+     		header("Location:index.php?r=lss&pt=acc&pmco");
+     	}
+
+     	else if($repass == $old_password)
+     	{
+     		/*echo "<script>alert('Password must differ from old password.')</script>";*/
+     		header("Location:index.php?r=lss&pt=acc&pmd");
+     	}
+
+     	else
+     	{
+     		$updated=change_password($_SESSION['account_id'],$repass);
+			if($updated)
+			{
+				header("Location:index.php?r=lss&pt=acc&cp");
+			}
+     	}	
+
+
+		
+	}
+
+	include "views/Parent_Account_Settings.php";
+
 }
 
 function logout()

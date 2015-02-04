@@ -9,6 +9,7 @@
         <title>Online Student Performance Monitoring System</title>
         <link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
     </head>
     
         <body onload="check()">
@@ -20,42 +21,42 @@
             {   
         ?>      
             alert('Invalid current password!');
-            window.location.href='index.php?r=lss&tr=acc';
+            window.location.href='index.php?r=lss&st=acc';
         <?php 
             }
             else if(isset($_GET['npm']))
             {   
         ?>
             alert('New passwords do not match!');
-            window.location.href='index.php?r=lss&tr=acc';
+            window.location.href='index.php?r=lss&st=acc';
         <?php
             }
             else if(isset($_GET['pce']))
             {
         ?>
             alert('Password cannot be empty!');
-            window.location.href='index.php?r=lss&tr=acc';
+            window.location.href='index.php?r=lss&st=acc';
         <?php
             }
             else if(isset($_GET['pts']))
             {    
         ?>
             alert('Password too short');
-            window.location.href='index.php?r=lss&tr=acc';
+            window.location.href='index.php?r=lss&st=acc';
         <?php
             }
             else if(isset($_GET['pmco']))
             {    
         ?>
             alert('Password must be 16 characters only.');
-            window.location.href='index.php?r=lss&tr=acc';
+            window.location.href='index.php?r=lss&st=acc';
         <?php 
             }
             else if(isset($_GET['pmd']))
             {    
         ?>
             alert('Password must differ from old password.');
-            window.location.href='index.php?r=lss&tr=acc';
+            window.location.href='index.php?r=lss&st=acc';
         <?php
             }
             else if(isset($_GET['cp']))
@@ -108,7 +109,7 @@
                                                     <?php 
                                                     if(isset($_SESSION['account_id']))
                                                     {
-                                                        echo '<input type="text" name="accountid" class="form-control" value="'.$_SESSION['account_id'].'" readonly="true">';                     
+                                                        echo '<input type="text" name="saccountid" class="form-control" value="'.$_SESSION['account_id'].'" readonly="true">';                     
                                                     }
                                                     ?>
                                                     
@@ -120,7 +121,7 @@
                                                     <?php 
                                                     if(isset($_SESSION['username']))
                                                     {
-                                                        echo '<input type="text" name="accountusername" class="form-control" value="'.$_SESSION['username'].'"readonly="true">';                     
+                                                        echo '<input type="text" name="saccountusername" class="form-control" value="'.$_SESSION['username'].'"readonly="true">';                     
                                                     }
                                                     ?>
                                                     
@@ -130,19 +131,19 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Current Password</label>
                                                 <div class="col-sm-6">
-                                                    <input type="password" name="accountcurrentpass" class="form-control">
+                                                    <input type="password" name="saccountcurrentpass" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">New Password</label>
                                                 <div class="col-sm-6">
-                                                    <input type="password" name="accountnewpass" class="form-control">
+                                                    <input type="password" name="saccountnewpass" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Re-Type Password</label>
                                                 <div class="col-sm-6">
-                                                    <input type="password" name="accountrepass" class="form-control">
+                                                    <input type="password" name="saccountrepass" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">

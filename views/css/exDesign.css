@@ -1,8 +1,9 @@
 /*External Design for Online Student Performance Monitoring System*/
 /**@author Darryl
-  @copyright 2014**/
+@copyright 2014**/
 * 
 { 
+	/*to address different renderings of margin and padding by browsers*/
 	margin : 0px;
 	padding : 0px;
 }
@@ -84,9 +85,9 @@ hr
 }
 .header-wrapper
 {
-width : 100%;
-height:72px;
-margin-bottom:0px;
+	width : 100%;
+	height:72px;
+	margin-bottom:0px;
 }
 .header {
     background: none repeat scroll 0% 0% #FFFFFF;
@@ -127,7 +128,7 @@ margin-bottom:0px;
 {
 	
 	background-color : RGB(30, 30, 30);
-	background-image : url('../res/TES_BACKGROUND.jpg');
+	background-image : url('../res/BG_OSPMS.jpg');
 	background-size : 100% 100%;
 	background-attachment : fixed;
 	
@@ -157,9 +158,9 @@ width:220px;
 }
 .right-wrapper
 {
-position:relative;
-left:220px;
-width:740px;
+	position:relative;
+	left:220px;
+	width:740px;
 }
 .content
 {
@@ -197,7 +198,8 @@ width:740px;
 #login-set
 {
 	
-	height: 300px;
+	/*display: block !important;*/
+	height: auto !important;
 	background: rgba(180, 218, 254, 0.5);
 	border-radius: 4px;
 	
@@ -211,14 +213,6 @@ width:740px;
 }
 
 
-#login
-{
-
-	height:180px;
-	background-color:#cfe2f4;
-	border-radius: 5px;
-	
-}
 
 #login-title
 {
@@ -229,60 +223,170 @@ width:740px;
 #fs_border
 {
 
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
-  border-radius: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   -webkit-box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
   -moz-box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
   box-shadow: 1px 1px 1px rgba(50, 50, 50, 0.75);
 }
 
 fieldset{
-min-height:180px;
-background: rgba(238, 240, 242, 0.5);
-line-height: 1.6em;
-margin-top:20px;
-padding-top:20px;
+	min-height:180px;
+	background: rgba(238, 240, 242, 0.5);
+	line-height: 1.6em;
+	margin-top:20px;
+	padding-top:20px;
 
 }
 
+/**Custom Navbar**/
+.navbar-custom {
+  background-color: #3c8dbc;
+  border-color: #347aa3;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#5fa4cc), to(#3c8dbc));
+  background-image: -webkit-linear-gradient(top, #5fa4cc, 0%, #3c8dbc, 100%);
+  background-image: -moz-linear-gradient(top, #5fa4cc 0%, #3c8dbc 100%);
+  background-image: linear-gradient(to bottom, #5fa4cc 0%, #3c8dbc 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5fa4cc', endColorstr='#ff3c8dbc', GradientType=0);
+}
+.navbar-custom .navbar-brand {
+  color: #ffffff;
+}
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+  color: #e6e6e6;
+  background-color: transparent;
+}
+.navbar-custom .navbar-text {
+  color: #ffffff;
+}
+.navbar-custom .navbar-nav > li > a {
+  color: #ffffff;
+}
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+.navbar-custom .navbar-nav > .active > a,
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #347aa3;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#347aa3), to(#4696c4));
+  background-image: -webkit-linear-gradient(top, #347aa3, 0%, #4696c4, 100%);
+  background-image: -moz-linear-gradient(top, #347aa3 0%, #4696c4 100%);
+  background-image: linear-gradient(to bottom, #347aa3 0%, #4696c4 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff347aa3', endColorstr='#ff4696c4', GradientType=0);
+}
+.navbar-custom .navbar-nav > .disabled > a,
+.navbar-custom .navbar-nav > .disabled > a:hover,
+.navbar-custom .navbar-nav > .disabled > a:focus {
+  color: #cccccc;
+  background-color: transparent;
+}
+.navbar-custom .navbar-toggle {
+  border-color: #dddddd;
+}
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+  background-color: #dddddd;
+}
+.navbar-custom .navbar-toggle .icon-bar {
+  background-color: #cccccc;
+}
+.navbar-custom .navbar-collapse,
+.navbar-custom .navbar-form {
+  border-color: #3379a1;
+}
+.navbar-custom .navbar-nav > .dropdown > a:hover .caret,
+.navbar-custom .navbar-nav > .dropdown > a:focus .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.navbar-custom .navbar-nav > .open > a,
+.navbar-custom .navbar-nav > .open > a:hover,
+.navbar-custom .navbar-nav > .open > a:focus {
+  background-color: #347aa3;
+  color: #ffffff;
+}
+.navbar-custom .navbar-nav > .open > a .caret,
+.navbar-custom .navbar-nav > .open > a:hover .caret,
+.navbar-custom .navbar-nav > .open > a:focus .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.navbar-custom .navbar-nav > .dropdown > a .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+@media (max-width: 767) {
+  .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+    background-color: transparent;
+  }
+  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #347aa3;
+  }
+  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #cccccc;
+    background-color: transparent;
+  }
+}
+.navbar-custom .navbar-link {
+  color: #ffffff;
+}
+.navbar-custom .navbar-link:hover {
+  color: #ffffff;
+}
 
 /** Teachers Page **/
 #nav-search{
-float:left;
-display:inline-block;
-margin-top:-2px;
-margin-left:5px;
+	float:left;
+	display:inline-block;
+	margin-top:-2px;
+	margin-left:5px;
 }
 
 #search-icon
 {
-float:left;
-display:inline-block;
-margin-top:20px;
-margin-left:5px;
+	float:left;
+	display:inline-block;
+	margin-top:20px;
+	margin-left:5px;
 }
 
 #user
 {
-display:inline-block;
-margin-top:8px;
-margin-left:15px;
+	display:inline-block;
+	margin-top:8px;
+	margin-left:15px;
 }
 #user-dropdown
 {
-
-display:inline-block;
-margin-top:10px;
-margin-left:5px;
+	display:inline-block;
+	margin-top:10px;
+	margin-left:5px;
 }
 .left-column
 {
-background-color: transparent;
-border: 0px none;
-margin-bottom: 14px;
-width:220px;
-position:fixed
+	background-color: transparent;
+	border: 0px none;
+	margin-bottom: 14px;
+	width:220px;
+	position:fixed;
 }
 
 #thumbnail-teacher{
@@ -294,24 +398,20 @@ position:fixed
 
 #thumbnail-teacher-img
 {
-margin: 5px 5px 5px 5px;
-height:70px;
-width:70px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
+	margin: 5px 5px 5px 5px;
+	height:70px;
+	width:70px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
 }
 
 .profile-teacher-img
 {
-margin: 5px 5px 5px 5px;
-height:50px;
-width:50px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
+height:40px;
+width:40px;
+margin:8px 0px 8px 8px;
 }
 
 #greetings-teacher
@@ -376,7 +476,7 @@ box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 {
 	
 	background-color : RGB(30, 30, 30);
-	background-image : url('../res/TES_BACKGROUND.jpg');
+	background-image : url('../res/BG_OSPMS.jpg');
 	background-size : 100% 100%;
 	background-attachment : fixed;
 	
@@ -823,13 +923,10 @@ border-bottom-left-radius: 2px;
 
 .profile-student-img
 {
-margin: 5px 5px 5px 5px;
-height:50px;
-width:50px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
+
+height:40px;
+width:40px;
+margin:8px 0px 8px 8px;
 }
 
 
@@ -1021,13 +1118,9 @@ border-bottom-left-radius: 2px;
 
 #profile-parent-img
 {
-margin: 5px 5px 5px 5px;
-height:50px;
-width:50px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
+height:40px;
+width:40px;
+margin:8px 0px 8px 8px;
 }
 
 /**.msgbox_container

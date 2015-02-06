@@ -3,10 +3,8 @@
 <html lang="en">
 	<head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
-		<title>Online Student Performance Monitoring System</title>
-
-		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+		<title>CreateExercise</title>
+		<link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>

@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- <meta charset="UTF-8"> -->
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
-		<title>Online Student Performance Monitoring System</title>
-		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Student Page Progress</title>
+		<link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
@@ -27,46 +25,17 @@
 			<?php include "views/parts/side-bar-student.php";?>
 			<div class="right-wrapper">
 					<div class="right-column">
-						
-						<!-- <div id="student-container">
-											
-											<div class="student-page-space">
-												<canvas id="firstChart" width="600" height="350" style="margin-left: 15px;"></canvas>
-											</div>
 
-											<div class="student-page-space">
-												<canvas id="secondChart" width="600" height="350" style="margin-left: 15px;"></canvas>
-											</div>
-
-											<div class="student-page-space">
-												<canvas id="thirdChart" width="600" height="350" style="margin-left: 15px;"></canvas>
-											</div>
-
-											<div class="student-page-space">
-												<canvas id="fourthChart" width="600" height="350" style="margin-left: 15px;"></canvas>
-											</div>
-											
-							
-						</div><!--student-container-->
-							
 					</div><!--right-column-->
 			</div><!--right-wrapper-->
 		</div><!--container-->
 	</div><!--content-->
 </div><!--viewport-->
 
-  		<script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/transition.js"></script>
-        <script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
-		<script src="views/plugins/bootstrap/tab.js"></script>
-		<script src="views/plugins/bootstrap/modal.js"></script>
-		<script src="views/plugins/bootstrap/tooltip.js"></script>
-		<script src="views/plugins/bootstrap/popover.js"></script>
-		<script src="views/plugins/chartjs/Chart.js"></script>
-		
-		
-        <!--<script src="../../assets/js/docs.min.js"></script>-->
+<script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
+<script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
+<script src="views/plugins/chartjs/Chart.js"></script>
+
      <!-- JavaScript Test -->
 <script>
 

@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Admin</title>
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-            <link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Admin</title>
+            <link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
             <link href="views/css/admin.css" rel="stylesheet" />
             <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
+
              <!-- Load jQuery UI CSS  -->
             <link href="views/plugins/jquery-ui/jquery-ui.css" rel="stylesheet"/>
             <link href="views/plugins/jquery-ui/jquery-ui.structure.css" rel="stylesheet"/>
@@ -253,16 +255,15 @@
                             <a href="index.php?r=lss&ps">
                                 <i class=""></i> <span>Manage Posts</span>
                             </a>
-<<<<<<< HEAD
-                        </li>
+
+                        </li>-->
                         <li>
                             <a href="index.php?r=lss&ua">
                                 <i class=""></i> <span>Manage User Accounts</span>
                             </a>
                         </li>
-=======
-                        </li>-->
->>>>>>> e06600dcd1204aff55394734a232858d7a37a873
+
+                        </li>
                         
                     </ul>
                 </section>
@@ -847,21 +848,12 @@
             </aside>
         </div>
 
-
-        <script src="views/plugins/bootstrap/app.js" type="text/javascript"></script>
-        <script src="views/plugins/bootstrap/dashboard.js" type="text/javascript"></script>
-        <script src="views/plugins/bootstrap/demo.js" type="text/javascript"></script>
-        <script src="views/plugins/bootstrap/transition.js"></script>
-        <script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
-        <script src="views/plugins/bootstrap/tab.js"></script>
-        <script src="views/plugins/bootstrap/tooltip.js"></script>
-        <script src="views/plugins/bootstrap/popover.js"></script>
-        <script src="views/js/scripts.js"></script>
          <!-- Load jQuery JS -->
-        <script src="views/plugins/bootstrap/jquery-1.11.1.js"></script>
+        <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
         <!-- Load jQuery UI Main JS  -->
         <script src="views/plugins/jquery-ui/jquery-ui.js"></script>
+
+        <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 
         <script>
         $(function() 

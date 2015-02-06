@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- <meta charset="UTF-8"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
-		<title>Online Student Performance Monitoring System</title>
-		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+		<title>Student Page</title>
+		<link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
@@ -213,16 +211,8 @@
 	</div><!--content-->
 </div><!--viewport-->
 
-  		<script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/transition.js"></script>
-        <script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
-		<script src="views/plugins/bootstrap/tab.js"></script>
-		<script src="views/plugins/bootstrap/modal.js"></script>
-		<script src="views/plugins/bootstrap/tooltip.js"></script>
-		<script src="views/plugins/bootstrap/popover.js"></script>
-		<script src="views/plugins/chartjs/Chart.js"></script>
-		<script src="views/js/scripts.js"></script>	
+<script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
+<script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 
      <!-- JavaScript Test -->
 <script>

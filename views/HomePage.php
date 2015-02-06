@@ -5,9 +5,7 @@
 <html lang="en">
 	<head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
 		<title>Online Student Performance Monitoring System</title>
-       
 		<link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
@@ -71,7 +69,7 @@
 				<div class="panel-body">
 	
 						<fieldset id="fs_border">
-							<form method="post" class="form-horizontal" role="form">
+							<form method="post" class="form-horizontal" role="form" id="login-form">
 								<div class="form-group">
 									<div class="input-group col-xs-8 col-xs-offset-2 col-sm-8 co-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -86,7 +84,7 @@
 								</div>
 								<div class="form-group">
 									 <div class="col-xs-2 col-xs-offset-5 col-sm-2 col-sm-offset-8 col-md-2 col-md-offset-8 col-lg-2 col-lg-8">
-										<button type="submit" class="btn btn-fresh text-uppercase">Login</button>
+										<button type="submit" class="btn btn-fresh text-uppercase" id="submitbtn">Login</button>
 									 </div>
 								</div>
 							</form>
@@ -97,11 +95,55 @@
 	</div> 
 </div><!--container-->
 <!--End of login-->
+ 
+<script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
+<script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 
+<script>
 
-       
-        <script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
-		
-	</body>
+$(function(){
+
+		function validateText(id)
+		{
+			if($('#'+id).val()==null || $('#'+id).val()=="")
+			{
+				var div = $("#"+id).closest("div");
+				div.removeClass("has-success");
+				$("#glypcn"+id).remove();
+				div.addClass("has-error has-feedback");
+				div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+				return false;
+			}
+			else
+			{
+				var div = $("#"+id).closest("div");
+				div.removeClass("has-error");
+				$("#glypcn"+id).remove();
+				div.addClass("has-success")
+				return true;
+			}	
+
+			
+		}
+	
+		$('#submitbtn').click(function()
+		{
+			 event.preventDefault();
+			 
+			if(!validateText("username"))
+			{
+				return false;
+			}
+
+			if(!validateText("password"))
+			{
+				return false;
+			}	
+
+			$("form#login-form").submit();	
+		});
+
+});
+</script>		
+</body>
 </html>

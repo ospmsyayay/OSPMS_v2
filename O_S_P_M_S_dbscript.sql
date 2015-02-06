@@ -252,11 +252,22 @@ drop table if exists announcement_lecture;
 create table announcement_lecture
 (
 date_created datetime not null,
-messageorfile_caption varchar(255) null,
+messageorfile_caption varchar(500) null,
 file_path varchar(200) null,
 file_name varchar(100) null,
 
 constraint PK_announcement_lecture primary key (date_created)
+);
+
+drop table if exists announcement_lecture_comments;
+create table announcement_lecture_comments
+(
+comment_date_created datetime not null,
+comment_message varchar(500) null,
+post_date_created datetime not null,
+
+constraint PK_announcement_lecture_comments primary key (comment_date_created),
+constraint FK_announcement_lecture_comments foreign key (post_date_created) references announcement_lecture(date_created)
 );
 
 drop table if exists post_announcement_lecture;
@@ -268,6 +279,27 @@ date_created datetime not null,
 constraint PK_post_announcement_lecture primary key (class_rec_no,date_created),
 constraint FK1_post_announcement_lecture foreign key (class_rec_no) references section(class_rec_no),
 constraint FK2_post_announcement_lecture foreign key (date_created) references announcement_lecture(date_created)
+);
+
+drop table if exists teacher_feedback_parent;
+create table teacher_feedback_parent
+(
+feedback_date_created datetime not null,
+feedback_message varchar(500) null,
+
+constraint PK_teacher_feedback_parent primary key (feedback_date_created)
+
+);
+
+drop table if exists post_teacher_feedback_parent;
+create table post_teacher_feedback_parent
+(
+class_rec_no varchar(10) not null,
+feedback_date_created datetime not null,
+
+constraint PK_post_teacher_feedback_parent primary key (class_rec_no,feedback_date_created),
+constraint FK1_post_teacher_feedback_parent foreign key (class_rec_no) references section(class_rec_no),
+constraint FK2_post_teacher_feedback_parent foreign key (feedback_date_created) references teacher_feedback_parent(feedback_date_created)
 );
 
 /*DROP TABLE IF EXISTS `grading`;

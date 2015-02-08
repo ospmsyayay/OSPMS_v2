@@ -14,77 +14,78 @@
     
 	<body>
 	
-<div class="header-wrapper">
-	<?php include "views/parts/navi-bar-teacher.php";?>
+<!--Start of navbar teacher-->
+	<?php include "views/parts/navi-bar-teacher.php";?>   
+<!--End of navbar teacher-->
 
-</div><!--header-wrapper-->
-<div class="wrapper-separator-holder">
-	<div class="wrapper-separator"></div>
-</div>	
-<div class="viewport">
-	<div class="content">
-		<div class="container">
-			<?php include "views/parts/side-bar-teacher.php";?>
-			<div class="right-wrapper">
-					<div class="right-column">
-						<div class="right-column-fixed">
-							<div class="student-list-title-holder panel panel-default ">
-								<div id="student-list-title">
-									<h5>Student List</h5>
+<!--Start of main -->
+	<div class="main container-fluid">
+		<div class="row">
 
-								</div>
+			<!--Start of left content-->
+				<div class="aside-left col-md-2">
+					<?php include "views/parts/side-bar-teacher.php";?>
+				</div>
+			<!--End of left content-->
 
-									<div>
-										<form id="student-search-form" class="form-search form-horizontal pull-right">
-							                <div class="input-append span12" id="search-query-holder">
-							                    <input type="text" class="search-query" placeholder="Search Student" id="student-search">
-							                    <i class="icon-search"></i>
-							                    
-							                </div>
-							            </form>
-							    	</div>
-								
-							</div>
-							
-						
-							
-					
+			<!--Start of mid content-->
+				<div class="main-content col-md-10 col-md-offset-2">
+					<div class="row"><!--//row for right column fixed -->
+						<div class="col-md-9 right-column-fixed">
+							<div class="row"><!--//row for student-list-title-holder -->
+								<div class="student-list-title-holder">
+									<div class="col-md-7" id="student-list-title">
+										Student List
+									</div>
 
+									<div class="col-md-4" id="search-query-holder">
+										<input type="text" class="search-query" placeholder="Search Student" id="student-search">
+									<i class="icon-search"></i>
+									</div>
+
+
+								</div><!--student-list-title-holder-->
+							</div><!--//row for student-list-title-holder -->
 						</div><!--right-column-fixed-->
+					</div><!--//row for right column fixed -->
 
-						<div id="student-progress-container">
-							<div id="result"></div>
-								<div class="student_table">
-									<?php
+					<div class="row"><!--//row for student-progress-container -->
+						<div class="col-md-12" id="student-progress-container">
+								<div class="row"><!--//row for progress-student-container-->
+									<div id="student_table">
+										<?php
 
-										foreach ($display_students as $display) 
-										{
-									?>		
-											<div class="progress-student-container">
-									     			<div class="progress-student-img-holder">
-									     			<?php echo '<img src="views/res/' .$display['image'] . '" class="student-img"/>';?>
+											foreach ($display_students as $display) 
+											{
+										?>		
+													<div class="col-md-3 progress-student-container">
+											     			<div class="progress-student-img-holder">
+											     			<?php echo '<img src="views/res/' .$display['image'] . '" class="img-circle img-responsive center-block student-img "/>';?>
+											     			</div>
+
+													     	<div class="text-center">						     	
+														    <?php echo '<a class="navbar-link getLRN" href="index.php?r=lss&tr=s" id="'.$display['student_lrn'].'">';
+														     	  echo '<p class="student-name">' .$display['reg_lname']. ', '.$display['reg_fname'].' '.$display['reg_mname'].'</p></a>'; 
+														     	  echo '<p class="student-lrn">'.$display['student_lrn'].'</p>';
+														    ?> 	  
+													     	</div> 
 									     			</div>
+									     		
+								     	<?php			  
+											}
+										 	
+								     	?>
+							     	</div><!--student table-->	
+								</div><!--//row for progress-student-container-->						
+						</div><!--student-progress-container-->	
+					</div><!--//row for student-progress-container -->		
+				</div>
+				<!--End of mid content-->
 
-											     	<div class="progress-student-details">						     	
-												    <?php echo '<a class="navbar-link getLRN" href="index.php?r=lss&tr=s" id="'.$display['student_lrn'].'">';
-												     	  echo '<p class="student-name">' .$display['reg_lname']. ', '.$display['reg_fname'].' '.$display['reg_mname'].'</p></a>'; 
-												     	  echo '<p class="student-lrn">'.$display['student_lrn'].'</p>';
-												    ?> 	  
-											     	</div> 
-							     				  </div>
-							     	<?php			  
-										}
-									 	
-							     	?>
-								</div><!--student table-->							
-						</div><!--student-progress-container-->
-					</div><!--right-column-->
-				</div><!--right-wrapper-->	
-		</div><!--container-->
-	</div><!--content-->
-</div><!--viewport-->
+		</div><!--row-->
+	</div><!--container-fluid-->
+<!--End of main -->				
 
- 
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 		
@@ -153,7 +154,7 @@
 
 		         }
 
-		           function getSectionId(menu) 
+		        function getSectionId(menu) 
 		        {
 		        	
 		        	var section=menu.id;
@@ -194,7 +195,7 @@
 
 						function displayStudents(data) 
 						{
-							$(".student_table").empty();
+							$("#student_table").empty();
 
 							    for (var i = 0; i < data.length; i++) 
 							    {
@@ -212,19 +213,19 @@
 							if(rowData.image!=null && rowData.reg_lname!=null && rowData.reg_fname!=null && rowData.reg_mname!=null && rowData.student_lrn!=null)
 							{	
 								  
-							     var display = $('<div class="progress-student-container">' +
+							     var display = $('<div class="col-md-3 progress-student-container">'+
 							     					'<div class="progress-student-img-holder">' +
-							     						'<img src="views/res/' + rowData.image + '" class="student-img"/>' +
+							     						'<img src="views/res/' + rowData.image + '" class="img-circle img-responsive center-block student-img"/>' +
 							     					'</div>' +
-							     					'<div class="progress-student-details">' +							     	
-							     						'<a class="navbar-link" href="index.php?r=lss&tr=s" id="'+rowData.student_lrn+'" onclick="getLRN(this)">' +
+							     					'<div class="text-center">' +							     	
+							     						'<a class="navbar-link getLRN" href="index.php?r=lss&tr=s" id="'+rowData.student_lrn+'">' +
 							     						'<p class="student-name">' +rowData.reg_lname+', '+rowData.reg_fname+' '+rowData.reg_mname+'</p></a>' +
 							     						'<p class="student-lrn">'+rowData.student_lrn+'</p>'+
-							     					'</div>' +
-							     				  '</div>');
+							     					'</div>'+
+							     				'</div>');
 
 
-							   	 $(".student_table").append(display); 
+							   	 $("#student_table").append(display); 
 						   	}
 						    
 
@@ -251,7 +252,7 @@
 						           success: function(response) 
 						           {
 						           		
-										 /* alert(JSON.stringify(response['student_filter']));*/
+										  /*alert(JSON.stringify(response['student_filter']));*/
 											
 						           			displayStudents(response['student_filter']);
 						           		 
@@ -340,33 +341,6 @@
 
 
 			            		   });
-						}
-						
-						function getLRN(p)
-						{
-							var lrn=p.id;
-							/*alert(lrn);*/
-		        	
-		        	
-				        	$.ajax({
-					 
-					            url: 'views/ajax/get_for_chart.php',
-					            type: 'GET',
-					            data: {
-					            	lrn:lrn
-					            },
-					           dataType: 'json',
-					           success: function(response) 
-					           {
-					           		
-									  /*alert(JSON.stringify(response['lrn']));*/
-					           		 
-								}
-
-					          
-					            });
-
-
 						}
 
 						$(function() 

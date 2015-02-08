@@ -34,23 +34,27 @@
 		}
 		</script>
 		
-<div class="header-wrapper">
+<!--Start of navbar student-->
 	<?php include "views/parts/navi-bar-student.php";?>   
-</div><!--header-wrapper-->
-<div class="wrapper-separator-holder">
-	<div class="wrapper-separator"></div>
-</div>	
-<div class="viewport">
-	<div class="content">
-		<div class="container">
-			<?php include "views/parts/side-bar-student.php";?>
-			<div class="right-wrapper">
-					<div class="right-column">
-						<div id="student-post-title-fixed">
+<!--End of navbar student-->
 
-							<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Post From Subjects</div>
-						
-						</div>
+<!--Start of main -->
+	<div class="main container-fluid">
+		<div class="row">
+
+			<!--Start of left content-->
+				<div class="aside-left col-md-2">
+					<?php include "views/parts/side-bar-student.php";?>
+				</div>
+			<!--End of left content-->
+
+			<!--Start of mid content-->
+				<div class="main-content col-md-10 col-md-offset-2">
+
+					<div id="student-post-title-fixed">
+						<div id="student-post-title"><span class="glyphicon glyphicon-flag"></span>Post From Subjects</div>
+					</div>
+					
 					<div id="student-post-container-relative">
 								<div id="student-post-container">
 								
@@ -204,12 +208,14 @@
 										
 								</div><!--post-container-->
 					</div><!--post-container-relative-->
-							
-					</div><!--right-column-->
-			</div><!--right-wrapper-->
-		</div><!--container-->
-	</div><!--content-->
-</div><!--viewport-->
+					
+				</div>
+			<!--End of mid content-->
+
+		</div><!--row-->
+	</div><!--container-fluid-->
+<!--End of main -->
+
 
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>

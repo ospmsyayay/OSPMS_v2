@@ -62,111 +62,65 @@ hr
 
 .no-margin
 {
-	margin:0px;
+	margin:0px !important;
 }
 .no-padding
 {
-	padding:0px;
+	padding:0px !important;
 }
 .remove-left-padding
 {
 	padding-left: -15px;
 }
-.margin-top-30
-{
-	margin-top: 30px;
-}
-/** [PARTS - NAVI] **/
-
-.wrapper
-{
-	width:100%;
-	
-}
-.header-wrapper
-{
-	width : 100%;
-	height:72px;
-	margin-bottom:0px;
-}
-.header {
-    background: none repeat scroll 0% 0% #FFFFFF;
-    padding: 4px 0px 0px;
-	width : 100%;
-    border-color: #e7e7e7;
-	border-radius: 4px;
-	height:72px;
-	margin:0px auto;
-	position:fixed;
-	z-index:80;
-}
-
-.header-inner
-{
-	/*border: 1px solid #2951a3;*/
-	height:63px;	
-}
-.header-content
-{
-	margin: 0px auto;
-	width:100%;
-} 
-
 .shadow
 {
 	 box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.21);
 }
 
-.wrapper-separator-holder
-{
-	height:30px;
-	width:100%;
-	margin: 0px auto;
-}
-
-.wrapper-separator
-{
-	
-	background-color : RGB(30, 30, 30);
-	background-image : url('../res/BG_OSPMS.jpg');
-	background-size : 100% 100%;
-	background-attachment : fixed;
-	
-	scrollbar-face-color : RGB(70, 70, 70);
-	scrollbar-shadow-color: black;
-	scrollbar-track-color: RGB(140, 140, 140);
-	scrollbar-arrow-color: RGB(50, 50, 50);
-
-	z-index:50;
-	position:fixed;
-	height:inherit;
-	width:inherit;
-
-}
-
-.viewport
-{
-/*position:relative;*/
-}
-
-.left-wrapper
-{
-
-/*height:100%;*/
-width:220px;
-
-}
-.right-wrapper
-{
-	position:relative;
-	left:220px;
-	width:740px;
-}
 .content
 {
-	margin: 0px 10px 10px 10px;
-	
+	margin-top:10px;
 }
+
+/**Main**/
+.main 
+{
+	min-height: 500px;
+	height: auto !important;
+	margin-top:60px;
+}
+/**Aside Left**/
+.aside-left
+{
+	background-color: rgba(150, 190, 220, 0.2);
+	height: 100%;
+	position:fixed;
+
+}
+
+
+.welcome-box{
+
+    background-color: #FFF;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.welcome-box-img
+{
+
+height:60px;
+width:60px;
+margin:5px 5px 5px 5px;
+}
+
+/**Main Content**/
+.main-content
+{
+	background-color: rgba(133, 166, 220, 0.2);
+	height: 100%;
+}
+
 
 /** HomePage **/
 #homepage-body
@@ -251,6 +205,10 @@ fieldset{
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5fa4cc', endColorstr='#ff3c8dbc', GradientType=0);
 }
+.navbar-custom {
+  background-color: #3c8dbc;
+  border-color: #347aa3;
+}
 .navbar-custom .navbar-brand {
   color: #ffffff;
 }
@@ -275,12 +233,6 @@ fieldset{
 .navbar-custom .navbar-nav > .active > a:focus {
   color: #ffffff;
   background-color: #347aa3;
-  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#347aa3), to(#4696c4));
-  background-image: -webkit-linear-gradient(top, #347aa3, 0%, #4696c4, 100%);
-  background-image: -moz-linear-gradient(top, #347aa3 0%, #4696c4 100%);
-  background-image: linear-gradient(to bottom, #347aa3 0%, #4696c4 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff347aa3', endColorstr='#ff4696c4', GradientType=0);
 }
 .navbar-custom .navbar-nav > .disabled > a,
 .navbar-custom .navbar-nav > .disabled > a:hover,
@@ -453,8 +405,8 @@ margin:8px 0px 8px 8px;
 {
 
 position:fixed;
-width:inherit;
 z-index:50;
+margin-top: 10px;
 
 }
 
@@ -472,27 +424,7 @@ box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 	position:relative;
 }
 
-.post-separator
-{
-	
-	background-color : RGB(30, 30, 30);
-	background-image : url('../res/BG_OSPMS.jpg');
-	background-size : 100% 100%;
-	background-attachment : fixed;
-	
-	scrollbar-face-color : RGB(70, 70, 70);
-	scrollbar-shadow-color: black;
-	scrollbar-track-color: RGB(140, 140, 140);
-	scrollbar-arrow-color: RGB(50, 50, 50);
 
-	height:181px;
-	width:700px;
-	margin: 0px auto;
-	z-index:49;
-	position:fixed;
-
-
-}
 #post-lecture
 {
 display:inline-block;
@@ -552,22 +484,18 @@ transition-property: #000, border, box-shadow;
 
 #post-container-relative
 {
-	margin-bottom: 14px;
+	margin-bottom: 10px;
 	position:relative;
-	top:209px;
-	width:inherit;
-
-
+	top:195px;
+	margin-left: 10px;
 }
 
 #post-container
 {
-background-color: transparent;
-border-radius: 2px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-width:700px;
-}
 
+border-radius: 2px;
+
+}
 .post-messages
 {
 	background-color: #FFF;
@@ -644,34 +572,19 @@ border-bottom-left-radius: 2px;
 {
 
 	position:fixed;
-	top:281px;
-	width:inherit;
+	top:225px;
 	z-index:10;
 
 }
 
 #post-title
 {
-padding: 15px 20px;
-border-bottom: 1px solid #DFE4E8;
-border-radius: 2px 2px 2px 2px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 background: rgba(204, 204, 255, .9);
 font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
 color: #333;
-margin: 0px;
 padding: 0px;
-
-width:700px;
 height:30px;
 }
-
-#message-container
-{
-	width:700px;
-
-}
-
 
 
 .announcement-container
@@ -709,32 +622,27 @@ display:inline-block;
 
 #student-progress-container
 {
-background-color: transparent;
+
 border-radius: 2px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-margin-bottom: 14px;
+margin-bottom: 10px;
 position:relative;
-top:80px;
+top:50px;
 }
 
 .student-list-title-holder
 {
 border-radius: 2px 2px 0px 0px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 }
 
 #student-list-title
 {
-padding: 15px 20px;
-background-color: #FFF;
-border-bottom: 1px solid #DFE4E8;
-border-radius: 4px 4px 4px 4px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 
-font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
-color: #383D48;
-margin: 0px;
+background: rgba(204, 204, 255, .9);
+font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
+color: #333;
 padding: 0px;
+height:30px;
+
 }
 
 .sidebar-form {
@@ -748,15 +656,13 @@ padding: 0px;
 
 .progress-student-container
 {
-	float:left;
-	width:225px;
-	height:150px;
+/*	float:left;*/
+/*	width:225px;*/
+	height:160px;
 	background-color: #FFF;
-    border-radius: 3px;
-    box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-    margin-left:5px;
-    margin-right: 3px;
-    margin-bottom: 5px;
+    border-radius: 4px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 
 }
 
@@ -790,24 +696,11 @@ padding: 0px;
         width: 260px;
     }   
 
-/*.progress-student-img-holder
-{
-	
-}*/
-
-.progress-student-details
-{
-	text-align: center 
-
-}
-
 .student-img
 {
-	display:block;
-	margin:auto auto;
+
 	height:80px;
 	width:80px;
-	border-radius: 50%;
 }
 .student-name
 {
@@ -829,33 +722,29 @@ padding: 0px;
 /**Encoding Page**/
 #encoding-container
 {
-background-color: transparent;
+
 border-radius: 2px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-margin-bottom: 14px;
+margin-bottom: 10px;
+margin-top: 10px;
 
 }
 
 #encoding-page-title
 {
-padding: 15px 20px;
-background-color: #FFF;
-border-bottom: 1px solid #DFE4E8;
-border-radius: 2px 2px 0px 0px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 
-    font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
-    color: #383D48;
-    margin: 0px;
-    padding: 0px;
+background-color: rgba(204, 204, 255, .9);
+border-radius: 2px 2px 0px 0px;
+font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
+color: #383D48;
+
 }
 
 .encoding-page-space
 {
+	padding-top: 5px;
 	background-color: #FFF;
     border-radius: 2px;
-    box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 
 }
 .process-img
@@ -870,13 +759,6 @@ border-bottom-left-radius: 2px;
 }
 
 /**Student Page**/
-#student-container
-{
-background-color: transparent;
-border-radius: 10px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-
-}
 
 .student-title
 {
@@ -894,13 +776,141 @@ box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 
 }
 
-.student-page-space
+.student-progress-space
 {
 	background-color: #FFF;
     border-radius: 2px;
-    box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 
+
+}
+.chart
+{
+   height:450px;
+}
+
+.legend-table
+{
+	margin-top:10px;
+	background-color: rgba(236, 242, 255, 0.2);
+	height:180px;
+	border-radius: 2px;
+}
+.legend
+{
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.knowledge-bg
+{
+
+	border-radius: 2px;
+	background-color: rgba(57, 117, 189, 0.75);
+	width:15px;
+	height:15px;
+	
+}
+
+.processskills-bg
+{
+	border-radius: 2px;
+	background-color: rgba(195, 57, 55, 0.75);
+	width:15px;
+	height:15px;
+
+}
+
+.understanding-bg
+{
+	border-radius: 2px;
+	background-color: rgba(144, 183, 66, 0.75);
+	width:15px;
+	height:15px;
+
+}
+
+.performanceproducts-bg
+{
+	border-radius: 2px;
+	background-color: rgba(133, 81, 154, 0.75);
+	width:15px;
+	height:15px;
+
+}
+
+.progress-data
+{
+	margin-top:10px;
+}
+
+.beggining-bg
+{
+	background-color: #e4b9b9;
+	border-radius: 2px;
+	width:15px;
+	height:15px;
+	
+}
+
+.developing-bg
+{
+	background-color: #f7ecb5;
+	border-radius: 2px;
+	width:15px;
+	height:15px;
+	
+}
+
+.approaching-bg
+{
+	background-color: rgb(225, 225, 232);
+	border-radius: 2px;
+	width:15px;
+	height:15px;
+	
+}
+
+.proficient-bg
+{
+	background-color: #afd9ee;
+	border-radius: 2px;
+	width:15px;
+	height:15px;
+}
+
+.advanced-bg
+{
+	background-color: #c1e2b3;
+	border-radius: 2px;
+	width:15px;
+	height:15px;
+}
+ 
+.knowledge-title
+{
+	background-color: rgba(57, 117, 189, 0.75);
+} 
+
+.processskills-title
+{
+	background-color: rgba(195, 57, 55, 0.75);
+} 
+
+.understanding-title
+{
+	background-color: rgba(144, 183, 66, 0.75);
+} 
+
+.performanceproducts-title
+{
+	background-color: rgba(133, 81, 154, 0.75);
+} 
+
+.student-progress-table
+{
+	background-color: #FFF;
+    border-radius: 2px;
+    margin-bottom: 10px;
 }
 
 #thumbnail-student{
@@ -940,8 +950,7 @@ margin:8px 0px 8px 8px;
 {
 
 	position:fixed;
-	top:102px;
-	width:inherit;
+	top:70px;
 	z-index:10;
 
 }
@@ -965,20 +974,14 @@ height:30px;
 
 #student-post-container-relative
 {
-	margin-bottom: 14px;
+	margin-bottom: 10px;
 	position:relative;
 	top:45px;
-	width:inherit;
-
-
 }
 
 #student-post-container
 {
-background-color: transparent;
 border-radius: 2px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-width:700px;
 }
 
 #student-message-container
@@ -1556,13 +1559,6 @@ float:left;
 /*Progress Page Headers*/
 .progress-period {
   background-color: rgba(210, 224, 255, 0.9);
-  border-right: 3px solid #778492;
-  border-bottom:4px solid #778492;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
   font-family: "Montserrat",sans-serif;
   font-size: 18px;
   padding:3px;
@@ -1570,10 +1566,11 @@ float:left;
 }
 .progress-container-relative
 {
-	margin-bottom: 14px;
-	position:relative;
+	position: relative;
 	top:60px;
-	width:inherit;
+	margin-bottom: 10px;
+	min-height: 500px;
+	height: auto !important;
 }
 
 .progress-header{
@@ -1585,21 +1582,17 @@ float:left;
 	font-weight: 700;
 	line-height: 41.8px;
 	margin-bottom: 5px;
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 0px;
 	background-color:rgba(255, 255, 255, 0.9);
-  	border-right:3px solid #778492;
-  	border-bottom:3px solid #778492;
-  	-webkit-border-radius: 20px;
-  	-moz-border-radius: 5px;
-  	-ms-border-radius: 5px;
-  	-o-border-radius: 5px;
-  	border-radius: 5px;
+
+  	-webkit-border-radius: 2px;
+  	-moz-border-radius: 2px;
+  	-ms-border-radius: 2px;
+  	-o-border-radius: 2px;
+  	border-radius: 2px;
   	padding:4px;
   	position:fixed;
 	z-index:40;
-	width : 700px;
+
 
 
 }

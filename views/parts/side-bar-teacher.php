@@ -1,21 +1,22 @@
   <!--@author Darryl-->
   <!--@copyright 2014-->
-<div class="left-wrapper">
-				<div class="left-column" >
-					<div id="thumbnail-teacher">
-						<?php if(isset($_SESSION['profile_pic']))
-                   		{
-                    	echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow" id="thumbnail-teacher-img"/>';
-                    	}
-                    	?>
-						
-						<?php 
-						if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
-						{
-							echo '<a href="#" class="navbar-link" ><h5 id="greetings-teacher">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
-						}
-						?>
-					</div> 
+  
+<!--Start of Welcome Box-->				
+	<div class="welcome-box content">
+		 <?php if(isset($_SESSION['profile_pic']))
+   		{
+    		echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="welcome-box-img img-thumbnail shadow"/>';
+    	}
+    	?>
+		
+		<?php 
+		if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
+		{
+			echo '<a href="#" class="navbar-link" ><h5 id="greetings-teacher">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
+		}
+		?>
+	</div>
+<!--End of Welcome Box-->
 
 					<div id="subject-list">
 						<h4 id="subject-list-title"><i class="glyphicon glyphicon-book"></i> Subjects</h4> 
@@ -121,5 +122,3 @@
 					</div><!--Menu 1-->	
 					 
 				   </div><!--subject-list-->
-				</div><!--left-column-->
-			</div><!--left-wrapper-->

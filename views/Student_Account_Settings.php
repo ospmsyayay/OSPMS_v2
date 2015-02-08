@@ -68,14 +68,15 @@
         }  
          </script>       
        
-<div class="header-wrapper">
-    <?php include "views/parts/navi-bar-student.php";?>
-</div><!--header-wrapper--> 
-<div class="viewport">
-    <div class="content">
-        <div class="container">
+<!--Start of navbar student-->
+    <?php include "views/parts/navi-bar-student.php";?>   
+<!--End of navbar student-->
 
-                    <div class="account-settings-header col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<!--Start of main -->
+    <div class="main container-fluid">
+        <div class="row">
+            
+                <div class="account-settings-header col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       
                             <?php if(isset($_SESSION['profile_pic']))
                             {
@@ -157,9 +158,14 @@
                             </div>
                     </div><!--sections wrapper-->
 
-        </div><!--container-->  
-    </div><!--content-->
-</div><!--viewport-->
+        </div><!--row-->
+    </div><!--container-fluid-->
+<!--End of main -->            
+
+
+
+
+
        
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>    

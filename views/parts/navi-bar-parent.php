@@ -1,7 +1,7 @@
   <!--@author Darryl-->
   <!--@copyright 2014-->
 <!-- Start of  Navigation Bar -->
-<nav class="navbar navbar-custom navbar-static-top navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-static-top navbar-fixed-top no-margin" role="navigation">
 
 	<div class="container-fluid">
 		<div class="navbar-header">

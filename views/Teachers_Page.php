@@ -64,318 +64,263 @@
 		}
 		</script>
 		
-<div class="header-wrapper">
-	<?php include "views/parts/navi-bar-teacher.php";?>
-</div><!--header-wrapper-->
+<!--Start of navbar teacher-->
+	<?php include "views/parts/navi-bar-teacher.php";?>   
+<!--End of navbar teacher-->
 
-<div class="wrapper-separator-holder">
-	<div class="wrapper-separator"></div>
-</div>	
-<div class="viewport">
-	<div class="content">
-		<div class="container">
-			<?php include "views/parts/side-bar-teacher.php";?>
-			
-			<div class="right-wrapper">
-				<div class="right-column">
-					<div class="right-column-fixed">
-							<div id="postbox-container">
-								<ul id="myTab" class="nav nav-tabs">
-										<li class="active"><a href="#announcement" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Write Announcement</a></li>
-										<li><a href="#lecture-exercises" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span> Post Lecture Files </a></li>
-<!-- 										<li><a href="#create-exercises" data-toggle="tab" ><span class="glyphicon glyphicon-tasks"></span> Create Online Exercise</a></li>
-										<li><a href="#attendance-sheet" data-toggle="tab">Attendance Sheet</a></li> -->
-									  </ul>
-									  <div id="myTabContent" class="tab-content">
-										<div class="tab-pane fade in active" id="announcement">
+<!--Start of main -->
+	<div class="main container-fluid">
+		<div class="row">
+
+				<!--Start of left content-->
+				<div class="aside-left col-md-2">
+					<?php include "views/parts/side-bar-teacher.php";?>
+				</div>
+				<!--End of left content-->
+
+				<!--Start of mid content-->
+				<div class="main-content col-md-10 col-md-offset-2">
+					<div class="row"><!--//row for right column fixed -->
+						<div class="col-md-6 right-column-fixed">
+							<div class="row"><!--//row for postbox-container -->
+								<div class="col-md-12" id="postbox-container">
+									<div class="row"><!--//row for mayTab-->
+
+										<ul id="myTab" class="nav nav-tabs">
+												<li class="active"><a href="#announcement" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Write Announcement</a></li>
+												<li><a href="#lecture-exercises" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span> Post Lecture Files </a></li>
+										</ul><!--my tab-->
 									
-											<div class="msgbox">
-												<div class="row">
-													<div class="col-md-12 col-md-12">
-													
-															<div class="panel-body" id="announce-box">                
-																<form accept-charset="UTF-8" action="" method="POST">
-																	<textarea class="form-control counted" name="message" placeholder="Type in your announcement" 
-																	rows="1" required="required"></textarea>
-																	<h6 class="pull-left" id="counter">320 characters remaining</h6>
-																	<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>
-																</form>
-																
-															</div>
-													
+										<div id="myTabContent" class="tab-content">
+											<div class="tab-pane fade in active" id="announcement">
+												<div class="col-md-12">
+													<div class="panel-body" id="announce-box">                
+														<form accept-charset="UTF-8" action="" method="POST">
+															<textarea class="form-control counted" name="message" placeholder="Type in your announcement" 
+															rows="1" required="required"></textarea>
+															<h6 class="pull-left" id="counter">320 characters remaining</h6>
+															<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>
+														</form>
 													</div>
 												</div>
-											</div>
-										
-										</div>
-										<div class="tab-pane fade" id="lecture-exercises">
-									
-												<!--<button type="button" class="btn btn-default btn-cons" onclick="window.location.href='index.php?r=lss&tr=ce'">Create Exercises</button>-->
-											
-												<div class="msgbox">
-													<div class="row">
-														<div class="col-md-12 col-md-12">
-															
-																<div class="panel-body" id="upload-box">       
-																	<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-																			<textarea id="caption-box" class="form-control counted" name="lecture-caption" placeholder="Create Title/Caption" 
-																						rows="1" required="required"></textarea>
-																			
-																			<div class="choose-file-container">
-																					<div style="position:relative;">
-																					<a class='btn btn-primary' href='javascript:;'>
-																						Choose File..(max 64 MB)
-																						<input type="file" style='position:absolute;
-																						z-index:2;
-																						top:0;
-																						left:0;
-																						filter: 
-																						alpha(opacity=0);
-																						-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-																						opacity:0;
-																						background-color:transparent;
-																						color:transparent;' 
-																						name="upload_lecture" size="40"  onchange='$("#upload-file-info").html($(this).val());'
-																						id="upload_lecture" accept="*" class="pull-left"/>
-																					</a>
-																					&nbsp;
-																					<span class='label label-info' id="upload-file-info"></span>
-																					<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>
-																				</div>
+											</div><!--announcement-->
 
-
-																					<!--<input type="file" name="upload_lecture" id="upload_lecture" accept="*" class="pull-left"/>-->
-																					<!--<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>-->
-
-																			</div>
-
-																	</form>
-																</div>
-														
-														</div>
-													</div>
-											
-			
-											</div>
-										  
-										</div>  
-										
-										<!-- <div class="tab-pane fade" id="create-exercises">
-											<div class="msgbox">
-													<div class="row">
-														<div class="col-md-12 col-md-12">
-															
-																<div class="panel-body text-center "> 
-
-																		<div class="btn-group text-center " data-toggle="buttons-radio">
-																		  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=mic'"><span class="glyphicon glyphicon-edit"></span>Multiple Choice</button>
-																		  
-																		  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=te'"><span class="glyphicon glyphicon-edit"></span>True or False</button>
-																		  
-																		  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=me'"><span class="glyphicon glyphicon-edit"></span>Matching Type</button>
-																		  
-																		  <button type="button" class="btn btn-primary onlineExerMenu" onclick="window.location.href='index.php?r=lss&tr=ce&cc=fs'"><span class="glyphicon glyphicon-edit"></span>Fill in the blank</button>
-																		</div>
-
+											<div class="tab-pane fade" id="lecture-exercises">								
+												<div class="col-md-12">
+													<div class="panel-body" id="upload-box">       
+														<form method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+																<textarea id="caption-box" class="form-control counted" name="lecture-caption" placeholder="Create Title/Caption" 
+																			rows="1" required="required"></textarea>
+																
+																<div class="choose-file-container">
+																	<div style="position:relative;">
+																		<a class='btn btn-primary' href='javascript:;'>
+																			Choose File..(max 64 MB)
+																			<input type="file" style='position:absolute;
+																			z-index:2;
+																			top:0;
+																			left:0;
+																			filter: 
+																			alpha(opacity=0);
+																			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+																			opacity:0;
+																			background-color:transparent;
+																			color:transparent;' 
+																			name="upload_lecture" size="40"  onchange='$("#upload-file-info").html($(this).val());'
+																			id="upload_lecture" accept="*" class="pull-left"/>
+																		</a>
+																		&nbsp;
+																		<span class='label label-info' id="upload-file-info"></span>
+																		<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>
 																	</div>
-														
-														</div>
-													</div>
-											
-			
-											</div>							
-										</div>	 -->
-										
-										<div class="tab-pane fade" id="attendance-sheet">
-											<!--<img src="views/res/attendance.png" class="img-rounded shadow attendance" />-->	
-											<!--<iframe width="700" height="500" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?cid=D2A43DA0B1EE900A&resid=D2A43DA0B1EE900A%21117&authkey=AEkUlL1qQ2RPZH0&em=2&AllowTyping=True&ActiveCell='Nov'!D8&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True"></iframe>-->
-										</div>
-										
-										<div class="tab-pane fade" id="photo">
-										  
-										</div>
-										
-										<div class="tab-pane fade" id="file">
-										  
-										</div>
-										
-									  </div>
+																<!--<input type="file" name="upload_lecture" id="upload_lecture" accept="*" class="pull-left"/>-->
+																<!--<button class="pull-right btn btn-info" type="submit"><span class="glyphicon glyphicon-send"></span>Post</button>-->
 
-							
-							</div><!--postbox-container-->
+																</div>
+														</form>
+													</div><!--upload box-->
+												</div>
+											</div><!--lecture exercises--> 
+										</div><!--tab content-->
 
-						
-					</div><!--right-column-fixed-->
-					<div class="post-separator"></div>
-					<div id="post-title-fixed">
-						
-							<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Post to All Subjects</div>
-						
-					</div>
-					<div id="post-container-relative">
-								<div id="post-container">
-								
-										<div id="message-container">
+									</div><!--//row for mayTab-->
+										
+								</div><!--postbox-container-->
+							</div><!--//row for postbox container-->	
+						</div><!--right-column-fixed-->
+					</div><!--//row for right column fixed -->
+
+					<div class="row"><!--//row for post title fixed-->
+						<div class="col-md-6" id="post-title-fixed">
+							<div class="row"><!--//row for post title-->
+								<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Post to All Subjects</div>
+							</div><!--//row for post title-->
+						</div>
+					</div><!--//row for post title fixed-->
+
+					<div class="row"><!--//row for post container relative-->
+						<div class="col-md-7" id="post-container-relative">
+							<div class="row"><!--//row for post container-->
+								<div id="col-md-12 post-container">
+									<div class="row"><!--//row for message container-->
+										<div class="col-md-12" id="message-container">
 											<?php 	
 											foreach($display_box as $display)
 											{
 													
 											?>	
 
-												<div class="post-messages panel panel-default">
-														
-													<div class="panel-heading">
-															<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
-															<?php echo '<div><img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow post-message-img pull-left" /></div>';?>
-															<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'] . ' <i class="glyphicon glyphicon-chevron-right"></i>' .$display['subject_title'].'::'.$display['level_description']. '-'. $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
-															<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
-															<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
-													</div>
+											<div class="post-messages panel panel-default">
+													
+												<div class="panel-heading">
+														<a href="#" class="pull-right"><span class="glyphicon glyphicon-edit"></span></a>
+														<?php echo '<div><img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow post-message-img pull-left" /></div>';?>
+														<div><a class="navbar-link message-author"><h5><?php echo $_SESSION['reg_fname'] . ' <i class="glyphicon glyphicon-chevron-right"></i>' .$display['subject_title'].'::'.$display['level_description']. '-'. $display['sectionNo'] . '-' . $display['section_name'] . ' ' ;?></h5></a></div>
+														<?php echo '</span><abbr class="timespan" title="'.$display['date_created'].'">
+														<span class="glyphicon glyphicon-dashboard"></span>  '.$display['timespan'].'<abbr>'; ?>
+												</div>
 
-													<div class="panel-body">
-														<h4 class="post-teacher"><?php echo $display['messageorfile_caption']; ?></h4>
-														<span class="glyphicon glyphicon-pushpin pull-right"></span>
-														
-													</div>
+												<div class="panel-body">
+													<h4 class="post-teacher"><?php echo $display['messageorfile_caption']; ?></h4>
+													<span class="glyphicon glyphicon-pushpin pull-right"></span>
+													
+												</div>
 
-														<?php 
-															if( (!empty($display['file_path'])) and (!empty($display['file_name'])) )
+													<?php 
+														if( (!empty($display['file_path'])) and (!empty($display['file_name'])) )
+														{
+
+													?>
+														<div class="panel-footer">
+															<form action="" method="post" name="download">
+															<?php 
+
+																	$temp = explode(".",$display['file_name']);
+																	$nameoffile = $temp[0];
+																	$extension = end($temp);
+															if(
+																($extension=='doc')||($extension=='docx')||($extension=='docm')||
+																($extension=='docb')||($extension=='dotm')||
+																($extension=='dotx')
+															  )	
+															  {
+
+															  	echo '<div><a><img src="views/res/word.png" class="img-thumbnail post-lecture-image">';
+															  }
+
+															else if ($extension=='pdf') 
+															{
+																echo '<div><a><img src="views/res/adobe.png" class="img-thumbnail post-lecture-image">';
+															}	
+
+															else if(
+															 	($extension=='xls')||($extension=='xlsx')||($extension=='xlsm')
+															 	||($extension=='xltx')||($extension=='xltm')||($extension=='xlsb')
+															 	)
+															  {
+
+
+															  		echo '<div><a><img src="views/res/excel.png" class="img-thumbnail post-lecture-image">';
+															  }
+															else if
+															  (	
+															  	($extension=='ppt')||($extension=='pptx')||($extension=='pptm')||($extension=='potx')||
+															  	($extension=='potm')||($extension=='ppam')||($extension=='ppsx')||($extension=='ppsm')||
+															  	($extension=='sldx')||($extension=='sldm')
+															  )
 															{
 
-														?>
-															<div class="panel-footer">
-																<form action="" method="post" name="download">
-																<?php 
-
-																		$temp = explode(".",$display['file_name']);
-																		$nameoffile = $temp[0];
-																		$extension = end($temp);
-																if(
-																	($extension=='doc')||($extension=='docx')||($extension=='docm')||
-																	($extension=='docb')||($extension=='dotm')||
-																	($extension=='dotx')
-																  )	
-																  {
-
-																  	echo '<div><a><img src="views/res/word.png" class="img-thumbnail post-lecture-image">';
-																  }
-
-																else if ($extension=='pdf') 
-																{
-																	echo '<div><a><img src="views/res/adobe.png" class="img-thumbnail post-lecture-image">';
-																}	
-
-																else if(
-																 	($extension=='xls')||($extension=='xlsx')||($extension=='xlsm')
-																 	||($extension=='xltx')||($extension=='xltm')||($extension=='xlsb')
-																 	)
-																  {
-
-
-																  		echo '<div><a><img src="views/res/excel.png" class="img-thumbnail post-lecture-image">';
-																  }
-																else if
-																  (	
-																  	($extension=='ppt')||($extension=='pptx')||($extension=='pptm')||($extension=='potx')||
-																  	($extension=='potm')||($extension=='ppam')||($extension=='ppsx')||($extension=='ppsm')||
-																  	($extension=='sldx')||($extension=='sldm')
-																  )
-																{
-
-																		echo '<div><a><img src="views/res/powerpoint.png" class="img-thumbnail post-lecture-image">';
-																}
-
-																else if
-																  (	
-																  	$extension=='7z'
-																  )
-																{
-																		echo '<div><a><img src="views/res/7z.png" class="img-thumbnail post-lecture-image">';
-
-																}
-
-																else if(
-																	$extension=='rar'
-																   )
-																{
-
-																		echo '<div><a><img src="views/res/rar.jpg" class="img-thumbnail post-lecture-image">';
-																}	
-
-																else if(
-																	$extension=='swf'
-																   )
-																{
-
-																		echo '<div><a><img src="views/res/swf.jpg" class="img-thumbnail post-lecture-image">';
-																}
-
-																else if(
-																	$extension=='zip'
-
-																   )
-																{
-																		echo '<div><a><img src="views/res/zip.jpg" class="img-thumbnail post-lecture-image">';
-																}
-
-																else
-																{
-																	echo '<div><a><img src="'.$display['file_path'].$display['file_name'].'" class="img-thumbnail post-lecture-image">';
-																}
-
-
-
-
-																echo '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
-																					
-																	<input name="file_name" value="'.$display['file_name'].'" type="hidden"/>
-																
-																	<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
-																			</a>
-																		</div>	
-																';?>
-
-																</form>
-															</div>
-														<?php 
+																	echo '<div><a><img src="views/res/powerpoint.png" class="img-thumbnail post-lecture-image">';
 															}
+
+															else if
+															  (	
+															  	$extension=='7z'
+															  )
+															{
+																	echo '<div><a><img src="views/res/7z.png" class="img-thumbnail post-lecture-image">';
+
+															}
+
+															else if(
+																$extension=='rar'
+															   )
+															{
+
+																	echo '<div><a><img src="views/res/rar.jpg" class="img-thumbnail post-lecture-image">';
+															}	
+
+															else if(
+																$extension=='swf'
+															   )
+															{
+
+																	echo '<div><a><img src="views/res/swf.jpg" class="img-thumbnail post-lecture-image">';
+															}
+
+															else if(
+																$extension=='zip'
+
+															   )
+															{
+																	echo '<div><a><img src="views/res/zip.jpg" class="img-thumbnail post-lecture-image">';
+															}
+
 															else
-															{	
-														?>
-															
-														<div class="panel-footer">
-															<span class="glyphicon glyphicon-fire"></span>
-															<span class="glyphicon glyphicon-tags pull-right"></span>
-														</div>
-														<?php 
+															{
+																echo '<div><a><img src="'.$display['file_path'].$display['file_name'].'" class="img-thumbnail post-lecture-image">';
 															}
-														?>
+
+
+
+
+															echo '<p class="pull-right"><span class="glyphicon glyphicon-paperclip"></span>'.$display['file_name'].'</p>
+																				
+																<input name="file_name" value="'.$display['file_name'].'" type="hidden"/>
+															
+																<button class=" btn btn-primary" type="submit">Download File <span class="glyphicon glyphicon-save"></span></button>
+																		</a>
+																	</div>	
+															';?>
+
+															</form>
+														</div>
+													<?php 
+														}
+														else
+														{	
+													?>
 														
-												</div>
-												
-												
-											<?php
-											}	
-											?>
+													<div class="panel-footer">
+														<span class="glyphicon glyphicon-fire"></span>
+														<span class="glyphicon glyphicon-tags pull-right"></span>
+													</div>
+													<?php 
+														}
+													?>
+													
+											</div>
+										<?php
+										}	
+										?>
+										</div><!--message container-->	
 
-
-
-										</div>
-
-
-										
+									</div><!--//row for message container-->
 								</div><!--post-container-->
-					</div><!--post-container-relative-->
-				</div><!--right-column-->		
-				
-			</div><!--right-wrapper-->	
-			
-		</div><!--container-->	
-	
-	
-	</div><!--content-->
-</div><!--viewport-->
-       
+
+							</div><!--//row for post container-->
+						</div><!--post-container-relative-->
+					</div><!--//row for post container relative-->	
+
+					
+						
+				</div>
+				<!--End of mid content-->
+
+		</div><!--row-->
+	</div><!--container-fluid-->
+<!--End of main -->			
+      
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 <script src="views/js/msgbox.js"></script>
@@ -488,7 +433,9 @@ $(function () {
 		         		{
 		         			$('#post-title-fixed').empty();
 
-		         			var display = $('<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Post to '+category+'</div>');
+		         			var display = $('<div class="row"><!--//row for post title-->'+
+												'<div id="post-title"><span class="glyphicon glyphicon-flag"></span>Post to '+category+'</div>'+
+											'</div><!--//row for post title-->');
 
 		         			$('#post-title-fixed').append(display);
 		         			/*alert(category);*/

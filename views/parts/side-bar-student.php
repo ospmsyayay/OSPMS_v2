@@ -1,23 +1,25 @@
   <!--@author Darryl-->
   <!--@copyright 2014-->
-<div class="left-wrapper">
-				<div class="left-column" >
-					<div id="thumbnail-student">
-						 <?php if(isset($_SESSION['profile_pic']))
-                   		{
-                    		echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow" id="thumbnail-student-img"/>';
-                    	}
-                    	?>
-						
-						<?php 
-						if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
-						{
-							echo '<a href="#" class="navbar-link" ><h5 id="greetings-teacher">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
-						}
-						?>
-					</div>
-										<div id="subject-list">
-						<h4 id="subject-list-title"><i class="glyphicon glyphicon-book"></i> Subjects</h4> 
+
+<!--Start of Welcome Box-->				
+	<div class="welcome-box content">
+		 <?php if(isset($_SESSION['profile_pic']))
+   		{
+    		echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="welcome-box-img img-thumbnail shadow"/>';
+    	}
+    	?>
+		
+		<?php 
+		if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
+		{
+			echo '<a href="#" class="navbar-link" ><h5 id="greetings-student">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
+		}
+		?>
+	</div>
+<!--End of Welcome Box-->	
+
+<div id="subject-list">
+	<h4 id="subject-list-title"><i class="glyphicon glyphicon-book"></i> Subjects</h4> 
 
 						<div class="panel-group" id="Menu1">
 							<?php
@@ -117,9 +119,7 @@
 						}
 						}
 					 	?>
-					</div><!--Menu 1-->	
-					 
-				   </div><!--subject-list--> 
+	</div><!--Menu 1-->	
+</div><!--subject-list--> 
 					
-				</div><!--left-column-->
-</div><!--left-wrapper-->
+				

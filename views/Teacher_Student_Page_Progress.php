@@ -12,39 +12,33 @@
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
 
-<div class="header-wrapper">
+<!--Start of navbar student-->
 	<?php include "views/parts/navi-bar-teacher.php";?>     
-</div><!--header-wrapper-->
-<div class="wrapper-separator-holder">
-	<div class="wrapper-separator"></div>
-</div>	
-<div class="viewport">
-	<div class="content">
-		<div class="container">
-			<?php include "views/parts/side-bar-teacher-student.php";?>
-			<div class="right-wrapper">
-					<div class="right-column">
-													
-					</div><!--right-column-->
-			</div><!--right-wrapper-->
-		</div><!--container-->
-	</div><!--content-->
-</div><!--viewport-->
+<!--End of navbar student-->
+
+<!--Start of main -->
+	<div class="main container-fluid">
+		<div class="row">
+			<!--Start of left content-->
+				<div class="aside-left col-md-2">
+					<?php include "views/parts/side-bar-teacher-student.php";?>
+				</div>
+			<!--End of left content-->
+
+			<!--Start of mid content-->
+				<div class="main-content col-md-10 col-md-offset-2"></div>
+			<!--End of mid content-->
+		
+		</div><!--row-->
+	</div><!--container-fluid-->
+<!--End of main -->	
 
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 <script src="views/plugins/chartjs/Chart.js"></script>
 <script src="views/js/scripts.js"></script>		
 		
-     <!-- JavaScript Test -->
-<script>
 
-$(function () {
-  $('.js-popover').popover()
-  $('.js-tooltip').tooltip()
-});
-
-</script>
 <script>
 function getSubjectId(menu) 
 {
@@ -77,97 +71,418 @@ function getSubjectId(menu)
  }
 
 
-function getGradeId(menu) 
-{
 
-var grade=menu.id;
+		        function reset_container(subject)
+		        {
+		        	$('.main-content').empty();
 
+		        	var display=$('<div class="row"><!--//row for content-->'+
+		        					'<div class="col-md-12 content">'+
 
+		        						'<div class="row"><!--//row for header-->'+
+		        							'<div class="col-md-10 progress-header">'+subject+'</div>'+
+		        						'</div><!--//row for header-->'+
 
-$.ajax({
-
-    url: 'views/ajax/get_for_chart.php',
-    type: 'GET',
-    data: {
-    	ts_grade_chart:grade
-    },
-   dataType: 'json',
-
-   success: function(response) 
-   {
-   		/*alert(JSON.stringify(response['clicked']));*/
-
-   		reset_container();
-
-   		chart('grade'); 
-	
-   		 
-	},
+		        								'<div class="row"><!--//row for container-->'+
+			        								'<div class="col-md-12 progress-container-relative">'+
+			        								//1st Grading Period
+			        									'<div class="row"><!--//row for progress period-->'+
+			        										'<div class="progress-period">1st Grading Period</div>'+
+			        									'</div><!--//row for progress period-->'+
+					        							
+					        							'<div class="row"><!--//row for progress space-->'+
+						        							'<div class="col-md-6 student-progress-space table-responsive">'+
+																'<canvas id="firstChart" class="col-md-12 chart"></canvas>'+
+															'</div>'+
 
 
-    });
+															'<div class="col-md-6 student-progress-table">'+
+																'<div class="row"><!--//row for legend-table-->'+
+																	'<div class="col-md-12 legend-table">'+
 
-}
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="knowledge-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Knowledge-15%</h5>'+
 
-function getSectionId(menu) 
-{
+																			'<div class="col-md-1 legend">'+
+																				'<div class="beggining-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(B)-Beginning 74-below</h5>'+
+																		'</div><!--//row for legend-->'+
 
-var section=menu.id;
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="processskills-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Process/Skills-25%</h5>'+
 
-$.ajax({
+																			'<div class="col-md-1 legend">'+
+																				'<div class="developing-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(D)-Developing 75-79</h5>'+
+																		'</div><!--//row for legend-->'+
 
-    url: 'views/ajax/get_for_chart.php',
-    type: 'GET',
-    data: {
-    	ts_section_chart:section
-    },
-   dataType: 'json',
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="understanding-bg center-block"></div>'+ 
+																			'</div>'+
+																			'<h5 class="col-md-5">Understanding-30%</h5>'+
 
-   success: function(response) 
-   {
-   		/*alert(JSON.stringify(response['clicked']));*/
-   		reset_container();
+																			'<div class="col-md-1 legend">'+
+																				'<div class="approaching-bg center-block"></div>'+
+																			'</div>'+
+																			'<h6 class="col-md-5">(AP)-Approaching Proficiency 80-74</h6>'+
+																		'</div><!--//row for legend-->'+
 
-		chart('section'); 
-	
-	},
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class=" performanceproducts-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Performance/Products-30%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="proficient-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(P)-Proficient 85-89</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 col-md-offset-6 legend">'+
+																				'<div class="advanced-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5 ">(A)-Proficient 90-above</h5>'+
+																		'</div><!--//row for legend-->'+
+																		
+																	'</div>'+
+																'</div><!--//row for legend-table-->'+
+
+																'<div class="row"><!--//row for progress-data-->'+
+																	'<div class="col-md-12 progress-data table-responsive">'+ 
+																		'<table class="table table-bordered table-hover table-condensed">'+
+			  																'<thead>'+
+			  																    '<tr>'+
+											                                       '<th><h6>Week No.<h6></th>'+
+											                                       '<th class="knowledge-title"><h6>Knowledge</h6></th>'+
+											                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
+											                                       '<th class="understanding-title"><h6>Understanding </h6></th>'+
+											                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
+											                                       '<th><h6>Grade</h6></th>'+
+											                                    '</tr>'+
+			  																'<thead>'+
+			  																'<tbody id="first-grading-table">'+
+			  																	
+			  																	
+			  																'</tbody>'+
+																		'</table>'+
+																	'</div>'+
+																'</div><!--//row for legend-->'+
+
+															
+															'</div><!--student-progress-table-->'+
+														'</div><!--row for progress space-->'+
+													//2nd Grading Period
+														'<div class="row"><!--//row for progress period-->'+
+			        										'<div class="progress-period">2nd Grading Period</div>'+
+			        									'</div><!--//row for progress period-->'+
+					        							
+					        							'<div class="row"><!--//row for progress space-->'+
+						        							'<div class="col-md-6 student-progress-space table-responsive">'+
+																'<canvas id="secondChart" class="col-md-12 chart"></canvas>'+
+															'</div>'+
 
 
-    });
+															'<div class="col-md-6 student-progress-table">'+
+																'<div class="row"><!--//row for legend-table-->'+
+																	'<div class="col-md-12 legend-table">'+
 
-}
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="knowledge-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Knowledge-15%</h5>'+
 
-function reset_container(subject)
-{
-	$('.right-column').empty();
+																			'<div class="col-md-1 legend">'+
+																				'<div class="beggining-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(B)-Beginning 74-below</h5>'+
+																		'</div><!--//row for legend-->'+
 
-	var display=$('<div id="student-container">'+
-		        							'<div class="progress-header">'+subject+'</div>'+
-		        							'<div class="progress-container-relative">'+
-			        							'<div class="progress-period">1st Grading Period</div>'+
-			        							'<div class="student-page-space">'+
-													'<canvas id="firstChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-												'</div>'+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="processskills-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Process/Skills-25%</h5>'+
 
-												'<div class="progress-period">2nd Grading Period</div>'+
-												'<div class="student-page-space">'+
-													'<canvas id="secondChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-												'</div>'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="developing-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(D)-Developing 75-79</h5>'+
+																		'</div><!--//row for legend-->'+
 
-												'<div class="progress-period">3rd Grading Period</div>'+
-												'<div class="student-page-space">'+
-													'<canvas id="thirdChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-												'</div>'+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="understanding-bg center-block"></div>'+ 
+																			'</div>'+
+																			'<h5 class="col-md-5">Understanding-30%</h5>'+
 
-												'<div class="progress-period">4th Grading Period</div>'+
-												'<div class="student-page-space">'+
-													'<canvas id="fourthChart" width="600" height="350" style="margin-left: 15px;"></canvas>'+
-												'</div>'+
-											'</div>'+
-									'</div>');
+																			'<div class="col-md-1 legend">'+
+																				'<div class="approaching-bg center-block"></div>'+
+																			'</div>'+
+																			'<h6 class="col-md-5">(AP)-Approaching Proficiency 80-74</h6>'+
+																		'</div><!--//row for legend-->'+
 
-	$('.right-column').append(display);
-} 
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class=" performanceproducts-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Performance/Products-30%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="proficient-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(P)-Proficient 85-89</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 col-md-offset-6 legend">'+
+																				'<div class="advanced-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5 ">(A)-Proficient 90-above</h5>'+
+																		'</div><!--//row for legend-->'+
+																		
+																	'</div>'+
+																'</div><!--//row for legend-table-->'+
+
+																'<div class="row"><!--//row for progress-data-->'+
+																	'<div class="col-md-12 progress-data table-responsive">'+ 
+																		'<table class="table table-bordered table-hover table-condensed">'+
+			  																'<thead>'+
+			  																    '<tr>'+
+											                                       '<th><h6>Week No.<h6></th>'+
+											                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
+											                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
+											                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
+											                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
+											                                       '<th><h6>Grade</h6></th>'+
+											                                    '</tr>'+
+			  																'<thead>'+
+			  																'<tbody id="second-grading-table">'+
+			  																	
+			  																'</tbody>'+
+																		'</table>'+
+																	'</div>'+
+																'</div><!--//row for legend-->'+
+
+															
+															'</div><!--student-progress-table-->'+
+														'</div><!--row for progress space-->'+
+													//3rd Grading Period
+														'<div class="row"><!--//row for progress period-->'+
+			        										'<div class="progress-period">3rd Grading Period</div>'+
+			        									'</div><!--//row for progress period-->'+
+					        							
+					        							'<div class="row"><!--//row for progress space-->'+
+						        							'<div class="col-md-6 student-progress-space table-responsive">'+
+																'<canvas id="thirdChart" class="col-md-12 chart"></canvas>'+
+															'</div>'+
+
+
+															'<div class="col-md-6 student-progress-table">'+
+																'<div class="row"><!--//row for legend-table-->'+
+																	'<div class="col-md-12 legend-table">'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="knowledge-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Knowledge-15%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="beggining-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(B)-Beginning 74-below</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="processskills-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Process/Skills-25%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="developing-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(D)-Developing 75-79</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="understanding-bg center-block"></div>'+ 
+																			'</div>'+
+																			'<h5 class="col-md-5">Understanding-30%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="approaching-bg center-block"></div>'+
+																			'</div>'+
+																			'<h6 class="col-md-5">(AP)-Approaching Proficiency 80-74</h6>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class=" performanceproducts-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Performance/Products-30%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="proficient-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(P)-Proficient 85-89</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 col-md-offset-6 legend">'+
+																				'<div class="advanced-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5 ">(A)-Proficient 90-above</h5>'+
+																		'</div><!--//row for legend-->'+
+																		
+																	'</div>'+
+																'</div><!--//row for legend-table-->'+
+
+																'<div class="row"><!--//row for progress-data-->'+
+																	'<div class="col-md-12 progress-data table-responsive">'+ 
+																		'<table class="table table-bordered table-hover table-condensed">'+
+			  																'<thead>'+
+			  																    '<tr>'+
+											                                       '<th><h6>Week No.<h6></th>'+
+											                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
+											                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
+											                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
+											                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
+											                                       '<th><h6>Grade</h6></th>'+
+											                                    '</tr>'+
+			  																'<thead>'+
+			  																'<tbody id="third-grading-table">'+
+			  																	
+			  																	
+			  																'</tbody>'+
+																		'</table>'+
+																	'</div>'+
+																'</div><!--//row for legend-->'+
+
+															
+															'</div><!--student-progress-table-->'+
+														'</div><!--row for progress space-->'+
+													//4th Grading Period
+														'<div class="row"><!--//row for progress period-->'+
+			        										'<div class="progress-period">4th Grading Period</div>'+
+			        									'</div><!--//row for progress period-->'+
+					        							
+					        							'<div class="row"><!--//row for progress space-->'+
+						        							'<div class="col-md-6 student-progress-space table-responsive">'+
+																'<canvas id="fourthChart" class="col-md-12 chart"></canvas>'+
+															'</div>'+
+
+
+															'<div class="col-md-6 student-progress-table">'+
+																'<div class="row"><!--//row for legend-table-->'+
+																	'<div class="col-md-12 legend-table">'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="knowledge-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Knowledge-15%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="beggining-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(B)-Beginning 74-below</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="processskills-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Process/Skills-25%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="developing-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(D)-Developing 75-79</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="understanding-bg center-block"></div>'+ 
+																			'</div>'+
+																			'<h5 class="col-md-5">Understanding-30%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="approaching-bg center-block"></div>'+
+																			'</div>'+
+																			'<h6 class="col-md-5">(AP)-Approaching Proficiency 80-74</h6>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 legend">'+
+																				'<div class=" performanceproducts-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">Performance/Products-30%</h5>'+
+
+																			'<div class="col-md-1 legend">'+
+																				'<div class="proficient-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5">(P)-Proficient 85-89</h5>'+
+																		'</div><!--//row for legend-->'+
+
+																		'<div class="row"><!--//row for legend-->'+
+																			'<div class="col-md-1 col-md-offset-6 legend">'+
+																				'<div class="advanced-bg center-block"></div>'+
+																			'</div>'+
+																			'<h5 class="col-md-5 ">(A)-Proficient 90-above</h5>'+
+																		'</div><!--//row for legend-->'+
+																		
+																	'</div>'+
+																'</div><!--//row for legend-table-->'+
+
+																'<div class="row"><!--//row for progress-data-->'+
+																	'<div class="col-md-12 progress-data table-responsive">'+ 
+																		'<table class="table table-bordered table-hover table-condensed">'+
+			  																'<thead>'+
+			  																    '<tr>'+
+											                                       '<th><h6>Week No.<h6></th>'+
+											                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
+											                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
+											                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
+											                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
+											                                       '<th><h6>Grade</h6></th>'+
+											                                    '</tr>'+
+			  																'<thead>'+
+			  																'<tbody id="fourth-grading-table">'+
+			  																	
+			  																	
+			  																'</tbody>'+
+																		'</table>'+
+																	'</div>'+
+																'</div><!--//row for legend-->'+
+
+															
+															'</div><!--student-progress-table-->'+
+														'</div><!--row for progress space-->'+
+													
+												'</div><!--//row for container-->'+
+													
+												'</div><!--//container-relative-->'+
+		        							
+										'</div><!--//progress-header-->'+
+									'</div><!--//content-->'+
+								'</div><!--//row for content-->');
+
+		        	$('.main-content').append(display);
+		        } 
 
 function chart(category) 
 {
@@ -229,10 +544,65 @@ function chart(category)
 
 				            var ctx = document.getElementById("firstChart").getContext("2d")
 					        var studentChart = new Chart(ctx).Bar(chartData, {
-					        	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"
+					        	/*legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"*/
 					        });
+
+					        display_table_data(response['progress_data']);
 			            }
 			        });
+
+  					function display_table_data(data) 
+                    {
+                     
+                        $('#first-grading-table').empty();
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    reset_table(data[i]);
+                          
+                            }
+
+                    } 
+
+                    function reset_table(row)
+                    {
+
+                       var data = $('<tr>'+
+										'<td>'+row.week_number+'</td>'+
+										'<td>'+row.knowledge+'</td>'+
+										'<td>'+row.processskills+'</td>'+
+										'<td>'+row.understanding+'</td>'+
+										'<td>'+row.performanceproducts+'</td>'+
+										'<td id="legend'+row.week_number+row.grading_period+'">'+row.legend+'</td>'+
+									'</tr>');
+                           
+                        $('#first-grading-table').append(data);
+
+                        if(row.legend=='B')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('beggining-bg');
+                        }
+                        else if (row.legend=='D')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('developing-bg');
+                        } 
+
+                        if(row.legend=='AP')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('approaching-bg');
+                        }
+                        else if(row.legend=='P')
+                        {
+                           $('#legend'+row.week_number+row.grading_period).addClass('proficient-bg');
+                        }
+                        else if(row.legend=='A')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('advanced-bg');
+                        }    
+                    }
+                    //end of display table data
+
 			        return false;
 		        }; 
 
@@ -287,10 +657,65 @@ function chart(category)
 
 				            var ctx = document.getElementById("secondChart").getContext("2d")
 					        var studentChart = new Chart(ctx).Bar(chartData, {
-					        	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"
+					        	/*legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"*/
 					        });
+
+					         display_table_data(response['progress_data']);
 			            }
 			        });
+
+  					function display_table_data(data) 
+                    {
+                     
+                        $('#second-grading-table').empty();
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    reset_table(data[i]);
+                          
+                            }
+
+                    } 
+
+                    function reset_table(row)
+                    {
+
+                       var data = $('<tr>'+
+										'<td>'+row.week_number+'</td>'+
+										'<td>'+row.knowledge+'</td>'+
+										'<td>'+row.processskills+'</td>'+
+										'<td>'+row.understanding+'</td>'+
+										'<td>'+row.performanceproducts+'</td>'+
+										'<td id="legend'+row.week_number+row.grading_period+'">'+row.legend+'</td>'+
+									'</tr>');
+                           
+                        $('#second-grading-table').append(data);
+
+                        if(row.legend=='B')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('beggining-bg');
+                        }
+                        else if (row.legend=='D')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('developing-bg');
+                        } 
+
+                        if(row.legend=='AP')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('approaching-bg');
+                        }
+                        else if(row.legend=='P')
+                        {
+                           $('#legend'+row.week_number+row.grading_period).addClass('proficient-bg');
+                        }
+                        else if(row.legend=='A')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('advanced-bg');
+                        }    
+                    }
+                    //end of display table data
+
 			        return false;
 		        };
 
@@ -345,10 +770,65 @@ function chart(category)
 
 				            var ctx = document.getElementById("thirdChart").getContext("2d")
 					        var studentChart = new Chart(ctx).Bar(chartData, {
-					        	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"
+					        	/*legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"*/
 					        });
+
+					        display_table_data(response['progress_data']);
 			            }
 			        });
+
+  					function display_table_data(data) 
+                    {
+                     
+                        $('#third-grading-table').empty();
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    reset_table(data[i]);
+                          
+                            }
+
+                    } 
+
+                    function reset_table(row)
+                    {
+
+                        var data = $('<tr>'+
+										'<td>'+row.week_number+'</td>'+
+										'<td>'+row.knowledge+'</td>'+
+										'<td>'+row.processskills+'</td>'+
+										'<td>'+row.understanding+'</td>'+
+										'<td>'+row.performanceproducts+'</td>'+
+										'<td id="legend'+row.week_number+row.grading_period+'">'+row.legend+'</td>'+
+									'</tr>');
+                           
+                        $('#third-grading-table').append(data);
+
+                        if(row.legend=='B')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('beggining-bg');
+                        }
+                        else if (row.legend=='D')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('developing-bg');
+                        } 
+
+                        if(row.legend=='AP')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('approaching-bg');
+                        }
+                        else if(row.legend=='P')
+                        {
+                           $('#legend'+row.week_number+row.grading_period).addClass('proficient-bg');
+                        }
+                        else if(row.legend=='A')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('advanced-bg');
+                        }    
+                    }
+                    //end of display table data
+
 			        return false;
 		        }; 
 
@@ -403,11 +883,65 @@ function chart(category)
 
 				            var ctx = document.getElementById("fourthChart").getContext("2d")
 					        var studentChart = new Chart(ctx).Bar(chartData, {
-					        	legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"
+					        	/*legendTemplate : "<div class=\"<%=name.toLowerCase()%>-legend\" style=\"position: relative; bottom: 15px; margin: 25px 0 25px 25px;\"><% for (var i=0; i<datasets.length; i++){%><span style=\"background-color:<%=datasets[i].fillColor%>; border: 2px solid <%=datasets[i].fillColor%>; border-radius: 5px; padding: 5px; margin: 5px;\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span><%}%></div>"*/
 					        });
-					        $('.student-page-space').append(studentChart.generateLegend());
+					        /*$('.student-page-space').append(studentChart.generateLegend());*/
+			            	display_table_data(response['progress_data']);
 			            }
 			        });
+
+  					function display_table_data(data) 
+                    {
+                     
+                        $('#fourth-grading-table').empty();
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    reset_table(data[i]);
+                          
+                            }
+
+                    } 
+
+                    function reset_table(row)
+                    {
+
+                        var data = $('<tr>'+
+										'<td>'+row.week_number+'</td>'+
+										'<td>'+row.knowledge+'</td>'+
+										'<td>'+row.processskills+'</td>'+
+										'<td>'+row.understanding+'</td>'+
+										'<td>'+row.performanceproducts+'</td>'+
+										'<td id="legend'+row.week_number+row.grading_period+'">'+row.legend+'</td>'+
+									'</tr>');
+                           
+                        $('#fourth-grading-table').append(data);
+
+                        if(row.legend=='B')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('beggining-bg');
+                        }
+                        else if (row.legend=='D')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('developing-bg');
+                        } 
+
+                        if(row.legend=='AP')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('approaching-bg');
+                        }
+                        else if(row.legend=='P')
+                        {
+                           $('#legend'+row.week_number+row.grading_period).addClass('proficient-bg');
+                        }
+                        else if(row.legend=='A')
+                        {
+                            $('#legend'+row.week_number+row.grading_period).addClass('advanced-bg');
+                        }    
+                    }
+                    //end of display table data
+                    
 			        return false;
 		        };
 }		         

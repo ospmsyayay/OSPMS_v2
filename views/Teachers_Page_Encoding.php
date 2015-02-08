@@ -10,219 +10,341 @@
 	</head>
     
 	<body>
-<div class="header-wrapper">
-	<?php include "views/parts/navi-bar-teacher.php";?>
-</div><!--header-wrapper-->
-<div class="wrapper-separator-holder">
-    <div class="wrapper-separator"></div>
-</div>  
-<div class="viewport">
-	<div class="content">
-		<div class="container">
-			<?php include "views/parts/side-bar-teacher.php";?>
-			<div class="right-wrapper">
-					<div class="right-column">
-						
-						<div id="encoding-container">
-                         
-							 <div id="encoding-page-title">Encoding Page </div>
-                    						
-                                            <div class="encoding-page-space">
-                                                <div class="encoding-workspace">
-                                                    <?php
-                                                        include('config/conn.php');
-                                                        include('model/utility.php');
 
-                                                        if ($_SERVER["REQUEST_METHOD"] == "POST") 
-                                                        {
-                                                            $grading_id=createGradingId();
-                                                            $student_lrn = $_POST['studentName'];
-                                                            $class_rec_no =$_POST['sectionName'];
-                                                            $grading_period = $_POST['gradingPeriod'];
-                                                            $week_number = $_POST['weekNumber'];
-                                                            $knowledge = $_POST['knowledge'];
-                                                            $processskills = $_POST['processskills'];
-                                                            $understanding = $_POST['understanding'];
-                                                            $performanceproducts = $_POST['performanceproducts'];
+<!--Start of navbar teacher-->
+    <?php include "views/parts/navi-bar-teacher.php";?>   
+<!--End of navbar teacher-->
 
-                                                            /*$kQuizzes = $_POST['k-quizzes'];
-                                                            $kRecitation = $_POST['k-recitation'];
-                                                            $kRawScore = $_POST['k-raw-score'];
-                                                            $psQuizzes = $_POST['ps-quizzes'];
-                                                            $psRecitation = $_POST['ps-recitation'];
-                                                            $psRawScore = $_POST['ps-raw-score'];
-                                                            $uQuizzes = $_POST['u-quizzes'];
-                                                            $uRecitation = $_POST['u-recitation'];
-                                                            $uOpenEndedQ = $_POST['u-open-ended-q'];
-                                                            $ppGroupWork = $_POST['pp-group-work'];
-                                                            $ppProject = $_POST['pp-project'];
-                                                            $ppHomework = $_POST['pp-homework'];
-                                                            $ppOthers = $_POST['pp-others'];*/
+<!--Start of main -->
+    <div class="main container-fluid">
+        <div class="row">
 
-                                                            /* $tentativeGrade = (  (($kQuizzes + $kRecitation + $kRawScore) / 3) * 0.15) + (   (($psQuizzes + $psRecitation + $psRawScore) / 3) * 0.25) + ((($uQuizzes + $uRecitation + $uOpenEndedQ) / 3) * 0.30) + ((($ppGroupWork + $ppProject + $ppHomework + $ppOthers) / 4) * 0.30);*/
-                                                            
-                                                            $tentativeGrade = ($knowledge * 0.15) + ($processskills * 0.25) + ($understanding * 0.30) + ($performanceproducts * 0.30);
-                                                            $legend=mark_proficiency($tentativeGrade);
+                <!--Start of left content-->
+                <div class="aside-left col-md-2">
+                    <?php include "views/parts/side-bar-teacher.php";?>
+                </div>
+                <!--End of left content-->
 
-                                                           /* $query = mysqli_query($cxn, "INSERT INTO grading (student_lrn, grading_period, week_number, k_quizzes, k_recitation, k_raw_score, ps_quizzes, ps_recitation, ps_raw_score, u_quizzes, u_recitation, u_open_ended_q, pp_group_work, pp_project, pp_homework, pp_others, tentative_grade) 
-                                                                VALUES ('$sn', '$gp', '$wn', $kQuizzes, $kRecitation, $kRawScore, $psQuizzes, $psRecitation, $psRawScore, $uQuizzes, $uRecitation, $uOpenEndedQ, $ppGroupWork, $ppProject, $ppHomework, $ppOthers, $tentativeGrade)") or die('Unable to connect to Database.<br>' . mysqli_error($cxn));*/
+                <!--Start of mid content-->
+                <div class="main-content col-md-10 col-md-offset-2">
+                    <div class="row"><!--//row for encoding-container -->
+                        <div class="col-md-7" id="encoding-container">
+                            <div class="row"><!--//row for encoding-title -->
+                                 <div class="col-md-12" id="encoding-page-title">Encoding Page </div>
+                            </div><!--//row for encoding-title -->    
+
+                             <div class="row"><!--//row for encoding-space -->
+                                <div class="col-md-12 encoding-page-space">
+                                    <div class="row"><!--//row for encoding-workspace -->
+                                        <div class="col-md-12 encoding-workspace">
+                                            <?php
+                                                include('config/conn.php');
+                                                include('model/utility.php');
+
+                                                if ($_SERVER["REQUEST_METHOD"] == "POST") 
+                                                {
+                                                    $grading_id=createGradingId();
+                                                    $student_lrn = $_POST['studentName'];
+                                                    $class_rec_no =$_POST['sectionName'];
+                                                    $grading_period = $_POST['gradingPeriod'];
+                                                    $week_number = $_POST['weekNumber'];
+                                                    $knowledge = $_POST['knowledge'];
+                                                    $processskills = $_POST['processskills'];
+                                                    $understanding = $_POST['understanding'];
+                                                    $performanceproducts = $_POST['performanceproducts'];
+
+                                                    $tentativeGrade = ($knowledge * 0.15) + ($processskills * 0.25) + ($understanding * 0.30) + ($performanceproducts * 0.30);
+                                                    $legend=mark_proficiency($tentativeGrade);
+
+                            
+                                                    $query = mysqli_query($cxn, "INSERT INTO student_rating (grading_id, student_lrn, class_rec_no, grading_period, week_number, knowledge, processskills, understanding, performanceproducts, tentative_grade, legend) 
+                                                    VALUES ('$grading_id', '$student_lrn', '$class_rec_no', '$grading_period', '$week_number', $knowledge, $processskills, $understanding, $performanceproducts, $tentativeGrade, '$legend')") or die('Unable to connect to Database.<br>'. mysqli_error($cxn));
 
 
-                                                            $query = mysqli_query($cxn, "INSERT INTO student_rating (grading_id, student_lrn, class_rec_no, grading_period, week_number, knowledge, processskills, understanding, performanceproducts, tentative_grade, legend) 
-                                                            VALUES ('$grading_id', '$student_lrn', '$class_rec_no', '$grading_period', '$week_number', $knowledge, $processskills, $understanding, $performanceproducts, $tentativeGrade, '$legend')") or die('Unable to connect to Database.<br>'. mysqli_error($cxn));
-
-
-                                                            if($query) {
-                                                                echo '<script>alert("Successfully uploaded student\'s grade.");</script>';
-                                                            } else {
-                                                                echo '<script>alert("Failed to upload student\'s grade.");</script>';
-                                                            }
-                                                        }
-                                                    ?>
-                                                    <form class="form-horizontal" method="post" role="form">
-                                                        <div class="form-group">
-                                                            <label for="student-name" class="title">Section Name:</label>
-                                                            <select class="form-control" id="section-name" name="sectionName" style="margin-top: 15px; width: 250px;" required="required" onclick="get_section(this);" >
-                                                                <option value="" selected disabled>Select Section</option>
-                                                               
-                                                            </select>
-                                                        </div>
-                                                         <div class="form-group">
-
-                                                            <label for="student-name" class="title">Student Name:</label>
-                                                            <select class="form-control" id="student-name" name="studentName" style="margin-top: 15px; width: 250px;" required="required">
-                                                                <option value="" selected disabled>Select Student Name</option>
-                                                                <?php
-                                                                   /* include('config/conn.php');
-
-                                                                    $query = mysqli_query($cxn, "SELECT * FROM student INNER JOIN registration ON registration.reg_id=student.student_lrn") or die('Cannot connect to Database.');
-
-                                                                    while($row = mysqli_fetch_array($query)) {
-                                                                        echo '<option value="' . $row['student_lrn'] . '">' . $row['reg_lname'] . ', ' . $row['reg_fname'] . ' ' . substr($row['reg_mname'], 0, 1) . '.</option>';
-                                                                    }*/
-                                                                ?> 
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="grading-period" class="title">Grading Period:</label>
-                                                            <select class="form-control" id="grading-period" name="gradingPeriod" style="margin-top: 15px; width: 250px;" required="required">
-                                                                <option value="" selected disabled>Select Grading Period</option>
+                                                    if($query) {
+                                                        echo '<script>alert("Successfully uploaded student\'s grade.");</script>';
+                                                    } else {
+                                                        echo '<script>alert("Failed to upload student\'s grade.");</script>';
+                                                    }
+                                                }
+                                            ?>
+                                            <!-- <div class="row"> --><!--//row for form-->
+                                                <form class="form-horizontal" method="post" role="form">
+                                                    <div class="form-group">
+                                                        <label for="grading-period" class="col-md-3 control-label">Grading Period</label>
+                                                        <div class="col-md-4">
+                                                            <select class="form-control" id="grading-period" name="gradingPeriod"  required="required">
+                                                                <option value="" selected disabled>Grading Period</option>
                                                                 <option value="1st">1st Grading Period</option>
                                                                 <option value="2nd">2nd Grading Period</option>
                                                                 <option value="3rd">3rd Grading Period</option>
                                                                 <option value="4th">4th Grading Period</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="week-number" class="title">Week Number:</label>
-                                                            <input type="number" class="form-control" id="week-number" name="weekNumber" style="margin-top: 15px; width: 250px;" min="1" max="7" placeholder="Choose Week Number" required="required">
-                                                        </div>
-                                                       
-                                                        <h1 class="text-center">Knowledge</h1>
-                                                         <div class="form-group">
-                                                           <label for="knowledge" class="title">K Area: </label>
-                                                           <input type="text" name="knowledge" class="form-control" placeholder="Enter Knowledge Rating" required="required">
-                                                           <div id="addon">%</div>
-                                                         </div>  
-                                                        <!-- <div class="form-group">
-                                                            <label for="k-quizzes" class="title">Quizzes:</label>
-                                                            <input type="text" name="k-quizzes" class="form-control" placeholder="Enter Quizzes" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="k-recitation" class="title">Recitation:</label>
-                                                            <input type="text" name="k-recitation" class="form-control" placeholder="Enter Recitation" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="k-raw-score" class="title">P.T/Raw Score:</label>
-                                                            <input type="text" name="k-raw-score" class="form-control" placeholder="Enter P.T/Raw Score" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div> -->
 
-                                                        <h1 class="text-center">Process/Skills</h1>
-                                                         <div class="form-group">
-                                                           <label for="processskills" class="title">PS Area: </label>
-                                                           <input type="text" name="processskills" class="form-control" placeholder="Enter Process/Skills Rating" required="required">
-                                                           <div id="addon">%</div>
-                                                         </div>  
-                                                        <!-- <div class="form-group">
-                                                            <label for="ps-quizzes" class="title">Quizzes:</label>
-                                                            <input type="text" name="ps-quizzes" class="form-control" placeholder="Enter Quizzes" required="required">
-                                                            <div id="addon">%</div>
+                                                        <label for="week-number" class="col-md-2 control-label">Week No.</label>
+                                                        <div class="col-md-2">
+                                                            <select class="form-control" id="week-number" name="weekNumber"  placeholder="Choose Week Number" required="required">
+                                                                <option value="" selected disabled></option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                            </select>
+                                                        </div>    
+
+                                                    </div>
+            
+                                                    <div class="form-group">
+                                                        <label for="section-name" class="col-md-3 control-label">Section Name</label>
+                                                        <div class="col-md-5">
+                                                            <select class="form-control" id="section-name" name="sectionName"  required="required" onclick="get_section(this);" >
+                                                                <option value="" selected disabled>Select Section</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="ps-recitation" class="title">Recitation:</label>
-                                                            <input type="text" name="ps-recitation" class="form-control" placeholder="Enter Recitation" required="required">
-                                                            <div id="addon">%</div>
+                                                    </div>
+                                                     <div class="form-group">
+                                                        <label for="student-name" class="col-md-3 control-label">Student Name</label>
+                                                        <div class="col-md-5">
+                                                            <select class="form-control" id="student-name" name="studentName"  required="required">
+                                                                <option value="" selected disabled>Select Student Name</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="ps-raw-score" class="title">P.T/Raw Score:</label>
-                                                            <input type="text" name="ps-raw-score" class="form-control" placeholder="Enter P.T/Raw Score" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div> -->
-                                                        <h1 class="text-center">Understanding</h1>
-                                                         <div class="form-group">
-                                                           <label for="understanding" class="title">U Area: </label>
-                                                           <input type="text" name="understanding" class="form-control" placeholder="Enter Understanding Rating" required="required">
-                                                           <div id="addon">%</div>
-                                                         </div>  
-                                                       <!--  <div class="form-group">
-                                                            <label for="u-quizzes" class="title">Quizzes:</label>
-                                                            <input type="text" name="u-quizzes" class="form-control" placeholder="Enter Quizzes" required="required">
-                                                            <div id="addon">%</div>
+                                                    </div>
+                                                    
+                                               
+                                                     <div class="form-group">
+                                                       <label for="knowledge" class="col-md-2 col-md-offset-4 control-label">Knowledge</label>
+                                                       <div class="col-md-2">
+                                                            <select class="form-control" id="knowledge" name="knowledge" required="required">
+                                                                <option value="" selected disabled></option>
+                                                                <option value="100">100</option>
+                                                                <option value="99">99</option>
+                                                                <option value="98">98</option>
+                                                                <option value="97">97</option>
+                                                                <option value="96">96</option>
+                                                                <option value="95">95</option>
+                                                                <option value="94">94</option>
+                                                                <option value="93">93</option>
+                                                                <option value="92">92</option>
+                                                                <option value="91">91</option>
+                                                                <option value="90">90</option>
+                                                                <option value="89">89</option>
+                                                                <option value="88">88</option>
+                                                                <option value="87">87</option>
+                                                                <option value="86">86</option>
+                                                                <option value="85">85</option>
+                                                                <option value="84">84</option>
+                                                                <option value="83">83</option>
+                                                                <option value="82">82</option>
+                                                                <option value="81">81</option>
+                                                                <option value="80">80</option>
+                                                                <option value="79">79</option>
+                                                                <option value="78">78</option>
+                                                                <option value="77">77</option>
+                                                                <option value="76">76</option>
+                                                                <option value="75">75</option>
+                                                                <option value="74">74</option>
+                                                                <option value="73">73</option>
+                                                                <option value="72">72</option>
+                                                                <option value="71">71</option>
+                                                                <option value="70">70</option>
+                                                                <option value="69">69</option>
+                                                                <option value="68">68</option>
+                                                                <option value="67">67</option>
+                                                                <option value="66">66</option>
+                                                                <option value="65">65</option>
+                                                                <option value="64">64</option>
+                                                                <option value="63">63</option>
+                                                                <option value="62">62</option>
+                                                                <option value="61">61</option>
+                                                                <option value="60">60</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="u-recitation" class="title">Recitation:</label>
-                                                            <input type="text" name="u-recitation" class="form-control" placeholder="Enter Recitation" required="required">
-                                                            <div id="addon">%</div>
+                                                     </div>  
+                                              
+                                                   
+                                                     <div class="form-group">
+                                                       <label for="processskills" class="col-md-2 col-md-offset-4 control-label">Process/Skills</label>
+                                                       <div class="col-md-2">
+                                                            <select class="form-control" id="processskills" name="processskills" required="required">
+                                                                <option value="" selected disabled></option>
+                                                                <option value="100">100</option>
+                                                                <option value="99">99</option>
+                                                                <option value="98">98</option>
+                                                                <option value="97">97</option>
+                                                                <option value="96">96</option>
+                                                                <option value="95">95</option>
+                                                                <option value="94">94</option>
+                                                                <option value="93">93</option>
+                                                                <option value="92">92</option>
+                                                                <option value="91">91</option>
+                                                                <option value="90">90</option>
+                                                                <option value="89">89</option>
+                                                                <option value="88">88</option>
+                                                                <option value="87">87</option>
+                                                                <option value="86">86</option>
+                                                                <option value="85">85</option>
+                                                                <option value="84">84</option>
+                                                                <option value="83">83</option>
+                                                                <option value="82">82</option>
+                                                                <option value="81">81</option>
+                                                                <option value="80">80</option>
+                                                                <option value="79">79</option>
+                                                                <option value="78">78</option>
+                                                                <option value="77">77</option>
+                                                                <option value="76">76</option>
+                                                                <option value="75">75</option>
+                                                                <option value="74">74</option>
+                                                                <option value="73">73</option>
+                                                                <option value="72">72</option>
+                                                                <option value="71">71</option>
+                                                                <option value="70">70</option>
+                                                                <option value="69">69</option>
+                                                                <option value="68">68</option>
+                                                                <option value="67">67</option>
+                                                                <option value="66">66</option>
+                                                                <option value="65">65</option>
+                                                                <option value="64">64</option>
+                                                                <option value="63">63</option>
+                                                                <option value="62">62</option>
+                                                                <option value="61">61</option>
+                                                                <option value="60">60</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="u-open-ended-q" class="title">Open/Ended Q.:</label>
-                                                            <input type="text" name="u-open-ended-q" class="form-control" placeholder="Enter Open/Ended Q." required="required">
-                                                            <div id="addon">%</div>
-                                                        </div> -->
-                                                        <h1 class="text-center">Performance/Products</h1>
-                                                         <div class="form-group">
-                                                           <label for="performanceproducts" class="title">PP Area: </label>
-                                                           <input type="text" name="performanceproducts" class="form-control" placeholder="Enter Performance/Products Rating" required="required">
-                                                           <div id="addon">%</div>
-                                                         </div>  
-                                                       <!--  <div class="form-group">
-                                                            <label for="pp-group-work" class="title">Group Work:</label>
-                                                            <input type="text" name="pp-group-work" class="form-control" placeholder="Enter Group Work" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="pp-project" class="title">Project:</label>
-                                                            <input type="text" name="pp-project" class="form-control" placeholder="Enter Project" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="pp-homework" class="title">Homework:</label>
-                                                            <input type="text" name="pp-homework" class="form-control" placeholder="Enter Homework" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="pp-others" class="title">Others:</label>
-                                                            <input type="text" name="pp-others" class="form-control" placeholder="Enter Others" required="required">
-                                                            <div id="addon">%</div>
-                                                        </div> -->
-                                                        <div class="home_btn">
-                                                            <button type="submit" class="btn btn-fresh text-uppercase">Submit</button>
+                                                     </div>  
+                                                
+                                               
+                                                     <div class="form-group">
+                                                       <label for="understanding" class="col-md-2 col-md-offset-4 control-label">Understanding</label>
+                                                       <div class="col-md-2">
+                                                            <select class="form-control" id="understanding" name="understanding" required="required">
+                                                                <option value="" selected disabled></option>
+                                                                <option value="100">100</option>
+                                                                <option value="99">99</option>
+                                                                <option value="98">98</option>
+                                                                <option value="97">97</option>
+                                                                <option value="96">96</option>
+                                                                <option value="95">95</option>
+                                                                <option value="94">94</option>
+                                                                <option value="93">93</option>
+                                                                <option value="92">92</option>
+                                                                <option value="91">91</option>
+                                                                <option value="90">90</option>
+                                                                <option value="89">89</option>
+                                                                <option value="88">88</option>
+                                                                <option value="87">87</option>
+                                                                <option value="86">86</option>
+                                                                <option value="85">85</option>
+                                                                <option value="84">84</option>
+                                                                <option value="83">83</option>
+                                                                <option value="82">82</option>
+                                                                <option value="81">81</option>
+                                                                <option value="80">80</option>
+                                                                <option value="79">79</option>
+                                                                <option value="78">78</option>
+                                                                <option value="77">77</option>
+                                                                <option value="76">76</option>
+                                                                <option value="75">75</option>
+                                                                <option value="74">74</option>
+                                                                <option value="73">73</option>
+                                                                <option value="72">72</option>
+                                                                <option value="71">71</option>
+                                                                <option value="70">70</option>
+                                                                <option value="69">69</option>
+                                                                <option value="68">68</option>
+                                                                <option value="67">67</option>
+                                                                <option value="66">66</option>
+                                                                <option value="65">65</option>
+                                                                <option value="64">64</option>
+                                                                <option value="63">63</option>
+                                                                <option value="62">62</option>
+                                                                <option value="61">61</option>
+                                                                <option value="60">60</option>
+                                                            </select>
+                                                       </div>
+                                                     </div>  
+                                              
+                                                
+                                                     <div class="form-group">
+                                                       <label for="performanceproducts" class="col-md-3 col-md-offset-3 control-label">Performance/Products</label>
+                                                       <div class="col-md-2">
+                                                             <select class="form-control" id="performanceproducts" name="performanceproducts" required="required">
+                                                                <option value="" selected disabled></option>
+                                                                <option value="100">100</option>
+                                                                <option value="99">99</option>
+                                                                <option value="98">98</option>
+                                                                <option value="97">97</option>
+                                                                <option value="96">96</option>
+                                                                <option value="95">95</option>
+                                                                <option value="94">94</option>
+                                                                <option value="93">93</option>
+                                                                <option value="92">92</option>
+                                                                <option value="91">91</option>
+                                                                <option value="90">90</option>
+                                                                <option value="89">89</option>
+                                                                <option value="88">88</option>
+                                                                <option value="87">87</option>
+                                                                <option value="86">86</option>
+                                                                <option value="85">85</option>
+                                                                <option value="84">84</option>
+                                                                <option value="83">83</option>
+                                                                <option value="82">82</option>
+                                                                <option value="81">81</option>
+                                                                <option value="80">80</option>
+                                                                <option value="79">79</option>
+                                                                <option value="78">78</option>
+                                                                <option value="77">77</option>
+                                                                <option value="76">76</option>
+                                                                <option value="75">75</option>
+                                                                <option value="74">74</option>
+                                                                <option value="73">73</option>
+                                                                <option value="72">72</option>
+                                                                <option value="71">71</option>
+                                                                <option value="70">70</option>
+                                                                <option value="69">69</option>
+                                                                <option value="68">68</option>
+                                                                <option value="67">67</option>
+                                                                <option value="66">66</option>
+                                                                <option value="65">65</option>
+                                                                <option value="64">64</option>
+                                                                <option value="63">63</option>
+                                                                <option value="62">62</option>
+                                                                <option value="61">61</option>
+                                                                <option value="60">60</option>
+                                                            </select>
+                                                       </div>
+                                                     </div>  
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="col-md-4 col-md-offset-4">
                                                             <button type="reset" class="btn btn-sky text-uppercase">Clear</button>
+                                                            <button type="submit" class="btn btn-fresh text-uppercase">Submit</button>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-											
-						</div><!--encoding-container-->
-							
-					</div><!--right-column-->
-			</div><!--right-wrapper-->	
-		</div><!--container-->
-	</div><!--content-->
-</div><!--viewport-->
+                                                    </div>
+                                                </form>
+                                            <!-- </div> --><!--//row for form-->
+                                        </div><!--encoding workspace-->
+                                    </div><!--//row for encoding-workspace --> 
+                                </div><!--encoding space-->
+                            </div><!--//row for encoding-space -->                
+                        </div><!--encoding-container-->
+                    </div><!--//row for encoding-container -->   
+                </div>
+                <!--End of mid content-->   
+        </div><!--row-->
+    </div><!--container-fluid-->
+<!--End of main --> 
+
+
+						
+
+
+
 
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>

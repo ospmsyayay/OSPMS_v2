@@ -79,6 +79,7 @@ function get_announcement_lecture_to_all_subjects($teacherID)
 
         return $result;
 
+
 }
 
 function post_announcement_lecture_to_all_students($studentID)

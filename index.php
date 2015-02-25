@@ -40,6 +40,7 @@ else
 											
 												case 'trp':tpage_progress();break;
 												case 'tre':tpage_encode();break;
+												case 'tres':tpage_encode_spreadsheet();break;
 												/*case 'trce':tpage_createexer(); break;*/
 												case 'trce':createexer();break;
 												case 's':t_spage_progress();break;
@@ -162,7 +163,7 @@ include "views/HomePage.php";
 
 function admin()
 {
-	include "model/administrator.php";
+	/*include "model/administrator.php";
 
 	$adminlist=array();
 	$teacherlist=array();
@@ -328,7 +329,7 @@ function admin()
 
 		}
 		
-	}//End of Get
+	}//End of Get*/
 
 
 	include "views/admin.php";
@@ -649,10 +650,696 @@ function t_spage_progress()
 	include "views/Teacher_Student_Page_Progress.php";
 }
 
+
 function tpage_encode()
 {
+	include 'model/students.php';
+    include 'model/utility.php';
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") 
+    {
+        $grading_id=createGradingId();
+        $student_lrn = $_POST['studentName'];
+        $class_rec_no =$_POST['sectionName'];
+        $grading_period = $_POST['gradingPeriod'];
+        $week_number = $_POST['weekNumber'];
+        $knowledge = $_POST['knowledge'];
+        $processskills = $_POST['processskills'];
+        $understanding = $_POST['understanding'];
+        $performanceproducts = $_POST['performanceproducts'];
+
+        $tentativeGrade = ($knowledge * 0.15) + ($processskills * 0.25) + ($understanding * 0.30) + ($performanceproducts * 0.30);
+        $legend=mark_proficiency($tentativeGrade);
+
+
+      	$inserted=insert_student_rating($grading_id, $student_lrn, $class_rec_no, $grading_period, $week_number, 
+								$knowledge, $processskills, $understanding, $performanceproducts, $tentativeGrade, $legend);
+
+
+        if($inserted) {
+            echo '<script>alert("Successfully uploaded student\'s grade.");</script>';
+        } else {
+            echo '<script>alert("Failed to upload student\'s grade.");</script>';
+        }
+
+
+    }
+
 	include "views/Teachers_Page_Encoding.php";
 }
+
+function tpage_encode_spreadsheet()
+{
+	include "model/encoding.php";
+	//Upload Spread Sheet
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST") 
+    {
+    	$grading_period = $_POST['sheet-gradingPeriod'];
+        $week_number = $_POST['sheet-weekNumber'];
+        $class_rec_no =$_POST['sheet-sectionName'];
+
+        //Initialize spreadsheet array
+   		$spreadsheet=array();
+
+		$result=excel_upload();
+		
+		if(isset($result['success']) || array_key_exists('success', $result))
+		{
+			$spreadsheet[]=$result['data'];
+
+		}
+		else if(isset($result['error']) || array_key_exists('error', $result))
+		{
+			switch($result['error'])
+			{
+				case 'ex':header("Location:index.php?r=lss&tr=tres&ex");break;
+				case 'er':header("Location:index.php?r=lss&tr=tres&er");break;
+				case 'if':header("Location:index.php?r=lss&tr=tres&if");break;
+			}
+		}
+
+		$sheet_result_gather=array();
+
+		$sheet_subject_flag=array();
+		$sheet_gender_flag=array();
+		$sheet_average_flag=array();
+		$tester=array();
+
+		$validsubjects=array();
+
+		//get valid subjects
+		$valid_subjects=get_validsubjects();
+		while($listofsubjects = mysqli_fetch_array($valid_subjects))
+		{
+			$passer=array();
+			$passer['subjectID']=$listofsubjects['subjectID'];
+			$passer['subject_title']=$listofsubjects['subject_title'];
+			$validsubjects[]=$passer;
+
+		}
+
+		//process spreadsheet
+
+		//Find Subject ,Gender and Average Flags in spreadsheet 
+		foreach ($spreadsheet as $singlesheet) 
+		{
+			foreach ($singlesheet as $sheetNo => $row) 
+		    { 
+		        foreach($row as $rowNo => $rowArray)
+		        {
+		         
+		            foreach($rowArray as $col => $values)
+		            {
+		            	//Load valid subjects to compare
+				            
+		             	foreach($validsubjects as $subject_row)
+		             	{
+		             		
+	             			$newsubject=preg_replace('/\s+/','',$subject_row['subject_title']);
+					 		$newsubject_length=strlen($newsubject);
+					 		$newvalue=substr(preg_replace('/\s+/','', $values), 0 , $newsubject_length);
+					 		$validsubject=strcasecmp($newsubject, $newvalue);
+
+
+		             		//If scanned subject matched with database subjects
+			                if($validsubject == 0)
+	             			{
+	             				//Save the subject to array
+		    					$subject=array('sheetNo'=>$sheetNo,'subject'=>$subject_row['subject_title'], 
+		    									'scan_value'=>$newvalue, 'row'=>$rowNo, 'column'=>$col);
+		    					$sheet_subject_flag[]=$subject;
+		    				}	
+				             				
+				        }//End of valid subjects			
+	
+		             	//Get the gender flags coordinates
+		             	$boyflag = stripos($values,'boy');
+		             	$girlflag = stripos($values,'girl');
+	
+		                if ($boyflag !== false) 
+		                {
+		                	$boy_flag=array();
+	    					$boy_flag=array('sheetNo'=>$sheetNo,'gender'=>$values, 'row'=>$rowNo, 'column'=>$col);
+	    					$sheet_gender_flag[]=$boy_flag;
+	    					
+						}
+						else if($girlflag !== false)
+	                	{
+	                		$girl_flag=array();
+	                		$girl_flag=array('sheetNo'=>$sheetNo,'gender'=>$values, 'row'=>$rowNo, 'column'=>$col);
+	                		$sheet_gender_flag[]=$girl_flag;
+	                	}
+	                	else
+	                	{
+	                		//Prompt Gender Flags do not exist in spreadsheet 
+	                	}	
+	                	//End of Get gender flags coordinates	
+
+	                	//Get the average flags coordinates
+	                	$valid_average= stripos($values,'average');
+		                if ($valid_average !== false) 
+		                {
+	    					$average=array('sheetNo'=>$sheetNo,'average'=>$values, 'row'=>$rowNo, 'column'=>$col);
+	    					$sheet_average_flag[]=$average;
+						}
+						else
+						{
+							//Prompt Average Flags do not exist in spreadsheet
+						}	
+	                	//End of Get the average flags coordinates
+
+		               
+		            }//End of rowArray
+		            
+		        }//End of row      
+		       
+		    }//End of singlesheet
+		}//End of spreadsheet
+
+		$subjectlist=array();
+
+		//get teacher's subjectlist
+		$subjects=get_subjectlist($_SESSION['account_id'],$class_rec_no);
+		while($listofsubjects = mysqli_fetch_array($subjects))
+		{
+			$passer=array();
+			$passer['subjectID']=$listofsubjects['subjectID'];
+			$passer['subject_title']=$listofsubjects['subject_title'];
+			$subjectlist[]=$passer;
+
+		}
+
+		$studentlist=array();
+
+		//get studentlist
+		$fetch_students=get_studentlist($_SESSION['account_id'],$class_rec_no);
+		while($listofstudents = mysqli_fetch_array($fetch_students))
+		{
+			$passer=array();
+			$passer['student_lrn']=$listofstudents['student_lrn'];
+			$passer['reg_lname']=$listofstudents['reg_lname'];
+			$passer['reg_fname']=$listofstudents['reg_fname'];
+			$studentlist[]=$passer;
+
+		}
+		$counter=0;
+		//Start Scanning the spreadsheet
+		foreach ($spreadsheet as $spreadsheetno => $sheet) 
+        {
+
+            foreach ($sheet as $sheetno => $sheetrow) 
+            { 
+            	//Initialize array for current sheet subjects
+                $current_sheet_subject=array();
+                //Initialize array for current sheet rows
+                $current_sheet_rows=array();
+                //Initialize  array for current sheet average columns
+                $current_sheet_average_columns=array();
+
+                //Find the last subject flag for the current sheet
+                foreach ($sheet_subject_flag as $subject_row) 
+                {
+                    if($subject_row['sheetNo']==$sheetno)//get all rows for current sheet
+                    {
+                        $current_sheet_subject[]=$subject_row;
+                    }
+                            
+                }
+
+                //Find the last gender flag for the current sheet
+                foreach ($sheet_gender_flag as $gender_row) 
+                {
+                    if($gender_row['sheetNo']==$sheetno)//get all rows for current sheet
+                    {
+                        $current_sheet_rows[]=$gender_row;
+                    }
+                            
+                }
+
+                //Find the last average flag for the current sheet
+                foreach ($sheet_average_flag as $average_row) 
+                {
+                    if($average_row['sheetNo']==$sheetno)//get all cols for current sheet
+                    {
+                        $current_sheet_average_columns[]=$average_row;
+                    }
+                            
+                }
+
+               	$subject_found=false;
+                //Start comparing subject
+                foreach($current_sheet_subject as $current_subject_row)
+                {
+                 	//Load subjectlist to compare      
+	                foreach($subjectlist as $subjectrow)
+	                {
+	                   
+                        $new_subject=preg_replace('/\s+/','',$subjectrow['subject_title']);
+                        $valid_subject=strcasecmp($new_subject, $current_subject_row['scan_value']);
+                        //If scanned subject matched
+                        if($valid_subject == 0)
+                        {
+                            $subject_found=true;
+                            
+                        }//End of valid subject
+
+	            	}//End of subjectlist row     
+	            	
+                    //If scanned subject found
+                    if($subject_found==true)
+                    {
+                        //Save the subject to array
+                       $sheet_result_gather[$counter]['scan_subject']=$current_subject_row;
+
+                        $num_of_rows=count($current_sheet_rows);
+                   		$student_counter=0;
+                   		if($num_of_rows > 1)
+			            {
+			                $current_row=(int) $current_sheet_rows[0]['row'];
+                            $next_row=(int) $current_sheet_rows[1]['row'];
+                            //Get the average columns
+                            $average_column=array();
+
+                            foreach ($current_sheet_average_columns as $averagerow) 
+                            {
+                                if($averagerow['row']==$current_row)
+                                {
+                                    $passer=array();
+                                    $passer['column']=$averagerow['column'];
+                                    $average_column[]=$passer;
+
+                                }   
+                            }
+                           
+                            $kAverage=$psAverage=$uAverage=$ppAverage="";
+
+                            $kAverage=$average_column[0]['column'];
+                            $psAverage=$average_column[1]['column'];
+                            $uAverage=$average_column[2]['column'];
+                            $ppAverage=$average_column[3]['column'];
+
+                           $student_found=false;
+                           $scanned_student=array();
+
+                           $student_scan_ready=true;
+                            //$singlesheet[0]=>$row 
+                            for ($row_counter=$current_row; $row_counter < $next_row ; $row_counter++)
+                            { 
+                                
+                                //$row[0]=>$rowarray 
+                                foreach($spreadsheet[$spreadsheetno][$sheetno][$row_counter] as $column_ => $value_)
+                                {
+                                    //$rowarray[0]=>$values
+                                		if($student_scan_ready==true)
+                                		{
+	                                		foreach($studentlist as $student_row)
+	                                        {
+	                                            //Separate lastname and firstname from scan
+	                                            $studentname = explode(',',$value_,2);
+
+	                                            if(isset($studentname[0]) and isset($studentname[1]))
+	                                            {   //trim lastname and firstname from scan
+	                                                $lname=preg_replace('/\s+/','',$studentname[0]);
+	                                                $fname=preg_replace('/\s+/','',$studentname[1]);
+
+	                                                //Separate lastname and firstname from database
+	                                                //trim lastname and firstname
+	                                                $reg_lname=preg_replace('/\s+/','',$student_row['reg_lname']);
+	                                                $reg_fname=preg_replace('/\s+/','',$student_row['reg_fname']);
+
+	                                                //Get length
+	                                                $reg_lname_length=strlen($reg_lname);
+	                                                $reg_fname_length=strlen($reg_fname);
+
+	                                                //Create a substring
+	                                                $lastname=substr($lname, 0 , $reg_lname_length);
+	                                                $firstname=substr($fname, 0 , $reg_fname_length);
+
+	                                                $valid_lastname=strcasecmp($reg_lname, $lastname);
+	                                                $valid_firstname=strcasecmp($reg_fname, $firstname);
+
+	     
+	                                                //Check if Name is Valid
+	                                                if(($valid_lastname == 0) and ($valid_firstname == 0))
+	                                                {
+	                                                    $student_found=true; 
+	                                                    $scanned_student=array('sheetNo'=>$sheetno,'student'=>$student_row['reg_lname'].', '.$student_row['reg_fname'], 
+	                                                            'scan_value'=>$lastname.', '.$firstname, 'row'=>$row_counter, 'column'=>$column_, 'student_found'=>true);
+	                                                    
+	                                                }
+
+	                                            }
+	                                            else
+	                                            {
+	                                                //Prompt Comma Issues
+	                                            } 
+	                                                  
+	                                        }//foreach
+                                		}//End of scan ready
+
+ 
+                                       
+                                       //Check if Name is Valid
+                                        if($student_found==true)
+                                        {
+                                            $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]=$scanned_student;
+
+                                            $student_scan_ready=false;
+                                            $student_found=false;
+                                         
+                                        }
+                                        else
+                                        {
+                                            //Prompt Scan Error//Skipp Scanning
+                                        }
+
+                                        if($student_scan_ready==false)
+                                		{
+                                			//If Name is validated, Get the 4 averages
+	                                        if($column_==$kAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['kAverage']=$value_;
+	                                            }   
+	                                        }
+	                                        if($column_==$psAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['psAverage']=$value_;
+	                                            }   
+	                                        }   
+	                                        if($column_==$uAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['uAverage']=$value_;
+	                                            }   
+	                                        }   
+	                                        if($column_==$ppAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['ppAverage']=$value_;
+
+	                                                //Done with scanning row
+	                                                $student_counter++;
+	                                                $student_scan_ready=true;
+	                                            }   
+	                                        }         
+                                		}//End of scan ready false
+
+                                        
+
+                                }//rowArray
+
+                            }//row                            
+			            }
+			            else //If one row
+			            {	
+			            	//Get the current row and the next row which will be the end point of scanning
+			                $current_row=(int) $current_sheet_rows[0]['row'];
+			                $sheetrows=count($sheetrow);
+			                //Get the average columns
+			                $average_column=array();
+
+			                foreach ($current_sheet_average_columns as $averagerow) 
+			                {
+			                    if($averagerow['row']==$current_row)
+			                    {
+			                        $passer=array();
+			                        $passer['column']=$averagerow['column'];
+			                        $average_column[]=$passer;
+
+			                    }   
+			                }
+			               
+			                $kAverage=$psAverage=$uAverage=$ppAverage="";
+
+			                $kAverage=$average_column[0]['column'];
+			                $psAverage=$average_column[1]['column'];
+			                $uAverage=$average_column[2]['column'];
+			                $ppAverage=$average_column[3]['column'];
+
+                           $student_found=false;
+                           $scanned_student=array();
+
+                           $student_scan_ready=true;
+                            //$singlesheet[0]=>$row 
+                            for ($row_counter=$current_row; $row_counter < $sheetrows+1 ; $row_counter++)
+                            { 
+                                
+                                //$row[0]=>$rowarray 
+                                foreach($spreadsheet[$spreadsheetno][$sheetno][$row_counter] as $column_ => $value_)
+                                {
+                                    //$rowarray[0]=>$values
+                                		if($student_scan_ready==true)
+                                		{
+	                                		foreach($studentlist as $student_row)
+	                                        {
+	                                            //Separate lastname and firstname from scan
+	                                            $studentname = explode(',',$value_,2);
+
+	                                            if(isset($studentname[0]) and isset($studentname[1]))
+	                                            {   //trim lastname and firstname from scan
+	                                                $lname=preg_replace('/\s+/','',$studentname[0]);
+	                                                $fname=preg_replace('/\s+/','',$studentname[1]);
+
+	                                                //Separate lastname and firstname from database
+	                                                //trim lastname and firstname
+	                                                $reg_lname=preg_replace('/\s+/','',$student_row['reg_lname']);
+	                                                $reg_fname=preg_replace('/\s+/','',$student_row['reg_fname']);
+
+	                                                //Get length
+	                                                $reg_lname_length=strlen($reg_lname);
+	                                                $reg_fname_length=strlen($reg_fname);
+
+	                                                //Create a substring
+	                                                $lastname=substr($lname, 0 , $reg_lname_length);
+	                                                $firstname=substr($fname, 0 , $reg_fname_length);
+
+	                                                $valid_lastname=strcasecmp($reg_lname, $lastname);
+	                                                $valid_firstname=strcasecmp($reg_fname, $firstname);
+
+	     
+	                                                //Check if Name is Valid
+	                                                if(($valid_lastname == 0) and ($valid_firstname == 0))
+	                                                {
+	                                                    $student_found=true; 
+	                                                    $scanned_student=array('sheetNo'=>$sheetno,'student'=>$student_row['reg_lname'].', '.$student_row['reg_fname'], 
+	                                                            'scan_value'=>$lastname.', '.$firstname, 'row'=>$row_counter, 'column'=>$column_, 'student_found'=>true);
+	                                                    
+	                                                }
+
+	                                            }
+	                                            else
+	                                            {
+	                                                //Prompt Comma Issues
+	                                            } 
+	                                                  
+	                                        }//foreach
+                                		}//End of scan ready
+
+ 
+                                       
+                                       //Check if Name is Valid
+                                        if($student_found==true)
+                                        {
+                                            $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]=$scanned_student;
+
+                                            $student_scan_ready=false;
+                                            $student_found=false;
+                                         
+                                        }
+                                        else
+                                        {
+                                            //Prompt Scan Error//Skipp Scanning
+                                        }
+
+                                        if($student_scan_ready==false)
+                                		{
+                                			//If Name is validated, Get the 4 averages
+	                                        if($column_==$kAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['kAverage']=$value_;
+	                                            }   
+	                                        }
+	                                        if($column_==$psAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['psAverage']=$value_;
+	                                            }   
+	                                        }   
+	                                        if($column_==$uAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['uAverage']=$value_;
+	                                            }   
+	                                        }   
+	                                        if($column_==$ppAverage)
+	                                        {
+	                                            if(is_numeric($value_))
+	                                            {
+	                                                $sheet_result_gather[$counter]['scan_subject']['scan_student'][$student_counter]['ppAverage']=$value_;
+
+	                                                //Done with scanning row
+	                                                $student_counter++;
+	                                                $student_scan_ready=true;
+	                                            }   
+	                                        }         
+                                		}//End of scan ready false
+
+                                        
+
+                                }//rowArray
+
+                            }//row                            
+
+			            }//End of If one row
+
+                        $subject_found=false;
+                        $counter++;
+                        //Do the remove rows after scan
+                        array_shift($current_sheet_rows);
+                        //Remove the 4 average flags by row
+                        array_shift($current_sheet_average_columns);
+                       	array_shift($current_sheet_average_columns);
+                       	array_shift($current_sheet_average_columns);
+                       	array_shift($current_sheet_average_columns);
+                        
+                    
+                    }//End of valid subject
+                    else if($subject_found==false)
+                    {
+                    	
+                        //Do the remove rows after scan
+                        array_shift($current_sheet_rows);
+                       	//Remove the 4 average flags by row
+                       	array_shift($current_sheet_average_columns);
+                       	array_shift($current_sheet_average_columns);
+                       	array_shift($current_sheet_average_columns);
+                       	array_shift($current_sheet_average_columns);
+                      
+                    }       
+
+                }//end comparing subject
+
+            }//End of singlesheet
+        }//End of spread sheet
+		            	
+
+	}
+
+	include "views/Teachers_Page_Encoding_Spreadsheet.php";
+
+
+}
+
+function excel_upload()
+{
+	include 'views/plugins/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
+	$sheetData=array();//initialize 
+	$result=array();
+
+	$name = $_FILES['spreadsheet']['name'];
+	$inputFile = $_FILES['spreadsheet']['tmp_name'];
+	$allowedextension = array('xls','xlsx');
+
+
+	$temp = explode(".",$name);
+	$nameoffile = $temp[0];
+	$extension = end($temp);
+	if(in_array($extension,$allowedextension))
+	{
+		if($_FILES['spreadsheet']['error']>0)
+		{
+			
+			$result=array('error'=>'ex'); 
+			
+		}
+		else
+		{
+			
+			
+			try{
+				//Read spreadsheet workbook
+				$inputFileType=PHPExcel_IOFactory::identify($inputFile);
+				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$objReader->setReadDataOnly(false);
+				$objReader->setLoadAllSheets();
+				$objPHPExcel = $objReader->load($inputFile);
+				$loadedSheetNames = $objPHPExcel->getSheetNames();
+
+				//Get Sheet Name 
+				foreach ($loadedSheetNames as $sheetIndex => $sheetName) 
+				{
+
+	                	//convert to csv
+						$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'csv');
+						$objWriter->setDelimiter('`');
+						$objWriter->setEnclosure(' ');
+						$objWriter->setLineEnding("\n");
+						$objWriter->setSheetIndex($sheetIndex);
+						$objWriter->save('model/uploaded_files/spreadsheets/csv/'.$nameoffile.'-'.$sheetName.'.csv');
+
+						//read csv
+						$csvFile='model/uploaded_files/spreadsheets/csv/'.$nameoffile.'-'.$sheetName.'.csv';
+						$inputCSVType=PHPExcel_IOFactory::identify($csvFile);
+						$csvReader=PHPExcel_IOFactory::createReader($inputCSVType);
+						$csvReader->setDelimiter('`');
+						$csvReader->setEnclosure(' ');
+						$csvReader->setLineEnding("\n");
+						$csvReader->setReadDataOnly(false);
+						$csvPHPExcel = $csvReader->load($csvFile);
+	
+						$sheetData[] = $csvPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+	                	
+				}	
+
+			}
+			catch(PHPExcel_Reader_Exception $e)
+			{
+				die($e->getMessage());
+			}
+
+		
+				if(!empty($sheetData))
+				{
+					$location = "model/uploaded_files/spreadsheets/";
+					if(move_uploaded_file($inputFile,$location.$name))
+					{
+						$result=array('success' => 'excel',
+									'file_name' => $name,'data'=>$sheetData);
+					}
+					else
+					{	
+						$rowData = array('error'=>'ex');
+					}	
+				}
+				else
+				{
+					$rowData = array('error'=>'er');
+				}	
+
+		}
+	}
+	else
+	{
+		$result=array('error'=>'if'); 
+		
+	}
+
+	return $result;
+}
+
+
 
 function spage()
 {

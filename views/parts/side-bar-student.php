@@ -12,7 +12,7 @@
 		<?php 
 		if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
 		{
-			echo '<a href="#" class="navbar-link" ><h5 id="greetings-student">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
+			echo '<a href="#" class="navbar-link" ><h5 class="greetings">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
 		}
 		?>
 	</div>

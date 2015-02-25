@@ -139,6 +139,7 @@ subjectID varchar(8),
 teacherID varchar(16),
 levelID varchar(5),
 roomNo varchar(10),
+school_year varchar(9),
 
 constraint PK_section primary key (class_rec_no),
 constraint FK_section2 foreign key (sectionID) references section_list(sectionID),

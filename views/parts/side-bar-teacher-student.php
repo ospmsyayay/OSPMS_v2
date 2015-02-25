@@ -3,16 +3,16 @@
 
 <!--Start of Welcome Box-->				
 	<div class="welcome-box content">
-		 <?php if(isset($_SESSION['profile_pic']))
+		 <?php if(isset($_SESSION['ts_profile_pic']))
    		{
-    		echo '<img src="views/res/'.$_SESSION['profile_pic'].'" class="welcome-box-img img-thumbnail shadow"/>';
+    		echo '<img src="views/res/'.$_SESSION['ts_profile_pic'].'" class="welcome-box-img img-thumbnail shadow"/>';
     	}
     	?>
 		
 		<?php 
-		if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
+		if((isset($_SESSION['ts_reg_fname'])) and (isset($_SESSION['ts_reg_lname'])))
 		{
-			echo '<a href="#" class="navbar-link" ><h5 id="greetings-teacher">Hi, '.$_SESSION['reg_fname'].'</h5></a>';						
+			echo '<a href="#" class="navbar-link" ><h5 id="greetings-teacher">'.$_SESSION['ts_reg_fname']. ' ' .$_SESSION['ts_reg_lname'] .'</h5></a>';						
 		}
 		?>
 	</div>

@@ -9,8 +9,42 @@
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
     
-	<body>
+	<body onload="check()">
+     <script>
+        function check()
+        {
+        <?php
+            if(isset($_GET['ex']))
+            {   
+        ?>      
+            alert('File error');
+            
+        <?php 
+            }
+            if(isset($_GET['er']))
+            {
+        ?>
+            alert('There was an error reading the spreadsheet');
+        <?php        
+            }    
+            if(isset($_GET['if']))
+            {
+        ?>
+            alert('invalid file');
+        <?php
+            }
 
+           if (isset($_GET['excel']))
+            {
+        ?>
+                alert('Uploaded Excel');
+        <?php   
+            }
+
+        ?>  
+
+        }
+     </script>   
 <!--Start of navbar teacher-->
     <?php include "views/parts/navi-bar-teacher.php";?>   
 <!--End of navbar teacher-->
@@ -37,38 +71,7 @@
                                 <div class="col-md-12 encoding-page-space">
                                     <div class="row"><!--//row for encoding-workspace -->
                                         <div class="col-md-12 encoding-workspace">
-                                            <?php
-                                                include('config/conn.php');
-                                                include('model/utility.php');
-
-                                                if ($_SERVER["REQUEST_METHOD"] == "POST") 
-                                                {
-                                                    $grading_id=createGradingId();
-                                                    $student_lrn = $_POST['studentName'];
-                                                    $class_rec_no =$_POST['sectionName'];
-                                                    $grading_period = $_POST['gradingPeriod'];
-                                                    $week_number = $_POST['weekNumber'];
-                                                    $knowledge = $_POST['knowledge'];
-                                                    $processskills = $_POST['processskills'];
-                                                    $understanding = $_POST['understanding'];
-                                                    $performanceproducts = $_POST['performanceproducts'];
-
-                                                    $tentativeGrade = ($knowledge * 0.15) + ($processskills * 0.25) + ($understanding * 0.30) + ($performanceproducts * 0.30);
-                                                    $legend=mark_proficiency($tentativeGrade);
-
-                            
-                                                    $query = mysqli_query($cxn, "INSERT INTO student_rating (grading_id, student_lrn, class_rec_no, grading_period, week_number, knowledge, processskills, understanding, performanceproducts, tentative_grade, legend) 
-                                                    VALUES ('$grading_id', '$student_lrn', '$class_rec_no', '$grading_period', '$week_number', $knowledge, $processskills, $understanding, $performanceproducts, $tentativeGrade, '$legend')") or die('Unable to connect to Database.<br>'. mysqli_error($cxn));
-
-
-                                                    if($query) {
-                                                        echo '<script>alert("Successfully uploaded student\'s grade.");</script>';
-                                                    } else {
-                                                        echo '<script>alert("Failed to upload student\'s grade.");</script>';
-                                                    }
-                                                }
-                                            ?>
-                                            <!-- <div class="row"> --><!--//row for form-->
+                                            
                                                 <form class="form-horizontal" method="post" role="form">
                                                     <div class="form-group">
                                                         <label for="grading-period" class="col-md-3 control-label">Grading Period</label>
@@ -163,6 +166,16 @@
                                                                 <option value="62">62</option>
                                                                 <option value="61">61</option>
                                                                 <option value="60">60</option>
+                                                                <option value="59">59</option>
+                                                                <option value="58">58</option>
+                                                                <option value="57">57</option>
+                                                                <option value="56">56</option>
+                                                                <option value="55">55</option>
+                                                                <option value="54">54</option>
+                                                                <option value="53">53</option>
+                                                                <option value="52">52</option>
+                                                                <option value="51">51</option>
+                                                                <option value="50">50</option>
                                                             </select>
                                                         </div>
                                                      </div>  
@@ -214,6 +227,16 @@
                                                                 <option value="62">62</option>
                                                                 <option value="61">61</option>
                                                                 <option value="60">60</option>
+                                                                <option value="59">59</option>
+                                                                <option value="58">58</option>
+                                                                <option value="57">57</option>
+                                                                <option value="56">56</option>
+                                                                <option value="55">55</option>
+                                                                <option value="54">54</option>
+                                                                <option value="53">53</option>
+                                                                <option value="52">52</option>
+                                                                <option value="51">51</option>
+                                                                <option value="50">50</option>
                                                             </select>
                                                         </div>
                                                      </div>  
@@ -265,6 +288,16 @@
                                                                 <option value="62">62</option>
                                                                 <option value="61">61</option>
                                                                 <option value="60">60</option>
+                                                                <option value="59">59</option>
+                                                                <option value="58">58</option>
+                                                                <option value="57">57</option>
+                                                                <option value="56">56</option>
+                                                                <option value="55">55</option>
+                                                                <option value="54">54</option>
+                                                                <option value="53">53</option>
+                                                                <option value="52">52</option>
+                                                                <option value="51">51</option>
+                                                                <option value="50">50</option>
                                                             </select>
                                                        </div>
                                                      </div>  
@@ -316,6 +349,16 @@
                                                                 <option value="62">62</option>
                                                                 <option value="61">61</option>
                                                                 <option value="60">60</option>
+                                                                <option value="59">59</option>
+                                                                <option value="58">58</option>
+                                                                <option value="57">57</option>
+                                                                <option value="56">56</option>
+                                                                <option value="55">55</option>
+                                                                <option value="54">54</option>
+                                                                <option value="53">53</option>
+                                                                <option value="52">52</option>
+                                                                <option value="51">51</option>
+                                                                <option value="50">50</option>
                                                             </select>
                                                        </div>
                                                      </div>  
@@ -326,12 +369,14 @@
                                                             <button type="submit" class="btn btn-fresh text-uppercase">Submit</button>
                                                         </div>
                                                     </div>
+                                                    <a href="index.php?r=lss&tr=tres">Go to Spreadsheet</a>
                                                 </form>
-                                            <!-- </div> --><!--//row for form-->
+
                                         </div><!--encoding workspace-->
                                     </div><!--//row for encoding-workspace --> 
                                 </div><!--encoding space-->
-                            </div><!--//row for encoding-space -->                
+                            </div><!--//row for encoding-space -->  
+                          
                         </div><!--encoding-container-->
                     </div><!--//row for encoding-container -->   
                 </div>
@@ -463,7 +508,7 @@ $(function () {
 
 
 
-                  function displaySection(data) 
+                function displaySection(data) 
                 {
                     $("#section-name").empty();
 

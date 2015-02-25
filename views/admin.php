@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <title>Admin</title>
             <link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
-            <link href="views/css/admin.css" rel="stylesheet" />
+            <link href="views/css/exDesign.css" rel="stylesheet"/>
             <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 
              <!-- Load jQuery UI CSS  -->
@@ -131,722 +131,36 @@
         ?>       
         }  
          </script>   
-  
-        <header class="header">
-            <a href="index.php?r=lss" class="logo">
-                OSPMS Admin
-            </a>
-            <nav class="navbar navbar-static-top" role="navigation">
-              
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                    
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>
-                            <?php 
-                                if((isset($_SESSION['reg_fname'])))
-                                {
-                                echo ''.$_SESSION['reg_fname'].'';                     
-                                }
-                            ?> 
-                        <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                    
-                                <li class="user-header bg-light-blue">
-                                    <img src="views/res/avatar5.png" class="img-circle" alt="User Image" />
-                                    <?php
-                                      if((isset($_SESSION['reg_lname'])) and (isset($_SESSION['reg_fname'])))
-                                        {
-                                            echo '<p>Hi, '.$_SESSION['reg_fname'].'</p>';                     
-                                         }
-                                        
-                                    ?>
-                                </li>
-                                
-                         
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="index.php?r=xt" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+<!--Start of navbar admin-->
+    <?php include "views/parts/navi-bar-admin.php";?>   
+<!--End of navbar admin-->
+
+<!--Start of main -->
+    <div class="main container-fluid">
+        <div class="row">
+
+                <!--Start of left content-->
+                <div class="aside-left col-md-2">
+                    <?php include "views/parts/side-bar-admin.php";?>
                 </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-        
-            <aside class="left-side sidebar-offcanvas">
-           
-                <section class="sidebar">
-                 
-                    <div class="user-panel">
-                       
-                        <div class="pull-left image">
-                            <img src="views/res/avatar5.png" class="img-circle" alt="User Image" />
-                        </div>
-                        <div class="pull-left info">
-                        <?php 
-                        if(isset($_SESSION['reg_fname']))
-                        {
-                            echo '<p>Hello, '.$_SESSION['reg_fname'].'</p>';
-                        }
-                        ?>   
-                        </div>
+                <!--End of left content-->
+
+                <!--Start of mid content-->
+                    <div class="main-content col-md-10 col-md-offset-2">
+                        <div class="row content_header"><!--//row for admin-content-header -->
+                          
+                        </div><!--//row for admin-content-header -->
+
+                        <div class="row content_"><!--row for admin-main-content-->
+                             
+                        </div><!--row for admin-main-content-->
                         
                     </div>
-             
-                    <ul class="sidebar-menu">
-                        <li class="active">
-                            <a href="index.php?r=lss&ap">
-                                <i class=""></i> <span>Manage Administrator Profile </span>
-                            </a>
-                        </li>
-						<!--<li>
-                            <!--<a href="index.php?r=lss&tp">
-                                <i class=""></i> <span>Manage School Year</span>
-                            </a>
-                        </li>
-						<li>
-							<!--<a href="index.php?r=lss&tp">
-                                <i class=""></i> <span>Manage Grading Period</span>
-                            </a>
-                        </li>-->
-						<li>
-                            <a href="index.php?r=lss&scs">
-                                <i class=""></i> <span>Manage Sections</span>
-                            </a>
-                        </li>
-                         <li>
-                            <a href="index.php?r=lss&tp">
-                                <i class=""></i> <span>Manage Teacher Profile</span>
-                            </a>
-                        </li>
-                         <li>
-                            <a href="index.php?r=lss&sp">
-                                <i class=""></i> <span>Manage Student Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.php?r=lss&sbs">
-                                <i class=""></i> <span>Manage Subjects</span>
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href="index.php?r=lss&gl">
-                                <i class=""></i> <span>Manage Grade Levels</span>
-                            </a>
-                        </li>
-                         <!--<li>
-                            <a href="index.php?r=lss&ps">
-                                <i class=""></i> <span>Manage Posts</span>
-                            </a>
+                <!--End of mid content-->
 
-                        </li>-->
-                        <li>
-                            <a href="index.php?r=lss&ua">
-                                <i class=""></i> <span>Manage User Accounts</span>
-                            </a>
-                        </li>
-
-                        </li>
-                        
-                    </ul>
-                </section>
-         
-            </aside>
-
-            <aside class="right-side">
-            <?php    
-            if(isset($_GET['ap']))
-            {
-            ?>
-                <section class="content-header">
-                    <h1>
-                        Administrator Profile
-                        <small>Control panel</small>
-                      
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                   <!--  <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="ap_filter" />
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                            <button type="button" class="btn btn-primary pull-left" id="add-admin">Add Administrator</button>
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 rconnectedSortable">                            
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Gender</th>
-                                        <th>Status</th>
-                                        <th>Birthday</th>
-                                        <th>Address</th>
-                                        <th>Image</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="ap-box">
-                                     <?php   
-                                        foreach($adminlist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['reg_id'].'</td>';
-                                            echo '<td>'.$row['reg_lname'].'</td>';
-                                            echo '<td>'.$row['reg_fname'].'</td>';
-                                            echo '<td>'.$row['reg_mname'].'</td>';
-                                            echo '<td>'.$row['reg_gender'].'</td>';
-                                            echo '<td>'.$row['reg_status'].'</td>';
-                                            echo '<td>'.$row['reg_birthday'].'</td>';
-                                            echo '<td>'.$row['reg_address'].'</td>';
-                                            echo '<td><div align="left"><img src="views/res/'.$row['image'].'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>';
-                                            echo '<td><button type="button" id="'.$row['reg_id'].'" class="btn btn-warning admin-id">Edit/Update</button></td>';
-                                            echo '</tr>';
-                                        
-                                        }    
-                                    ?>
-                                </tbody>
-                           </table>
-                       <!--  <form name="adminidhidden" method="post" id="adminidhidden">
-                            <input type="hidden" id="admin-hidden-id" name="admin-id" value=""/>
-                        </form> -->
-                        </section>
-                    </div>
-
-                </section>
-            <?php    
-            }
-            else if(isset($_GET['tp']))
-            {   
-            ?>
-             <section class="content-header">
-                    <h1>
-                        Teacher Profile
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="tp_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                             <button type="button" class="btn btn-primary pull-left" id="add-teacher">Add Teacher</button>
-                        </div>
-                   <!--  </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Gender</th>
-                                        <th>Status</th>
-                                        <th>Birthday</th>
-                                        <th>Address</th>
-                                        <th>Position</th>
-                                        <th>Image</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tp-box">    
-                                     <?php   
-                                        foreach($teacherlist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['reg_id'].'</td>';
-                                            echo '<td>'.$row['reg_lname'].'</td>';
-                                            echo '<td>'.$row['reg_fname'].'</td>';
-                                            echo '<td>'.$row['reg_mname'].'</td>';
-                                            echo '<td>'.$row['reg_gender'].'</td>';
-                                            echo '<td>'.$row['reg_status'].'</td>';
-                                            echo '<td>'.$row['reg_birthday'].'</td>';
-                                            echo '<td>'.$row['reg_address'].'</td>';
-                                            echo '<td>'.$row['t_position'].'</td>';
-                                            echo '<td><div align="left"><img src="views/res/'.$row['image'].'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>';
-                                            echo '<td><button type="button" id="'.$row['reg_id'].'" class="btn btn-warning teacher-id">Edit/Update</button></td>';
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>    
-                            </table>
-                        </section>
-
-                        <section class="col-lg-2 connectedSortable">
-                           
-                           
-                        </section>
-                    </div>
-
-                </section>
-            <?php 
-            }
-            else if(isset($_GET['sp']))
-             {   
-            ?>
-             <section class="content-header">
-                    <h1>
-                        Student Profile
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="sp_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                             <button type="button" class="btn btn-primary pull-left" id="add-student">Add Student</button>
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Gender</th>
-                                        <th>Status</th>
-                                        <th>Birthday</th>
-                                        <th>Address</th>
-                                        <th>Image</th>
-                                        <th>Guardian</th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody id="sp-box">    
-                                     <?php   
-                                        foreach($studentlist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['reg_id'].'</td>';
-                                            echo '<td>'.$row['reg_lname'].'</td>';
-                                            echo '<td>'.$row['reg_fname'].'</td>';
-                                            echo '<td>'.$row['reg_mname'].'</td>';
-                                            echo '<td>'.$row['reg_gender'].'</td>';
-                                            echo '<td>'.$row['reg_status'].'</td>';
-                                            echo '<td>'.$row['reg_birthday'].'</td>';
-                                            echo '<td>'.$row['reg_address'].'</td>';
-                                            echo '<td><div align="left"><img src="views/res/'.$row['image'].'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>';
-                                            echo '<td>'.$row['p_reg_lname'].' '.$row['p_reg_fname'].' '.$row['p_reg_mname'].'</td>';
-                                            echo '<td><button type="button" id="'.$row['reg_id'].'" class="btn btn-warning student-id">Edit/Update</button></td>';
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>    
-                            </table>
-                        </section>
-
-                    </div>
-
-                </section>
-             <?php
-             }
-             else if(isset($_GET['sbs']))
-             {   
-             ?>
-             <section class="content-header">
-                    <h1>
-                        Subject
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="sbs_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                             <button type="button" class="btn btn-primary pull-left" id="add-subject">Add Subject</button>
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Subject Title</th>
-                                     
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody id="sbs-box">
-                                     <?php   
-                                        foreach($subjectlist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['subjectID'].'</td>';
-                                            echo '<td>'.$row['subject_title'].'</td>';
-                                            /*echo '<td><button type="button" id="'.$row['subjectID'].'" class="btn btn-warning col-lg-12 subject-id">Edit/Update</button></td>';*/
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>
-                            </table>
-                        </section>
-
-                    </div>
-
-                </section>
-             <?php 
-             }
-             else if(isset($_GET['scs']))
-             { 
-             ?>
-                 <section class="content-header">
-                    <h1>
-                        Section
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="scs_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                             <button type="button" class="btn btn-primary pull-left" id="add-section">Add Section</button>
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Section No</th>
-                                        <th>Section Name</th>
-                                        
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody id="scs-box">
-                                     <?php   
-                                        foreach($sectionlist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['sectionID'].'</td>';
-                                            echo '<td>'.$row['sectionNo'].'</td>';
-                                            echo '<td>'.$row['section_name'].'</td>';
-                                           /* echo '<td><button type="button" id="'.$row['sectionID'].'" class="btn btn-warning section-id col-lg-12">Edit/Update</button></td>';*/
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>    
-                                
-                            </table>
-                        </section>
-
-                    </div>
-
-                </section>
-             <?php
-              }
-             else if(isset($_GET['gl']))
-             { 
-             ?> 
-                <section class="content-header">
-                    <h1>
-                        Grade level
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="gl_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                             <button type="button" class="btn btn-primary pull-left" id="add-grade">Add Grade level</button>
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Grade level</th>
-                                        
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody id="gl-box">
-                                    <?php   
-                                        foreach($gradelevellist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['levelID'].'</td>';
-                                            echo '<td>'.$row['level_description'].'</td>';
-                                            /*echo '<td><button type="button" id="'.$row['levelID'].'" class="btn btn-warning grade-id col-lg-12">Edit/Update</button></td>';*/
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>    
-                                    
-                            </table>
-                        </section>
-
-                    </div>
-
-                </section>
-             <?php
-             }
-             else if(isset($_GET['ps']))
-             { 
-             ?> 
-                 <section class="content-header">
-                    <h1>
-                        Announcement/Lecture 
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="ps_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                            <button type="button" class="btn btn-primary pull-left" id="add-post">Add announcement</button>
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>Date Created</th>
-                                        <th>Message or File Caption</th>
-                                        <th>File Path</th>
-                                        <th>File Name</th>
-                                        <th>Section No</th>
-                                        <th>Section Name</th>
-                                        <th>Teacher</th>
-                                        <th></th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody id="ps-box">    
-                                     <?php   
-                                        foreach($announcement_lecturelist as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['date_created'].'</td>';
-                                            echo '<td>'.$row['messageorfile_caption'].'</td>';
-                                            echo '<td>'.$row['file_path'].'</td>';
-                                            echo '<td>'.$row['file_name'].'</td>';
-                                            echo '<td>'.$row['sectionNo'].'</td>';
-                                            echo '<td>'.$row['section_name'].'</td>';
-                                            echo '<td>'.$row['reg_lname'].' '.$row['reg_fname'].' '.$row['reg_mname'].'</td>';
-                                            echo '<td><button type="button" id="'.$row['date_created'].'" class="btn btn-warning announcement-lecture-id">Edit/Update</button></td>';
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>    
-                            </table>
-                        </section>
-
-                    </div>
-
-                </section>
-             <?php
-             }
-             else if(isset($_GET['ua']))
-             { 
-             ?> 
-                 <section class="content-header">
-                    <h1>
-                        User Accounts
-                        <small>Control panel</small>
-                    </h1>
-                    
-                </section>
-
-                <section class="content">
-
-                    <div class="row">
-                        <!-- upper -->
-                        <!-- <form action="#" method="" class="sidebar-form"> -->
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..." id="ua_filter"/>
-                            <span class="input-group-btn">
-                                <button type='button' name='search' id='search-btn' class="btn btn-flat"><i class="glyphicon glyphicon-search"></i></button>
-                            </span>
-                            
-                        </div>
-                    <!-- </form> -->
-                         
-                    </div>
-
-                    <div class="row">
-     
-                        <section class="col-lg-12 connectedSortable">                            
-
-                            <table cellpadding="1" cellspacing="1" id="resultTable">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Secret Question</th>
-                                        <th>Secret Answer</th>
-                                        <th>User type</th>
-                                        <th>Account Id</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th></th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody id="ua-box">    
-                                     <?php   
-                                        foreach($user_accounts as $row)
-                                        {
-                                            echo '<tr>';
-                                            echo '<td>'.$row['username'].'</td>';
-                                            echo '<td>'.$row['password'].'</td>';
-                                            echo '<td>'.$row['secret_question'].'</td>';
-                                            echo '<td>'.$row['secret_answer'].'</td>';
-                                            echo '<td>'.$row['user_type'].'</td>';
-                                            echo '<td>'.$row['account_id'].'</td>';
-                                            echo '<td>'.$row['reg_fname'].'</td>';
-                                            echo '<td>'.$row['reg_lname'].'</td>';
-                                            echo '<td><button type="button" id="'.$row['account_id'].'" class="btn btn-warning user-account-id">Edit/Update</button></td>';
-                                            echo '</tr>';
-                                        }    
-                                    ?>
-                                </tbody>    
-                            </table>
-                        </section>
-
-                    </div>
-
-                </section>
-             <?php
-             }  
-             else
-             {
-             ?>   
-                 <section class="content-header">
-                    <h1>
-                        Welcome Administrator
-                    </h1>
-                    
-                </section>
-                <section class="welcome-content">
-                  
-                </section>   
-
-
-             <?php
-             }   
-             ?> 
-            </aside>
-        </div>
+        </div><!--row-->
+    </div><!--container-fluid-->
+<!--End of main -->
 
          <!-- Load jQuery JS -->
         <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
@@ -854,11 +168,11 @@
         <script src="views/plugins/jquery-ui/jquery-ui.js"></script>
 
         <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
-
-        <script>
-        $(function() 
-        {
-            $(document.body).on('focus','.bday_datepicker',function(event){
+<script>
+$(function() 
+{
+            $(document.body).on('focus','.bday_datepicker',function(event)
+            {
                 event.preventDefault();
                 $(this).datepicker({
         
@@ -871,20 +185,927 @@
                     dateFormat: 'yy-mm-dd'
                 });
             });
-                
-        });
-        </script>
 
-           
- <script>
-                $('#ap_filter').on('keyup', ap_filter);
-                $('#tp_filter').on('keyup', tp_filter);
-                $('#sp_filter').on('keyup', sp_filter);
-                $('#sbs_filter').on('keyup', sbs_filter);
-                $('#scs_filter').on('keyup', scs_filter);
-                $('#gl_filter').on('keyup', gl_filter);
-                $('#ps_filter').on('keyup', ps_filter);
-                $('#ua_filter').on('keyup', ua_filter);
+            $('.side-menu').on('click', function () 
+            {
+                $('.side-menu').removeClass('admin-side-menu-click');
+                $(this).addClass('admin-side-menu-click');
+                var side_menu_id=$(this).attr('side-menu-id');
+                switch(side_menu_id)
+                {
+                    case 'cs':cs();break;
+                    case 'ap':ap();break;
+                    case 'tp':tp();break;
+                    case 'sp':sp();break;
+                    case 'scs':scs();break;
+                    case 'sbs':sbs();break;
+                    case 'gl':gl();break;
+                    case 'ua':ua();break;
+                }
+ 
+            });
+                function cs()
+                {
+                    display_cs();
+
+                    function display_cs()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Add Class Schedule '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                        var display = $('<div class="admin-main-content">'+
+                                            '<div class="row"><!--//row for form -->'+
+                                                '<div class="col-md-4">'+
+                                                    '<form class="form-horizontal" method="post" role="form">'+
+                                                        '<div class="form-group" id="cs_sy">'+
+                                                        '</div>'+
+                
+                                                        '<div class="form-group">'+
+                                                            '<label for="level-name" class="col-md-4 control-label">Grade level:</label>'+
+                                                            '<div class="col-md-8">'+
+                                                                '<select class="form-control" id="level-name" name="level"  required="required">'+
+                                                                    '<option value="" selected disabled>Grade level</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                         '<div class="form-group">'+
+                                                            '<label for="section-name" class="col-md-4 control-label">Section</label>'+
+                                                            '<div class="col-md-8">'+
+                                                                '<select class="form-control" id="section-name" name="section"  required="required">'+
+                                                                    '<option value="" selected disabled>Section</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label for="teacher-name" class="col-md-4 control-label">Teacher</label>'+
+                                                            '<div class="col-md-8">'+
+                                                                '<select class="form-control" id="teacher-name" name="teacher" required="required">'+
+                                                                    '<option value="" selected disabled>Teacher</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-md-offset-4 col-md-8">'+
+                                                                '<button type="reset" class="btn btn-sky text-uppercase">Clear</button>'+
+                                                                '<button type="submit" class="btn btn-fresh text-uppercase">Submit</button>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                    '</form>'+
+                                                '</div><!--//form-->'+
+                                                '<div class="col-md-8">'+
+                                                      '<div class="form-group">'+
+                                                            '<label class="col-md-5 control-label">Add Existing Students</label>'+
+                                                        '</div>'+
+                                                '</div>'+
+                                            '</div><!--//row for form -->'+ 
+                                        '</div><!--admin-main-content-->');
+                           
+                        $('.content_').append(display);
+                    }
+
+                      $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?cs',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                            /*alert(JSON.stringify(response['cs']));*/
+                            /*alert(JSON.stringify(response['level']));*/
+                            /*alert(JSON.stringify(response['section']));*/
+                            /*alert(JSON.stringify(response['teacher']));*/
+                            display_cs_school_year(response['cs']);
+                            display_cs_level(response['level']);
+                            display_cs_section(response['section']);
+                            display_cs_teacher(response['teacher']);
+                            
+                        },
+
+
+                        });
+
+                        
+                        function display_cs_school_year(data) 
+                        {
+                            $('#cs_sy').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    display_school_year(data[i]);
+                          
+                            }
+
+                        }
+
+                        function display_school_year(row)
+                        {
+                           var display = $('<label class="col-md-4 control-label">School Year: </label>'+
+                                            '<label class="cold-md-8 control-label">'+row.school_year+'</label>');
+                       
+                            $('#cs_sy').append(display);
+                        }
+
+                        function display_cs_level(data)
+                        {
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    display_level(data[i]);
+                          
+                            }
+                        }
+
+                        function display_level(row)
+                        {
+                            var display = $('<option value="' + row.levelID + '">' + row.level_description + '</option>');
+                            $("#level-name").append(display); 
+                        }
+
+                        function display_cs_section(data)
+                        {
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    display_section(data[i]);
+                          
+                            }
+                        }
+
+                        function display_section(row)
+                        {
+                            var display = $('<option value="' + row.sectionID + '">' + row.sectionNo + '-' + row.section_name +'</option>');
+                            $("#section-name").append(display); 
+                        }
+
+                        function display_cs_teacher(data)
+                        {
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    display_teacher(data[i]);
+                          
+                            }
+                        }
+
+                        function display_teacher(row)
+                        {
+                            var display = $('<option value="' + row.reg_id + '">' + row.reg_lname + ', ' + row.reg_fname +'</option>');
+                            $("#teacher-name").append(display); 
+                        }
+                }
+
+                function ap()
+                {
+                    display_ap();
+
+                    function display_ap()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Administrator Profile '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                        var display = $('<div class="admin-main-content">'+
+                                            '<form class="form-horizontal" role="form">'+
+                                                '<div class="form-group no-margin-bottom">'+
+                                                    '<div class="has-margin content">'+
+                                                        '<div class="col-md-4 col-md-offset-1">'+
+                                                            '<div class="input-group">'+
+                                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="ap_filter"/>'+
+                                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                            '</div>'+
+                                                        '</div>'+    
+                                                        '<div class="col-md-4">'+
+                                                            '<button type="button" class="btn btn-primary" id="add-admin">Add Administrator</button>'+
+                                                        '</div>'+
+                                                    '</div>'+   
+                                                '</div>'+
+                                            '</form>'+
+
+                                            '<div class="col-md-12 table-responsive result-table">'+
+                                                '<table class="table table-bordered table-hover table-condensed content">'+
+                                                    '<thead>'+
+                                                        '<tr class="info">'+
+                                                            '<th>ID</th>'+
+                                                            '<th>Last Name</th>'+
+                                                            '<th>First Name</th>'+
+                                                            '<th>Middle Name</th>'+
+                                                            '<th>Gender</th>'+
+                                                            '<th>Status</th>'+
+                                                            '<th>Birthday</th>'+
+                                                            '<th>Address</th>'+
+                                                            '<th>Image</th>'+
+                                                            '<th></th>'+
+                                                        '</tr>'+
+                                                    '<thead>'+
+                                                    '<tbody id="ap-box">'+
+                                                       
+                                                        
+                                                    '</tbody>'+
+                                                '</table>'+
+                                            '</div>'+
+                                    '</div><!--admin-main-content-->');
+                           
+                        $('.content_').append(display);
+                    }
+
+                      $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?ap',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                           /*  alert(JSON.stringify(response['ap']));*/
+                            
+                            display_ap_data(response['ap']);
+                            
+                        },
+
+
+                        });
+
+                        
+                        function display_ap_data(data) 
+                        {
+                            $('#ap-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(rowData)
+                        {
+                           var display = $('<tr>'+
+                                        '<td>'+rowData.reg_id+'</td>'+
+                                        '<td>'+rowData.reg_lname+'</td>'+
+                                        '<td>'+rowData.reg_fname+'</td>'+
+                                        '<td>'+rowData.reg_mname+'</td>'+
+                                        '<td>'+rowData.reg_gender+'</td>'+
+                                        '<td>'+rowData.reg_status+'</td>'+
+                                        '<td>'+rowData.reg_birthday+'</td>'+
+                                        '<td>'+rowData.reg_address+'</td>'+
+                                        '<td><div align="left"><img src="views/res/'+rowData.image+'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>'+
+                                        '<td><button type="button" id="'+rowData.reg_id+'" class="btn btn-warning admin-id">Edit/Update</button></td>'+
+                                        '</tr>');
+                       
+                            $('#ap-box').append(display);
+                        }
+                }
+
+
+
+                function tp()
+                {
+                    display_tp();
+
+                    function display_tp()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Teacher Profile '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                         var display = $('<div class="admin-main-content">'+
+                                                '<form class="form-horizontal" role="form">'+
+                                                    '<div class="form-group no-margin-bottom">'+
+                                                        '<div class="has-margin content">'+
+                                                            '<div class="col-md-4 col-md-offset-1">'+
+                                                                '<div class="input-group">'+
+                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="tp_filter"/>'+
+                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                                '</div>'+
+                                                            '</div>'+    
+                                                            '<div class="col-md-4">'+
+                                                                '<button type="button" class="btn btn-primary" id="add-teacher">Add Teacher</button>'+
+                                                            '</div>'+
+                                                        '</div>'+   
+                                                    '</div>'+
+                                                '</form>'+
+
+                                                '<div class="col-md-12 table-responsive result-table">'+
+                                                    '<table class="table table-bordered table-hover table-condensed content">'+
+                                                        '<thead>'+
+                                                            '<tr class="info">'+
+                                                                '<th>ID</th>'+
+                                                                '<th>Last Name</th>'+
+                                                                '<th>First Name</th>'+
+                                                                '<th>Middle Name</th>'+
+                                                                '<th>Gender</th>'+
+                                                                '<th>Status</th>'+
+                                                                '<th>Birthday</th>'+
+                                                                '<th>Address</th>'+
+                                                                '<th>Position</th>'+
+                                                                '<th>Image</th>'+
+                                                                '<th></th>'+
+                                                            '</tr>'+
+                                                        '<thead>'+
+                                                        '<tbody id="tp-box">'+
+                                                          
+                                                        '</tbody>'+
+                                                    '</table>'+
+                                                '</div>'+
+                                        '</div><!--admin-main-content-->');
+                               
+                            $('.content_').append(display);
+                    }    
+                     $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?tp',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                             /*alert(JSON.stringify(response['tp']));*/
+
+                            display_tp_data(response['tp']);
+                            
+                        },
+
+
+                        });
+
+                        function display_tp_data(data) 
+                        {
+                            $('#tp-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(rowData)
+                        {
+                            var display = $('<tr>'+
+                                            '<td>'+rowData.reg_id+'</td>'+
+                                            '<td>'+rowData.reg_lname+'</td>'+
+                                            '<td>'+rowData.reg_fname+'</td>'+
+                                            '<td>'+rowData.reg_mname+'</td>'+
+                                            '<td>'+rowData.reg_gender+'</td>'+
+                                            '<td>'+rowData.reg_status+'</td>'+
+                                            '<td>'+rowData.reg_birthday+'</td>'+
+                                            '<td>'+rowData.reg_address+'</td>'+
+                                            '<td>'+rowData.t_position+'</td>'+
+                                            '<td><div align="left"><img src="views/res/'+rowData.image+'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>'+
+                                            '<td><button type="button" id="'+rowData.reg_id+'" class="btn btn-warning teacher-id">Edit/Update</button></td>'+
+                                            '</tr>');
+                           
+                            $('#tp-box').append(display);
+                        }
+                }
+
+                function sp()
+                {
+                     display_sp();
+
+                    function display_sp()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Student Profile '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                         var display = $('<div class="admin-main-content">'+
+                                                '<form class="form-horizontal" role="form">'+
+                                                    '<div class="form-group no-margin-bottom">'+
+                                                        '<div class="has-margin content">'+
+                                                            '<div class="col-md-4 col-md-offset-1">'+
+                                                                '<div class="input-group">'+
+                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="sp_filter"/>'+
+                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                                '</div>'+
+                                                            '</div>'+    
+                                                            '<div class="col-md-4">'+
+                                                                '<button type="button" class="btn btn-primary" id="add-student">Add Student</button>'+
+                                                                '<button type="button" class="btn btn-success" id="add-student-excel">Add Student Spreadsheet</button>'+
+                                                            '</div>'+
+                                                        '</div>'+   
+                                                    '</div>'+
+                                                '</form>'+
+
+                                                '<div class="col-md-12 table-responsive result-table">'+
+                                                    '<table class="table table-bordered table-hover table-condensed content">'+
+                                                        '<thead>'+
+                                                            '<tr class="info">'+
+                                                                '<th>ID</th>'+
+                                                                '<th>Last Name</th>'+
+                                                                '<th>First Name</th>'+
+                                                                '<th>Middle Name</th>'+
+                                                                '<th>Gender</th>'+
+                                                                '<th>Status</th>'+
+                                                                '<th>Birthday</th>'+
+                                                                '<th>Address</th>'+
+                                                                '<th>Image</th>'+
+                                                                '<th>Guardian</th>'+
+                                                                '<th></th>'+
+                                                            '</tr>'+
+                                                        '<thead>'+
+                                                        '<tbody id="sp-box">'+
+                                                          
+                                                        '</tbody>'+
+                                                    '</table>'+
+                                                '</div>'+
+                                        '</div><!--admin-main-content-->');
+                               
+                            $('.content_').append(display);
+                    }    
+                     $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?sp',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                             /*alert(JSON.stringify(response['sp']));*/
+
+                            display_sp_data(response['sp']);
+                            
+                        },
+
+
+                        });
+
+                        function display_sp_data(data) 
+                        {
+                            $('#sp-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(rowData)
+                        {
+                             var display = $('<tr>'+
+                                            '<td>'+rowData[0]+'</td>'+
+                                            '<td>'+rowData[1]+'</td>'+
+                                            '<td>'+rowData[2]+'</td>'+
+                                            '<td>'+rowData[3]+'</td>'+
+                                            '<td>'+rowData[4]+'</td>'+
+                                            '<td>'+rowData[5]+'</td>'+
+                                            '<td>'+rowData[6]+'</td>'+
+                                            '<td>'+rowData[7]+'</td>'+
+                                            '<td><div align="left"><img src="views/res/'+rowData[8]+'" class="img-circle" alt="User Image" width="50px;" height="50px;"/></div></td>'+
+                                            '<td>'+rowData[9]+' '+rowData[10]+' '+rowData[11]+'</td>'+
+                                            '<td><button type="button" id="'+rowData[0]+'" class="btn btn-warning student-id">Edit/Update</button></td>'+
+                                        '</tr>');
+                           
+                            $('#sp-box').append(display);
+                        }
+
+                }
+
+                function scs()
+                {
+                    display_scs();
+
+                    function display_scs()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Sections '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                         var display = $('<div class="admin-main-content">'+
+                                                '<form class="form-horizontal" role="form">'+
+                                                    '<div class="form-group no-margin-bottom">'+
+                                                        '<div class="has-margin content">'+
+                                                            '<div class="col-md-4 col-md-offset-1">'+
+                                                                '<div class="input-group">'+
+                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="scs_filter"/>'+
+                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                                '</div>'+
+                                                            '</div>'+    
+                                                            '<div class="col-md-4">'+
+                                                                '<button type="button" class="btn btn-primary" id="add-section">Add Section</button>'+
+                                                            '</div>'+
+                                                        '</div>'+   
+                                                    '</div>'+
+                                                '</form>'+
+
+                                                '<div class="col-md-12 result-table">'+
+                                                    '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                                        '<table class="table table-bordered table-hover table-condensed content">'+
+                                                            '<thead>'+
+                                                                '<tr class="info">'+
+                                                                    '<th>Section No</th>'+
+                                                                    '<th>Section Name</th>'+
+                                                                    '<th></th>'+
+                                                                '</tr>'+
+                                                            '<thead>'+
+                                                            '<tbody id="scs-box">'+
+                                                              
+                                                            '</tbody>'+
+                                                        '</table>'+
+                                                    '</div>'+    
+                                                '</div>'+
+                                        '</div><!--admin-main-content-->');
+                               
+                            $('.content_').append(display);
+                    }    
+                     $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?scs',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                             /*alert(JSON.stringify(response['scs']));*/
+
+                            display_scs_data(response['scs']);
+                            
+                        },
+
+
+                        });
+
+                        function display_scs_data(data) 
+                        {
+                            $('#scs-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(rowData)
+                        {
+                              var display = $('<tr>'+
+                                                '<td>'+rowData.sectionNo+'</td>'+
+                                                '<td>'+rowData.section_name+'</td>'+
+                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-danger section-id col-lg-11">Delete</button></td>'+
+                                            '</tr>');
+                               
+                            $('#scs-box').append(display);
+                        }
+
+                }
+
+                function sbs()
+                {
+                    display_sbs();
+
+                    function display_sbs()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Subjects '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                         var display = $('<div class="admin-main-content">'+
+                                                '<form class="form-horizontal" role="form">'+
+                                                    '<div class="form-group no-margin-bottom">'+
+                                                        '<div class="has-margin content">'+
+                                                            '<div class="col-md-4 col-md-offset-1">'+
+                                                                '<div class="input-group">'+
+                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="sbs_filter"/>'+
+                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                                '</div>'+
+                                                            '</div>'+    
+                                                            '<div class="col-md-4">'+
+                                                                '<button type="button" class="btn btn-primary" id="add-subject">Add Subject</button>'+
+                                                            '</div>'+
+                                                        '</div>'+   
+                                                    '</div>'+
+                                                '</form>'+
+
+                                                '<div class="col-md-12 result-table">'+
+                                                    '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                                        '<table class="table table-bordered table-hover table-condensed content">'+
+                                                            '<thead>'+
+                                                                '<tr class="info">'+
+                                                                    '<th>Subject</th>'+
+                                                                    '<th></th>'+
+                                                                '</tr>'+
+                                                            '<thead>'+
+                                                            '<tbody id="sbs-box">'+
+                                                              
+                                                            '</tbody>'+
+                                                        '</table>'+
+                                                    '</div>'+    
+                                                '</div>'+
+                                        '</div><!--admin-main-content-->');
+                               
+                            $('.content_').append(display);
+                    }    
+                     $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?sbs',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                             /*alert(JSON.stringify(response['sbs']));*/
+
+                            display_sbs_data(response['sbs']);
+                            
+                        },
+
+
+                        });
+
+                        function display_sbs_data(data) 
+                        {
+                            $('#sbs-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(rowData)
+                        {
+
+                            var display = $('<tr>'+
+                                            '<td>'+rowData.subject_title+'</td>'+
+                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-danger col-lg-11 subject-id">Delete</button></td>'+
+                                        '</tr>');
+                           
+                            $('#sbs-box').append(display);
+                        }
+                }
+
+                function gl()
+                {
+                    display_gl();
+
+                    function display_gl()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'Grade Levels '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                         var display = $('<div class="admin-main-content">'+
+                                                '<form class="form-horizontal" role="form">'+
+                                                    '<div class="form-group no-margin-bottom">'+
+                                                        '<div class="has-margin content">'+
+                                                            '<div class="col-md-4 col-md-offset-1">'+
+                                                                '<div class="input-group">'+
+                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="gl_filter"/>'+
+                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                                '</div>'+
+                                                            '</div>'+    
+                                                            '<div class="col-md-4">'+
+                                                                '<button type="button" class="btn btn-primary" id="add-grade">Add Grade Level</button>'+
+                                                            '</div>'+
+                                                        '</div>'+   
+                                                    '</div>'+
+                                                '</form>'+
+
+                                                '<div class="col-md-12 result-table">'+
+                                                    '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                                        '<table class="table table-bordered table-hover table-condensed content">'+
+                                                            '<thead>'+
+                                                                '<tr class="info">'+
+                                                                    '<th>Grade Level</th>'+
+                                                                    '<th></th>'+
+                                                                '</tr>'+
+                                                            '<thead>'+
+                                                            '<tbody id="gl-box">'+
+                                                              
+                                                            '</tbody>'+
+                                                        '</table>'+
+                                                    '</div>'+    
+                                                '</div>'+
+                                        '</div><!--admin-main-content-->');
+                               
+                            $('.content_').append(display);
+                    }    
+                     $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?gl',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                             /*alert(JSON.stringify(response['gl']));*/
+
+                            display_gl_data(response['gl']);
+                            
+                        },
+
+
+                        });
+
+                        function display_gl_data(data) 
+                        {
+                            $('#gl-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(rowData)
+                        {
+
+                            var display = $('<tr>'+
+                                                '<td>'+rowData.level_description+'</td>'+
+                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-danger grade-id col-lg-11">Delete</button></td>'+
+                                            '</tr>');
+                               
+                            $('#gl-box').append(display);
+                        }
+                }
+
+                function ua()
+                {
+                    display_ua();
+
+                    function display_ua()
+                    {
+                        $('.content_header').empty();
+                        $('.content_').empty();
+                        
+                         var header = $('<div class="admin-content-header">'+
+                                            '<h1>'+
+                                                'User Accounts '+
+                                                '<small>Control panel</small>'+
+                                            '</h1>'+
+                                        '</div>');
+
+                        $('.content_header').append(header);
+                         var display = $('<div class="admin-main-content">'+
+                                                '<form class="form-horizontal" role="form">'+
+                                                    '<div class="form-group no-margin-bottom">'+
+                                                        '<div class="has-margin content">'+
+                                                            '<div class="col-md-4 col-md-offset-1">'+
+                                                                '<div class="input-group">'+
+                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="ua_filter"/>'+
+                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                                '</div>'+
+                                                            '</div>'+    
+                                                        '</div>'+   
+                                                    '</div>'+
+                                                '</form>'+
+
+                                                '<div class="col-md-12 result-table">'+
+                                                    '<div class="col-md-12 table-responsive">'+
+                                                        '<table class="table table-bordered table-hover table-condensed content">'+
+                                                            '<thead>'+
+                                                                '<tr class="info">'+
+                                                                    '<th>Username</th>'+
+                                                                    '<th>Password</th>'+
+                                                                    '<th>Secret Question</th>'+
+                                                                    '<th>Secret Answer</th>'+
+                                                                    '<th>User type</th>'+
+                                                                    '<th>Account Id</th>'+
+                                                                    '<th>First Name</th>'+
+                                                                    '<th>Last Name</th>'+
+                                                                    
+                                                                '</tr>'+
+                                                            '<thead>'+
+                                                            '<tbody id="ua-box">'+
+                                                              
+                                                            '</tbody>'+
+                                                        '</table>'+
+                                                    '</div>'+    
+                                                '</div>'+
+                                        '</div><!--admin-main-content-->');
+                               
+                            $('.content_').append(display);
+                    }    
+                     $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?ua',
+                        type: 'GET',
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                             /*alert(JSON.stringify(response['ua']));*/
+
+                            display_ua_data(response['ua']);
+                            
+                        },
+
+
+                        });
+
+                        function display_ua_data(data) 
+                        {
+                            $('#ua-box').empty()
+                        
+
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    table(data[i]);
+                          
+                            }
+
+                        }
+
+                        function table(row)
+                        {
+
+                            var display = $('<tr>'+
+                                            '<td>'+row.username_+'</td>'+
+                                            '<td>'+row.password_+'</td>'+
+                                            '<td>'+row.secret_question+'</td>'+
+                                            '<td>'+row.secret_answer+'</td>'+
+                                            '<td>'+row.user_type+'</td>'+
+                                            '<td>'+row.account_id+'</td>'+
+                                            '<td>'+row.reg_fname+'</td>'+
+                                            '<td>'+row.reg_lname+'</td>'+
+                                            '</tr>');
+                               
+                            $('#ua-box').append(display);
+                        }
+                }
+                
+                $(document.body).on('keyup', '#ap_filter', ap_filter);
+                $(document.body).on('keyup', '#tp_filter', tp_filter);
+                $(document.body).on('keyup', '#sp_filter', sp_filter);
+                $(document.body).on('keyup', '#sbs_filter', sbs_filter);
+                $(document.body).on('keyup', '#scs_filter', scs_filter);
+                $(document.body).on('keyup', '#gl_filter', gl_filter);
+                $(document.body).on('keyup', '#ua_filter', ua_filter);
 
                 function ap_filter() 
                 {
@@ -1120,10 +1341,9 @@
                     function reset_table(rowData)
                     {
 
-                        var display = $('<tr>'+
-                                            '<td>'+rowData.subjectID+'</td>'+
+                         var display = $('<tr>'+
                                             '<td>'+rowData.subject_title+'</td>'+
-                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-warning col-lg-12 subject-id">Edit/Update</button></td>'+
+                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-danger col-lg-11 subject-id">Delete</button></td>'+
                                         '</tr>');
                            
                         $('#sbs-box').append(display);
@@ -1173,10 +1393,10 @@
                         function reset_table(rowData)
                         {
 
-                            var display = $('<tr>'+
+                             var display = $('<tr>'+
                                                 '<td>'+rowData.sectionNo+'</td>'+
                                                 '<td>'+rowData.section_name+'</td>'+
-                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-warning section-id col-lg-12">Edit/Update</button></td>'+
+                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-danger section-id col-lg-11">Delete</button></td>'+
                                             '</tr>');
                                
                             $('#scs-box').append(display);
@@ -1229,74 +1449,14 @@
                         {
 
                             var display = $('<tr>'+
-                                                '<td>'+rowData.levelID+'</td>'+
                                                 '<td>'+rowData.level_description+'</td>'+
-                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-warning grade-id col-lg-12">Edit/Update</button></td>'+
+                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-danger grade-id col-lg-11">Delete</button></td>'+
                                             '</tr>');
                                
                             $('#gl-box').append(display);
                         }
                  }
 
-                 function ps_filter()
-                 {
-                    var filter=$('#ps_filter').val();
-                    /*alert(filter);*/
-                    
-                    
-                    $.ajax({
-             
-                        url: 'views/ajax/get_for_administrator.php',
-                        type: 'GET',
-                        data: {
-                            ps_filter:filter
-                        },
-                       dataType: 'json',
-
-                       success: function(response) 
-                       {
-                            
-                            /*alert(JSON.stringify(response['ps_filter']));*/
-                            display_ps_filter(response['ps_filter']);     
-                             
-                        },
-
-
-                        });
-
-                        function display_ps_filter(data) 
-                        {
-                            $('#ps-box').empty()
-                            
-
-                                for (var i = 0; i < data.length; i++) 
-                                {
-
-                                        reset_table(data[i]);
-                              
-                                }
-
-                        }
-
-                        function reset_table(rowData)
-                        {
-
-                            var display = $('<tr>'+
-                                                '<td>'+rowData.date_created+'</td>'+
-                                                '<td>'+rowData.messageorfile_caption+'</td>'+
-                                                '<td>'+rowData.file_path+'</td>'+
-                                                '<td>'+rowData.file_name+'</td>'+
-                                                '<td>'+rowData.sectionNo+'</td>'+
-                                                '<td>'+rowData.section_name+'</td>'+
-                                                '<td>'+rowData.reg_lname+' '+rowData.reg_fname+' '+rowData.reg_mname+'</td>'+
-                                                '<td><button type="button" id="'+rowData.date_created+'" class="btn btn-warning announcement-lecture-id">Edit/Update</button></td>'+
-                                            '</tr>');
-                               
-                            $('#ps-box').append(display);
-                        }
-
-                    
-                 }
 
                  function ua_filter()
                  {
@@ -1350,15 +1510,13 @@
                                             '<td>'+row.account_id+'</td>'+
                                             '<td>'+row.reg_fname+'</td>'+
                                             '<td>'+row.reg_lname+'</td>'+
-                                            '<td><button type="button" id="'+row.account_id+'" class="btn btn-warning user-account-id">Edit/Update</button></td>'+
                                             '</tr>');
                                
                             $('#ua-box').append(display);
                         }
                  }
 
-                $(function()
-                {
+               
                         $(document.body).on('change', '#upload-edit-admin-image', function(e) 
                         {
                             
@@ -1391,15 +1549,17 @@
 
                                     function display_edit_admin(data) 
                                     {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
+                                        $('.content_header').empty();
+                                        $('.content_').empty();
 
-                                        var header = $('<h1>'+
-                                                         'Edit Administrator'+
-                                                        '<small>Profile</small>'+
-                                                      '</h1>');
+                                        var header = $('<div class="admin-content-header">'+
+                                                            '<h1>'+
+                                                                'Edit Administrator '+
+                                                                '<small>Profile</small>'+
+                                                            '</h1>'+
+                                                        '</div>');
 
-                                            $('.content-header').append(header);
+                                            $('.content_header').append(header);
 
                                             for (var i = 0; i < data.length; i++) 
                                             {
@@ -1413,100 +1573,87 @@
                                     function reset_table(row)
                                     {
 
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-admin-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<img class="edit-admin-image pull-left" alt="" src="views/res/'+row.image+'"/>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="edadmimg" id="upload-edit-admin-image" class="pull-left admin-edit-image-browse" style="display:none;"/>'+
-                                                                                    '</div>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmid" class="form-control" value="'+row.reg_id+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmbirthday" class="form-control edit_admin" value="'+row.reg_birthday+'" readonly="true" id="edadbday">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmlname" class="form-control edit_admin" value="'+row.reg_lname+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Address</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmaddress" class="form-control edit_admin" value="'+row.reg_address+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">First name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmfname" class="form-control edit_admin" value="'+row.reg_fname+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edadmmname" class="form-control edit_admin" value="'+row.reg_mname+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                 '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control edit_admin_select" id="edadmgender" name="edadmgender" required="required" disabled="disabled">'+
-                                                                                             '<option value="Male">Male</option>'+
-                                                                                             '<option value="Female">Female</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+        
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control edit_admin_select" id="edadmstatus" name="edadmstatus" required="required" disabled="disabled">'+
-                                                                                             '<option value="Single">Single</option>'+
-                                                                                             '<option value="Married">Married</option>'+
-                                                                                             '<option value="Widowed">Widowed</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    /*'<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="admin-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="admin-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="admin-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                        var content = $('<div class="admin-main-content">'+
+                                                            '<form class="form-horizontal" role="form" id="edit-admin-form" method="post">'+
+                                                                '<div class="form-group">'+
+                                                                    '<div class="col-md-12">'+
+                                                                        '<img class="edit-admin-image pull-left" alt="" src="views/res/'+row.image+'"/>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-md-12">'+
+                                                                        '<input type="file" name="edadmimg" id="upload-edit-admin-image" class="pull-left admin-edit-image-browse" style="display:none;"/>'+
+                                                                    '</div>'+
+                                                                     
                                                                 '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-2 control-label">ID</label>'+
+                                                                    '<div class="col-md-4">'+
+                                                                        '<input type="text" name="edadmid" class="form-control" value="'+row.reg_id+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-md-1 control-label">Birthday</label>'+
+                                                                    '<div class="col-md-4">'+
+                                                                        '<input type="text" name="edadmbirthday" class="form-control edit_admin" value="'+row.reg_birthday+'" readonly="true" id="edadbday">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-2 control-label">Last name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edadmlname" class="form-control edit_admin" value="'+row.reg_lname+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-md-1 control-label">Address</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edadmaddress" class="form-control edit_admin" value="'+row.reg_address+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-2 control-label">First name</label>'+
+                                                                    '<div class="col-md-4">'+
+                                                                        '<input type="text" name="edadmfname" class="form-control edit_admin" value="'+row.reg_fname+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-2 control-label">Middle name</label>'+
+                                                                    '<div class="col-md-4">'+
+                                                                        '<input type="text" name="edadmmname" class="form-control edit_admin" value="'+row.reg_mname+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-2 control-label">Gender</label>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<select class="form-control edit_admin_select" id="edadmgender" name="edadmgender" required="required" disabled="disabled">'+
+                                                                            '<option value="Male">Male</option>'+
+                                                                            '<option value="Female">Female</option>'+
+                                                                        '</select>'+
+                                                                    '</div>'+        
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-2 control-label">Status</label>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<select class="form-control edit_admin_select" id="edadmstatus" name="edadmstatus" required="required" disabled="disabled">'+
+                                                                            '<option value="Single">Single</option>'+
+                                                                            '<option value="Married">Married</option>'+
+                                                                            '<option value="Widowed">Widowed</option>'+
+                                                                        '</select>'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+
+                                                                    '<div class="col-md-offset-8 col-md-2">'+
+                                                                        '<button type="button" class="btn btn-success btn-label-left pull-right" id="admin-edit-update">'+
+                                                                            'Update Information'+
+                                                                        '</button>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="admin-edit-submit">'+
+                                                                            'Save Changes'+
+                                                                        '</button>'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                            '</form>'+
+                                                        '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
 
                                         if(row.reg_gender=='Male')
                                         {
@@ -1530,7 +1677,7 @@
                                             $('#edadmstatus option[value=Widowed]').attr('selected','selected');
                                         }    
 
-
+                                    $('#admin-edit-submit').attr('disabled',true);
                                     }
 
                         });//end of admin id
@@ -1538,18 +1685,12 @@
                        
                         $(document.body).on('click', '#admin-edit-update',function(){
                             $('.edit_admin').removeProp("readonly");
-                            $('#upload-edit-admin-image').removeProp("style");
+                            $('#upload-edit-admin-image').removeAttr("style");
                             $('#edadbday').addClass('bday_datepicker');
                             $('.bday_datepicker').datepicker('enable');
                             $('.edit_admin_select').removeAttr('disabled');
+                            $('#admin-edit-submit').attr('disabled',false);
                         });
-
-                        /*$(document.body).on('click', '#admin-edit-reset', function(){
-                            $('.edit_admin').prop("readonly","true");
-                            $('#upload-edit-admin-image').css("display","none");
-                            $('.bday_datepicker').datepicker('disable');
-                            $('.edit_admin_select').attr('disabled',true);
-                        });*/
 
                        
                         $(document.body).on('submit', '#edit-admin-form', submitEditAdminForm);
@@ -1572,8 +1713,9 @@
                                             
                                             if(typeof data.error === 'undefined')
                                             {
-                                                window.location.href="index.php?r=lss&ap&ape";
-                                              
+                                                ap();
+                                                alert(data.success);
+                                                
                                             }
                                             else
                                             {
@@ -1629,15 +1771,17 @@
 
                                     function display_edit_teacher(data) 
                                     {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
+                                        $('.content_header').empty();
+                                        $('.content_').empty();
 
-                                        var header = $('<h1>'+
-                                                         'Edit Teacher'+
-                                                        '<small>Profile</small>'+
-                                                      '</h1>');
+                                        var header = $('<div class="admin-content-header">'+
+                                                            '<h1>'+
+                                                                'Edit Teacher '+
+                                                                '<small>Profile</small>'+
+                                                            '</h1>'+
+                                                        '</div>');
 
-                                            $('.content-header').append(header);
+                                            $('.content_header').append(header);
 
                                             for (var i = 0; i < data.length; i++) 
                                             {
@@ -1651,105 +1795,91 @@
                                     function reset_table(row)
                                     {
                                         
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-teacher-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<img class="edit-teacher-image pull-left" alt="" src="views/res/'+row.image+'"/>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="edteachimg" id="upload-edit-teacher-image" class="pull-left teacher-edit-image-browse" style="display:none;"/>'+
-                                                                                    '</div>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachid" class="form-control" value="'+row.reg_id+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachbirthday" class="form-control edit_teacher" value="'+row.reg_birthday+'" readonly="true" id="edteachbday">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachlname" class="form-control edit_teacher" value="'+row.reg_lname+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Address</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachaddress" class="form-control edit_teacher" value="'+row.reg_address+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">First name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachfname" class="form-control edit_teacher" value="'+row.reg_fname+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                     '<label class="col-sm-1 control-label">Position</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachtposition" class="form-control edit_teacher" value="'+row.t_position+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edteachmname" class="form-control edit_teacher" value="'+row.reg_mname+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control edit_teacher_select" id="edteachgender" name="edteachgender" required="required" disabled="disabled">'+
-                                                                                             '<option value="Male">Male</option>'+
-                                                                                             '<option value="Female">Female</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+        
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control edit_teacher_select" id="edteachstatus" name="edteachstatus" required="required" disabled="disabled">'+
-                                                                                             '<option value="Single">Single</option>'+
-                                                                                             '<option value="Married">Married</option>'+
-                                                                                             '<option value="Widowed">Widowed</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="teacher-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="teacher-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="teacher-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                        var content = $('<div class="admin-main-content">'+
+                                                            '<form class="form-horizontal" role="form" id="edit-teacher-form" method="post">'+
+                                                                '<div class="form-group">'+
+                                                                    '<div class="col-sm-12">'+
+                                                                        '<img class="edit-teacher-image pull-left" alt="" src="views/res/'+row.image+'"/>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-sm-12">'+
+                                                                        '<input type="file" name="edteachimg" id="upload-edit-teacher-image" class="pull-left teacher-edit-image-browse" style="display:none;"/>'+
+                                                                    '</div>'+
+                                                                     
                                                                 '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">ID</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachid" class="form-control" value="'+row.reg_id+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachbirthday" class="form-control edit_teacher" value="'+row.reg_birthday+'" readonly="true" id="edteachbday">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachlname" class="form-control edit_teacher" value="'+row.reg_lname+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-sm-1 control-label">Address</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachaddress" class="form-control edit_teacher" value="'+row.reg_address+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">First name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachfname" class="form-control edit_teacher" value="'+row.reg_fname+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                     '<label class="col-sm-1 control-label">Position</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachtposition" class="form-control edit_teacher" value="'+row.t_position+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edteachmname" class="form-control edit_teacher" value="'+row.reg_mname+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
+                                                                    '<div class="col-sm-2">'+
+                                                                        '<select class="form-control edit_teacher_select" id="edteachgender" name="edteachgender" required="required" disabled="disabled">'+
+                                                                             '<option value="Male">Male</option>'+
+                                                                             '<option value="Female">Female</option>'+
+                                                                        '</select>'+
+                                                                    '</div>'+        
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Status</label>'+
+                                                                    '<div class="col-sm-2">'+
+                                                                        '<select class="form-control edit_teacher_select" id="edteachstatus" name="edteachstatus" required="required" disabled="disabled">'+
+                                                                             '<option value="Single">Single</option>'+
+                                                                             '<option value="Married">Married</option>'+
+                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                        '</select>'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<div class="col-md-offset-8 col-sm-2">'+
+                                                                        '<button type="button" class="btn btn-success btn-label-left pull-right" id="teacher-edit-update">'+
+                                                                            'Update Information'+
+                                                                        '</button>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-sm-2">'+
+                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="teacher-edit-submit">'+
+                                                                            'Save Changes'+
+                                                                        '</button>'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                            '</form>'+
+                                                        '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
 
                                         if(row.reg_gender=='Male')
                                         {
@@ -1774,24 +1904,18 @@
                                         }    
                          
 
-
+                                         $('#teacher-edit-submit').attr('disabled',true);
                                     }
                         });//end of teacher id
 
                         $(document.body).on('click', '#teacher-edit-update',function(){
                             $('.edit_teacher').removeProp("readonly");
-                            $('#upload-edit-teacher-image').removeProp("style");
+                            $('#upload-edit-teacher-image').removeAttr("style");
                             $('#edteachbday').addClass('bday_datepicker');
                             $('.bday_datepicker').datepicker('enable');
                             $('.edit_teacher_select').removeAttr('disabled');
+                            $('#teacher-edit-submit').attr('disabled',false);
                         });
-
-                        /*$(document.body).on('click', '#teacher-edit-reset', function(){
-                            $('.edit_teacher').prop("readonly","true");
-                            $('#upload-edit-teacher-image').css("display","none");
-                            $('.bday_datepicker').datepicker('disable');
-                            $('.edit_teacher_select').attr('disabled',true);
-                        });*/
 
                         $(document.body).on('submit', '#edit-teacher-form', submitEditTeacherForm);
 
@@ -1813,9 +1937,9 @@
                                             
                                             if(typeof data.error === 'undefined')
                                             {
-
-                                                window.location.href="index.php?r=lss&tp&tpe";
-                                              
+                                                tp();
+                                                alert(data.success);
+                                                
                                             }
                                             else
                                             {
@@ -1860,7 +1984,7 @@
 
                                    success: function(response) 
                                    {
-                                       /*alert(JSON.stringify(response['edit_student']));  */
+                                       /*alert(JSON.stringify(response['edit_student']));*/  
                                         display_edit_student(response['edit_student']);
 
                                     },
@@ -1870,15 +1994,17 @@
 
                                     function display_edit_student(data) 
                                     {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
+                                        $('.content_header').empty();
+                                        $('.content_').empty();
 
-                                        var header = $('<h1>'+
-                                                         'Edit Student'+
-                                                        '<small>Profile</small>'+
-                                                      '</h1>');
+                                        var header = $('<div class="admin-content-header">'+
+                                                            '<h1>'+
+                                                                'Edit Student '+
+                                                                '<small>Profile</small>'+
+                                                            '</h1>'+
+                                                        '</div>');
 
-                                            $('.content-header').append(header);
+                                            $('.content_header').append(header);
 
                                             for (var i = 0; i < data.length; i++) 
                                             {
@@ -1892,105 +2018,105 @@
                                     function reset_table(row)
                                     {
 
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-student-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<img class="edit-student-image pull-left" alt="" src="views/res/'+row[8]+'"/>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="edstudimg" id="upload-edit-student-image" class="pull-left student-edit-image-browse" style="display:none;"/>'+
-                                                                                    '</div>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudid" class="form-control" value="'+row[0]+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudbirthday" class="form-control edit_student" value="'+row[6]+'" readonly="true" id="edstudbday">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudlname" class="form-control edit_student" value="'+row[1]+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Address</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudaddress" class="form-control edit_student" value="'+row[7]+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">First name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudfname" class="form-control edit_student" value="'+row[2]+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                     '<label class="col-sm-1 control-label">Guardian</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudparent" class="form-control" value="'+row[9]+' '+row[10]+' '+row[11]+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edstudmname" class="form-control edit_student" value="'+row[3]+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                 '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control edit_student_select" id="edstudgender" name="edstudgender" required="required" disabled="disabled">'+
-                                                                                             '<option value="Male">Male</option>'+
-                                                                                             '<option value="Female">Female</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+        
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control edit_student_select" id="edstudstatus" name="edstudstatus" required="required" disabled="disabled">'+
-                                                                                             '<option value="Single">Single</option>'+
-                                                                                             '<option value="Married">Married</option>'+
-                                                                                             '<option value="Widowed">Widowed</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="student-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="student-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="student-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                        var content = $('<div class="admin-main-content">'+
+                                                            '<form class="form-horizontal" role="form" id="edit-student-form" method="post">'+
+                                                                '<div class="form-group">'+
+                                                                    '<div class="col-sm-12">'+
+                                                                        '<img class="edit-student-image pull-left" alt="" src="views/res/'+row[8]+'"/>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-sm-12">'+
+                                                                        '<input type="file" name="edstudimg" id="upload-edit-student-image" class="pull-left student-edit-image-browse" style="display:none;"/>'+
+                                                                    '</div>'+
+                                                                     
                                                                 '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">ID</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudid" class="form-control" value="'+row[0]+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudbirthday" class="form-control edit_student" value="'+row[6]+'" readonly="true" id="edstudbday">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudlname" class="form-control edit_student" value="'+row[1]+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-sm-1 control-label">Address</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudaddress" class="form-control edit_student" value="'+row[7]+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">First name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudfname" class="form-control edit_student" value="'+row[2]+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                    '<label class="col-sm-1 control-label">Guardian:</label>'+
+                                                                    '<input type="hidden" name="edstudparentid" value="'+row[9]+'"/>'+ 
+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
+                                                                    '<div class="col-sm-3">'+
+                                                                        '<input type="text" name="edstudmname" class="form-control edit_student" value="'+row[3]+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                    '<label class="col-sm-2 control-label">Last Name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudparentlname" class="form-control edit_student" value="'+row[10]+'" readonly="true">'+
+                                                                    '</div>'+
+
+                                                                '</div>'+
+                                                                 '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
+                                                                    '<div class="col-sm-2">'+
+                                                                        '<select class="form-control edit_student_select" id="edstudgender" name="edstudgender" required="required" disabled="disabled">'+
+                                                                             '<option value="Male">Male</option>'+
+                                                                             '<option value="Female">Female</option>'+
+                                                                        '</select>'+
+                                                                    '</div>'+ 
+
+                                                                    '<label class="col-md-offset-1 col-sm-2 control-label">First Name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudparentfname" class="form-control edit_student"  value="'+row[11]+'" readonly="true">'+
+                                                                    '</div>'+
+       
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-sm-2 control-label">Status</label>'+
+                                                                    '<div class="col-sm-2">'+
+                                                                        '<select class="form-control edit_student_select" id="edstudstatus" name="edstudstatus" required="required" disabled="disabled">'+
+                                                                             '<option value="Single">Single</option>'+
+                                                                             '<option value="Married">Married</option>'+
+                                                                             '<option value="Widowed">Widowed</option>'+
+                                                                        '</select>'+
+                                                                    '</div>'+
+                                                                    '<label class="col-md-offset-1 col-sm-2 control-label">Middle Name</label>'+
+                                                                    '<div class="col-sm-4">'+
+                                                                        '<input type="text" name="edstudparentmname" class="form-control edit_student"  value="'+row[12]+'" readonly="true">'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                                '<div class="form-group">'+
+                                                                    '<div class="col-md-offset-8 col-md-2">'+
+                                                                        '<button type="button" class="btn btn-success btn-label-left pull-right" id="student-edit-update">'+
+                                                                            'Update Information'+
+                                                                        '</button>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="student-edit-submit">'+
+                                                                            'Save Changes'+
+                                                                        '</button>'+
+                                                                    '</div>'+
+                                                                '</div>'+
+                                                            '</form>'+
+                                                        '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
 
                                         if(row.reg_gender=='Male')
                                         {
@@ -2014,22 +2140,19 @@
                                             $('#edstudstatus option[value=Widowed]').attr('selected','selected');
                                         }
 
+                                        $('#student-edit-submit').attr('disabled',true);
+
                                     }
                         });//end of student id
 
                         $(document.body).on('click', '#student-edit-update',function(){
                             $('.edit_student').removeProp("readonly");
-                            $('#upload-edit-student-image').removeProp("style");
+                            $('#upload-edit-student-image').removeAttr("style");
                             $('#edstudbday').addClass('bday_datepicker');
                             $('.bday_datepicker').datepicker('enable');
                             $('.edit_student_select').removeAttr('disabled');
+                            $('#student-edit-submit').attr('disabled',false);
                         });
-
-                        /*$(document.body).on('click', '#student-edit-reset', function(){
-                            $('.edit_student').prop("readonly","true");
-                            $('#upload-edit-student-image').css("display","none");
-                            $('.edit_student_select').attr('disabled',true);
-                        });*/
 
                         $(document.body).on('submit', '#edit-student-form', submitEditStudentForm);
 
@@ -2051,7 +2174,8 @@
                                             
                                             if(typeof data.error === 'undefined')
                                             {
-                                                window.location.href="index.php?r=lss&sp&spe";
+                                                sp();
+                                                alert(data.success);
                                               
                                             }
                                             else
@@ -2075,939 +2199,6 @@
                                     });    
                         }//end of submit edit student
 
-
-                        $(document.body).on('click','.subject-id',function(event)
-                        {
-                            var id=$(this).attr('id');
-                            
-                             $.ajax({
-             
-                                    url: 'views/ajax/get_for_administrator.php',
-                                    type: 'GET',
-                                    data: {
-                                        edit_subject_id:id
-                                    },
-                                   dataType: 'json',
-
-                                   success: function(response) 
-                                   {
-                                       /*alert(JSON.stringify(response['edit_subject']));  */
-                                        display_edit_subject(response['edit_subject']);
-
-                                    },
-
-
-                                    });
-
-                                    function display_edit_subject(data) 
-                                    {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
-
-                                        var header = $('<h1>'+
-                                                         'Edit Subject'+
-                                                        
-                                                      '</h1>');
-
-                                            $('.content-header').append(header);
-
-                                            for (var i = 0; i < data.length; i++) 
-                                            {
-
-                                                    reset_table(data[i]);
-                                          
-                                            }
-
-                                    } 
-
-                                    function reset_table(row)
-                                    {
-
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-subject-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edsubid" class="form-control" value="'+row.subjectID+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-2 control-label">Subject Title</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edsubtitle" class="form-control edit_subject" value="'+row.subject_title+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="subject-edit-reset">'+
-                                                                                            'Reset'+*/
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="subject-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="subject-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
-                                           
-                                        $('.content').append(content);
-                                    }
-                        });//end of subject id
-                        
-                        $(document.body).on('click', '#subject-edit-update',function(){
-                            $('.edit_subject').removeProp("readonly");
-                        });
-
-                        /*$(document.body).on('click', '#subject-edit-reset', function(){
-                            $('.edit_subject').prop("readonly","true");
-                        });*/
-
-                        $(document.body).on('submit', '#edit-subject-form', submitEditSubjectForm);
-
-                        function submitEditSubjectForm(event)
-                        {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                             $.ajax({
-                                        url: 'views/ajax/get_for_administrator.php?edit-subject-form',
-                                        type: 'POST',
-                                        data: new FormData(this),
-                                        contentType: false, 
-                                        cache: false,
-                                        processData: false,
-                                        dataType: 'json',
-                                        success: function(data, textStatus, jqXHR)
-                                        {
-                                            
-                                            if(typeof data.error === 'undefined')
-                                            {
-                                                window.location.href="index.php?r=lss&sbs&sbse";
-                                              
-                                            }
-                                            else
-                                            {
-                                                alert('Error: '+data.error);
-                                            }   
-
-                                            
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown)
-                                        {
-                                            
-                                                alert('ERROR: ' + textStatus);
-                                            
-                                        },
-                                        complete: function()
-                                        {
-                                            // Completed
-                                        }
-                            
-                                    });    
-                        }//end of submit edit subject
-
-                        $(document.body).on('click','.section-id',function(event)
-                        {
-                            var id=$(this).attr('id');
-                            
-                             $.ajax({
-             
-                                    url: 'views/ajax/get_for_administrator.php',
-                                    type: 'GET',
-                                    data: {
-                                        edit_section_id:id
-                                    },
-                                   dataType: 'json',
-
-                                   success: function(response) 
-                                   {
-                                       /*alert(JSON.stringify(response['edit_section']));  */
-                                        display_edit_section(response['edit_section']);
-
-                                    },
-
-
-                                    });
-
-                                    function display_edit_section(data) 
-                                    {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
-
-                                        var header = $('<h1>'+
-                                                         'Edit Section'+
-                                                        
-                                                      '</h1>');
-
-                                            $('.content-header').append(header);
-
-                                            for (var i = 0; i < data.length; i++) 
-                                            {
-
-                                                    reset_table(data[i]);
-                                          
-                                            }
-
-                                    } 
-
-                                    function reset_table(row)
-                                    {
-
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-section-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edsecid" class="form-control" value="'+row.sectionID+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section No</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edsecno" class="form-control edit_section" value="'+row.sectionNo+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section No</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edsecname" class="form-control edit_section" value="'+row.section_name+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="section-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="section-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="section-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
-                                           
-                                        $('.content').append(content);
-                                    }
-                        });//end of section
-                        
-                        $(document.body).on('click', '#section-edit-update',function(){
-                            $('.edit_section').removeProp("readonly");
-                        });
-
-                        /*$(document.body).on('click', '#section-edit-reset', function(){
-                            $('.edit_section').prop("readonly","true");
-                        });*/
-
-                        $(document.body).on('submit', '#edit-section-form', submitEditSectionForm);
-
-                        function submitEditSectionForm(event)
-                        {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                             $.ajax({
-                                        url: 'views/ajax/get_for_administrator.php?edit-section-form',
-                                        type: 'POST',
-                                        data: new FormData(this),
-                                        contentType: false, 
-                                        cache: false,
-                                        processData: false,
-                                        dataType: 'json',
-                                        success: function(data, textStatus, jqXHR)
-                                        {
-                                            
-                                            if(typeof data.error === 'undefined')
-                                            {
-                                                window.location.href="index.php?r=lss&scs&scse";
-                                              
-                                            }
-                                            else
-                                            {
-                                                alert('Error: '+data.error);
-                                            }   
-
-                                            
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown)
-                                        {
-                                            
-                                                alert('ERROR: ' + textStatus);
-                                            
-                                        },
-                                        complete: function()
-                                        {
-                                            // Completed
-                                        }
-                            
-                                    });    
-                        }//end of submit edit section
-
-                        $(document.body).on('click','.grade-id',function(event)
-                        {
-                            var id=$(this).attr('id');
-                            
-                             $.ajax({
-             
-                                    url: 'views/ajax/get_for_administrator.php',
-                                    type: 'GET',
-                                    data: {
-                                        edit_grade_id:id
-                                    },
-                                   dataType: 'json',
-
-                                   success: function(response) 
-                                   {
-                                       /*alert(JSON.stringify(response['edit_grade']));  */
-                                        display_edit_grade(response['edit_grade']);
-
-                                    },
-
-
-                                    });
-
-                                    function display_edit_grade(data) 
-                                    {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
-
-                                        var header = $('<h1>'+
-                                                         'Edit Grade'+
-                                                       
-                                                      '</h1>');
-
-                                            $('.content-header').append(header);
-
-                                            for (var i = 0; i < data.length; i++) 
-                                            {
-
-                                                    reset_table(data[i]);
-                                          
-                                            }
-
-                                    } 
-
-                                    function reset_table(row)
-                                    {
-
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-grade-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edgradeid" class="form-control" value="'+row.levelID+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Grade Level</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edgradedesc" class="form-control edit_grade" value="'+row.level_description+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="grade-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="grade-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="grade-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
-                                           
-                                        $('.content').append(content);
-                                    }
-                        });//end of grade
-                        
-                        $(document.body).on('click', '#grade-edit-update',function(){
-                            $('.edit_grade').removeProp("readonly");
-                        });
-
-                        /*$(document.body).on('click', '#grade-edit-reset', function(){
-                            $('.edit_grade').prop("readonly","true");
-                        });*/
-
-                        $(document.body).on('submit', '#edit-grade-form', submitEditGradeForm);
-
-                        function submitEditGradeForm(event)
-                        {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                             $.ajax({
-                                        url: 'views/ajax/get_for_administrator.php?edit-grade-form',
-                                        type: 'POST',
-                                        data: new FormData(this),
-                                        contentType: false, 
-                                        cache: false,
-                                        processData: false,
-                                        dataType: 'json',
-                                        success: function(data, textStatus, jqXHR)
-                                        {
-                                            
-                                            if(typeof data.error === 'undefined')
-                                            {
-                                                window.location.href="index.php?r=lss&gl&gle";
-                                              
-                                            }
-                                            else
-                                            {
-                                                alert('Error: '+data.error);
-                                            }   
-
-                                            
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown)
-                                        {
-                                            
-                                                alert('ERROR: ' + textStatus);
-                                            
-                                        },
-                                        complete: function()
-                                        {
-                                            // Completed
-                                        }
-                            
-                                    });    
-                        }//end of submit edit grade/
-
-                        $(document.body).on('change', '#upload-edit-post-file', function(e) 
-                        {
-                            
-                            var file = e.target.files[0].name;
-                            $("#upload-edit-post-filename").val(file);
-                        });
-
-                        $(document.body).on('click','.announcement-lecture-id',function(event)
-                        {
-                            var id=$(this).attr('id');
-                            
-                             $.ajax({
-             
-                                    url: 'views/ajax/get_for_administrator.php',
-                                    type: 'GET',
-                                    data: {
-                                        announcement_lecture_id:id
-                                    },
-                                   dataType: 'json',
-
-                                   success: function(response) 
-                                   {
-                                       /*alert(JSON.stringify(response));  */
-                                        display_edit_post(response['edit_post']);
-
-                                    },
-
-
-                                    });
-
-                                    function display_edit_post(data) 
-                                    {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
-
-                                        var header = $('<h1>'+
-                                                         'Edit Post'+
-                                                       
-                                                      '</h1>');
-
-                                            $('.content-header').append(header);
-
-                                            for (var i = 0; i < data.length; i++) 
-                                            {
-
-                                                    reset_table(data[i]);
-                                          
-                                            }
-
-                                    } 
-
-                                    function reset_table(row)
-                                    {
-
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-post-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Date Created</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostdate" class="form-control" value="'+row.date_created+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Message/File Caption</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostmorf" class="form-control edit_post" value="'+row.messageorfile_caption+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">File Path</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostfile_path" class="form-control" value="'+row.file_path+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">File Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostfile_name" id="upload-edit-post-filename" class="form-control" value="'+row.file_name+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                     '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="edpostfile" id="upload-edit-post-file" class="post-edit-file-browse" style="display:none;"/>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                 '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section No</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostsecno" class="form-control" value="'+row.sectionNo+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                 '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostsecname" class="form-control" value="'+row.section_name+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Teacher</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edpostteacher" class="form-control" value="'+row.reg_lname+' '+row.reg_fname+' '+row.reg_mname+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="post-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="post-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="post-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
-                                           
-                                        $('.content').append(content);
-                                    }
-                        });//end of post
-                    
-                        $(document.body).on('click', '#post-edit-update',function(){
-                            $('.edit_post').removeProp("readonly");
-                            $('#upload-edit-post-file').removeProp("style");
-                        });
-
-                        /*$(document.body).on('click', '#post-edit-reset', function(){
-                            $('.edit_post').prop("readonly","true");
-                            ('#upload-edit-post-file').css("display","none");
-                        });*/
-
-                        $(document.body).on('submit', '#edit-post-form', submitEditPostForm);
-
-                        function submitEditPostForm(event)
-                        {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                             $.ajax({
-                                        url: 'views/ajax/get_for_administrator.php?edit-post-form',
-                                        type: 'POST',
-                                        data: new FormData(this),
-                                        contentType: false, 
-                                        cache: false,
-                                        processData: false,
-                                        dataType: 'json',
-                                        success: function(data, textStatus, jqXHR)
-                                        {
-                                            
-                                            if(typeof data.error === 'undefined')
-                                            {
-                                                window.location.href="index.php?r=lss&ps&pse";
-                                              
-                                            }
-                                            else
-                                            {
-                                                alert('Error: '+data.error);
-                                            }   
-
-                                            
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown)
-                                        {
-                                            
-                                                alert('ERROR: ' + textStatus);
-                                            
-                                        },
-                                        complete: function()
-                                        {
-                                            // Completed
-                                        }
-                            
-                                    });    
-                        }//end of submit edit post/
-
-                        $(document.body).on('click','.user-account-id',function(event)
-                        {
-                            var id=$(this).attr('id');
-                            
-                             $.ajax({
-             
-                                    url: 'views/ajax/get_for_administrator.php',
-                                    type: 'GET',
-                                    data: {
-                                        edit_user_id:id
-                                    },
-                                   dataType: 'json',
-
-                                   success: function(response) 
-                                   {
-                                       /*alert(JSON.stringify(response['edit_user'])); */ 
-                                        display_edit_user(response['edit_user']);
-
-                                    },
-
-
-                                    });
-
-                                    function display_edit_user(data) 
-                                    {
-                                        $('.content-header').empty();
-                                        $('.content').empty();
-
-                                        var header = $('<h1>'+
-                                                         'Edit User Account'+
-                                                       
-                                                      '</h1>');
-
-                                            $('.content-header').append(header);
-
-                                            for (var i = 0; i < data.length; i++) 
-                                            {
-
-                                                    reset_table(data[i]);
-                                          
-                                            }
-
-                                    } 
-
-                                    function reset_table(row)
-                                    {
-
-                                        var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="edit-user-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Username</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="eduserusername" class="form-control edit_user" value="'+row.username_+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Password</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="eduserpassword" class="form-control edit_user" value="'+row.password_+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Secret Question</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<select class="form-control edit_user_select" id="edusersecretquestion" name="edusersecretquestion" required="required" disabled="disabled">'+
-                                                                                             '<option value="childhood">What was your childhood nickname?</option>'+
-                                                                                             '<option value="city">In what city did you meet your spouse?</option>'+
-                                                                                             '<option value="friend">What is the name of your favorite childhood friend?</option>'+
-                                                                                             '<option value="street">What street did you live on in third grade?</option>'+
-                                                                                             '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                             '<option value="middle">What is the middle name of your oldest child?</option>'+
-                                                                                             '<option value="school">What school did you attend for sixth grade?</option>'+
-                                                                                           
-                                                                                             '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
-                                                                                             '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
-                                                                                             '<option value="animal">What was the name of your first stuffed animal?</option>'+
-                                                                                             '<option value="meet">In what city or town did your mother and father meet?</option>'+
-                                                                                             '<option value="teacher">What was the last name of your third grade teacher?</option>'+
-                                                                                             '<option value="live">In what city does your nearest sibling live?</option>'+
-                                                                                             '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                             '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
-                                                                                             '<option value="job">In what city or town was your first job?</option>'+
-                                                                                             '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
-                                                                                             '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
-                                                                                             '<option value="heard">Where were you when you first heard about 9/11?</option>'+
-                                                                                             '<option value="superhero">Who is your favorite superhero?</option>'+
-
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Secret Answer</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="edusersecretanswer" class="form-control edit_user" value="'+row.secret_answer+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                 '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">User Type</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<select class="form-control edit_user_select" id="edusertype" name="edusertype" required="required" disabled="disabled">'+
-                                                                                             '<option value="admin">Admin</option>'+
-                                                                                             '<option value="teacher">Teacher</option>'+
-                                                                                             '<option value="student">Student</option>'+
-                                                                                             '<option value="parent">Parent</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Account Id</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="eduserid" class="form-control" value="'+row.account_id+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        '<button type="button" class="btn btn-info btn-label-left pull-right" id="user-edit-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="button" class="btn btn-warning btn-label-left pull-right" id="user-edit-update">'+
-                                                                                            'Update Information'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="user-edit-submit">'+
-                                                                                            'Save Changes'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                        '</section>');
-                                           
-                                        $('.content').append(content);
-
-                                        if(row.user_type=='admin')
-                                        {
-                                            $('#edusertype option[value=admin]').attr('selected','selected');
-                                        }
-                                        else if (row.user_type=='teacher')
-                                        {
-                                            $('#edusertype option[value=teacher]').attr('selected','selected');
-                                        } 
-                                        else if (row.user_type=='student')
-                                        {
-                                            $('#edusertype option[value=student]').attr('selected','selected');
-                                        } 
-                                        else if (row.user_type=='parent')
-                                        {
-                                            $('#edusertype option[value=parent]').attr('selected','selected');
-                                        } 
-
-
-                                        if(row.secret_question=='childhood')
-                                        {
-                                            $('#edusersecretquestion option[value=childhood]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='city')
-                                        {
-                                            $('#edusersecretquestion option[value=city]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='friend')
-                                        {
-                                            $('#edusersecretquestion option[value=friend]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='street')
-                                        {
-                                            $('#edusersecretquestion option[value=street]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='oldest')
-                                        {
-                                            $('#edusersecretquestion option[value=oldest]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='middle')
-                                        {
-                                            $('#edusersecretquestion option[value=middle]').attr('selected','selected');
-                                        }
-                                        
-                                        else if(row.secret_question=='school')
-                                        {
-                                            $('#edusersecretquestion option[value=school]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='phone')
-                                        {
-                                            $('#edusersecretquestion option[value=phone]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='cousin')
-                                        {
-                                            $('#edusersecretquestion option[value=cousin]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='animal')
-                                        {
-                                            $('#edusersecretquestion option[value=animal]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='meet')
-                                        {
-                                            $('#edusersecretquestion option[value=meet]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='teacher')
-                                        {
-                                            $('#edusersecretquestion option[value=teacher]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='live')
-                                        {
-                                            $('#edusersecretquestion option[value=live]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='brother')
-                                        {
-                                            $('#edusersecretquestion option[value=brother]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='maiden')
-                                        {
-                                            $('#edusersecretquestion option[value=maiden]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='job')
-                                        {
-                                            $('#edusersecretquestion option[value=job]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='wedding')
-                                        {
-                                            $('#edusersecretquestion option[value=wedding]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='college')
-                                        {
-                                            $('#edusersecretquestion option[value=college]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='heard')
-                                        {
-                                            $('#edusersecretquestion option[value=heard]').attr('selected','selected');
-                                        }
-                                        else if(row.secret_question=='superhero')
-                                        {
-                                            $('#edusersecretquestion option[value=superhero').attr('selected','selected');
-                                        }
-                                        
-
-                                    }
-                        });//end of user account
-                        
-                        $(document.body).on('click', '#user-edit-update',function(){
-                            $('.edit_user').removeProp("readonly");
-                            $('.edit_user_select').removeAttr('disabled');
-                        });
-
-                        $(document.body).on('click', '#user-edit-reset', function(){
-                            $('.edit_user').prop("readonly","true");
-                            $('.edit_user_select').attr('disabled',true);
-                        });
-
-                        $(document.body).on('submit', '#edit-user-form', submitEditUserForm);
-
-                        function submitEditUserForm(event)
-                        {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                             $.ajax({
-                                        url: 'views/ajax/get_for_administrator.php?edit-user-form',
-                                        type: 'POST',
-                                        data: new FormData(this),
-                                        contentType: false, 
-                                        cache: false,
-                                        processData: false,
-                                        dataType: 'json',
-                                        success: function(data, textStatus, jqXHR)
-                                        {
-                                            
-                                            if(typeof data.error === 'undefined')
-                                            {
-                                                window.location.href="index.php?r=lss&ua&uae";
-                                              
-                                            }
-                                            else
-                                            {
-                                                alert('Error: '+data.error);
-                                            }   
-
-                                            
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown)
-                                        {
-                                            
-                                                alert('ERROR: ' + textStatus);
-                                            
-                                        },
-                                        complete: function()
-                                        {
-                                            // Completed
-                                        }
-                            
-                                    });    
-                        }//end of submit edit user/
-
                         /**Adding for insert**/
                         $(document.body).on('change', '#upload-add-admin-image', function(e) 
                         {
@@ -3016,7 +2207,7 @@
                             $('.add-admin-image').attr('src', img);
                         });
 
-                        $('#add-admin').click(function()
+                        $(document.body).on('click','#add-admin',function()
                         {
                               $.ajax({
              
@@ -3050,141 +2241,95 @@
                            
                             function reset_table(row)
                             {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                $('.content_header').empty();
+                                $('.content_').empty();
 
-                                var header = $('<h1>'+
-                                                    'Add Administrator'+
-                                                '</h1>');
+                                var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Administrator'+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                $('.content-header').append(header);
+                                $('.content_header').append(header);
 
-                                var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-admin-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<img class="add-admin-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="addadmimg" id="upload-add-admin-image" class="pull-left admin-add-image-browse"/>'+
-                                                                                    '</div>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmid" class="form-control" value="'+row.admin_id+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmbirthday" class="form-control add_admin bday_datepicker" id="addadbday">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmlname" class="form-control add_admin">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Address</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmaddress" class="form-control add_admin">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">First name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmfname" class="form-control add_admin">'+
-                                                                                    '</div>'+
-                                                                                    '<label class="col-sm-2 control-label">Password Recovery:</label>'+
-
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addadmmname" class="form-control add_admin">'+
-                                                                                    '</div>'+
-                                                                                    
-                                                                                        '<label class="col-sm-2 control-label">Secret Question</label>'+
-                                                                                        '<div class="col-sm-3">'+
-                                                                                                '<select class="form-control add_admin_select" id="addadminsecretquestion" name="addadminsecretquestion" required="required">'+
-                                                                                                     '<option value="childhood">What was your childhood nickname?</option>'+
-                                                                                                     '<option value="city">In what city did you meet your spouse?</option>'+
-                                                                                                     '<option value="friend">What is the name of your favorite childhood friend?</option>'+
-                                                                                                     '<option value="street">What street did you live on in third grade?</option>'+
-                                                                                                     '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                                     '<option value="middle">What is the middle name of your oldest child?</option>'+
-                                                                                                     '<option value="school">What school did you attend for sixth grade?</option>'+
-                                                                                                   
-                                                                                                     '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
-                                                                                                     '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
-                                                                                                     '<option value="animal">What was the name of your first stuffed animal?</option>'+
-                                                                                                     '<option value="meet">In what city or town did your mother and father meet?</option>'+
-                                                                                                     '<option value="teacher">What was the last name of your third grade teacher?</option>'+
-                                                                                                     '<option value="live">In what city does your nearest sibling live?</option>'+
-                                                                                                     '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                                     '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
-                                                                                                     '<option value="job">In what city or town was your first job?</option>'+
-                                                                                                     '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
-                                                                                                     '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
-                                                                                                     '<option value="heard">Where were you when you first heard about 9/11?</option>'+
-                                                                                                     '<option value="superhero">Who is your favorite superhero?</option>'+
-
-                                                                                                '</select>'+
-                                                                                        '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control add_admin_select" id="addadmgender" name="addadmgender" required="required">'+
-                                                                                             '<option value="Male">Male</option>'+
-                                                                                             '<option value="Female">Female</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-4 control-label">Secret Answer</label>'+
-                                                                                    '<div class="col-sm-3">'+
-                                                                                        '<input type="text" name="addadminsecretanswer" class="form-control add_admin">'+
-                                                                                    '</div>'+
-                                                                                        
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control add_admin_select" id="addadmstatus" name="addadmstatus" required="required">'+
-                                                                                             '<option value="Single">Single</option>'+
-                                                                                             '<option value="Married">Married</option>'+
-                                                                                             '<option value="Widowed">Widowed</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-10">'+
-                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="admin-add-reset">'+
-                                                                                            'Reset All'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="admin-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
+                                var content = $('<div class="admin-main-content">'+
+                                                    '<form class="form-horizontal" role="form" id="add-admin-form" method="post">'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-sm-12">'+
+                                                                '<img class="add-admin-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
                                                             '</div>'+
-                                                                  
-                                                        '</section>');
+                                                            '<div class="col-sm-12">'+
+                                                                '<input type="file" name="addadmimg" id="upload-add-admin-image" class="pull-left admin-add-image-browse"/>'+
+                                                            '</div>'+
+                                                             
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">ID</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addadmid" class="form-control" value="'+row.admin_id+'" readonly="true">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addadmbirthday" class="form-control add_admin bday_datepicker" id="addadbday">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Last name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addadmlname" class="form-control add_admin">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-1 control-label">Address</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addadmaddress" class="form-control add_admin">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">First name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addadmfname" class="form-control add_admin">'+
+                                                            '</div>'+
+                                                            
+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Middle name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addadmmname" class="form-control add_admin">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Gender</label>'+
+                                                            '<div class="col-sm-2">'+
+                                                                '<select class="form-control add_admin_select" id="addadmgender" name="addadmgender" required="required">'+
+                                                                     '<option value="Male">Male</option>'+
+                                                                     '<option value="Female">Female</option>'+
+                                                                '</select>'+
+                                                            '</div>'+     
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Status</label>'+
+                                                            '<div class="col-sm-2">'+
+                                                                '<select class="form-control add_admin_select" id="addadmstatus" name="addadmstatus" required="required">'+
+                                                                     '<option value="Single">Single</option>'+
+                                                                     '<option value="Married">Married</option>'+
+                                                                     '<option value="Widowed">Widowed</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-md-offset-10 col-md-4">'+
+                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="admin-add-submit">'+
+                                                                    'Submit'+
+                                                                '</button>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                    '</form>'+
+                                                '</div><!--admin-main-content-->');
                                
                                    
-                                $('.content').append(content);
+                                $('.content_').append(content);
                             }
 
                         });//add-admin
@@ -3211,7 +2356,9 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /* alert(JSON.stringify(data));*/
-                                               window.location.href="index.php?r=lss&ap&aap";
+                                              /* window.location.href="index.php?r=lss&ap&aap";*/
+                                              alert(data.success);
+
                                               
                                             }
                                             else
@@ -3242,7 +2389,7 @@
                             $('.add-teacher-image').attr('src', img);
                         });
 
-                        $('#add-teacher').on('click', function()
+                        $(document.body).on('click', '#add-teacher', function()
                         {
                            $.ajax({
              
@@ -3276,143 +2423,97 @@
                            
                             function reset_table(row)
                             {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                $('.content_header').empty();
+                                $('.content_').empty();
 
-                                var header = $('<h1>'+
-                                                    'Add Teacher'+
-                                                '</h1>');
+                                var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Teacher'+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                $('.content-header').append(header);
+                                $('.content_header').append(header);
 
-                                var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-teacher-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<img class="add-teacher-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="addteachimg" id="upload-add-teacher-image" class="pull-left teacher-add-image-browse"/>'+
-                                                                                    '</div>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachid" class="form-control" value="'+row.teacher_id+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachbirthday" class="form-control add_teacher bday_datepicker" id="addteachbday">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachlname" class="form-control add_teacher">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Address</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachaddress" class="form-control add_teacher">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">First name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachfname" class="form-control add_teacher">'+
-                                                                                    '</div>'+
-
-                                                                                     '<label class="col-sm-1 control-label">Position</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachtposition" class="form-control add_teacher">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addteachmname" class="form-control add_teacher">'+
-                                                                                    '</div>'+
-                                                                                    '<label class="col-sm-2 control-label">Password Recovery:</label>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control add_teacher_select" id="addteachgender" name="addteachgender" required="required">'+
-                                                                                             '<option value="Male">Male</option>'+
-                                                                                             '<option value="Female">Female</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-4 control-label">Secret Question</label>'+
-                                                                                        '<div class="col-sm-3">'+
-                                                                                                '<select class="form-control add_teacher_select" id="addteachersecretquestion" name="addteachersecretquestion" required="required">'+
-                                                                                                     '<option value="childhood">What was your childhood nickname?</option>'+
-                                                                                                     '<option value="city">In what city did you meet your spouse?</option>'+
-                                                                                                     '<option value="friend">What is the name of your favorite childhood friend?</option>'+
-                                                                                                     '<option value="street">What street did you live on in third grade?</option>'+
-                                                                                                     '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                                     '<option value="middle">What is the middle name of your oldest child?</option>'+
-                                                                                                     '<option value="school">What school did you attend for sixth grade?</option>'+
-                                                                                                   
-                                                                                                     '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
-                                                                                                     '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
-                                                                                                     '<option value="animal">What was the name of your first stuffed animal?</option>'+
-                                                                                                     '<option value="meet">In what city or town did your mother and father meet?</option>'+
-                                                                                                     '<option value="teacher">What was the last name of your third grade teacher?</option>'+
-                                                                                                     '<option value="live">In what city does your nearest sibling live?</option>'+
-                                                                                                     '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                                     '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
-                                                                                                     '<option value="job">In what city or town was your first job?</option>'+
-                                                                                                     '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
-                                                                                                     '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
-                                                                                                     '<option value="heard">Where were you when you first heard about 9/11?</option>'+
-                                                                                                     '<option value="superhero">Who is your favorite superhero?</option>'+
-
-                                                                                                '</select>'+
-                                                                                        '</div>'+        
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<select class="form-control add_teacher_select" id="addteachstatus" name="addteachstatus" required="required">'+
-                                                                                             '<option value="Single">Single</option>'+
-                                                                                             '<option value="Married">Married</option>'+
-                                                                                             '<option value="Widowed">Widowed</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-4 control-label">Secret Answer</label>'+
-                                                                                    '<div class="col-sm-3">'+
-                                                                                        '<input type="text" name="addteachersecretanswer" class="form-control add_teacher">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-10">'+
-                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="teacher-add-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="teacher-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
+                                var content = $('<div class="admin-main-content">'+
+                                                    '<form class="form-horizontal" role="form" id="add-teacher-form" method="post">'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-sm-12">'+
+                                                                '<img class="add-teacher-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
                                                             '</div>'+
-                                                                  
-                                                        '</section>');
+                                                            '<div class="col-sm-12">'+
+                                                                '<input type="file" name="addteachimg" id="upload-add-teacher-image" class="pull-left teacher-add-image-browse"/>'+
+                                                            '</div>'+
+                                                             
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">ID</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachid" class="form-control" value="'+row.teacher_id+'" readonly="true">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachbirthday" class="form-control add_teacher bday_datepicker" id="addteachbday">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Last name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachlname" class="form-control add_teacher">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-1 control-label">Address</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachaddress" class="form-control add_teacher">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">First name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachfname" class="form-control add_teacher">'+
+                                                            '</div>'+
+
+                                                             '<label class="col-sm-1 control-label">Position</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachtposition" class="form-control add_teacher">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Middle name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addteachmname" class="form-control add_teacher">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Gender</label>'+
+                                                            '<div class="col-sm-2">'+
+                                                                '<select class="form-control add_teacher_select" id="addteachgender" name="addteachgender" required="required">'+
+                                                                     '<option value="Male">Male</option>'+
+                                                                     '<option value="Female">Female</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Status</label>'+
+                                                            '<div class="col-sm-2">'+
+                                                                '<select class="form-control add_teacher_select" id="addteachstatus" name="addteachstatus" required="required">'+
+                                                                     '<option value="Single">Single</option>'+
+                                                                     '<option value="Married">Married</option>'+
+                                                                     '<option value="Widowed">Widowed</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-md-offset-10 col-md-2">'+
+                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="teacher-add-submit">'+
+                                                                    'Submit'+
+                                                                '</button>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                    '</form>'+
+                                                '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
                                     
                             }
                         });//add-teacher
@@ -3438,7 +2539,8 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /* alert(JSON.stringify(data));*/
-                                              window.location.href="index.php?r=lss&tp&atp";
+                                              /*window.location.href="index.php?r=lss&tp&atp";*/
+                                              alert(data.success);
                                               
                                             }
                                             else
@@ -3469,7 +2571,7 @@
                             $('.add-student-image').attr('src', img);
                         });
 
-                        $('#add-student').on('click', function(){
+                        $(document.body).on('click', '#add-student', function(){
                              $.ajax({
              
                                     url: 'views/ajax/get_for_administrator.php?create-student-id',
@@ -3502,163 +2604,112 @@
                            
                             function reset_table(row)
                             {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                $('.content_header').empty();
+                                $('.content_').empty();
 
-                                var header = $('<h1>'+
-                                                    'Add Student'+
-                                                '</h1>');
+                                var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Student'+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                $('.content-header').append(header);
+                                $('.content_header').append(header);
 
-                                 var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-student-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<img class="add-student-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="addstudimg" id="upload-add-student-image" class="pull-left student-add-image-browse"/>'+
-                                                                                    '</div>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudid" class="form-control" value="'+row.student_id+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Birthday</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudbirthday" class="form-control add_student bday_datepicker" id="addstudbday">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Last name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudlname" class="form-control add_student">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-1 control-label">Address</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudaddress" class="form-control add_student">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">First name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudfname" class="form-control add_student">'+
-                                                                                    '</div>'+
-
-                                                                                     '<label class="col-sm-1 control-label">Guardian:</label>'+
-                                                                                     
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Middle name</label>'+
-                                                                                    '<div class="col-sm-3">'+
-                                                                                        '<input type="text" name="addstudmname" class="form-control add_student">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-2 control-label">Last Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudparentlname" class="form-control add_student">'+
-                                                                                    '</div>'+
-
-                                                                                '</div>'+
-
-                                                                                '<div class="form-group">'+
-                                                                                   '<label class="col-sm-2 control-label">Gender</label>'+
-                                                                                    '<div class="col-sm-3">'+
-                                                                                        '<select class="form-control add_student_select" id="addstudgender" name="addstudgender" required="required">'+
-                                                                                             '<option value="Male">Male</option>'+
-                                                                                             '<option value="Female">Female</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+       
-
-                                                                                    '<label class="col-sm-2 control-label">First Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudparentfname" class="form-control add_student">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Status</label>'+
-                                                                                    '<div class="col-sm-3">'+
-                                                                                        '<select class="form-control add_student_select" id="addstudstatus" name="addstudstatus" required="required">'+
-                                                                                             '<option value="Single">Single</option>'+
-                                                                                             '<option value="Married">Married</option>'+
-                                                                                             '<option value="Widowed">Widowed</option>'+
-                                                                                        '</select>'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-2 control-label">Middle Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudparentmname" class="form-control add_student">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Password Recovery:</label>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Secret Question</label>'+
-                                                                                        '<div class="col-sm-4">'+
-                                                                                                '<select class="form-control add_student_select" id="addstudentsecretquestion" name="addstudentsecretquestion" required="required">'+
-                                                                                                     '<option value="childhood">What was your childhood nickname?</option>'+
-                                                                                                     '<option value="city">In what city did you meet your spouse?</option>'+
-                                                                                                     '<option value="friend">What is the name of your favorite childhood friend?</option>'+
-                                                                                                     '<option value="street">What street did you live on in third grade?</option>'+
-                                                                                                     '<option value="oldest">What is your oldest sibling s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                                     '<option value="middle">What is the middle name of your oldest child?</option>'+
-                                                                                                     '<option value="school">What school did you attend for sixth grade?</option>'+
-                                                                                                   
-                                                                                                     '<option value="phone">What was your childhood phone number including area code (e.g., 000-000-0000)?</option>'+
-                                                                                                     '<option value="cousin">What is your oldest cousin s first and last name?</option>'+
-                                                                                                     '<option value="animal">What was the name of your first stuffed animal?</option>'+
-                                                                                                     '<option value="meet">In what city or town did your mother and father meet?</option>'+
-                                                                                                     '<option value="teacher">What was the last name of your third grade teacher?</option>'+
-                                                                                                     '<option value="live">In what city does your nearest sibling live?</option>'+
-                                                                                                     '<option value="brother">What is your oldest brother s birthday month and year (e.g., January 1900)?</option>'+
-                                                                                                     '<option value="maiden">What is your maternal grandmother s maiden name?</option>'+
-                                                                                                     '<option value="job">In what city or town was your first job?</option>'+
-                                                                                                     '<option value="wedding">What is the name of the place your wedding reception was held?</option>'+
-                                                                                                     '<option value="college">What is the name of a college you applied to but didnt attend?</option>'+
-                                                                                                     '<option value="heard">Where were you when you first heard about 9/11?</option>'+
-                                                                                                     '<option value="superhero">Who is your favorite superhero?</option>'+
-
-                                                                                                '</select>'+
-                                                                                        '</div>'+        
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                     '<label class="col-sm-2 control-label">Secret Answer</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addstudentsecretanswer" class="form-control add_student">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="student-add-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                            
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="student-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
-                                                                '</div>'+
+                                 var content = $('<div class="admin-main-content">'+
+                                                    '<form class="form-horizontal" role="form" id="add-student-form" method="post">'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-sm-12">'+
+                                                                '<img class="add-student-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
                                                             '</div>'+
-                                                                  
-                                                        '</section>');
+                                                            '<div class="col-sm-12">'+
+                                                                '<input type="file" name="addstudimg" id="upload-add-student-image" class="pull-left student-add-image-browse"/>'+
+                                                            '</div>'+
+                                                             
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">ID</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudid" class="form-control" value="'+row.student_id+'" readonly="true">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudbirthday" class="form-control add_student bday_datepicker" id="addstudbday">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Last name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudlname" class="form-control add_student">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-1 control-label">Address</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudaddress" class="form-control add_student">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">First name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudfname" class="form-control add_student">'+
+                                                            '</div>'+
+
+                                                             '<label class="col-sm-1 control-label">Guardian:</label>'+
+                                                             
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Middle name</label>'+
+                                                            '<div class="col-sm-3">'+
+                                                                '<input type="text" name="addstudmname" class="form-control add_student">'+
+                                                            '</div>'+
+
+                                                            '<label class="col-sm-2 control-label">Last Name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudparentlname" class="form-control add_student">'+
+                                                            '</div>'+
+
+                                                        '</div>'+
+
+                                                        '<div class="form-group">'+
+                                                           '<label class="col-sm-2 control-label">Gender</label>'+
+                                                            '<div class="col-sm-2">'+
+                                                                '<select class="form-control add_student_select" id="addstudgender" name="addstudgender" required="required">'+
+                                                                     '<option value="Male">Male</option>'+
+                                                                     '<option value="Female">Female</option>'+
+                                                                '</select>'+
+                                                            '</div>'+       
+
+                                                            '<label class="col-md-offset-1 col-sm-2 control-label">First Name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudparentfname" class="form-control add_student">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<label class="col-sm-2 control-label">Status</label>'+
+                                                            '<div class="col-sm-2">'+
+                                                                '<select class="form-control add_student_select" id="addstudstatus" name="addstudstatus" required="required">'+
+                                                                     '<option value="Single">Single</option>'+
+                                                                     '<option value="Married">Married</option>'+
+                                                                     '<option value="Widowed">Widowed</option>'+
+                                                                '</select>'+
+                                                            '</div>'+
+
+                                                            '<label class="col-md-offset-1 col-sm-2 control-label">Middle Name</label>'+
+                                                            '<div class="col-sm-4">'+
+                                                                '<input type="text" name="addstudparentmname" class="form-control add_student">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="form-group">'+
+                                                            '<div class="col-md-offset-10 col-md-2">'+
+                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="student-add-submit">'+
+                                                                    'Submit'+
+                                                                '</button>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                    '</form>'+
+                                                '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
                             }
                         });//add-student
 
@@ -3683,7 +2734,8 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /*alert(JSON.stringify(data));*/
-                                              window.location.href="index.php?r=lss&sp&asp";
+                                              /*window.location.href="index.php?r=lss&sp&asp";*/
+                                              alert(data.success);
                                               
                                             }
                                             else
@@ -3707,7 +2759,7 @@
                                     });    
                         }//end of submit add student
 
-                        $('#add-subject').on('click', function(){
+                        $(document.body).on('click', '#add-subject', function(){
                             $.ajax({
              
                                     url: 'views/ajax/get_for_administrator.php?create-subject-id',
@@ -3740,54 +2792,39 @@
                            
                             function reset_table(row)
                             {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                $('.content_header').empty();
+                                $('.content_').empty();
 
-                                var header = $('<h1>'+
-                                                    'Add Subject'+
-                                                '</h1>');
+                                var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Subject'+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                $('.content-header').append(header);
+                                $('.content_header').append(header);
 
-                                var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-subject-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addsubid" class="form-control" value="'+row.subject_id+'" readonly="true">'+
-                                                                                    '</div>'+
-
-                                                                                    '<label class="col-sm-2 control-label">Subject Title</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addsubtitle" class="form-control add_subject">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="subject-add-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="subject-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                var content = $('<div class="admin-main-content">'+
+                                                    '<div class="has-padding-top">'+
+                                                        '<form class="form-horizontal" role="form" id="add-subject-form" method="post">'+
+                                                             '<input type="hidden" name="addsubid" class="form-control" value="'+row.subject_id+'">'+
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Subject Title</label>'+
+                                                                '<div class="col-sm-4">'+
+                                                                    '<input type="text" name="addsubtitle" class="form-control add_subject">'+
                                                                 '</div>'+
                                                             '</div>'+
-                                                                  
-                                                        '</section>');
+                                                            '<div class="form-group">'+
+                                                                '<div class="col-md-offset-7 col-md-2">'+
+                                                                    '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="subject-add-submit">'+
+                                                                        'Submit'+
+                                                                    '</button>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</form>'+
+                                                    '</div>'+    
+                                                '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
 
                                 
                             }
@@ -3814,7 +2851,8 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /*alert(JSON.stringify(data));*/
-                                              window.location.href="index.php?r=lss&sbs&asbs";
+                                              /*window.location.href="index.php?r=lss&sbs&asbs";*/
+                                              alert(data.success);
                                               
                                             }
                                             else
@@ -3838,7 +2876,7 @@
                                     });    
                         }//end of submit add subject
 
-                        $('#add-section').on('click', function(){
+                        $(document.body).on('click','#add-section', function(){
 
                             $.ajax({
              
@@ -3872,61 +2910,45 @@
                            
                             function reset_table(row)
                             {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                $('.content_header').empty();
+                                $('.content_').empty();
 
-                                var header = $('<h1>'+
-                                                    'Add Section'+
-                                                '</h1>');
+                                var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Section'+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                $('.content-header').append(header);
+                                $('.content_header').append(header);
 
-                                var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-section-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addsecid" class="form-control" value="'+row.section_id+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section No</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addsecno" class="form-control add_section">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section No</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addsecname" class="form-control add_section">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="section-add-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                   
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="section-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                var content = $('<div class="admin-main-content">'+
+                                                    '<div class="has-padding-top">'+
+                                                        '<form class="form-horizontal" role="form" id="add-section-form" method="post">'+
+                                                            '<input type="hidden" name="addsecid" class="form-control" value="'+row.section_id+'">'+
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Section No</label>'+
+                                                                '<div class="col-sm-4">'+
+                                                                    '<input type="text" name="addsecno" class="form-control add_section">'+
                                                                 '</div>'+
                                                             '</div>'+
-                                                                  
-                                                        '</section>');
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Section Name</label>'+
+                                                                '<div class="col-sm-4">'+
+                                                                    '<input type="text" name="addsecname" class="form-control add_section">'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                            '<div class="form-group">'+
+                                                                '<div class="col-md-offset-7 col-md-2">'+
+                                                                    '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="section-add-submit">'+
+                                                                        'Submit'+
+                                                                    '</button>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</form>'+
+                                                    '</div>'+    
+                                                '</div><!--admin-main-content-->');
                                            
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
                             }
                         });//add-section
                         
@@ -3951,7 +2973,8 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /*alert(JSON.stringify(data));*/
-                                              window.location.href="index.php?r=lss&scs&ascs";
+                                              /*window.location.href="index.php?r=lss&scs&ascs";*/
+                                              alert(data.success);
                                               
                                             }
                                             else
@@ -3975,7 +2998,7 @@
                                     });    
                         }//end of submit add section
 
-                        $('#add-grade').on('click', function(){
+                        $(document.body).on('click', '#add-grade', function(){
                              $.ajax({
              
                                     url: 'views/ajax/get_for_administrator.php?create-grade-id',
@@ -4008,55 +3031,39 @@
                            
                             function reset_table(row)
                             {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                $('.content_header').empty();
+                                $('.content_').empty();
 
-                                var header = $('<h1>'+
-                                                    'Add Grade'+
-                                                '</h1>');
+                                var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Grade'+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                $('.content-header').append(header);
+                                $('.content_header').append(header);
 
-                                var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-grade-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">ID</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addgradeid" class="form-control" value="'+row.grade_id+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Grade Level</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addgradedesc" class="form-control add_grade">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="reset" class="btn btn-info btn-label-left pull-right" id="grade-add-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="grade-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                var content = $('<div class="admin-main-content">'+
+                                                    '<div class="has-padding-top">'+
+                                                        '<form class="form-horizontal" role="form" id="add-grade-form" method="post">'+
+                                                            '<input type="hidden" name="addgradeid" class="form-control" value="'+row.grade_id+'">'+
+                                                            '<div class="form-group">'+
+                                                                '<label class="col-sm-4 control-label">Grade Level</label>'+
+                                                                '<div class="col-sm-4">'+
+                                                                    '<input type="text" name="addgradedesc" class="form-control add_grade">'+
                                                                 '</div>'+
                                                             '</div>'+
-                                                                  
-                                                        '</section>');
+                                                            '<div class="form-group">'+
+                                                                '<div class="col-md-offset-7 col-md-2">'+
+                                                                    '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="grade-add-submit">'+
+                                                                        'Submit'+
+                                                                    '</button>'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</form>'+
+                                                    '</div>'+    
+                                                '</div><!--admin-main-content-->');
 
-                                        $('.content').append(content);
+                                        $('.content_').append(content);
                             }
                         });//add-grade
 
@@ -4081,7 +3088,8 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /*alert(JSON.stringify(data));*/
-                                              window.location.href="index.php?r=lss&gl&agl";
+                                              /*window.location.href="index.php?r=lss&gl&agl";*/
+                                               alert(data.success);
                                               
                                             }
                                             else
@@ -4105,202 +3113,112 @@
                                     });    
                         }//end of submit add grade
 
-                        $(document.body).on('change', '#upload-add-post-file', function(e) 
+                        //Add student from spreadsheet
+                        $(document.body).on('click', '#add-student-excel', function()
                         {
-                            
-                            var file = e.target.files[0].name;
-                            $("#upload-add-post-filename").val(file);
-                        });
+                           display_add_student_excel();
 
-                        $('#add-post').on('click', function(){
-                            $.ajax({
-             
-                                    url: 'views/ajax/get_for_administrator.php?create-post-id',
-                                    type: 'GET',
-                                    dataType: 'json',
-
-                                   success: function(response) 
-                                   {
-                                        /*alert(JSON.stringify(response));  */
-                                         display_form_post(response['create_post_id']);
-                                         displayTeacherList(response['create_post_teacher_list']); 
-
-
-                                    },
-
-
-                                    });
-
-                            function display_form_post(data) 
+                            function display_add_student_excel()
                             {
-                            
-                                    for (var i = 0; i < data.length; i++) 
-                                    {
-
-                                            reset_table(data[i]);
-                                  
-                                    }
-
-                            }  
+                                $('.content_header').empty();
+                                $('.content_').empty();
                                 
-                           
-                            function reset_table(row)
-                            {
-                                $('.content-header').empty();
-                                $('.content').empty();
+                                 var header = $('<div class="admin-content-header">'+
+                                                    '<h1>'+
+                                                        'Add Student From Spreadsheet '+
+                                                    '</h1>'+
+                                                '</div>');
 
-                                var header = $('<h1>'+
-                                                    'Add Post'+
-                                                '</h1>');
-
-                                $('.content-header').append(header);
-
-                                var content = $('<section class="col-lg-12 connectedSortable">'+                            
-                                                            '<div class="row">'+
-                                                                '<div class="col-xs-12 col-sm-12">'+
-                                                                    '<div class="box">'+
-                                                                        '<div class="box-content">'+
-                                                                            '<form class="form-horizontal" role="form" id="add-post-form" method="post">'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Date Created</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addpostdate" class="form-control" value="'+row.post_id+'" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Message/File Caption</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addpostmorf" class="form-control add_post">'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">File Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<input type="text" name="addpostfile_name" class="form-control add_post" id="upload-add-post-filename" readonly="true">'+
-                                                                                    '</div>'+
-                                                                                     '<div class="col-sm-12">'+
-                                                                                        '<input type="file" name="addpostfile" id="upload-add-post-file" class="post-add-file-browse" />'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Teacher Name</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<select class="form-control" id="teacher-name" name="teacher" style="margin-top: 15px; width: 250px;" required="required">'+
-                                                                                            '<option value="" selected disabled>Select Teacher Name</option>'+
-                                                                                        '</select>'+    
-                                                                                        '</select>'+    
-                                                                                    '</div>'+    
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<label class="col-sm-2 control-label">Section</label>'+
-                                                                                    '<div class="col-sm-4">'+
-                                                                                        '<select class="form-control" id="section-name" name="section" style="margin-top: 15px; width: 250px;" required="required">'+
-                                                                                             '<option value="" selected disabled>Select Section</option>'+
-                                                                                        '</select>'+    
-                                                                                    '</div>'+    
-                                                                                '</div>'+
-                                                                                '<div class="form-group">'+
-                                                                                    '<div class="col-sm-8">'+
-                                                                                        /*'<button type="button" class="btn btn-info btn-label-left pull-right" id="post-add-reset">'+
-                                                                                            'Reset'+
-                                                                                        '</button>'+*/
-                                                                                    '</div>'+
-                                                                                    '<div class="col-sm-2">'+
-                                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="post-add-submit">'+
-                                                                                            'Submit'+
-                                                                                        '</button>'+
-                                                                                    '</div>'+
-                                                                                '</div>'+
-                                                                            '</form>'+
-                                                                        '</div><!--box-content-->'+
-                                                                    '</div><!--box-->'+
+                                $('.content_header').append(header);
+                                var display = $('<div class="admin-main-content">'+
+                                                    '<div class="row"><!--//row for form -->'+
+                                                        '<div class="col-md-12 has-padding-top">'+
+                                                            '<form class="form-horizontal" method="post" role="form" id="add-student-spreadsheet">'+
+                                                               
+                                                                '<div class="form-group">'+
+                                                                    '<label for="section-name" class="col-md-3 control-label">Upload Spreadsheet:</label>'+
+                                                                    '<div class="col-md-3">'+
+                                                                        '<input type="file" name="addstudentexcel" id="addstudentexcel" accept="*" />'+
+                                                                    '</div>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<button type="submit" class="btn btn-fresh text-uppercase" id="scan-student">Scan Spreadsheet</button>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<button type="button" class="btn btn-primary text-uppercase" id="save-scan-student">Save to database</button>'+
+                                                                    '</div>'+
+                                                                    '<div class="col-md-2">'+
+                                                                        '<button type="reset" class="btn btn-warning text-uppercase" id="reset-scan-student">Reset</button>'+
+                                                                    '</div>'+
                                                                 '</div>'+
-                                                            '</div>'+
-                                                                  
-                                                        '</section>');
-                                        $('.content').append(content);
-                            }
-
-                            function displayTeacherList(data) 
-                            {
-                                $("#teacher-name").empty();
-
-                                    for (var i = 0; i < data.length; i++) 
-                                    {
-
-                                            drawTeacherRow(data[i]);
-                                  
-                                    }
-
-                            }
-
-                            function drawTeacherRow(row) 
-                            {
-
-
-                             var display = $('<option value="' + row.teacherID + '">' + row.reg_lname + ', ' + row.reg_fname + ' ' + row.reg_mname + '</option>');
-                             $("#teacher-name").append(display); 
+                                                            '</form>'+
+                                                        '</div><!--//form-->'+
+                                                    '</div><!--//row for form -->'+ 
+                                                    '<div class="row"><!--//row for table-->'+
+                                                        '<div class="col-md-12">'+
+                                                                '<div class="form-group">'+
+                                                                    '<label class="col-md-5 control-label">Scanned Students</label>'+
+                                                                '</div>'+
+                                                                '<div class="col-md-12 table-responsive result-table">'+
+                                                                    '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                                                        '<thead>'+
+                                                                            '<tr class="info">'+
+                                                                                '<th>No.</th>'+
+                                                                                '<th>Last Name</th>'+
+                                                                                '<th>First Name</th>'+
+                                                                                '<th>Middle Name</th>'+
+                                                                                '<th>Gender</th>'+
+                                                                                '<th>Status</th>'+
+                                                                                '<th>Birthday</th>'+
+                                                                                '<th>Address</th>'+
+                                                                                '<th>Guardian Last Name</th>'+
+                                                                                '<th>Guardian First Name</th>'+
+                                                                                '<th>Guardian Middle Name</th>'+
+                                                                            '</tr>'+
+                                                                        '<thead>'+
+                                                                        '<tbody id="scan-student-box">'+
+                                                                          
+                                                                        '</tbody>'+
+                                                                    '</table>'+
+                                                                '</div>'+
+                                                        '</div>'+
+                                                    '</div><!--//row for form -->'+ 
+                                                '</div><!--admin-main-content-->');
                            
+                                $('.content_').append(display);
 
+                                $('#scan-student').attr('disabled',true);
+                                $('#save-scan-student').attr('disabled',true);
                             }
 
-
-                        });//add-post
-
-                        $(document.body).on('click','#teacher-name', function(event)
+                        });//end of add student from spreadsheet
+                        $(document.body).on('change', '#addstudentexcel', function() 
                         {
-                            var selected_teacher = $(this).val();
-                            
-                            $.ajax({
-                                        url:'views/ajax/get_for_administrator.php?add-post-sectionlist',
-                                        type:'GET',
-                                        data: {
-                                            selected_teacher:selected_teacher
-                                        },
-                                        dataType: 'json',
-                                        success:function(data)
-                                        {
-                                            /*alert(JSON.stringify(data.section_list));*/
-                                            displaySectionList(data.section_list);
-                                        }
-
-
-                            });
-
-                            function displaySectionList(data) 
-                            {
-                                $("#section-name").empty();
-
-                                    for (var i = 0; i < data.length; i++) 
-                                    {
-
-                                            drawSectionRow(data[i]);
-                                  
-                                    }
-
-                            }
-
-                            function drawSectionRow(row) 
-                            {
-
-
-                             var display = $('<option value="' + row.sectionID + '">' + row.sectionNo + '-' + row.section_name + '</option>');
-                             $("#section-name").append(display); 
-                           
-                            }
-
-
+                            $('#scan-student').attr('disabled',false);
                         });
                         
-                        $(document.body).on('submit', '#add-post-form', submitAddPostForm);
+                        $(document.body).on('click', '#scan-student',function(){
 
-                        function submitAddPostForm(event)
+                            $('#save-scan-student').attr('disabled',false);
+                        });
+
+                        $(document.body).on('click', '#reset-scan-student',function(){
+
+                            $('#scan-student').attr('disabled',true);
+                            $('#save-scan-student').attr('disabled',true);
+                            $('#addstudentexcel').prop('disabled', false);
+                            $('#scan-student-box').empty();
+                        });
+
+                        
+                        $(document.body).on('submit', '#add-student-spreadsheet', submitAddStudentSpreadsheet);
+
+                        function submitAddStudentSpreadsheet(event)
                         {
                             event.stopPropagation();
                             event.preventDefault();
 
                              $.ajax({
-                                        url: 'views/ajax/get_for_administrator.php?add-post-form',
+                                        url: 'views/ajax/get_for_administrator.php?add-student-spreadsheet',
                                         type: 'POST',
                                         data: new FormData(this),
                                         contentType: false, 
@@ -4313,8 +3231,110 @@
                                             if(typeof data.error === 'undefined')
                                             {
                                                /*alert(JSON.stringify(data));*/
-                                              window.location.href="index.php?r=lss&ps&aps";
-                                              
+                                              /*window.location.href="index.php?r=lss&gl&agl";*/
+                                                /*console.log(JSON.stringify(data.success));*/
+                                              display_scan_data(data.success);
+                                              submitScanStudent(data.success); 
+                                            }
+                                            else
+                                            {
+                                                alert('Error: '+data.error);
+                                                $('#scan-student').attr('disabled',true);
+                                                $('#save-scan-student').attr('disabled',true);
+                                                $('#addstudentexcel').prop('disabled', false);
+                                            }   
+
+                                            
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown)
+                                        {
+                                            
+                                                alert('ERROR: ' + textStatus);
+                                            
+                                        },
+                                        complete: function()
+                                        {
+                                            // Completed
+                                        }
+                            
+                                    });  
+
+                            function display_scan_data(data) 
+                            {
+                            
+                                    for (var i = 0; i < data.length; i++) 
+                                    {
+
+                                            table_data(i+1,data[i]);
+                                  
+                                    }
+
+                            }
+
+                            function table_data(counter,row)
+                            {
+                                 var display = $('<tr>'+
+                                                    '<td>'+counter+'</td>'+
+                                                    '<td>'+row.lastname+'</td>'+
+                                                    '<td>'+row.firstname+'</td>'+
+                                                    '<td>'+row.middlename+'</td>'+
+                                                    '<td>'+row.gender+'</td>'+
+                                                    '<td>'+row.status+'</td>'+
+                                                    '<td>'+row.birthday+'</td>'+
+                                                    '<td>'+row.address+'</td>'+
+                                                    '<td>'+row.guardianlastname+'</td>'+
+                                                    '<td>'+row.guardianfirstname+'</td>'+
+                                                    '<td>'+row.guardianmiddlename+'</td>'+
+                                                '</tr>');
+                               
+                                $('#scan-student-box').append(display);
+                                $('#scan-student').attr('disabled',true);
+                                $('#addstudentexcel').prop('disabled', true); // Prevent Multiple Files Uploads
+                            }  
+                                      
+                        }//end of submit add student spreadsheet
+
+                        function submitScanStudent(data)
+                        {
+                            var scan_student=JSON.stringify(data);
+                            /*alert(scan_student);*/
+                            $(document.body).on('click', '#save-scan-student', function()
+                            {
+                                $.ajax({
+                                        url: 'views/ajax/get_for_administrator.php?add-scan-student',
+                                        type: 'POST',
+                                        data: {scan_student : scan_student},
+                                        dataType: 'json',
+                                        success: function(data, textStatus, jqXHR)
+                                        {
+                                            
+                                            if(typeof data.error === 'undefined')
+                                            {
+                                               
+                                                /*console.log(JSON.stringify(data.success));*/
+                                                if( "skipped" in data ) 
+                                                {
+                                                    if (data.success !== undefined)
+                                                    {
+                                                        alert(data.success + "\n" +data.skipped);
+                                                    }
+                                                    else
+                                                    {
+                                                        alert(data.skipped);
+                                                    }    
+                                                   
+                                                }
+                                                else
+                                                {
+                                                    if (data.success !== undefined)
+                                                    {
+                                                        alert(data.success);
+                                                    }
+                                                    
+                                                }    
+
+                                                
+
                                             }
                                             else
                                             {
@@ -4334,11 +3354,16 @@
                                             // Completed
                                         }
                             
-                                    });    
-                        }//end of submit add post
+                                    });  
+
+                            });
+                        }
 
 
-                });//End of Ready      
+                  
+
+
+});//End of Ready      
 
 
                

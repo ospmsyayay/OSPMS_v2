@@ -1,5 +1,324 @@
 
 <?php 
+	if(isset($_GET['cs']))
+	{
+		$sy=get_school_year();
+
+		echo "{\"cs\": [{\"school_year\":". json_encode($sy)."}]";
+		$fetch_level=get_allgradelevel();
+		$first = true;
+			echo ",\"level\": [";
+			while($display = mysqli_fetch_array($fetch_level))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+		$fetch_section=get_allsection();
+		$first = true;
+			echo "],\"section\": [";
+			while($display = mysqli_fetch_array($fetch_section))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+		$fetch_teacher=get_allteacher();
+		$first = true;
+			echo "],\"teacher\": [";
+			while($display = mysqli_fetch_array($fetch_teacher))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+	if(isset($_GET['ap']))
+	{
+		$fetch=get_alladmin();
+		$first = true;
+			echo "{\"ap\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}
+
+	if(isset($_GET['tp']))
+	{
+		$fetch=get_allteacher();
+		$first = true;
+			echo "{\"tp\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+	if(isset($_GET['sp']))
+	{
+		$fetch=get_allstudent();
+		$first = true;
+			echo "{\"sp\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+	if(isset($_GET['scs']))
+	{
+		$fetch=get_allsection();
+		$first = true;
+			echo "{\"scs\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+	if(isset($_GET['sbs']))
+	{
+		$fetch=get_allsubject();
+		$first = true;
+			echo "{\"sbs\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+	if(isset($_GET['gl']))
+	{
+		$fetch=get_allgradelevel();
+		$first = true;
+			echo "{\"gl\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+	if(isset($_GET['ua']))
+	{
+		$fetch=get_allaccounts();
+		$first = true;
+			echo "{\"ua\": [";
+			while($display = mysqli_fetch_array($fetch))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+	}	
+
+function get_alladmin()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$join="Select registration.* from admin inner join registration on admin.admin_id=registration.reg_id";
+	  
+				
+	$join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+	
+	return $join_result;
+	
+
+}
+
+function get_allteacher()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$join="Select  registration.*, teacher.t_position from teacher inner join registration on teacher.teacherID=registration.reg_id";
+	  
+				
+	$join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+	
+	return $join_result;
+	
+
+}
+
+function get_allstudent()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$join="SELECT registration1.*,registration2.reg_lname,registration2.reg_fname,registration2.reg_mname 
+	from student as studentprofile inner join registration as registration1 on studentprofile.student_lrn=registration1.reg_id 
+	left join parent as parentprofile on studentprofile.parentID=parentprofile.parentID 
+	left join registration as registration2 on parentprofile.parentID=registration2.reg_id";
+	  
+				
+	$join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+	
+	return $join_result;
+	
+
+
+}
+
+function get_allsubject()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$sql="Select * from subject_";
+
+	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+	return $sql;
+}
+
+function get_allsection()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$sql="Select * from section_list";
+
+	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+	return $sql;
+}
+
+function get_allgradelevel()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$sql="Select * from grade_level";
+
+	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+	return $sql;
+
+
+}
+
+
+function get_allaccounts()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$sql="SELECT create_account.*, registration.reg_fname, registration.reg_lname FROM create_account 
+	inner join registration on create_account.account_id=registration.reg_id";
+
+	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+	return $sql;
+}
+
+function get_school_year()
+{
+    $current_year = date("Y", strtotime("today"));
+    return strval($current_year).'-'.strval($current_year+1);
+                        
+}    
+
+function get_existing_students()
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$sql="SELECT distinct registration.reg_id, registration.reg_lname, registration.reg_fname, registration.reg_mname, student_schedule_line.grade 
+	from student inner join registration on student.student_lrn = registration.reg_id 
+	left join student_schedule_line on student.student_lrn=student_schedule_line.student_lrn order by grade";
+
+	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+	return $sql;
+}
+
+
 	if(isset($_GET['ap_filter']))
 	{
 		$ap_filter=$_GET['ap_filter'];
@@ -361,75 +680,6 @@
 		
 	}
 
-	if(isset($_GET['ps_filter']))
-	{
-		$ps_filter=$_GET['ps_filter'];
-		/*echo "{\"filter\": [" . json_encode($ps_filter). "]}";*/
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		if(!empty($ps_filter))
-		{
-			$sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-			section_list.sectionNo, section_list.section_name, registration.reg_lname, registration.reg_fname, registration.reg_mname 
-			from section_list inner join section on section_list.sectionID=section.sectionID
-			inner join registration on section.teacherID=registration.reg_id 
-			inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-			inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created 
-			where CAST(announcement_lecture.date_created as char) LIKE '%$ps_filter%' or announcement_lecture.messageorfile_caption LIKE '%$ps_filter%' 
-			or announcement_lecture.file_path LIKE '%$ps_filter%' or announcement_lecture.file_name LIKE '%$ps_filter%' or section_list.sectionNo LIKE '%$ps_filter%' 
-			or section_list.section_name LIKE '%$ps_filter%' order by date_created desc";
-			
-			$sql= mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-			$first = true;
-			echo "{\"ps_filter\": [";
-			while($display = mysqli_fetch_array($sql))
-			{
-				if($first) 
-				{
-					echo json_encode($display);
-					$first = false;
-				}		 
-				else 
-				{
-					echo ',' . json_encode($display);
-				}
-			}
-			
-			echo "]}";	
-		}
-		else if(empty($ps_filter))
-		{
-			$sql="Select announcement_lecture.date_created, announcement_lecture.messageorfile_caption, announcement_lecture.file_path, announcement_lecture.file_name, 
-			section_list.sectionNo, section_list.section_name, registration.reg_lname, registration.reg_fname, registration.reg_mname 
-			from section_list inner join section on section_list.sectionID=section.sectionID
-			inner join registration on section.teacherID=registration.reg_id 
-			inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-			inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created order by date_created desc";
-			
-			$sql= mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-			$first = true;
-			echo "{\"ps_filter\": [";
-			while($display = mysqli_fetch_array($sql))
-			{
-				if($first) 
-				{
-					echo json_encode($display);
-					$first = false;
-				}		 
-				else 
-				{
-					echo ',' . json_encode($display);
-				}
-			}
-			
-			echo "]}";	
-		}	
-		
-	}
-
 	if(isset($_GET['ua_filter']))
 	{
 		$ua_filter=$_GET['ua_filter'];
@@ -555,6 +805,10 @@
 				{
 					$response = array('success' => 'Admin Information Updated');
 					
+				}
+				else
+				{
+					$response = array('error' => 'Update Admin Information Failed');
 				}	
 
 			}
@@ -568,7 +822,11 @@
 				if($successful)
 				{
 					$response = array('success' => 'Admin Information Updated');
-				}	
+				}
+				else
+				{
+					$response = array('error' => 'Update Admin Information Failed');
+				}		
 			}	
 			else if(isset($result['error']) || array_key_exists('error', $result))
 			{
@@ -718,7 +976,11 @@
 				{
 					$response = array('success' => 'Teacher Information Updated');
 					
-				}	
+				}
+				else
+				{
+					$response = array('error' => 'Update Teacher Information Failed');
+				}		
 
 			}
 
@@ -733,7 +995,11 @@
 				if($successful)
 				{
 					$response = array('success' => 'Teacher Information Updated');
-				}	
+				}
+				else
+				{
+					$response = array('error' => 'Update Teacher Information Failed');
+				}		
 			}	
 			else if(isset($result['error']) || array_key_exists('error', $result))
 			{
@@ -824,7 +1090,7 @@
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		$sql="SELECT registration1.*,registration2.reg_lname,registration2.reg_fname,registration2.reg_mname from student as studentprofile 
+		$sql="SELECT registration1.*,registration2.reg_id, registration2.reg_lname,registration2.reg_fname,registration2.reg_mname from student as studentprofile 
 		inner join registration as registration1 on studentprofile.student_lrn=registration1.reg_id 
 		left join parent as parentprofile on studentprofile.parentID=parentprofile.parentID 
 		left join registration as registration2 on parentprofile.parentID=registration2.reg_id 
@@ -836,6 +1102,7 @@
 		echo "{\"edit_student\": [";
 		while($row = mysqli_fetch_array($fetch))
 		{
+
 			if($first) 
 			{
 				echo json_encode($row);
@@ -845,6 +1112,7 @@
 			{
 				echo ',' . json_encode($row);
 			}
+
 		}
 		
 		echo "]}";	
@@ -863,51 +1131,189 @@
 		$reg_status = clean($_POST['edstudstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['edstudbirthday']));
 		$reg_address = clean($_POST['edstudaddress']);
+		$parentid = clean($_POST['edstudparentid']);
+		$parent_lname = clean($_POST['edstudparentlname']);
+		$parent_fname = clean($_POST['edstudparentfname']);
+		$parent_mname = clean($_POST['edstudparentmname']);
+		$parent_defaultbday = date('Y-m-d');
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday))
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($parentid) and !empty($parent_lname) and ! empty($parent_fname) )
 		{
 		
 			$result=student_img($id);
 
 			if(isset($result['success']) || array_key_exists('success', $result))
 			{
-
-				$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn
-				SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
-					registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-					registration.reg_address = '$reg_address', registration.image = '".$result['file_name']."' 
-					where registration.reg_id='$id'";			  
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
+				if($parentid!='null')
 				{
-					$response = array('success' => 'Student Information Updated');
-					
+					//update parent first
+					$sql="UPDATE registration inner join parent on registration.reg_id=parent.parentID 
+					inner join student on parent.parentID=student.parentID 
+					SET registration.reg_lname = '$parent_lname', registration.reg_fname = '$parent_fname', registration.reg_mname = '$parent_mname' 
+					where registration.reg_id='$parentid'";		
+					$p_updated = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($p_updated)
+					{
+						//update student
+						$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn
+						SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
+							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
+							registration.reg_address = '$reg_address', registration.image = '".$result['file_name']."' 
+							where registration.reg_id='$id'";			  
+
+						$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+						if($successful)
+						{
+							$response = array('success' => 'Student Information Updated');
+							
+						}
+						else
+						{
+							$response = array('error' => 'Update Student Information Failed');
+						}		
+					}
+					else
+					{
+						$response = array('error' => 'Update Student Information Failed');
+					}		
+
+				}
+				else if($parentid=='null')
+				{
+					$parent_id=createParentId();
+
+					$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_birthday) 
+											VALUES ('$parent_id','$parent_lname','$parent_fname','$parent_mname', '".$parent_defaultbday."')";
+
+					$p_registered=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($p_registered)
+					{
+						$sql="INSERT INTO parent(parentID) VALUES ('$parent_id')";
+
+						$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+						if($p_added)
+						{
+							//update student schedule line
+							$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn
+							SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
+								registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
+								registration.reg_address = '$reg_address', registration.image = '".$result['file_name']."', student.parentID = '$parent_id' 
+								where registration.reg_id='$id'";	
+
+							$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+							if($successful)
+							{
+								$response = array('success' => 'Student Information Updated');
+							}
+							else
+							{
+								$response = array('error' => 'Update Student Information Failed');
+							}
+						}
+						else
+						{
+							$response = array('error' => 'Update Student Information Failed');
+						}						
+					}
+					else
+					{
+						$response = array('error' => 'Update Student Information Failed');
+					}					
 				}	
+				
 
 			}
 
 			else if(isset($result['empty']) || array_key_exists('empty', $result))//without image update
 			{
-				$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn 
-				SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
-					registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-					registration.reg_address = '$reg_address' where registration.reg_id='$id'";
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
+				if($parentid!='null')
 				{
-					$response = array('success' => 'Student Information Updated');
-				}	
+					//update parent first
+					$sql="UPDATE registration inner join parent on registration.reg_id=parent.parentID 
+					inner join student on parent.parentID=student.parentID 
+					SET registration.reg_lname = '$parent_lname', registration.reg_fname = '$parent_fname', registration.reg_mname = '$parent_mname' 
+					where registration.reg_id='$parentid'";		
+					$p_updated = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($p_updated)
+					{
+						$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn 
+						SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
+							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
+							registration.reg_address = '$reg_address' where registration.reg_id='$id'";
+
+						$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+						if($successful)
+						{
+							$response = array('success' => 'Student Information Updated');
+						}
+						else
+						{
+							$response = array('error' => 'Update Student Information Failed');
+						}			
+					}
+					else
+					{
+						$response = array('error' => 'Update Student Information Failed');
+					}		
+				}
+				else if($parentid=='null')
+				{
+					$parent_id=createParentId();
+
+					$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_birthday) 
+											VALUES ('$parent_id','$parent_lname','$parent_fname','$parent_mname', '".$parent_defaultbday."')";
+
+					$p_registered=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($p_registered)
+					{
+						$sql="INSERT INTO parent(parentID) VALUES ('$parent_id')";
+
+						$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+						if($p_added)
+						{
+							//update student schedule line
+							$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn 
+							SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
+							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
+							registration.reg_address = '$reg_address', student.parentID = '$parent_id' where registration.reg_id='$id'";	
+
+							$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+							if($successful)
+							{
+								$response = array('success' => 'Student Information Updated');
+							}
+							else
+							{
+								$response = array('error' => 'Update Student Information Failed');
+							}
+						}
+						else
+						{
+							$response = array('error' => 'Update Student Information Failed');
+						}						
+					}
+					else
+					{
+						$response = array('error' => 'Update Student Information Failed');
+					}				
+
+				}
+
+				
+				
 			}	
 			else if(isset($result['error']) || array_key_exists('error', $result))
 			{
 				$response = array('error' => $result['error']);
 			}
+
 					
 		}
+		
 		else
 		{
 			$response = array('error' => 'The form is incomplete');
@@ -984,425 +1390,7 @@
 
 				return $data;
 	}	
-
-	if(isset($_GET['edit_subject_id']))
-	{
-		$edit_subject_id=$_GET['edit_subject_id'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT * FROM subject_ where subjectID = '$edit_subject_id'";
-
-		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-		$first = true;
-		echo "{\"edit_subject\": [";
-		while($row = mysqli_fetch_array($fetch))
-		{
-			if($first) 
-			{
-				echo json_encode($row);
-				$first = false;
-			}		 
-			else 
-			{
-				echo ',' . json_encode($row);
-			}
-		}
-		
-		echo "]}";	
-	}
-
-	if(isset($_GET['edit-subject-form']))
-	{
-		
-		$response = array();
-
-		$id = $_POST['edsubid'];
-		$subject_title = clean($_POST['edsubtitle']);
-		
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		if( !empty($subject_title) )
-		{
-		
-				$sql="UPDATE subject_ SET subject_title = '$subject_title' where subjectID='$id'";
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
-				{
-					$response = array('success' => 'Subject Information Updated');
-				}	
-				else 
-				{
-					$response = array('error' => 'Subject Information Update Failed');
-				}
-					
-		}
-		else
-		{
-			$response = array('error' => 'The form is incomplete');
-		}	
-
-		echo json_encode($response);			
-	}
-
-	if(isset($_GET['edit_section_id']))
-	{
-		$edit_section_id=$_GET['edit_section_id'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT * FROM section_list where sectionID = '$edit_section_id'";
-
-		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-		$first = true;
-		echo "{\"edit_section\": [";
-		while($row = mysqli_fetch_array($fetch))
-		{
-			if($first) 
-			{
-				echo json_encode($row);
-				$first = false;
-			}		 
-			else 
-			{
-				echo ',' . json_encode($row);
-			}
-		}
-		
-		echo "]}";	
-	}
-
-	if(isset($_GET['edit-section-form']))
-	{
-		
-		$response = array();
-
-		$id= $_POST['edsecid'];
-		$sectionNo = clean($_POST['edsecno']);
-		$section_name= clean($_POST['edsecname']);
-		
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		if( !empty($sectionNo) and !empty($section_name) )
-		{
-		
-				$sql="UPDATE section_list SET sectionNo = '$sectionNo', section_name = '$section_name' where sectionID='$id'";
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
-				{
-					$response = array('success' => 'Section Information Updated');
-				}	
-				else 
-				{
-					$response = array('error' => 'Section Information Update Failed');
-				}
-					
-		}
-		else
-		{
-			$response = array('error' => 'The form is incomplete');
-		}	
-
-		echo json_encode($response);			
-	}
-
-	if(isset($_GET['edit_grade_id']))
-	{
-		$edit_grade_id=$_GET['edit_grade_id'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT * FROM grade_level where levelID = '$edit_grade_id'";
-
-		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-		$first = true;
-		echo "{\"edit_grade\": [";
-		while($row = mysqli_fetch_array($fetch))
-		{
-			if($first) 
-			{
-				echo json_encode($row);
-				$first = false;
-			}		 
-			else 
-			{
-				echo ',' . json_encode($row);
-			}
-		}
-		
-		echo "]}";	
-	}
-
-	if(isset($_GET['edit-grade-form']))
-	{
-		
-		$response = array();
-
-		$id= $_POST['edgradeid'];
-		$level_description = clean($_POST['edgradedesc']);		
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		if( !empty($level_description) )
-		{
-		
-				$sql="UPDATE grade_level SET level_description = '$level_description' where levelID='$id'";
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
-				{
-					$response = array('success' => 'Grade Level Information Updated');
-				}	
-				else 
-				{
-					$response = array('error' => 'Grade Level Update Failed');
-				}
-					
-		}
-		else
-		{
-			$response = array('error' => 'The form is incomplete');
-		}	
-
-		echo json_encode($response);			
-	}
-
-	if(isset($_GET['announcement_lecture_id']))
-	{
-		$edit_post_date=$_GET['announcement_lecture_id'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT announcement_lecture.date_created, announcement_lecture.messageorfile_caption,announcement_lecture.file_path, announcement_lecture.file_name, 
-		section_list.sectionNo, section_list.section_name, registration.reg_lname, registration.reg_fname, registration.reg_mname 
-		from section_list inner join section on section_list.sectionID=section.sectionID 
-		inner join registration on section.teacherID=registration.reg_id 
-		inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-		inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created
-		where announcement_lecture.date_created = '$edit_post_date' 
-		order by announcement_lecture.date_created desc";
-
-		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-		$first = true;
-		echo "{\"edit_post\": [";
-		while($row = mysqli_fetch_array($fetch))
-		{
-			if($first) 
-			{
-				echo json_encode($row);
-				$first = false;
-			}		 
-			else 
-			{
-				echo ',' . json_encode($row);
-			}
-		}
-		
-		echo "]}";	
-
-		
-	}
-
-	if(isset($_GET['edit-post-form']))
-	{
-		
-		$response = array();
-
-		$date_created = $_POST['edpostdate'];
-		$messageorfile_caption = clean($_POST['edpostmorf']);
-
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		if( !empty($messageorfile_caption) )
-		{
-		
-			$result=post_file($date_created);
-
-			if(isset($result['success']) || array_key_exists('success', $result))
-			{
-
-				$sql="UPDATE announcement_lecture 
-				SET messageorfile_caption = '$messageorfile_caption', file_name = '".$result['file_name']."' where date_created='$date_created'";			  
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
-				{
-					$response = array('success' => 'Post Information Updated');
-					
-				}	
-
-			}
-
-			else if(isset($result['empty']) || array_key_exists('empty', $result))//without file update
-			{
-				$sql="UPDATE announcement_lecture 
-				SET messageorfile_caption = '$messageorfile_caption' where date_created='$date_created'";	
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
-				{
-					$response = array('success' => 'Post Information Updated');
-				}	
-			}	
-			else if(isset($result['error']) || array_key_exists('error', $result))
-			{
-				$response = array('error' => $result['error']);
-			}
-					
-		}
-		else
-		{
-			$response = array('error' => 'The form is incomplete');
-		}	
-
-		echo json_encode($response);			
-	}
-
-	function post_file($date_created)
-	{
 	
-		$data = array();
-
-			if(!empty($_FILES['edpostfile']['name']))
-			{
-				$name = $_FILES['edpostfile']['name'];
-				$tmp_name = $_FILES['edpostfile']['tmp_name'];
-				/*$upload_error = $_FILES['upload_lecture']['error'];*/
-				$allowedextension = array('gif', 'jpeg', 'jpg','png',
-									  'doc','docx','docm','docb','pdf','dotm','dotx',
-									  'xls','xlsx','xlsm','xltx','xltm','xlsb',
-									  'ppt','pptx','pptm','potx','potm','ppam','ppsx','ppsm','sldx','sldm',
-									  '7z','rar','swf','zip');
-
-
-				$temp = explode(".",$name);
-				$nameoffile = $temp[0];
-				$extension = end($temp);
-
-				if(in_array($extension,$allowedextension))
-				{
-					
-						$location = "../../model/uploaded_files/";
-
-						$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-						$sql="SELECT file_name FROM announcement_lecture where date_created='$date_created' and file_name='$name'";
-
-        				$result=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-        				$file_exists = mysqli_num_rows($result);
-
-
-						if($file_exists > 0)
-						{
-							$data = array('error' => 'File already exist');
-						} 
-						else
-						{
-							
-							if(move_uploaded_file($tmp_name,$location.$name))
-							{
-								/*$files[] = $location.$name;*/
-								$data=array('success' => 'File Saved','file_name' => $name);
-							}
-							else
-							{
-								$data = array('error'=>'There was an error uploading your file');
-							}	
-						}	
-						
-					
-						
-				}
-				else
-				{
-					$data = array('error'=>'Invalid file extension');
-				}
-			}
-			else
-			{
-				$data = array('empty'=>'$_FILES is empty');
-			}	
-
-				return $data;
-	}
-
-	if(isset($_GET['edit_user_id']))
-	{
-		$edit_user_id=$_GET['edit_user_id'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT * FROM create_account where account_id = '$edit_user_id'";
-
-		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-		$first = true;
-		echo "{\"edit_user\": [";
-		while($row = mysqli_fetch_array($fetch))
-		{
-			if($first) 
-			{
-				echo json_encode($row);
-				$first = false;
-			}		 
-			else 
-			{
-				echo ',' . json_encode($row);
-			}
-		}
-		
-		echo "]}";	
-	}
-
-	if(isset($_GET['edit-user-form']))
-	{
-		
-		$response = array();
-		$username=clean($_POST['eduserusername']);
-		$password=clean($_POST['eduserpassword']);
-		$secret_question=clean($_POST['edusersecretquestion']);
-		$secret_answer=clean($_POST['edusersecretanswer']);
-		$usertype=clean($_POST['edusertype']);
-		$id=$_POST['eduserid'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		if( !empty($username) and !empty($password) and !empty($secret_question) and !empty($secret_answer) and !empty($usertype) )
-		{ 
-		
-				$sql="UPDATE create_account SET username_ = '$username', password_ = '$password', 
-											secret_question = '$secret_question', secret_answer = '$secret_answer', 
-											user_type = '$usertype' where account_id='$id'";
-
-				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($successful)
-				{
-					$response = array('success' => 'User Account Updated');
-				}	
-				else 
-				{
-					$response = array('error' => 'User Account Update Failed');
-				}
-					
-		}
-		else
-		{
-			$response = array('error' => 'The form is incomplete');
-		}	
-
-		echo json_encode($response);			
-	}
-
 	//add admin
 	if(isset($_GET['create-admin-id']))
 	{
@@ -1425,12 +1413,10 @@
 		$reg_status = clean($_POST['addadmstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addadmbirthday']));
 		$reg_address = clean($_POST['addadmaddress']);
-		$secret_question=$_POST['addadminsecretquestion'];
-		$secret_answer=$_POST['addadminsecretanswer'];
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($secret_question) and !empty($secret_answer) )
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday)  )
 		{
 			
 			$result=new_admin_img();
@@ -1453,8 +1439,8 @@
 						$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
 						$password=generate_password_alphanum(8);
 
-						$sql="INSERT INTO create_account (username_, password_, secret_question, secret_answer, user_type, account_id) 
-						VALUES ('$username', '$password', '$secret_question', '$secret_answer', 'admin', '$id')";
+						$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+						VALUES ('$username', '$password', 'admin', '$id')";
 
 						$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 						if($account_created)
@@ -1473,7 +1459,11 @@
 					}	
 					
 					
-				}	
+				}
+				else
+				{
+					$response = array('error' => 'Add Administrator Failed');
+				}		
 
 			}
 
@@ -1588,12 +1578,10 @@
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addteachbirthday']));
 		$reg_address = clean($_POST['addteachaddress']);
 		$t_position = clean($_POST['addteachtposition']);
-		$secret_question=$_POST['addteachersecretquestion'];
-		$secret_answer=$_POST['addteachersecretanswer'];
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($secret_question) and !empty($secret_answer) )
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) )
 		{
 		
 			$result=new_teacher_img();
@@ -1615,8 +1603,8 @@
 						$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
 						$password=generate_password_alphanum(8);
 
-						$sql="INSERT INTO create_account (username_, password_, secret_question, secret_answer, user_type, account_id) 
-						VALUES ('$username', '$password', '$secret_question', '$secret_answer', 'teacher', '$id')";
+						$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+						VALUES ('$username', '$password', 'teacher', '$id')";
 
 						$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 						if($account_created)
@@ -1634,6 +1622,10 @@
 					{
 						$response = array('error' => 'Add Teacher Failed');
 					}
+				}
+				else
+				{
+					$response = array('error' => 'Add Teacher Failed');
 				}
 			}
 
@@ -1750,12 +1742,10 @@
 		$parent_fname = clean($_POST['addstudparentfname']);
 		$parent_mname = clean($_POST['addstudparentmname']);
 		$parent_defaultbday = date('Y-m-d');
-		$secret_question=$_POST['addstudentsecretquestion'];
-		$secret_answer=$_POST['addstudentsecretanswer'];
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($parent_lname) and !empty($parent_fname) and !empty($secret_question) and !empty($secret_answer) )
+		if( !empty($reg_lname) and !empty($reg_fname) and !empty($reg_birthday) and !empty($parent_lname) and !empty($parent_fname) )
 		{
 		
 			$result=new_student_img();
@@ -1790,8 +1780,8 @@
 								$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
 								$password=generate_password_alphanum(8);
 
-								$sql="INSERT INTO create_account (username_, password_, secret_question, secret_answer, user_type, account_id) 
-								VALUES ('$username', '$password', '$secret_question', '$secret_answer', 'student', '$id')";
+								$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+								VALUES ('$username', '$password', 'student', '$id')";
 
 								$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 								if($account_created)
@@ -1809,7 +1799,20 @@
 								$response = array('error' => 'Add Student Failed');
 							}
 						}
-					}	
+						else
+						{
+							$response = array('error' => 'Add Student Failed');
+						}
+					}
+					else
+					{
+						$response = array('error' => 'Add Student Failed');
+					}
+
+				}
+				else
+				{
+					$response = array('error' => 'Add Student Failed');
 				}						
 
 			}
@@ -2033,249 +2036,850 @@
 		echo json_encode($response);			
 	}
 
-	//add post
-	if(isset($_GET['create-post-id']))
+	//Add Student Spreadsheet
+	if(isset($_GET['add-student-spreadsheet']))
 	{
-		$post_id=date('Y-m-d H:i:s');
+		$response = array();
 
-		echo "{\"create_post_id\": [{\"post_id\":". json_encode($post_id)."}";
+		$add_student_spreadsheet=array();
 
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT distinct section.teacherID, registration.reg_lname, registration.reg_fname, registration.reg_mname 
-		from section inner join teacher on section.teacherID=teacher.teacherID 
-		inner join registration on teacher.teacherID=registration.reg_id order by registration.reg_lname";
-
-		$fetch=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-		$first = true;
-		echo "],\"create_post_teacher_list\": [";
-		while($row = mysqli_fetch_array($fetch))
+		$result=add_student_excel_upload();
+		
+		if(isset($result['success']) || array_key_exists('success', $result))
 		{
-			if($first) 
-			{
-				echo json_encode($row);
-				$first = false;
-			}		 
-			else 
-			{
-				echo ',' . json_encode($row);
-			}
-		}
-		
-		echo "]}";	
+			$add_student_spreadsheet[]=$result['data'];
 
-		
+					$sheet_result_gather=array();
+					$sheet_row_flag=array();
+					$sheet_col_flag=array();
+					$tester=array();
+					$has_error='';
+					$error='';
+
+					//process spreadsheet
+
+					//Find Flags in spreadsheet
+					foreach ($add_student_spreadsheet as $singlesheet) 
+					{
+						foreach ($singlesheet as $sheetNo => $row) 
+					    { 
+					        foreach($row as $rowNo => $rowArray)
+					        {
+					         
+					            foreach($rowArray as $col => $values)
+					            {
+
+					            	//Get the lastname flag coordinates
+				                	$row_new_value=preg_replace('/\s+/','',$values);
+				                	$row_lastname_length=strlen('lastname');
+				                	$row_lastname=substr($row_new_value, 0 , $row_lastname_length);
+			                        $row_valid_flag=strcasecmp($row_lastname, 'lastname');
+			                        //If scanned value matched
+			                        if($row_valid_flag == 0)
+			                        {
+			                            $row_flag=array('sheetNo'=>$sheetNo,'flag'=>'lastname', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_row_flag[]=$row_flag;
+			                            
+			                        }
+			                        else
+									{
+										//Prompt LASTNAME Flag do not exist in spreadsheet
+									}	//End of valid flag
+
+			                        //The mandatory fields are LASTNAME, FIRSTNAME
+			                        //Get the information flags coordinates
+
+			                        //LASTNAME
+			                        $col_lastname_value=preg_replace('/\s+/','',$values);
+				                	$col_lastname_length=strlen('lastname');
+				                	$col_lastname=substr($col_lastname_value, 0 , $col_lastname_length);
+			                        $col_lastname_flag=strcasecmp($col_lastname, 'lastname');
+			                        //If scanned value matched
+			                        if($col_lastname_flag == 0)
+			                        {
+			                            $lastname_flag=array('sheetNo'=>$sheetNo,'flag'=>'lastname', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$lastname_flag;
+			                            
+			                        }
+			                        else
+									{
+										//Prompt LASTNAME Flag do not exist in spreadsheet
+									}	//End of valid flag
+
+									//FIRSTNAME
+									$col_firstname_value=preg_replace('/\s+/','',$values);
+				                	$col_firstname_length=strlen('firstname');
+				                	$col_firstname=substr($col_firstname_value, 0 , $col_firstname_length);
+			                        $col_firstname_flag=strcasecmp($col_firstname, 'firstname');
+			                        //If scanned value matched
+			                        if($col_firstname_flag == 0)
+			                        {
+			                            $firstname_flag=array('sheetNo'=>$sheetNo,'flag'=>'firstname', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$firstname_flag;
+			                            
+			                        }
+			                        else
+									{
+										//Prompt FIRSTNAME Flag do not exist in spreadsheet
+									}	//End of valid flag
+
+									//MIDDLENAME
+									$col_middlename_value=preg_replace('/\s+/','',$values);
+				                	$col_middlename_length=strlen('middlename');
+				                	$col_middlename=substr($col_middlename_value, 0 , $col_middlename_length);
+			                        $col_middlename_flag=strcasecmp($col_middlename, 'middlename');
+			                        //If scanned value matched
+			                        if($col_middlename_flag == 0)
+			                        {
+			                            $middlename_flag=array('sheetNo'=>$sheetNo,'flag'=>'middlename', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$middlename_flag;
+			                            
+			                        }
+			                      
+
+									//GENDER
+									$col_gender_value=preg_replace('/\s+/','',$values);
+				                	$col_gender_length=strlen('gender');
+				                	$col_gender=substr($col_gender_value, 0 , $col_gender_length);
+			                        $col_gender_flag=strcasecmp($col_gender, 'gender');
+			                        //If scanned value matched
+			                        if($col_gender_flag == 0)
+			                        {
+			                            $gender_flag=array('sheetNo'=>$sheetNo,'flag'=>'gender', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$gender_flag;
+			                            
+			                        }
+
+			                        //STATUS
+									$col_status_value=preg_replace('/\s+/','',$values);
+				                	$col_status_length=strlen('status');
+				                	$col_status=substr($col_status_value, 0 , $col_status_length);
+			                        $col_status_flag=strcasecmp($col_status, 'status');
+			                        //If scanned value matched
+			                        if($col_status_flag == 0)
+			                        {
+			                            $status_flag=array('sheetNo'=>$sheetNo,'flag'=>'status', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$status_flag;
+			                            
+			                        }
+
+			                        //BIRTHDAY
+									$col_birthday_value=preg_replace('/\s+/','',$values);
+				                	$col_birthday_length=strlen('birthday');
+				                	$col_birthday=substr($col_birthday_value, 0 , $col_birthday_length);
+			                        $col_birthday_flag=strcasecmp($col_birthday, 'birthday');
+			                        //If scanned value matched
+			                        if($col_birthday_flag == 0)
+			                        {
+			                            $birthday_flag=array('sheetNo'=>$sheetNo,'flag'=>'birthday', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$birthday_flag;
+			                            
+			                        }
+
+			                        //ADDRESS
+									$col_address_value=preg_replace('/\s+/','',$values);
+				                	$col_address_length=strlen('address');
+				                	$col_address=substr($col_address_value, 0 , $col_address_length);
+			                        $col_address_flag=strcasecmp($col_address, 'address');
+			                        //If scanned value matched
+			                        if($col_address_flag == 0)
+			                        {
+			                            $address_flag=array('sheetNo'=>$sheetNo,'flag'=>'address', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$address_flag;
+			                            
+			                        }
+
+			                        //GUARDIAN LASTNAME
+									$col_glastname_value=preg_replace('/\s+/','',$values);
+				                	$col_glastname_length=strlen('guardianlastname');
+				                	$col_glastname=substr($col_glastname_value, 0 , $col_glastname_length);
+			                        $col_glastname_flag=strcasecmp($col_glastname, 'guardianlastname');
+			                        //If scanned value matched
+			                        if($col_glastname_flag == 0)
+			                        {
+			                            $glastname_flag=array('sheetNo'=>$sheetNo,'flag'=>'guardianlastname', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$glastname_flag;
+			                            
+			                        }
+
+			                        //GUARDIAN FIRSTNAME
+									$col_gfirstname_value=preg_replace('/\s+/','',$values);
+				                	$col_gfirstname_length=strlen('guardianfirstname');
+				                	$col_gfirstname=substr($col_gfirstname_value, 0 , $col_gfirstname_length);
+			                        $col_gfirstname_flag=strcasecmp($col_gfirstname, 'guardianfirstname');
+			                        //If scanned value matched
+			                        if($col_gfirstname_flag == 0)
+			                        {
+			                            $gfirstname_flag=array('sheetNo'=>$sheetNo,'flag'=>'guardianfirstname', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$gfirstname_flag;
+			                            
+			                        }
+			       
+			                        //GUARDIAN MIDDLENAME
+									$col_gmiddlename_value=preg_replace('/\s+/','',$values);
+				                	$col_gmiddlename_length=strlen('guardianmiddlename');
+				                	$col_gmiddlename=substr($col_gmiddlename_value, 0 , $col_gmiddlename_length);
+			                        $col_gmiddlename_flag=strcasecmp($col_gmiddlename, 'guardianmiddlename');
+			                        //If scanned value matched
+			                        if($col_gmiddlename_flag == 0)
+			                        {
+			                            $gmiddlename_flag=array('sheetNo'=>$sheetNo,'flag'=>'guardianmiddlename', 'row'=>$rowNo, 'column'=>$col);
+				    					$sheet_col_flag[]=$gmiddlename_flag;
+			                            
+			                        }
+				
+				                	//End of Get the information flags coordinates
+					               
+					            }//End of rowArray
+					            
+					        }//End of row      
+					       
+					    }//End of singlesheet
+					}//End of spreadsheet
+
+					$counter=0;
+					foreach ($add_student_spreadsheet as $spreadsheetno => $sheet) 
+			        {
+
+			            foreach ($sheet as $sheetno => $sheetrow) 
+			            { 
+
+			                //Initialize array for current sheet rows
+			                $current_sheet_rows=array();
+			                //Initialize  array for current sheet columns
+			                $current_sheet_columns=array();
+
+			                //Find the last row flag for the current sheet
+			                foreach ($sheet_row_flag as $row_flag_) 
+			                {
+			                    if($row_flag_['sheetNo']==$sheetno)//get all rows for current sheet
+			                    {
+			                        $current_sheet_rows[]=$row_flag_;
+			                    }
+			                            
+			                }
+
+			                //Find the last column flag for the current sheet
+			                foreach ($sheet_col_flag as $col_flag_) 
+			                {
+			                    if($col_flag_['sheetNo']==$sheetno)//get all columns for current sheet
+			                    {
+			                        $current_sheet_columns[]=$col_flag_;
+			                    }
+			                            
+			                }
+
+							$batchrow=count($current_sheet_rows);
+							$num_of_column;
+							while ($batchrow > 0) 
+							{
+
+								if($batchrow > 1)
+					            {
+					                $current_row=(int) $current_sheet_rows[0]['row'];
+			                        $next_row=(int) $current_sheet_rows[1]['row'];
+			                        //Get the fields columns
+			                        $field_column=array();
+			                        
+
+			                        foreach ($current_sheet_columns as $columnrow) 
+			                        {
+			                            if($columnrow['row']==$current_row)
+			                            {
+			                                
+			                                $field_column[]=$columnrow;
+
+			                            }   
+			                        }
+
+			                       $num_of_column=count($field_column);
+			                       
+			                       $scanned_value=array();
+			                       
+			                        //$singlesheet[0]=>$row 
+			                        for ($row_counter=$current_row+1; $row_counter < $next_row ; $row_counter++)
+			                        { 
+			                            
+			                            //$row[0]=>$rowarray 
+			                           	$blank_columns=false;
+			                        	$lastname=$firstname=$middlename=$gender=$status=$birthday=$address=$guardianlastname=$guardianfirstname=$guardianmiddlename='';
+			                            //There should be all blank row checker 
+			                            foreach($add_student_spreadsheet[$spreadsheetno][$sheetno][$row_counter] as $column_ => $value_)
+			                            {
+			                            	//Load field columns
+			                            	foreach ($field_column as $field) 
+			                            	{
+			                            		if($column_==$field['column'])
+			                                    {
+			                                    	if($field['flag']=='lastname')
+			                                    	{
+			                                    		$lastname=$value_;
+			                                    	}
+			                                    	if($field['flag']=='firstname')
+			                                    	{
+			                                    		$firstname=$value_;
+			                                    	}
+			                                    	if($field['flag']=='middlename')
+			                                    	{
+			                                    		$middlename=$value_;
+			                                    	}		
+			                                    	if($field['flag']=='gender')
+			                                    	{
+			                                    		$gender=$value_;
+			                                    	}
+			                                    	if($field['flag']=='status')
+			                                    	{
+			                                    		$status=$value_;
+			                                    	}
+			                                    	if($field['flag']=='birthday')
+			                                    	{
+			                                    		$birthday=$value_;
+			                                    	}				
+			                                    	if($field['flag']=='address')
+			                                    	{
+			                                    		$address=$value_;
+			                                    	}
+			                                    	if($field['flag']=='guardianlastname')
+			                                    	{
+			                                    		$guardianlastname=$value_;
+			                                    	}
+			                                    	if($field['flag']=='guardianfirstname')
+			                                    	{
+			                                    		$guardianfirstname=$value_;
+			                                    	}		
+			                                    	if($field['flag']=='guardianmiddlename')
+			                                    	{
+			                                    		$guardianmiddlename=$value_;
+			                                    	}			
+			                                    	
+			                                 	}
+
+			                            	}//end of Load field columns    	
+			                            }
+
+					          			if(empty($lastname) and empty($firstname) and empty($middlename) and empty($gender) and empty($status) and empty($birthday) 
+					          			and empty($address) and empty($guardianlastname) and empty($guardianfirstname) and empty($guardianmiddlename))
+					          			{
+					          				$blank_columns=true;
+					          			}
+
+					          			if($blank_columns==false)
+					          			{
+
+						          			foreach($add_student_spreadsheet[$spreadsheetno][$sheetno][$row_counter] as $column_ => $value_)
+				                            {
+				                                //Load field columns
+				                            	foreach ($field_column as $field) 
+				                            	{
+				                            		if($column_==$field['column'])
+				                                    {
+				                                    	if(!empty($value_))
+				                                    	{
+				                                    		$value_ = ucwords(strtolower($value_));
+				                                    		$scanned_value[$field['flag']]=$value_;
+				                                    	}
+				                                    	else
+				                                    	{
+				                                    		
+
+				                                    		if($field['flag']=='lastname')
+				                                    		{
+				                                    			$error=$error . ' Last Name Empty at row:'.$row_counter.' col: '.$column_.'. ';
+				                                    		}
+
+				                                    		if($field['flag']=='firstname')
+				                                    		{
+				                                    			$error=$error . ' First Name Empty at row:'.$row_counter.' col: '.$column_.'. ';
+				                      
+				                                    		}
+
+				                                    		if(!empty($error))
+				                                    		{
+				                                    			
+				                                    			$has_error=$error;
+
+				                                    		}	
+
+				                                    		
+				                                    		$scanned_value[$field['flag']]="";
+				                                    	}	
+				                                       
+				                                    }
+
+				                            	}//end of Load field columns
+
+				                            }//rowArray
+				                            $sheet_result_gather[$counter]=$scanned_value;
+				                            $counter++;
+					          			}	
+
+			                        }//row    
+
+					            }//end if greater than 1 row
+					           	else //If one row
+					            {	
+
+					         		$current_row=(int) $current_sheet_rows[0]['row'];
+					                $sheetrows=count($sheetrow);
+					                //Get the fields columns
+			                        $field_column=array();
+
+			                        foreach ($current_sheet_columns as $columnrow) 
+			                        {
+			                            if($columnrow['row']==$current_row)
+			                            {
+			                                
+			                                $field_column[]=$columnrow;
+
+			                            }   
+			                        }
+					               
+
+									$num_of_column=count($field_column);
+
+			                        $scanned_value=array();
+
+			                        //$singlesheet[0]=>$row 
+			                        for ($row_counter=$current_row+1; $row_counter < $sheetrows+1 ; $row_counter++)
+			                        { 
+			                            
+			                            //$row[0]=>$rowarray 
+			                        	$blank_columns=false;
+			                        	$lastname=$firstname=$middlename=$gender=$status=$birthday=$address=$guardianlastname=$guardianfirstname=$guardianmiddlename='';
+			                            //There should be all blank row checker 
+			                            foreach($add_student_spreadsheet[$spreadsheetno][$sheetno][$row_counter] as $column_ => $value_)
+			                            {
+			                            	//Load field columns
+			                            	foreach ($field_column as $field) 
+			                            	{
+			                            		if($column_==$field['column'])
+			                                    {
+			                                    	if($field['flag']=='lastname')
+			                                    	{
+			                                    		$lastname=$value_;
+			                                    	}
+			                                    	if($field['flag']=='firstname')
+			                                    	{
+			                                    		$firstname=$value_;
+			                                    	}
+			                                    	if($field['flag']=='middlename')
+			                                    	{
+			                                    		$middlename=$value_;
+			                                    	}		
+			                                    	if($field['flag']=='gender')
+			                                    	{
+			                                    		$gender=$value_;
+			                                    	}
+			                                    	if($field['flag']=='status')
+			                                    	{
+			                                    		$status=$value_;
+			                                    	}
+			                                    	if($field['flag']=='birthday')
+			                                    	{
+			                                    		$birthday=$value_;
+			                                    	}				
+			                                    	if($field['flag']=='address')
+			                                    	{
+			                                    		$address=$value_;
+			                                    	}
+			                                    	if($field['flag']=='guardianlastname')
+			                                    	{
+			                                    		$guardianlastname=$value_;
+			                                    	}
+			                                    	if($field['flag']=='guardianfirstname')
+			                                    	{
+			                                    		$guardianfirstname=$value_;
+			                                    	}		
+			                                    	if($field['flag']=='guardianmiddlename')
+			                                    	{
+			                                    		$guardianmiddlename=$value_;
+			                                    	}			
+			                                    	
+			                                 	}
+
+			                            	}//end of Load field columns    	
+			                            }
+
+					          			if(empty($lastname) and empty($firstname) and empty($middlename) and empty($gender) and empty($status) and empty($birthday) 
+					          			and empty($address) and empty($guardianlastname) and empty($guardianfirstname) and empty($guardianmiddlename))
+					          			{
+					          				$blank_columns=true;
+					          			}
+
+					          			if($blank_columns==false)
+					          			{
+					          				
+						          			foreach($add_student_spreadsheet[$spreadsheetno][$sheetno][$row_counter] as $column_ => $value_)
+				                            {
+				                                //Load field columns
+				                            	foreach ($field_column as $field) 
+				                            	{
+				                            		if($column_==$field['column'])
+				                                    {
+				                                    	if(!empty($value_))
+				                                    	{
+				                                    		$value_ = ucwords(strtolower($value_));
+				                                    		$scanned_value[$field['flag']]=$value_;
+				                                    	}
+				                                    	else
+				                                    	{
+				                                    		
+
+				                                    		if($field['flag']=='lastname')
+				                                    		{
+				                                    			$error=$error . ' Last Name Empty at row:'.$row_counter.' col: '.$column_.'.' . "\n";
+				                                    		}
+
+				                                    		if($field['flag']=='firstname')
+				                                    		{
+				                                    			$error=$error . ' First Name Empty at row:'.$row_counter.' col: '.$column_.'.'. "\n";
+				                      
+				                                    		}
+
+				                                    		if(!empty($error))
+				                                    		{
+				                                    			
+				                                    			$has_error= $error;
+
+				                                    		}	
+
+				                                    		
+				                                    		$scanned_value[$field['flag']]="";
+				                                    	}	
+				                                       
+				                                    }
+
+				                            	}//end of Load field columns
+
+				                            }//rowArray
+				                            $sheet_result_gather[$counter]=$scanned_value;
+				                            $counter++;
+					          			}	
+
+
+
+			                        }//row  
+
+					            }//End of If one row
+
+
+				                //Do the remove rows after scan
+			                    array_shift($current_sheet_rows);
+			                    //Remove the cols flags by row
+
+			                    for ($i=0; $i < $num_of_column; $i++) 
+			                    { 
+			                    
+			                    	array_shift($current_sheet_columns);
+			                    }
+								
+
+								$batchrow--;
+							}//end of while
+
+			            }//End of singlesheet
+			        }//End of spread sheet
+
+			        if(!empty($sheet_result_gather) and empty($has_error))
+			        {
+			        	$response = array('success' => $sheet_result_gather);
+			        }
+			        else
+			        {
+			        	if(!empty($has_error))
+			        	{
+			        		$response = array('error' => $has_error . 'Please fix your spreadsheet and try again');
+			        	}
+			        	else
+			        	{
+			        		$response = array('error' => 'Scan Empty! Something is wrong with the spreadsheet format');
+			        	}	
+	        	
+			        }	
+			       
+		}
+		else if(isset($result['error']) || array_key_exists('error', $result))
+		{
+			$response = array('error' => $result['error']);
+		}
+
+		echo json_encode($response);	
 
 	}
 
-	if(isset($_GET['add-post-sectionlist']))
+function add_student_excel_upload()
+{
+	include '../plugins/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
+	$sheetData=array();//initialize 
+	$result=array();
+
+	$name = $_FILES['addstudentexcel']['name'];
+	$inputFile = $_FILES['addstudentexcel']['tmp_name'];
+	$allowedextension = array('xls','xlsx');
+
+
+	$temp = explode(".",$name);
+	$nameoffile = $temp[0];
+	$extension = end($temp);
+	if(in_array($extension,$allowedextension))
 	{
-		$selected_teacher=$_GET['selected_teacher'];
-
-		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-		$sql="SELECT distinct section.sectionID, section_list.sectionNo, section_list.section_name 
-		FROM section inner join section_list on section.sectionID=section_list.sectionID 
-		where section.teacherID='$selected_teacher'";
-
-		$section_list=mysqli_query($cxn, $sql) or die('Unable to connect to Database'.mysqli_error($cxn));
-
-		$first = true;
-		echo "{\"section_list\":[";
-		while($row = mysqli_fetch_array($section_list))
+		if($_FILES['addstudentexcel']['error']>0)
 		{
-			if($first)
-			{
-				echo json_encode($row);
-				$first = false;
+			
+			$result=array('error'=>'File error'); 
+			
+		}
+		else
+		{
+			
+			
+			try{
+				//Read spreadsheet workbook
+				$inputFileType=PHPExcel_IOFactory::identify($inputFile);
+				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$objReader->setReadDataOnly(false);
+				$objReader->setLoadAllSheets();
+				$objPHPExcel = $objReader->load($inputFile);
+				$loadedSheetNames = $objPHPExcel->getSheetNames();
+
+				//Get Sheet Name 
+				foreach ($loadedSheetNames as $sheetIndex => $sheetName) 
+				{
+
+	                	//convert to csv
+						$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'csv');
+						$objWriter->setDelimiter('`');
+						$objWriter->setEnclosure(' ');
+						$objWriter->setLineEnding("\n");
+						$objWriter->setSheetIndex($sheetIndex);
+						$objWriter->save('../../model/uploaded_files/spreadsheets/csv/'.$nameoffile.'-'.$sheetName.'.csv');
+
+						//read csv
+						$csvFile='../../model/uploaded_files/spreadsheets/csv/'.$nameoffile.'-'.$sheetName.'.csv';
+						$inputCSVType=PHPExcel_IOFactory::identify($csvFile);
+						$csvReader=PHPExcel_IOFactory::createReader($inputCSVType);
+						$csvReader->setDelimiter('`');
+						$csvReader->setEnclosure(' ');
+						$csvReader->setLineEnding("\n");
+						$csvReader->setReadDataOnly(false);
+						$csvPHPExcel = $csvReader->load($csvFile);
+	
+						$sheetData[] = $csvPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+	                	
+				}	
+
 			}
-			else
+			catch(PHPExcel_Reader_Exception $e)
 			{
-				echo ',' . json_encode($row);
-			}	
+				die($e->getMessage());
+			}
+
+		
+				if(!empty($sheetData))
+				{
+					$location = "../../model/uploaded_files/spreadsheets/";
+					if(move_uploaded_file($inputFile,$location.$name))
+					{
+						$result=array('success' => 'excel',
+									'file_name' => $name,'data'=>$sheetData);
+					}
+					else
+					{	
+						$rowData = array('error'=>'File error');
+					}	
+				}
+				else
+				{
+					$rowData = array('error'=>'There was an error reading the spreadsheet');
+				}	
+
+		}
+	}
+	else
+	{
+		$result=array('error'=>'Invalid File or No File Selected'); 
+		
+	}
+
+	return $result;
+}
+
+if(isset($_GET['add-scan-student']))
+{
+	$response = array();
+
+	$scan_student=json_decode($_POST['scan_student'], true);
+	$skipped_students="";
+	//Insert the data
+	foreach ($scan_student as $row) 
+	{
+		$id = createStudentId();
+		$reg_lname = clean($row['lastname']);
+		$reg_fname = clean($row['firstname']);
+		$reg_mname = clean($row['middlename']);
+		$reg_gender = clean($row['gender']);
+		$reg_status = clean($row['status']);
+		$reg_birthday;
+		if(!empty($row['birthday']))
+		{
+			$reg_birthday = date('Y-m-d',strtotime($row['birthday']));
+		}
+		else
+		{
+			$reg_birthday = date('Y-m-d');
 		}	
-		echo "]}";
-	}	
-
-	if(isset($_GET['add-post-form']))
-	{
 		
-		$response = array();
-
-		$date_created = $_POST['addpostdate'];
-		$messageorfile_caption = clean($_POST['addpostmorf']);
-		$teacher_id=clean($_POST['teacher']);
-		$section_id=clean($_POST['section']);
+		$reg_address = clean($row['address']);
+		$parent_lname = clean($row['guardianlastname']);
+		$parent_fname = clean($row['guardianfirstname']);
+		$parent_mname = clean($row['guardianmiddlename']);
+		$parent_defaultbday = date('Y-m-d');
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($messageorfile_caption) and !empty($teacher_id) and !empty($section_id) )
+    	if( !empty($reg_lname) and !empty($reg_fname) )
 		{
-		
-			$result=new_post_file();
+			//check first if student already existing in database
+			$sql="SELECT reg_lname, reg_fname, reg_birthday FROM registration where reg_lname='$reg_lname' and reg_fname='$reg_fname' and reg_birthday='".$reg_birthday."'";
+			$is_existing=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+			$num_rows = mysqli_num_rows($is_existing);
 
-			if(isset($result['success']) || array_key_exists('success', $result))
-			{
-
-				$sql="INSERT INTO announcement_lecture(date_created, messageorfile_caption, file_path, file_name) 
-												VALUES ('$date_created','$messageorfile_caption','model/uploaded_files/','".$result['file_name']."')";			  
-
-				$post_inserted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($post_inserted )
+	        if ($num_rows==0)
+	        {
+	        	if(!empty($parent_lname) or !empty($parent_fname) or !empty($parent_mname))
 				{
-					$query="SELECT class_rec_no from section where section.teacherID = '$teacher_id' and section.sectionID='$section_id'"; 
+					$parent_id=createParentId();
 
-			        $fetch_class_rec= mysqli_query($cxn,$query);
+					$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_birthday) 
+											VALUES ('$parent_id','$reg_lname','$reg_fname','$reg_mname', '".$parent_defaultbday."')";
 
+					$p_registered=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($p_registered)
+					{
+						$sql="INSERT INTO parent(parentID) VALUES ('$parent_id')";
 
-			        while($each_rec = mysqli_fetch_array($fetch_class_rec))
-			        {
-			            
-			            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$date_created."')";
+						$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
-			            $insert_done=mysqli_query($cxn,$insert);
-
-			            if($insert_done)
-			            {
-			            	$response = array('success' => 'New Post Created');
-			            }
-			            else 
+						if($p_added)
 						{
-							$response = array('error' => 'Add Post Failed');
-						}		
-			        }
-					
+							$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, reg_address) 
+											VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','$reg_address')";
+
+							$s_registered = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+							if($s_registered)
+							{
+								$sql="INSERT INTO student (student_lrn, parentID) VALUES ('$id', '$parent_id')";
+
+								$student_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+								if($student_created)
+								{
+									$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
+									$password=generate_password_alphanum(8);
+
+									$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+									VALUES ('$username', '$password', 'student', '$id')";
+
+									$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+									if($account_created)
+									{
+										$response = array('success' => 'New Student Accounts Created');
+									}
+									else
+									{
+										$response = array('error' => 'Add Students Failed');
+									}	
+
+								}
+								else
+								{
+									$response = array('error' => 'Add Students Failed');
+								}
+							}
+							else
+							{
+								$response = array('error' => 'Add Students Failed');
+							}
+						}
+						else
+						{
+							$response = array('error' => 'Add Students Failed');
+						}
+
+					}
+					else
+					{
+						$response = array('error' => 'Add Students Failed');
+					}						
+
 				}
-				else 
+
+				else
 				{
-					$response = array('error' => 'Add Post Failed');
+					$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, reg_address) 
+					VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','$reg_address')";
+
+					$s_registered = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($s_registered)
+					{
+						$sql="INSERT INTO student (student_lrn) VALUES ('$id')";
+
+						$student_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+						if($student_created)
+						{
+							$username=createUsername($id,$reg_fname,$reg_mname,$reg_lname);
+							$password=generate_password_alphanum(8);
+
+							$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+							VALUES ('$username', '$password', 'student', '$id')";
+
+							$account_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+							if($account_created)
+							{
+								$response = array('success' => 'New Student Accounts Created');
+							}
+							else
+							{
+								$response = array('error' => 'Add Students Failed');
+							}	
+
+						}
+						else
+						{
+							$response = array('error' => 'Add Students Failed');
+						}
+					}
+					else
+					{
+						$response = array('error' => 'Add Students Failed');
+					}
 				}	
 
-			}
 
-			else if(isset($result['empty']) || array_key_exists('empty', $result))//without file update
-			{
-				$sql="INSERT INTO announcement_lecture(date_created, messageorfile_caption) 
-												VALUES ('$date_created','$messageorfile_caption')";			  
+	        }//else if already existing
+	        else
+	        {
+	        	//List the skipped students
+	        	$skipped_students = $skipped_students . $reg_lname . ", ". $reg_fname . "\n";
 
-				$post_inserted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($post_inserted )
-				{
-
-			        $query="SELECT class_rec_no from section where section.teacherID = '$teacher_id' and section.sectionID='$section_id'"; 
-
-			        $fetch_class_rec= mysqli_query($cxn,$query);
-
-
-			        while($each_rec = mysqli_fetch_array($fetch_class_rec))
-			        {
-			            
-			            $insert="INSERT INTO post_announcement_lecture VALUES('".$each_rec['class_rec_no']."','".$date_created."')";
-
-			            $insert_done=mysqli_query($cxn,$insert);
-
-			            if($insert_done)
-			            {
-			            	$response = array('success' => 'New Post Created');
-			            }
-			            else 
-						{
-							$response = array('error' => 'Add Post Failed');
-						}		
-			        }
-
-				}
-				else 
-				{
-					$response = array('error' => 'Add Post Failed');
-				}	
-
-			}	
-			else if(isset($result['error']) || array_key_exists('error', $result))
-			{
-				$response = array('error' => $result['error']);
-			}
+	        }	
 					
 		}
 		else
 		{
-			$response = array('error' => 'The form is incomplete');
-		}	
+			$response = array('error' => 'Lastname and Firstname are empty! Something went wrong in scanning.');
+		}
 
-		echo json_encode($response);			
-	}
 
-	function new_post_file()
+	}//end of foreach
+
+	if(!empty($skipped_students))
 	{
-	
-		$data = array();
-
-			if(!empty($_FILES['addpostfile']['name']))
-			{
-				$name = $_FILES['addpostfile']['name'];
-				$tmp_name = $_FILES['addpostfile']['tmp_name'];
-				
-				$allowedextension = array('gif', 'jpeg', 'jpg','png',
-									  'doc','docx','docm','docb','pdf','dotm','dotx',
-									  'xls','xlsx','xlsm','xltx','xltm','xlsb',
-									  'ppt','pptx','pptm','potx','potm','ppam','ppsx','ppsm','sldx','sldm',
-									  '7z','rar','swf','zip');
-
-
-				$temp = explode(".",$name);
-				$nameoffile = $temp[0];
-				$extension = end($temp);
-
-				if(in_array($extension,$allowedextension))
-				{
-					
-						$location = "../../model/uploaded_files/";
-
-						$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-						$sql="SELECT file_name FROM announcement_lecture where file_name='$name'";
-
-        				$result=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-
-        				$file_exists = mysqli_num_rows($result);
-
-
-						if($file_exists > 0)
-						{
-							$data = array('error' => 'File already exist');
-						} 
-						else
-						{
-							
-							if(move_uploaded_file($tmp_name,$location.$name))
-							{
-								
-								$data=array('success' => 'File Saved','file_name' => $name);
-							}
-							else
-							{
-								$data = array('error'=>'There was an error uploading your file');
-							}	
-						}	
-						
-					
-						
-				}
-				else
-				{
-					$data = array('error'=>'Invalid file extension');
-				}
-			}
-			else
-			{
-				$data = array('empty'=>'$_FILES is empty');
-			}	
-
-				return $data;
+		$response['skipped']= "Skipped Students are already in database: \n" . $skipped_students;
 	}
-
-
+	
+	echo json_encode($response);
+}
 
 	function clean($str)
 	{

@@ -20,6 +20,11 @@ body
 	scrollbar-track-color: RGB(140, 140, 140);
 	scrollbar-arrow-color: RGB(50, 50, 50);
 
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-size: 14px !important;
+	line-height: 1.42857143 !important;
+	color: #333 !important;
+
 }
 
 @font-face 
@@ -66,8 +71,49 @@ hr
 	margin-right: 15px;
 	margin-left	: 15px;
 }
+.has-margin-left-right-10
+{
+	margin-right:10px;
+	margin-left:10px;
+}
+.has-margin-left-35
+{
+	margin-left: 35px;
+}
+.has-margin-left-45
+{
+	margin-left: 45px;
+}
+.has-margin-bottom-10
+{
+	margin-bottom: 10px !important;
+}
+
+.has-padding-1
+{	
+	padding:1px;
+
+}
+.has-margin-right-5
+{
+	margin-right: 5px;
+}
+
+.has-padding-left-5
+{	
+	padding-left:5px;
+
+}
+.has-padding-right-5
+{	
+	padding-right:5px;
+
+}
 .has-padding-top{
 	padding-top: 10px;
+}
+.has-padding-top-5{
+	padding-top: 5px;
 }
 .no-margin-bottom
 {
@@ -77,13 +123,41 @@ hr
 {
 	margin:0px !important;
 }
+.no-padding-top
+{
+	padding-top:0px !important;
+}
+.no-padding-bottom
+{
+	padding-bottom:0px !important;
+}
+.no-padding-top-bottom {
+	padding-top: 0!important;
+	padding-bottom: 0!important;
+}
 .no-padding
 {
 	padding:0px !important;
 }
+.has-padding-left
+{
+	padding-left: 15px !important;
+}
+.has-padding-right
+{
+	padding-right: 15px !important;
+}
 .remove-left-padding
 {
-	padding-left: -15px;
+	padding-left: -15px !important;
+}
+.no-text-decoration
+{
+	text-decoration: none !important;
+}
+.no-border
+{
+	border: 0px !important;
 }
 .shadow
 {
@@ -94,6 +168,11 @@ hr
 {
 	margin-top:10px;
 }
+.has-inline
+{
+float: left; 
+display: inline;
+}
 
 /**Main**/
 .main 
@@ -102,21 +181,23 @@ hr
 	height: auto !important;
 	margin-top:60px;
 }
-/**Aside Left**/
-.aside-left
+/**Left Content**/
+.left-content
 {
 	background-color: rgba(150, 190, 220, 0.2);
 	height: 100%;
-	position:fixed;
 
 }
-
 
 .welcome-box{
 
     background-color: #FFF;
     border-radius: 2px;
     margin-bottom: 10px;
+    min-height: 75px;
+    height:75px;
+    word-wrap: break-word;
+    white-space:normal !important;
 }
 
 .welcome-box-img
@@ -129,8 +210,19 @@ margin:5px 5px 5px 5px;
 
 .greetings
 {
-	display:inline-block;
+	/*display:inline-block;*/
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
 	padding:1px;
+	cursor: pointer;
+	text-decoration: none !important;
+
+}
+
+.menu-box-img {
+	margin: auto;
+    height: 45px;
+    width: 45px;
 }
 
 /**Main Content**/
@@ -139,6 +231,15 @@ margin:5px 5px 5px 5px;
 	background-color: rgba(133, 166, 220, 0.2);
 	height: 100%;
 }
+
+/**Right Content**/
+.right-content
+{
+	background-color: rgba(150, 190, 220, 0.2);
+	height: 100%;
+
+}
+
 
 
 /** HomePage **/
@@ -324,6 +425,50 @@ fieldset{
 }
 
 /** Teachers Page **/
+/*Side-bar*/
+#teacher-side-menu
+{
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+}
+
+.teacher-side-menu-heading
+{
+    background-color:#FFF;
+    color:#1F4788;
+    border-radius: inherit;
+}
+.teacher-side-menu-heading:hover
+{
+    background-color: #59ABE3;
+    border-radius: inherit;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+.teacher-side-menu-click
+{
+	background-color:#89C4F4;
+	color:#1F4788;
+    border-radius: inherit;
+}
+.teacher-side-menu-title
+{
+	cursor: pointer;
+}
+
 #nav-search{
 	float:left;
 	display:inline-block;
@@ -386,22 +531,10 @@ margin:8px 0px 8px 8px;
 }
 
 #subject-list{
-    background-color: #FFF;
-	border-radius: 2px;
-	box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-	margin-bottom: 14px;
+    background-color: #875F9A;
+    color:#FFF;
+    font-family: 'Source Sans Pro', sans-serif;
 }
-
-
-#subject-list-title
-{
-
-	background-color: #efefef;
-	border-radius: 2px 2px 0px 0px;
-	overflow: visible;
-}
-
-
 
 .right-column
 {
@@ -445,17 +578,6 @@ box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
 
 }
 
-.post-lecture-image
-{
-margin: 5px 5px 5px 5px;
-height:120px;
-width:120px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
-
-}
 
 #create-exercise
 {
@@ -495,20 +617,128 @@ transition-property: #000, border, box-shadow;
 
 }
 
-#post-container-relative
-{
-	margin-bottom: 10px;
-	position:relative;
-	top:210px;
-	margin-left: 10px;
-}
-
+/*Teacher Post Messages*/
 #post-container
 {
-
-border-radius: 2px;
+	margin-bottom: 10px;
 
 }
+.post-box
+{
+	position: relative;
+	background: #ffffff;
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+    border-radius: 0px !important;
+    border-top: 2px solid #59ABE3;
+	box-sizing: border-box;
+}
+.post-box-header
+{
+	min-height: 75px;
+    height:75px;
+
+}
+.post-message-img
+{
+margin: auto auto;
+height:50px;
+width:50px;
+border: 2px solid #59ABE3;
+}
+
+.message-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	margin-left: 10px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.timespan
+{
+	/*display:inline;*/
+	margin-left:10px;
+
+}
+
+.attachment
+{
+	border-radius: 3px;
+	background: #F2F1EF;
+	padding: 10px;
+}
+
+.post-lecture-image
+{
+height:70px;
+width:70px;
+}
+
+.post-comment-img
+{
+	margin: auto auto;
+	height:40px;
+	width:45px;
+	border: 1px solid #BDC3C7;
+}
+.message
+{
+	font-size: 15px;
+
+}
+
+.comment-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	font-weight: bold;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+
+.comment-timespan
+{
+	/*display:inline;*/
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 11px;
+
+}
+.comment
+{
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+.edit-post
+{
+	cursor: pointer
+}
+.delete-post
+{
+	cursor:pointer;
+}
+
+/*End of Teacher Post Messages*/
+
+
 .post-messages
 {
 	background-color: #FFF;
@@ -518,34 +748,7 @@ border-radius: 2px;
 
 }
 
-.post-message-img
-{
-margin: auto auto;
-height:50px;
-width:50px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
-}
 
-.message-author
-{
-	display:inline-block;
-	margin-left:7px;
-	vertical-align:top;
-	text-decoration:none;
-}
-
-.timespan
-{
-
-	display:inline;
-	clear:left;
-	font-size: 10px;
-	margin-left:7px;
-	text-decoration:none;
-}
 
 .sample_lecture
 {
@@ -592,11 +795,13 @@ border-bottom-left-radius: 2px;
 
 #post-title
 {
-background: rgba(204, 204, 255, .9);
-font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+font-size: 18px;
 color: #333;
 padding: 0px;
 height:30px;
+
+
 }
 
 
@@ -613,6 +818,127 @@ height:30px;
 float:right;
 display:inline-block;
 }
+
+/** Student Page**/
+#student-post-container
+{
+	margin-bottom: 10px;
+
+}
+.student-post-box
+{
+	position: relative;
+	background: #ffffff;
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+    border-radius: 0px !important;
+    border-top: 2px solid #59ABE3;
+	box-sizing: border-box;
+}
+.student-post-box-header
+{
+	min-height: 75px;
+    height:75px;
+
+}
+.student-post-message-img
+{
+margin: auto auto;
+height:50px;
+width:50px;
+border: 2px solid #59ABE3;
+}
+
+.student-message-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	margin-left: 10px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.student-timespan
+{
+	/*display:inline;*/
+	margin-left:10px;
+
+}
+
+.student-attachment
+{
+	border-radius: 3px;
+	background: #F2F1EF;
+	padding: 10px;
+}
+
+.student-post-lecture-image
+{
+height:70px;
+width:70px;
+}
+
+.student-post-comment-img
+{
+	margin: auto auto;
+	height:40px;
+	width:45px;
+	border: 1px solid #BDC3C7;
+}
+.student-message
+{
+	font-size: 15px;
+
+}
+
+.student-comment-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	font-weight: bold;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+
+.student-comment-timespan
+{
+	/*display:inline;*/
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 11px;
+
+}
+.student-comment
+{
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+.student-edit-post
+{
+	cursor: pointer
+}
+.student-delete-post
+{
+	cursor:pointer;
+}
+
+/**End of Student Page**/
 
 /** Progress Page**/
 
@@ -638,20 +964,19 @@ display:inline-block;
 
 border-radius: 2px;
 margin-bottom: 10px;
-position:relative;
-top:50px;
+
 }
 
-.student-list-title-holder
+/*.student-list-title-holder
 {
 border-radius: 2px 2px 0px 0px;
-}
+}*/
 
 #student-list-title
 {
 
-background: rgba(204, 204, 255, .9);
-font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+font-size: 18px;
 color: #333;
 padding: 0px;
 height:30px;
@@ -677,6 +1002,11 @@ height:30px;
     margin-right: 10px;
     margin-bottom: 10px;
 
+}
+.getLRN
+{
+	text-decoration: none !important;
+	cursor:pointer;
 }
 
 #student-search-form {
@@ -731,47 +1061,74 @@ height:30px;
 	color:#9197a3;
 }
 
-
-/**Encoding Page**/
-#encoding-container
-{
-
-border-radius: 2px;
-margin-bottom: 10px;
-margin-top: 10px;
-
+/*Modal*/
+.modal-dialog-full {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
 }
 
-#encoding-page-title
-{
-
-background-color: rgba(204, 204, 255, .9);
-border-radius: 2px 2px 0px 0px;
-font: 20px Helvetica Neue,Helvetica,Arial,sans-serif;
-color: #383D48;
-
+.modal-content-full {
+  height: 100% !important;
+  border-radius: 0 !important;
 }
 
-.encoding-page-space
-{
-	padding-top: 5px;
-	background-color: #FFF;
-    border-radius: 2px;
-    margin-bottom: 10px;
+.modal-dialog-encode {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
 
+.modal-content-encode {
+  height: 100% !important;
+  border-radius: 0 !important;
 }
-.process-img
-{
-margin: 5px 5px 5px 5px;
-height:500px;
-width:700px;
-border-top-left-radius: 2px;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
-border-bottom-left-radius: 2px;
-}
+
 
 /**Student Page**/
+
+#student-side-menu
+{
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+}
+
+.student-side-menu-heading
+{
+    background-color:#FFF;
+    color:#1F4788;
+    border-radius: inherit;
+}
+.student-side-menu-heading:hover
+{
+    background-color: #59ABE3;
+    border-radius: inherit;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+.student-side-menu-click
+{
+	background-color:#89C4F4;
+	color:#1F4788;
+    border-radius: inherit;
+}
+.student-side-menu-title
+{
+	cursor: pointer;
+}
 
 .student-title
 {
@@ -964,17 +1321,10 @@ margin:8px 0px 8px 8px;
 
 #student-post-title
 {
-padding: 15px 20px;
-border-bottom: 1px solid #DFE4E8;
-border-radius: 2px 2px 2px 2px;
-box-shadow: 0px 1px 5px 0px rgba(56, 61, 72, 0.21);
-background: rgba(204, 204, 255, .9);
-font: 18px Helvetica Neue,Helvetica,Arial,sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+font-size: 18px;
 color: #333;
-margin: 0px;
 padding: 0px;
-
-width:700px;
 height:30px;
 }
 
@@ -1579,7 +1929,7 @@ float:left;
  	box-sizing: border-box;
 	color: #49515B;
 	font-family: "Montserrat",sans-serif;
-	font-size: 38px;
+	font-size: 25px;
 	font-weight: 700;
 	line-height: 41.8px;
 	margin-bottom: 5px;
@@ -1598,6 +1948,22 @@ float:left;
 
 }
 
+/*Teacher Student Progress*/
+.teacher-student-progress
+{
+	margin-top: 20px !important;
+}
+
+/*Parent Student Progress*/
+.parent-student-progress
+{
+	margin-top: 20px !important;
+}
+
+.teacher-encoding
+{
+	margin-top: 20px !important;
+}
 /*Admin Page*/
 /*Navbar*/
 .profile-admin-img
@@ -1606,25 +1972,27 @@ height:40px;
 width:40px;
 margin:8px 0px 8px 8px;
 }
-/*Welcome Box*/
-.admin-welcome-box{
 
-    background-color: #FFF;
-    border-radius: 2px;
-    margin-bottom: 10px;
-}
-
-.admin-welcome-box-img
-{
-
-height:60px;
-width:60px;
-margin:5px 5px 5px 5px;
-}
 /*Side bar Menu*/
+#admin-side-menu
+{
+	/*word-wrap: break-word;*/
+		/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+}
 .admin-side-menu-heading
 {
-    background-color:rgba(15, 8, 52, 0.7);
+    background-color:#044F67;
     color:#FFF;
     border-radius: inherit;
 }
@@ -1639,7 +2007,7 @@ margin:5px 5px 5px 5px;
 }
 .admin-side-menu-click
 {
-	background-color:#3379b8;
+	background-color:#22A7F0;
 	color:#FFF;
     border-radius: inherit;
 }
@@ -1873,6 +2241,21 @@ color: #666;
 .table-striped-orange > tbody > tr:nth-of-type(odd) {
   background-color: #fcf8e3;
 }
+
+.tr-striped-orange
+{
+	background-color: #F7ECB5;
+}
+
+.table-striped-green  
+{
+  background-color: #c1e2b3;
+}
+
+.data-hover
+{
+	cursor: pointer;
+}
 /*Add Post*/
 .post-add-file-browse
 {
@@ -1881,8 +2264,395 @@ color: #666;
   left:180px;
 }
 
-@media screen and (max-width: 377px) {
-    h3 {
-        font-size:16px;
-    }
+/*Right Content*/
+.post-parent-box
+{
+	position: relative; 
+	overflow:hidden; 
+	width: auto; 
+	height: 150px;
+
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+	box-sizing: border-box;
+}
+.post-parent-box-container
+{
+	margin-bottom: 5px;
+	padding-right: 10px;
+}
+.post-parent-img
+{
+	margin: auto;
+	width: 32px;
+	height:32px;
+	border: 2px solid #59ABE3 !important;
+}
+.post-parent-msg
+{
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+.post-parent-msg-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	font-weight: bold;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+
+.post-parent-msg-timespan
+{
+	/*display:inline;*/
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 11px;
+
+}
+.post-parent-msg-controls
+{
+	color: #aaa;
+	font-size: 12px;
+	cursor:pointer;
+	padding-top:1px;
+	margin-right: 10px;
+	text-decoration: none !important;
+
+}
+.post-parent-msg-footer
+{
+	padding: 0px !important;
+	background-color: #FCF8E3 !important;
+	border-top: 0px !important;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.control-anchor
+{
+	white-space: nowrap;
+}
+.blank_canvas
+{
+	width:500px;
+	height: 445px;
+}
+
+/*Student List*/
+#student-list-side-menu
+{
+	position: relative; 
+	overflow:hidden; 
+	width: auto; 
+	height: 300px;
+
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+	box-sizing: border-box;
+
+}
+
+.student-list-side-menu-heading
+{
+    background-color:#FFF;
+    color:#1F4788;
+    border-radius: inherit;
+}
+.student-list-side-menu-heading:hover
+{
+    background-color: #EEEEEE;
+    border-radius: inherit;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+/*.student-list-side-menu-click
+{
+	background-color:#89C4F4;
+	color:#1F4788;
+    border-radius: inherit;
+}*/
+.student-list-side-menu-title
+{
+	cursor: pointer;
+}
+.student-list-controls
+{
+	color: #aaa;
+	font-size: 12px;
+	cursor:pointer;
+	padding-top:1px;
+	margin-right: 10px;
+	text-decoration: none !important;
+
+}
+
+/*Parent Page*/
+/*Parent Post Messages*/
+#parent-post-container
+{
+	margin-bottom: 10px;
+
+}
+.parent-post-box
+{
+	position: relative;
+	background: #ffffff;
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+    border-radius: 0px !important;
+    border-top: 2px solid #59ABE3;
+	box-sizing: border-box;
+}
+.parent-post-box-header
+{
+	min-height: 75px;
+    height:75px;
+
+}
+.parent-post-message-img
+{
+margin: auto auto;
+height:50px;
+width:50px;
+border: 2px solid #59ABE3;
+}
+
+.parent-message-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	margin-left: 10px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.parent-timespan
+{
+	/*display:inline;*/
+	margin-left:10px;
+
+}
+
+.parent-message
+{
+	font-size: 15px;
+
+}
+
+/*Teacher List*/
+#teacher-list-side-menu
+{
+	position: relative; 
+	overflow:hidden; 
+	width: auto; 
+	height: 300px;
+
+	/*word-wrap: break-word;*/
+	/* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for webkit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+    white-space:normal !important;
+	box-sizing: border-box;
+
+}
+
+.teacher-list-side-menu-heading
+{
+    background-color:#FFF;
+    color:#1F4788;
+    border-radius: inherit;
+}
+.teacher-list-side-menu-heading:hover
+{
+    background-color: #EEEEEE;
+    border-radius: inherit;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+/*.student-list-side-menu-click
+{
+	background-color:#89C4F4;
+	color:#1F4788;
+    border-radius: inherit;
+}*/
+.teacher-list-side-menu-title
+{
+	cursor: pointer;
+}
+#teacher_list
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143
+	
+}
+
+/*modal*/
+#parent-student-subject-list{
+    background-color: #875F9A;
+    color:#FFF;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.student-modal-lg
+{
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+font-size: 14px !important;
+line-height: 1.42857143 !important;
+color: #333 !important;
+
+}
+
+
+
+
+/*End of Parent Post Messages*/
+
+/**Encoding Page**/
+#encoding-container
+{
+
+border-radius: 2px;
+margin-bottom: 10px;
+margin-top: 10px;
+
+}
+
+#encoding-page-title
+{
+
+font-family: 'Source Sans Pro', sans-serif;
+font-size: 18px;
+color: #333;
+padding: 0px;
+height: 30px;
+
+}
+
+.encoding-page-space
+{
+	padding-top: 5px;
+	background-color: #FFF;
+    border-radius: 2px;
+    margin-bottom: 10px;
+
+}
+.process-img
+{
+margin: 5px 5px 5px 5px;
+height:500px;
+width:700px;
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
+border-bottom-right-radius: 2px;
+border-bottom-left-radius: 2px;
+}
+.preview
+{
+	
+	text-decoration: none !important;
+	cursor:pointer !important;
+}
+
+/*
+    Colorbox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxWrapper {max-width:none;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
+.cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of Colorbox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#000; opacity: 0.9; filter: alpha(opacity = 90);}
+#colorbox{outline:0;}
+    #cboxContent{margin-top:20px;background:#000;}
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{border:5px solid #000; background:#fff;}
+        #cboxTitle{position:absolute; top:-20px; left:0; color:#ccc;}
+        #cboxCurrent{position:absolute; top:-20px; right:0px; color:#ccc;}
+        #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
+
+        /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+        #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; width:auto; background:none; }
+        
+        /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+        #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
+        
+        #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
+        #cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
+        #cboxPrevious:hover{background-position:bottom left;}
+        #cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
+        #cboxNext:hover{background-position:bottom right;}
+        #cboxClose{position:absolute; top:5px; right:5px; display:block; background:url(images/controls.png) no-repeat top center; width:38px; height:19px; text-indent:-9999px;}
+        #cboxClose:hover{background-position:bottom center;}
+
+.progress-encode {
+  font-family: "Montserrat",sans-serif;
+  font-size: 18px;
+  padding:3px;
+
 }

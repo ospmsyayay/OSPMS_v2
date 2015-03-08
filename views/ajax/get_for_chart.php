@@ -1,334 +1,940 @@
 <?php
     session_start();
+    //Start get_student_list
 
-    if(isset($_GET['lrn']))
+        if(isset($_GET['class_rec_no']))
+        {   $class_rec_no="";
+            $class_rec_no = $_POST['class_rec_no'];
+
+            $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+            $join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image 
+            from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+            inner join registration on student_schedule_line.student_lrn = registration.reg_id 
+            where section.class_rec_no = '".$class_rec_no."' order by registration.reg_lname";
+     
+                
+            $result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+                $first = true;
+                echo "{\"student_list\": [";
+                while($display = mysqli_fetch_array($result))
+                {
+                    if($first) 
+                    {
+                        echo json_encode($display);
+                             $first = false;
+                    }        
+                    else 
+                    {
+                        echo ',' . json_encode($display);
+                    }
+                }
+                
+                echo "]}";  
+
+        }
+
+        
+            if(isset($_GET['student_search']))
+            {
+
+                $student_search=$_POST['student_search'];
+
+
+                /*echo "{\"student_filter\": [".json_encode($student_search)."]}";*/
+                $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+                if(!empty($student_search))
+                {
+
+                    $join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image 
+                    from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+                    inner join registration on student_schedule_line.student_lrn = registration.reg_id 
+                    where section.teacherID = '".$_SESSION['account_id']."' and student_lrn LIKE '%$student_search%' or reg_lname LIKE '%$student_search%' 
+                    or reg_fname LIKE '%$student_search%' or reg_mname LIKE '%$student_search%' order by registration.reg_lname";
+
+                    $join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));;
+
+                    $first = true;
+                    echo "{\"student_filter\": [";
+                    while($display = mysqli_fetch_array($join_result))
+                    {
+                        if($first) 
+                        {
+                            echo json_encode($display);
+                            $first = false;
+                        }        
+                        else 
+                        {
+                            echo ',' . json_encode($display);
+                        }
+                    }
+                    
+                    echo "]}";
+                }
+                else if(empty($student_search))
+                {
+                    $join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image 
+                    from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+                    inner join registration on student_schedule_line.student_lrn = registration.reg_id 
+                    where section.teacherID = '".$_SESSION['account_id']."' order by registration.reg_lname";
+
+                    $join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));;
+
+                    $first = true;
+                    echo "{\"student_filter\": [";
+                    while($display = mysqli_fetch_array($join_result))
+                    {
+                        if($first) 
+                        {
+                            echo json_encode($display);
+                            $first = false;
+                        }        
+                        else 
+                        {
+                            echo ',' . json_encode($display);
+                        }
+                    }
+                    
+                    echo "]}";
+                }   
+                    
+            }
+
+            if(isset($_GET['student_search_class']))
+            {
+                $class_rec_no="";
+                $student_search_class=$_POST['student_search_class'];
+                $class_rec_no_class=$_POST['class_rec_no_class'];
+
+                $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+                if(!empty($student_search_class))
+                {
+                    /*echo "{\"student_filter_class\": [".json_encode($student_search_class).','.json_encode($class_rec_no)."]}";*/
+
+                    $join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image 
+                    from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+                    inner join registration on student_schedule_line.student_lrn = registration.reg_id 
+                    where section.class_rec_no='".$class_rec_no_class."' 
+                    and student_lrn LIKE '%$student_search_class%' or reg_lname LIKE '%$student_search_class%' 
+                    or reg_fname LIKE '%$student_search_class%' or reg_mname LIKE '%$student_search_class%' order by registration.reg_lname";
+     
+                
+                    $result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+                    $first = true;
+                    echo "{\"student_filter_class\": [";
+                    while($display = mysqli_fetch_array($result))
+                    {
+                        if($first) 
+                        {
+                            echo json_encode($display);
+                                 $first = false;
+                        }        
+                        else 
+                        {
+                            echo ',' . json_encode($display);
+                        }
+                    }
+                    
+                    echo "]}";  
+                        
+                }
+                else if(empty($student_search_class))
+                {
+                    $join="Select distinct student_schedule_line.student_lrn, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image 
+                    from section inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
+                    inner join registration on student_schedule_line.student_lrn = registration.reg_id 
+                    where section.class_rec_no='".$class_rec_no_class."' order by registration.reg_lname";
+     
+                
+                    $result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+                    $first = true;
+                    echo "{\"student_filter_class\": [";
+                    while($display = mysqli_fetch_array($result))
+                    {
+                        if($first) 
+                        {
+                            echo json_encode($display);
+                                 $first = false;
+                        }        
+                        else 
+                        {
+                            echo ',' . json_encode($display);
+                        }
+                    }
+                    
+                    echo "]}";  
+                }   
+            }
+
+
+    //End get_student_list
+
+    if(isset($_GET['passLRN']))
     {
 
-        $_SESSION['lrn'] = $_GET['lrn']; // Pass the student's number here using $_GET[]
+        $lrn = $_POST['lrn']; // Pass the student's number here using $_GET[]
 
         $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-        $profile = mysqli_query ($cxn,"SELECT reg_lname, reg_fname, image FROM registration  WHERE reg_id='".$_SESSION['lrn']."'");
+        $profile = mysqli_query ($cxn,"SELECT reg_lname, reg_fname, image FROM registration  WHERE reg_id='".$lrn."'");
 
         $fetch_profile=mysqli_fetch_array($profile);
                                      
-        $_SESSION['ts_reg_lname']=$fetch_profile['reg_lname'];
-        $_SESSION['ts_reg_fname']=$fetch_profile['reg_fname'];
-        $_SESSION['ts_profile_pic']=$fetch_profile['image'];
+        $ts_reg_lname=$fetch_profile['reg_lname'];
+        $ts_reg_fname=$fetch_profile['reg_fname'];
+        $ts_profile_pic=$fetch_profile['image'];
 
+        $teacher_student_school_year=get_school_year();
 
-
-        $_SESSION['Teacher_Student_Schedule_Line']=array();
+        $Teacher_Student_Schedule_Line=array();
     
 
-        $join="Select section.subjectID, subject_.subject_title from section 
+        $join="SELECT section.class_rec_no, registration.reg_id, registration.reg_lname, registration.reg_fname, registration.reg_mname, registration.image, 
+        grade_level.level_description, section_list.sectionNo, section_list.section_name, subject_.subject_title, 
+        sched_days, sched_start_time, sched_end_time, school_year FROM section 
+        inner join grade_level on section.levelID=grade_level.levelID 
+        inner join section_list on section.sectionID=section_list.sectionID 
+        inner join subject_ on section.subjectID=subject_.subjectID 
+        inner join registration on section.teacherID=registration.reg_id 
         inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
-        inner join subject_ on section.subjectID=subject_.subjectID where student_lrn = '".$_SESSION['lrn']."'";
+        where student_schedule_line.student_lrn='$lrn' and section.school_year='".$teacher_student_school_year."'
+        order by grade_level.level_description";
                     
-        $subjects=mysqli_query($cxn,$join) or die('Unable to connect to Database.');
+        $studentload=mysqli_query($cxn,$join) or die('Unable to connect to Database. Teacher_Student_Schedule_Line Problem'. mysqli_error($cxn));
     
-        while($travsubjects = mysqli_fetch_array($subjects))
+        while($travload = mysqli_fetch_array($studentload))
         {
-            
-            $subjectIdPasser=array();
-        
-            $subjectIdPasser['subjectID']=$travsubjects['subjectID'];
-            
-            $subject_title = $travsubjects['subject_title'];
-                    
-            $_SESSION['Teacher_Student_Schedule_Line'][$subject_title ]=null;
-            
+            $passer=array();
 
-                    $join="Select section.levelID,grade_level.level_description from section 
-                    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
-                    inner join grade_level on section.levelID=grade_level.levelID where student_lrn = '".$_SESSION['lrn']."' and subjectID ='".$subjectIdPasser['subjectID']."'";
+            $passer['class_rec_no']=$travload['class_rec_no'];
+            $passer['teacher_id']=$travload['reg_id'];
+            $passer['teacher_lname']=$travload['reg_lname'];
+            $passer['teacher_fname']=$travload['reg_fname'];
+            $passer['teacher_mname']=$travload['reg_mname'];
+            $passer['teacher_image']=$travload['image'];
+            $passer['level_description']=$travload['level_description'];
+            $passer['sectionNo']=$travload['sectionNo'];
+            $passer['section_name']=$travload['section_name'];
+            $passer['subject_title']=$travload['subject_title'];
+            $passer['sched_days']=$travload['sched_days'];
+            $passer['sched_start_time']=convert_time_to_12hr($travload['sched_start_time']);
+            $passer['sched_end_time']=convert_time_to_12hr($travload['sched_end_time']);
+
+            $Teacher_Student_Schedule_Line[]=$passer;
     
-                    $grades=mysqli_query($cxn,$join) or die('Unable to connect to Database.');
-                                
-                        while($travgrades = mysqli_fetch_array($grades))
-                        {
-                            $levelIdPasser=array();
-                            
-                            $levelIdPasser['levelID']=$travgrades['levelID'];
-                            
-                            $level_description=$travgrades ['level_description'];
-                                                
-                                $_SESSION['Teacher_Student_Schedule_Line'][$subject_title][$level_description]=null;
-                            
-
-                                    $join="Select section_list.sectionNo,section_list.section_name from section_list 
-                                    inner join section on section_list.sectionID=section.sectionID 
-                                    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
-                                    where student_lrn = '".$_SESSION['lrn']."' and subjectID ='".$subjectIdPasser['subjectID']."' and levelID = '".$levelIdPasser['levelID']."'";
-
-                                    $section=mysqli_query($cxn,$join) or die('Unable to connect to Database.');
-                                            
-                                            while($travsectionNo=mysqli_fetch_array($section))
-                                            {
-                                            
-                                                $sectionNo=$travsectionNo['sectionNo'];
-                                                $sectionName=$travsectionNo['section_name'];
-                                                
-                                                $_SESSION['Teacher_Student_Schedule_Line'][$subject_title][$level_description][$sectionNo][$sectionName]=null;
-                                    
-                                            
-                                                
-                                            }
-                    
-                        }
-                        
         }
 
+         echo "{\"lrn\": [" . json_encode($lrn). "],\"ts_reg_lname\":[". json_encode($ts_reg_lname)."],\"ts_reg_fname\":[". json_encode($ts_reg_fname)."],\"ts_profile_pic\":[". json_encode($ts_profile_pic)."]";
+         echo ",\"teacher_student_school_year\": [" . json_encode($teacher_student_school_year). "],\"Teacher_Student_Schedule_Line\": [" . json_encode($Teacher_Student_Schedule_Line). "]";
+         echo "}";
 
-
-       /* echo "{\"lrn\": [" . json_encode($_SESSION['lrn']). "]}";*/
 
     }
-
-    if( isset($_GET['ts_subject_chart']) )
-    {
-        $_SESSION['ts_clicked_subject'] = $_GET['ts_subject_chart'];
-
-        echo "{\"clicked\": [" .json_encode($_SESSION['ts_clicked_subject']). ', '.json_encode($_SESSION['lrn']). "]}";
-    }
-
-    
+  
     if( isset($_GET['gradingPeriod']) and isset($_GET['ts_onload']) )
     {
 
-            /* Do not touch the codes below unless you know what you're doing. */
             $gp = $_GET['gradingPeriod'];
+            $chart_class_rec_no=$_GET['chart_class_rec_no'];
+            $lrn=$_GET['chart_lrn'];
 
             $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-            if($_GET['ts_onload']=='subject')
-            {
-                $subject_sql="Select subjectID from subject_ where subject_title='".$_SESSION['ts_clicked_subject']."'";
-                $subject_result=mysqli_query($cxn,$subject_sql);
-                $subject_row = mysqli_fetch_row($subject_result);
-                $_SESSION['ts_chart_subjectID'] = $subject_row[0];
+            //knowledge--------------------------------------------------------------------------------------------------------------------------------------
 
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                /*$query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "{\"knowledge\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                        /*echo json_encode((($row[3] + $row[4] + $row[5]) / 3) * 0.15);*/
-                        echo json_encode(($row[4])/**0.15*/);
-                        $first = false;
-                    } else {
-                        /*echo ',' . json_encode((($row[3] + $row[4] + $row[5]) / 3) * 0.15);*/
-                        echo ',' . json_encode(($row[4])/**0.15*/);
-                    }
-                }
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-               /* $query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "],\"process\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                        /*echo json_encode((($row[6] + $row[7] + $row[8]) / 3) * 0.25);*/
-                        echo json_encode($row[4]/**0.25*/);
-                        $first = false;
-                    } else {
-                       /* echo ',' . json_encode((($row[6] + $row[7] + $row[8]) / 3) * 0.25);*/
-                        echo ',' . json_encode($row[4]/**0.25*/);
-                    }
-                }
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                /* $query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "],\"understanding\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                        /*echo json_encode((($row[9] + $row[10] + $row[11]) / 3) * 0.30);*/
-                        echo json_encode($row[4]/**0.30*/);
-                        $first = false;
-                    } else {
-                       /* echo ',' . json_encode((($row[9] + $row[10] + $row[11]) / 3) * 0.30);*/
-                       echo ',' . json_encode($row[4]/**0.30*/);
-                    }
-                }
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID  
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                /*$query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "],\"performance\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                       /* echo json_encode((($row[12] + $row[13] + $row[14]) / 3) * 0.30);*/
-                       echo json_encode($row[4]/**0.30*/);
-                        $first = false;
-                    } else {
-                       /* echo ',' . json_encode((($row[12] + $row[13] + $row[14]) / 3) * 0.30);*/
-                       echo ',' . json_encode($row[4]/**0.30*/);
-                    }
-                }
-
-                 $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.* FROM section_list 
-                inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['lrn']."' and subjectID='".$_SESSION['ts_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
-                
-                $first = true;
-                echo "],\"progress_data\":[";
-                while($row = mysqli_fetch_array($query))
-                {
-                    if($first){
-                        echo json_encode($row);
-                        $first = false;
-                    } else {
-                        echo ',' . json_encode($row);
-                    }
-                }    
-
-                echo "]}";
-
-            }
-           
-    }
-
-    if( isset($_GET['subject_chart']) )
-    {
-        $_SESSION['clicked_subject'] = $_GET['subject_chart'];
-
-        echo "{\"clicked\": [" .json_encode($_SESSION['clicked_subject']). "]}";
-    }
-
-    if( isset($_GET['s_gradingPeriod']) and isset($_GET['onload']) )
-    {
-
-           
-            $gp = $_GET['s_gradingPeriod'];
-
-            $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-        if($_GET['onload']=='subject')
-        { 
-            $subject_sql="Select subjectID from subject_ where subject_title='".$_SESSION['clicked_subject']."'";
-            $subject_result=mysqli_query($cxn,$subject_sql);
-            $subject_row = mysqli_fetch_row($subject_result);
-            $_SESSION['student_chart_subjectID'] = $subject_row[0];
-            
-            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
-            FROM section_list inner join section on section_list.sectionID=section.sectionID 
-            inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-            where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='1'";
 
             $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
 
             $first = true;
-            echo "{\"knowledge\": [";
-            while($row = mysqli_fetch_array($query)) {
-                if($first) {
-                
-                    echo json_encode(($row[4])/**0.15*/);
+            echo "{\"grading_week1_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
                     $first = false;
-                } else {
-              
-                    echo ',' . json_encode(($row[4])/**0.15*/);
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
                 }
             }
 
-            
-            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
-            FROM section_list inner join section on section_list.sectionID=section.sectionID  
-            inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-            where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='2'";
 
-            $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
 
             $first = true;
-            echo "],\"process\": [";
-            while($row = mysqli_fetch_array($query)) {
-                if($first) {
-                   
-                    echo json_encode($row[4]/**0.25*/);
+            echo "],\"grading_week2_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
                     $first = false;
-                } else {
-                 
-                    echo ',' . json_encode($row[4]/**0.25*/);
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
                 }
             }
 
-            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
-            FROM section_list inner join section on section_list.sectionID=section.sectionID  
-            inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-            where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-            
-            $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
 
             $first = true;
-            echo "],\"understanding\": [";
-            while($row = mysqli_fetch_array($query)) {
-                if($first) {
-                   
-                    echo json_encode($row[4]/**0.30*/);
+            echo "],\"grading_week3_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
                     $first = false;
-                } else {
-          
-                   echo ',' . json_encode($row[4]/**0.30*/);
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
                 }
             }
 
-            
-            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
-            FROM section_list inner join section on section_list.sectionID=section.sectionID 
-            inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-            where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='4'";
 
-            $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
 
             $first = true;
-            echo "],\"performance\": [";
-            while($row = mysqli_fetch_array($query)) {
-                if($first) {
-                   
-                   echo json_encode($row[4]/**0.30*/);
+            echo "],\"grading_week4_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
                     $first = false;
-                } else {
-                   
-                   echo ',' . json_encode($row[4]/**0.30*/);
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+           
+
+            //process-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week1_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='2'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            ///understanding----------------------------------------------------------------------------------------------------------------------------------
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week1_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='2'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            //product/performance-----------------------------------------------------------------------------------------------------------------------------
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week1_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='2'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='$lrn' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
                 }
             }
 
             $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.* FROM section_list 
             inner join section on section_list.sectionID=section.sectionID 
             inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-            where student_rating.student_lrn='".$_SESSION['account_id']."' and subjectID='".$_SESSION['student_chart_subjectID']."' and  grading_period='$gp' order by week_number";
+            where student_rating.student_lrn='".$lrn."' and student_rating.class_rec_no='".$chart_class_rec_no."' and  grading_period='$gp' order by week_number";
 
             $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
-
+            
             $first = true;
             echo "],\"progress_data\":[";
             while($row = mysqli_fetch_array($query))
@@ -341,230 +947,753 @@
                 }
             }    
 
-            echo "]}";
-        }
 
-    }
-
-    //parent-student-progress
-
-     if(isset($_GET['plrn']))
-    {
-
-        $_SESSION['plrn'] = $_GET['plrn']; // Pass the student's number here using $_GET[]
-
-        $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
-
-        $profile = mysqli_query ($cxn,"SELECT reg_lname, reg_fname, image FROM registration  WHERE reg_id='".$_SESSION['plrn']."'");
-
-        $fetch_profile=mysqli_fetch_array($profile);
-                                     
-        $_SESSION['ps_reg_lname']=$fetch_profile['reg_lname'];
-        $_SESSION['ps_reg_fname']=$fetch_profile['reg_fname'];
-        $_SESSION['ps_profile_pic']=$fetch_profile['image'];
+             echo "]}";
 
 
 
-        $_SESSION['Parent_Student_Schedule_Line']=array();
-    
-
-        $join="Select section.subjectID, subject_.subject_title from section 
-        inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
-        inner join subject_ on section.subjectID=subject_.subjectID where student_lrn = '".$_SESSION['plrn']."'";
-                    
-        $subjects=mysqli_query($cxn,$join) or die('Unable to connect to Database.');
-    
-        while($travsubjects = mysqli_fetch_array($subjects))
-        {
-            
-            $subjectIdPasser=array();
-        
-            $subjectIdPasser['subjectID']=$travsubjects['subjectID'];
-            
-            $subject_title = $travsubjects['subject_title'];
-                    
-            $_SESSION['Parent_Student_Schedule_Line'][$subject_title ]=null;
-            
-
-                    $join="Select section.levelID,grade_level.level_description from section 
-                    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
-                    inner join grade_level on section.levelID=grade_level.levelID where student_lrn = '".$_SESSION['plrn']."' and subjectID ='".$subjectIdPasser['subjectID']."'";
-    
-                    $grades=mysqli_query($cxn,$join) or die('Unable to connect to Database.');
-                                
-                        while($travgrades = mysqli_fetch_array($grades))
-                        {
-                            $levelIdPasser=array();
-                            
-                            $levelIdPasser['levelID']=$travgrades['levelID'];
-                            
-                            $level_description=$travgrades ['level_description'];
-                                                
-                                $_SESSION['Parent_Student_Schedule_Line'][$subject_title][$level_description]=null;
-                            
-
-                                    $join="Select section_list.sectionNo,section_list.section_name from section_list 
-                                    inner join section on section_list.sectionID=section.sectionID 
-                                    inner join student_schedule_line on section.class_rec_no=student_schedule_line.class_rec_no 
-                                    where student_lrn = '".$_SESSION['plrn']."' and subjectID ='".$subjectIdPasser['subjectID']."' and levelID = '".$levelIdPasser['levelID']."'";
-
-                                    $section=mysqli_query($cxn,$join) or die('Unable to connect to Database.');
-                                            
-                                            while($travsectionNo=mysqli_fetch_array($section))
-                                            {
-                                            
-                                                $sectionNo=$travsectionNo['sectionNo'];
-                                                $sectionName=$travsectionNo['section_name'];
-                                                
-                                                $_SESSION['Parent_Student_Schedule_Line'][$subject_title][$level_description][$sectionNo][$sectionName]=null;
-                                    
-                                            
-                                                
-                                            }
-                    
-                        }
-                        
-        }
-
-
-
-       /* echo "{\"lrn\": [" . json_encode($_SESSION['lrn']). "]}";*/
-
-    }
-
-    if( isset($_GET['ps_subject_chart']) )
-    {
-        $_SESSION['ps_clicked_subject'] = $_GET['ps_subject_chart'];
-
-        echo "{\"clicked\": [" .json_encode($_SESSION['ps_clicked_subject']). ', '.json_encode($_SESSION['plrn']). "]}";
+           
     }
 
 
-    if( isset($_GET['gradingPeriod']) and isset($_GET['ps_onload']) )
+    if( isset($_GET['s_gradingPeriod']) and isset($_GET['onload']) )
     {
 
-                /* Do not touch the codes below unless you know what you're doing. */
-            $gp = $_GET['gradingPeriod'];
+           
+            $gp = $_GET['s_gradingPeriod'];
+            $chart_class_rec_no=$_GET['chart_class_rec_no'];
 
             $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-            if($_GET['ps_onload']=='subject')
+
+            //knowledge--------------------------------------------------------------------------------------------------------------------------------------
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "{\"grading_week1_k\": [";
+            while($row = mysqli_fetch_array($query)) 
             {
-                $subject_sql="Select subjectID from subject_ where subject_title='".$_SESSION['ps_clicked_subject']."'";
-                $subject_result=mysqli_query($cxn,$subject_sql);
-                $subject_row = mysqli_fetch_row($subject_result);
-                $_SESSION['ps_chart_subjectID'] = $subject_row[0];
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.knowledge 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['plrn']."' and subjectID='".$_SESSION['ps_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                /*$query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "{\"knowledge\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                        /*echo json_encode((($row[3] + $row[4] + $row[5]) / 3) * 0.15);*/
-                        echo json_encode(($row[4])/**0.15*/);
-                        $first = false;
-                    } else {
-                        /*echo ',' . json_encode((($row[3] + $row[4] + $row[5]) / 3) * 0.15);*/
-                        echo ',' . json_encode(($row[4])/**0.15*/);
-                    }
-                }
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.processskills 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['plrn']."' and subjectID='".$_SESSION['ps_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-               /* $query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "],\"process\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                        /*echo json_encode((($row[6] + $row[7] + $row[8]) / 3) * 0.25);*/
-                        echo json_encode($row[4]/**0.25*/);
-                        $first = false;
-                    } else {
-                       /* echo ',' . json_encode((($row[6] + $row[7] + $row[8]) / 3) * 0.25);*/
-                        echo ',' . json_encode($row[4]/**0.25*/);
-                    }
-                }
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.understanding 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['plrn']."' and subjectID='".$_SESSION['ps_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                /* $query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "],\"understanding\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                        /*echo json_encode((($row[9] + $row[10] + $row[11]) / 3) * 0.30);*/
-                        echo json_encode($row[4]/**0.30*/);
-                        $first = false;
-                    } else {
-                       /* echo ',' . json_encode((($row[9] + $row[10] + $row[11]) / 3) * 0.30);*/
-                       echo ',' . json_encode($row[4]/**0.30*/);
-                    }
-                }
-
-                $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.grading_period, student_rating.week_number, student_rating.performanceproducts 
-                FROM section_list inner join section on section_list.sectionID=section.sectionID  
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['plrn']."' and subjectID='".$_SESSION['ps_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                /*$query = mysqli_query($cxn, "SELECT * FROM grading WHERE student_lrn='$sn' AND grading_period='$gp'") or die('Unable to connect to Database.');*/
-                $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
-
-                $first = true;
-                echo "],\"performance\": [";
-                while($row = mysqli_fetch_array($query)) {
-                    if($first) {
-                       /* echo json_encode((($row[12] + $row[13] + $row[14]) / 3) * 0.30);*/
-                       echo json_encode($row[4]/**0.30*/);
-                        $first = false;
-                    } else {
-                       /* echo ',' . json_encode((($row[12] + $row[13] + $row[14]) / 3) * 0.30);*/
-                       echo ',' . json_encode($row[4]/**0.30*/);
-                    }
-                }
-
-                 $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.* FROM section_list 
-                inner join section on section_list.sectionID=section.sectionID 
-                inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
-                where student_rating.student_lrn='".$_SESSION['plrn']."' and subjectID='".$_SESSION['ps_chart_subjectID']."' and  grading_period='$gp' order by week_number";
-
-                $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
-                
-                $first = true;
-                echo "],\"progress_data\":[";
-                while($row = mysqli_fetch_array($query))
+                if($first) 
                 {
-                    if($first){
-                        echo json_encode($row);
-                        $first = false;
-                    } else {
-                        echo ',' . json_encode($row);
-                    }
-                }    
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
 
-                echo "]}";
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='2'";
 
-            }           
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT knowledge FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_k\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+           
+
+            //process-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week1_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='2'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT processskills FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_ps\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            ///understanding----------------------------------------------------------------------------------------------------------------------------------
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week1_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='2'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT understanding FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_u\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            //product/performance-----------------------------------------------------------------------------------------------------------------------------
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='1'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week1_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='2'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week2_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='3'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week3_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='4'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week4_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='5'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week5_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='6'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week6_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='7'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week7_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT performanceproducts FROM student_rating where class_rec_no='$chart_class_rec_no' 
+            and student_lrn='".$_SESSION['account_id']."' and grading_period='$gp' and week_number='8'";
+
+            $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
+
+            $first = true;
+            echo "],\"grading_week8_pp\": [";
+            while($row = mysqli_fetch_array($query)) 
+            {
+                if($first) 
+                {
+                    
+                    echo json_encode(($row[0]));
+                    $first = false;
+                } else 
+                {
+                    
+                    echo ',' . json_encode(($row[0]));
+                }
+            }
+
+            $query="SELECT section_list.sectionNo, section_list.section_name, student_rating.* FROM section_list 
+            inner join section on section_list.sectionID=section.sectionID 
+            inner join student_rating on section.class_rec_no=student_rating.class_rec_no 
+            where student_rating.student_lrn='".$_SESSION['account_id']."' and student_rating.class_rec_no='".$chart_class_rec_no."' and  grading_period='$gp' order by week_number";
+
+            $query = mysqli_query($cxn, $query) or die('Unable to connect to Database.');
+            
+            $first = true;
+            echo "],\"progress_data\":[";
+            while($row = mysqli_fetch_array($query))
+            {
+                if($first){
+                    echo json_encode($row);
+                    $first = false;
+                } else {
+                    echo ',' . json_encode($row);
+                }
+            }    
+
+
+             echo "]}";
+
     }
 
+function get_school_year()
+{
+    $current_year = date("Y", strtotime("today"));
+    return strval($current_year).'-'.strval($current_year+1);
+                        
+} 
 
+function convert_time_to_12hr($time)
+{
+    $new_time=date("h:i A", strtotime($time));
 
+    return $new_time;
+}     
+
+function convert_datetime_to_12hr($datetime)
+{
+    $new_time=date("Y-m-d h:i A", strtotime($datetime));
+
+    return $new_time;
+  
+}
 
 
     

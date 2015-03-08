@@ -5,119 +5,43 @@
 	<div class="welcome-box content">
 		 <?php if(isset($_SESSION['ts_profile_pic']))
    		{
-    		echo '<img src="views/res/'.$_SESSION['ts_profile_pic'].'" class="welcome-box-img img-thumbnail shadow"/>';
+    		echo '<img src="views/res/'.$_SESSION['ts_profile_pic'].'" class="welcome-box-img img-thumbnail shadow pull-left"/>';
+       
     	}
     	?>
 		
 		<?php 
-		if((isset($_SESSION['ts_reg_fname'])) and (isset($_SESSION['ts_reg_lname'])))
+		if((isset($_SESSION['ts_reg_lname'])) and (isset($_SESSION['ts_reg_fname'])))
 		{
-			echo '<a href="#" class="navbar-link" ><h5 id="greetings-teacher">'.$_SESSION['ts_reg_fname']. ' ' .$_SESSION['ts_reg_lname'] .'</h5></a>';						
+			echo '<div class="has-padding-top">
+              <a class="greetings"><strong>Hi, '.$_SESSION['ts_reg_lname'].' '.$_SESSION['ts_reg_fname'].'</strong></a>
+              <div class="greetings"><small>Student</small></div>
+            </div>'; 						
 		}
 		?>
 	</div>
 <!--End of Welcome Box-->
+<!--Start of Side bar menu-->
 
-					<div id="subject-list">
-						<h4 id="subject-list-title"><i class="glyphicon glyphicon-book"></i> Subjects</h4> 
+<div class="panel panel-info">
+  <?php echo '<div class="panel-heading text-center" id="subject-list"><i class="glyphicon glyphicon-book"></i> School Year '.$_SESSION['teacher_student_school_year'].'</div>';?>
+  	
+  	<ul class="list-group" id="student-side-menu">
 
-						<div class="panel-group" id="Menu1">
-							<?php
-							if(isset($_SESSION['Teacher_Student_Schedule_Line']))
-							{  
-							foreach($_SESSION['Teacher_Student_Schedule_Line'] as $subjectName => $grade)
-							{
-					
-								
-							?>
-								<div class="panel panel-default subjectmenu">
-											  <div class="panel-heading ">
-												<h4 class="panel-title">
-												  <?php 
-												  
-												  echo '<a data-toggle="collapse" data-parent="#Menu1" onclick="getSubjectId(this)" href="#'.$subjectName.'GradeMenu" id="'.$subjectName.'" class="toHighlight" >
-												  <span class="glyphicon glyphicon-map-marker"></span>'.$subjectName.'
-												  </a>';?>
-												  
-												</h4>
-											  </div><!--panel-heading-->
-											  <!--   -->
-										<?php 
-								
-											
-										/*echo '<div id="'.$subjectName.'GradeMenu" class="panel-collapse collapse">'; */
-										
-										?>
-												<!-- <div class="panel-body"> -->
-															<!--//Grade level-->
-												<?php 
-												
-												/*foreach($grade as $gradelevel => $section)
-												{	*/
-													
-							
-												?>
-																<!-- <div class="panel-heading subjectmenu">
-																	<h4 class="panel-title"> -->
-																		<?php /*echo '<a id="'.$gradelevel.'" onclick="getGradeId(this)" class="toHighlight" data-toggle="collapse" data-parent="#'.$subjectName.'GradeMenu" href="#'.$subjectName.$gradelevel.'" >
-																			<i class="glyphicon glyphicon-pushpin"></i> '.$gradelevel.'
-																			<i class="glyphicon glyphicon-chevron-down"></i>'*/;?>
-																		<!-- </a> -->
-																	<!-- </h4> -->
-																<!-- </div> --><!--panel-heading subjectmenu-->
-																 
-																<?php 
-																				
-																/*echo '<div id="'.$subjectName.$gradelevel.'" class="panel-collapse collapse">';*/
-																		
-																?>				
-																		<!-- <div class="panel-body"> -->
-																					
-																		<?php 
-																			
-																			/*foreach($section as $sectionNo => $sectionName)
-																			{				
-																			
-																					foreach($sectionName as $section_name => $end)
-																				{	*/
-																		?>					
-																					<!--sections-->
-																					<!-- <div class="panel-heading subjectmenu">
-																						<h4 class="panel-title"> -->
-																						<?php
-																							/*echo '<a href="#"  onclick="getSectionId(this)" id="'.$section_name.'" class="toHighlight" ><i class="glyphicon glyphicon-pencil" ></i>'.$sectionNo.'-'.$section_name.'</a>';*/
-																						?>	
-																					<!-- 	</h4>
-																					
-																					</div> --><!--panel-heading subjectmenu-->
-																		<?php 
-																			/*	}
-																			}*/
-																		?>					
-																					
-																				<!-- </div> --><!--panel-body-->
-																
-						
-																		<!-- </div> --><!--panel-collapse collapse-->
-																	
-									
-												<?php 
+    <?php 
+        if(isset($_SESSION['Teacher_Student_Schedule_Line']))
+        {   
+          foreach($_SESSION['Teacher_Student_Schedule_Line'] as $load)
+          {
+              echo  '<li class="list-group-item side-menu student-side-menu-heading" side-menu-id="'.$load['class_rec_no'].'" grade="'.$load['level_description'].'" sectionno="'.$load['sectionNo'].'" section="'.$load['section_name'].'" subject="'.$load['subject_title'].'">
+                      <div class="panel-title student-side-menu-title col-md-offset-1"><em><strong>'.$load['level_description'].'</strong>::'.$load['sectionNo'].'-'.$load['section_name'].'</em>: <strong>'.$load['subject_title'].'</strong></div>
+                      <div class="panel-title student-side-menu-title col-md-offset-1 text-uppercase"><small>'.$load['sched_days'].' '.$load['sched_start_time'].'-'.$load['sched_end_time'].'</small></div>
+                    </li>';
+          }
+        }
+            
+    ?>
 
-											/*	}*/
-
-												?>	
-
-												<!-- </div> --><!--//Grade level-->
-						
-										<!-- </div>	 -->
-												
-															
-												
-								</div><!--subject menu-->	
-						<?php 
-						}		
-						}
-					 	?>
-					</div><!--Menu 1-->	
-					 
-				   </div><!--subject-list--> 
+  	</ul>	
+</div>
+<!--End of Side bar menu-->

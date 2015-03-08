@@ -20,11 +20,11 @@
 					echo ',' . json_encode($display);
 				}
 			}
-			
-		$fetch_section=get_allsection();
+
+		$fetch_subject=get_allsubject();
 		$first = true;
-			echo "],\"section\": [";
-			while($display = mysqli_fetch_array($fetch_section))
+			echo "],\"subject\": [";
+			while($display = mysqli_fetch_array($fetch_subject))
 			{
 				if($first) 
 				{
@@ -36,7 +36,7 @@
 					echo ',' . json_encode($display);
 				}
 			}
-			
+
 		$fetch_teacher=get_allteacher();
 		$first = true;
 			echo "],\"teacher\": [";
@@ -52,7 +52,50 @@
 					echo ',' . json_encode($display);
 				}
 			}
+
+		$fetch_existing_students=get_existing_students();
+		$first = true;
+			echo "],\"ex_students\": [";
+			while($display = mysqli_fetch_array($fetch_existing_students))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
 			
+			echo "]}";	
+	}
+
+	if(isset($_GET['cs-get-section']))
+	{
+		$levelID=$_GET['levelID'];
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
+		FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID where section_list.level_id='$levelID'"; 
+
+		$fetch_section=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+		$first = true;
+			echo "{\"section\": [";
+			while($display = mysqli_fetch_array($fetch_section))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
 			echo "]}";	
 	}	
 
@@ -266,7 +309,8 @@ function get_allsection()
 {
 	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-	$sql="Select * from section_list";
+	$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
+	FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID";
 
 	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
@@ -317,7 +361,71 @@ function get_existing_students()
 	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 	return $sql;
 }
+	if(isset($_GET['cs_filter']))
+	{
+		$cs_filter=$_GET['cs_filter'];
+		/*echo "{\"filter\": [" . json_encode($cs_filter). "]}";*/
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
+		if(!empty($cs_filter))
+		{
+				
+				$join="SELECT distinct registration.reg_id, registration.reg_lname, registration.reg_fname, registration.reg_mname, student_schedule_line.grade 
+						from student inner join registration on student.student_lrn = registration.reg_id 
+						left join student_schedule_line on student.student_lrn=student_schedule_line.student_lrn 
+						where reg_lname LIKE '%$cs_filter%' or reg_fname LIKE '%$cs_filter%' 
+						or reg_mname LIKE '%$cs_filter%' or grade LIKE '%$cs_filter%' 
+						order by grade"; 
+	
+				$join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+				$first = true;
+				echo "{\"cs_filter\": [";
+				while($display = mysqli_fetch_array($join_result))
+				{
+					if($first) 
+					{
+						echo json_encode($display);
+						$first = false;
+					}		 
+					else 
+					{
+						echo ',' . json_encode($display);
+					}
+				}
+				
+				echo "]}";	
+		}
+		else if(empty($cs_filter))
+		{
+
+			$join="SELECT distinct registration.reg_id, registration.reg_lname, registration.reg_fname, registration.reg_mname, student_schedule_line.grade 
+					from student inner join registration on student.student_lrn = registration.reg_id 
+					left join student_schedule_line on student.student_lrn=student_schedule_line.student_lrn order by grade";
+	
+			$join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+			$first = true;
+			echo "{\"cs_filter\": [";
+			while($display = mysqli_fetch_array($join_result))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			
+			echo "]}";	
+		}	
+
+		
+
+	}
 
 	if(isset($_GET['ap_filter']))
 	{
@@ -576,7 +684,10 @@ function get_existing_students()
 
 		if(!empty($scs_filter))
 		{
-			$sql="Select * from section_list where sectionID LIKE '%$scs_filter%' or sectionNo LIKE '%$scs_filter%' or section_name LIKE '%$scs_filter%'";
+			$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
+			FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID
+			where section_list.sectionID LIKE '%$scs_filter%' or section_list.sectionNo LIKE '%$scs_filter%' or section_list.section_name LIKE '%$scs_filter%' or
+			grade_level.level_description LIKE '%$scs_filter%'";
 
 			$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
@@ -599,7 +710,8 @@ function get_existing_students()
 		}
 		else if(empty($scs_filter))
 		{
-			$sql="Select * from section_list";
+			$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
+			FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID";
 
 			$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
@@ -1194,6 +1306,14 @@ function get_existing_students()
 
 						$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
+						$pusername=createUsername($parent_id,$parent_fname,$parent_mname,$parent_lname);
+						$ppassword=generate_password_alphanum(8);
+
+						$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+						VALUES ('$pusername', '$ppassword', 'parent', '$parent_id')";
+
+						$paccount_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
 						if($p_added)
 						{
 							//update student schedule line
@@ -1272,6 +1392,14 @@ function get_existing_students()
 						$sql="INSERT INTO parent(parentID) VALUES ('$parent_id')";
 
 						$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+						$pusername=createUsername($parent_id,$parent_fname,$parent_mname,$parent_lname);
+						$ppassword=generate_password_alphanum(8);
+
+						$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+						VALUES ('$pusername', '$ppassword', 'parent', '$parent_id')";
+
+						$paccount_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
 						if($p_added)
 						{
@@ -1389,8 +1517,116 @@ function get_existing_students()
 			}	
 
 				return $data;
+	}
+	//add schedule
+	if(isset($_GET['add-class-sched']))
+	{
+		$response = array();
+
+		$school_year = $_POST['schoolyear'];
+		$levelID = $_POST['level'];
+		$sectionID = $_POST['section'];
+		$subjectID = $_POST['subject'];
+		$teacherID = $_POST['teacher'];
+		$sched_days = $_POST['schedday'];
+		$sched_start_time = date("H:i", strtotime($_POST['schedstart']));
+		$sched_end_time = date("H:i", strtotime($_POST['schedend']));
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		if( !empty($school_year) and !empty($levelID) and !empty($sectionID) and !empty($subjectID) and !empty($teacherID) 
+			and !empty($sched_days) and !empty($sched_start_time) and !empty($sched_end_time) )
+		{
+			//check first if sched exist
+
+			$sql="SELECT * FROM section where sectionID='$sectionID' and sched_days='$sched_days' and sched_start_time ='".$sched_start_time."' 
+										and sched_end_time='".$sched_end_time."' and subjectID = '$subjectID' and teacherID= '$teacherID' 
+										and levelID = '$levelID' and school_year='$school_year'";
+			
+			$check_sched=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+			$num_rows = mysqli_num_rows($check_sched);
+			if ($num_rows==0)
+			{
+				$class_rec_no=createClassRecNo();
+
+				$sql="INSERT INTO section (class_rec_no, sectionID, sched_days, sched_start_time, sched_end_time, subjectID, teacherID, levelID, school_year) 
+										VALUES ('$class_rec_no','$sectionID','$sched_days','".$sched_start_time."','".$sched_end_time."','$subjectID','$teacherID','$levelID','$school_year')";
+				$schedule_inserted=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+				if($schedule_inserted==true)
+				{
+					$response = array('class_rec_no' => $class_rec_no, 'levelID' => $levelID);
+				}
+				else
+				{
+					$response = array('error' => 'Insert Class Schedule Failed!');
+				}	
+			}
+			else
+			{
+				$response = array('error' => 'Class Schedule Already Exist!');
+			}	
+			
+
+			
+		}
+		else
+		{
+			$response = array('error' => 'Submit Goes Wrong! Form Incomplete');
+		}	
+
+
+		echo json_encode($response);
+
+	}
+
+	if(isset($_GET['add-student-to-schedule']))
+	{
+		$response = array();
+		$tester=array();
+
+		$add_student_to_schedule=json_decode($_POST['add_existing_student'], true);
+		$class_rec_no=$_POST['class_rec_no'];
+		$grade_level;
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		//Get first the level description
+		$sql="SELECT grade_level.level_description FROM section 
+		inner join grade_level on section.levelID=grade_level.levelID where class_rec_no='$class_rec_no'";
+		$result = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+		while ($row = mysqli_fetch_array ($result))
+	    {
+	         $grade_level= $row ['level_description'];
+			 
+	    }
+
+		//Insert the student ids
+		foreach ($add_student_to_schedule as $key => $student_id) 
+		{
+
+			//check first if student already inserted
+			$sql="SELECT * FROM student_schedule_line where class_rec_no='$class_rec_no' and student_lrn='$student_id'";
+			$check = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+			$num_rows = mysqli_num_rows($check);
+      
+         	if ($num_rows==0)
+            {
+            	$sql="INSERT INTO student_schedule_line (class_rec_no, student_lrn, grade)
+            											VALUES ('$class_rec_no','$student_id','$grade_level')";
+            	$student_inserted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+            	if($student_inserted==false)
+            	{
+            		$response = array('error' => 'Failed to insert Student ID: '.$student_id.' at '.$key );
+            	}	
+            }  
+
+		}
+
+		$response = array('success' => 'Students Successfully Added to Class Schedule');	
+
+		echo json_encode($response);
 	}	
-	
+
 	//add admin
 	if(isset($_GET['create-admin-id']))
 	{
@@ -1755,7 +1991,7 @@ function get_existing_students()
 				$parent_id=createParentId();
 
 				$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_birthday) 
-										VALUES ('$parent_id','$reg_lname','$reg_fname','$reg_mname', '".$parent_defaultbday."')";
+										VALUES ('$parent_id','$parent_lname','$parent_fname','$parent_mname', '".$parent_defaultbday."')";
 
 				$p_registered=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($p_registered)
@@ -1763,6 +1999,14 @@ function get_existing_students()
 					$sql="INSERT INTO parent(parentID) VALUES ('$parent_id')";
 
 					$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
+					$pusername=createUsername($parent_id,$parent_fname,$parent_mname,$parent_lname);
+					$ppassword=generate_password_alphanum(8);
+
+					$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+					VALUES ('$pusername', '$ppassword', 'parent', '$parent_id')";
+
+					$paccount_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
 					if($p_added)
 					{
@@ -1953,7 +2197,23 @@ function get_existing_students()
 	{
 		$section_id=createSectionId();
 
-		echo "{\"create_section_id\": [{\"section_id\":". json_encode($section_id)."}]}";
+		echo "{\"create_section_id\": [{\"section_id\":". json_encode($section_id)."}";
+		$fetch_level=get_allgradelevel();
+		$first = true;
+			echo "],\"level\": [";
+			while($display = mysqli_fetch_array($fetch_level))
+			{
+				if($first) 
+				{
+					echo json_encode($display);
+					$first = false;
+				}		 
+				else 
+				{
+					echo ',' . json_encode($display);
+				}
+			}
+			echo "]}";	
 
 	}
 
@@ -1965,6 +2225,7 @@ function get_existing_students()
 		$id= $_POST['addsecid'];
 		$sectionNo = clean($_POST['addsecno']);
 		$section_name= clean($_POST['addsecname']);
+		$level=$_POST['level'];
 		
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
@@ -1972,7 +2233,7 @@ function get_existing_students()
 		if( !empty($sectionNo) and !empty($section_name) )
 		{
 		
-				$sql="INSERT INTO section_list(sectionID, sectionNo, section_name) VALUES ('$id','$sectionNo','$section_name')";
+				$sql="INSERT INTO section_list(sectionID, sectionNo, section_name, level_id) VALUES ('$id','$sectionNo','$section_name','$level')";
 
 				$section_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($section_created)
@@ -2008,24 +2269,36 @@ function get_existing_students()
 		$response = array();
 
 		$id= $_POST['addgradeid'];
-		$level_description = clean($_POST['addgradedesc']);		
-
+		$level= clean($_POST['addgradedesc']);		
+		$level_description = 'Grade '.$level;
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
 		if( !empty($level_description) )
 		{
+				$sql="SELECT * FROM grade_level where level_description = '$level_description'";
+				$description = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+				$num_rows = mysqli_num_rows($description);
+          
+             	if ($num_rows==0)
+                { 
+                	$sql="INSERT INTO grade_level (levelID, level_description) VALUES ('$id','$level_description')";
 
-				$sql="INSERT INTO grade_level (levelID, level_description) VALUES ('$id','$level_description')";
+					$grade_level_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+					if($grade_level_created)
+					{
+						$response = array('success' => 'New Grade Level Added');
+					}	
+					else 
+					{
+						$response = array('error' => 'Add Grade Level Failed');
+					}
+                }
+                else
+                {
+                	$response = array('error' => 'Grade Level Already Existing');
+                }	
 
-				$grade_level_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($grade_level_created)
-				{
-					$response = array('success' => 'New Grade Level Added');
-				}	
-				else 
-				{
-					$response = array('error' => 'Add Grade Level Failed');
-				}
+
 					
 		}
 		else
@@ -2035,6 +2308,114 @@ function get_existing_students()
 
 		echo json_encode($response);			
 	}
+
+	//delete grade
+	if(isset($_GET['delete-grade']))
+	{
+		$response = array();
+
+		$grade_id=$_POST['grade_id'];
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		//check first if use in section table
+		$sql="SELECT levelID FROM section where levelID='$grade_id'";
+		$fetch_level = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+		$num_rows = mysqli_num_rows($fetch_level);
+  
+     	if($num_rows==0)
+        {
+        	//Delete section_list first
+        	$sql="DELETE FROM section_list where level_id='$grade_id'";
+        	$section_list_deleted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+        	if($section_list_deleted==true)
+        	{
+        		//
+        	}
+
+        	//Delete grade level
+        	$sql="DELETE FROM grade_level where levelID='$grade_id'";
+        	$level_deleted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+        	if($level_deleted==true)
+        	{
+        		$response = array('success' => 'Grade level Deleted');
+        	}
+
+
+        }
+        else
+        {
+        	$response = array('error' => 'Grade level is currently in use');
+        } 
+
+        echo json_encode($response);	
+	}
+
+	//delete section
+	if(isset($_GET['delete-section']))
+	{
+		$response = array();
+
+		$section_id=$_POST['section_id'];
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		//check first if use in section table
+		$sql="SELECT sectionID FROM section where sectionID='$section_id'";
+		$fetch_section = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+		$num_rows = mysqli_num_rows($fetch_section);
+  
+     	if($num_rows==0)
+        {
+
+		    //Delete section list
+	    	$sql="DELETE FROM section_list where sectionID='$section_id'";
+	    	$section_list_deleted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+	    	if($section_list_deleted==true)
+	    	{
+	    		$response = array('success' => 'Section Deleted');
+	    	}
+
+	    }
+        else
+        {
+        	$response = array('error' => 'Section is currently in use');
+        } 
+
+    	echo json_encode($response);
+	}
+
+	//delete subject
+	if(isset($_GET['delete-subject']))
+	{
+		$response = array();
+
+		$subject_id=$_POST['subject_id'];
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+		//check first if use in section table
+		$sql="SELECT subjectID FROM section where subjectID='$subject_id'";
+		$fetch_subject = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+		$num_rows = mysqli_num_rows($fetch_subject);
+  
+     	if($num_rows==0)
+        {
+
+		    //Delete subject
+	    	$sql="DELETE FROM subject_ where subjectID='$subject_id'";
+	    	$subject_deleted = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+	    	if($subject_deleted==true)
+	    	{
+	    		$response = array('success' => 'Subject Deleted');
+	    	}
+
+	    }
+        else
+        {
+        	$response = array('error' => 'Subject is currently in use');
+        } 
+
+    	echo json_encode($response);
+	}
+
 
 	//Add Student Spreadsheet
 	if(isset($_GET['add-student-spreadsheet']))
@@ -2761,6 +3142,14 @@ if(isset($_GET['add-scan-student']))
 
 						$p_added=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
+						$pusername=createUsername($parent_id,$parent_fname,$parent_mname,$parent_lname);
+						$ppassword=generate_password_alphanum(8);
+
+						$sql="INSERT INTO create_account (username_, password_, user_type, account_id) 
+						VALUES ('$pusername', '$ppassword', 'parent', '$parent_id')";
+
+						$paccount_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
+
 						if($p_added)
 						{
 							$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, reg_address) 
@@ -3026,6 +3415,17 @@ if(isset($_GET['add-scan-student']))
 	    $str .= $chars[mt_rand(0, $max)];
 
 	  return $str;
-	}							
+	}	
+
+	function createClassRecNo()
+	{
+	    $rand5int=$class_rec_no="";
+	        
+	        $rand5int=strval(mt_rand ( 10000 , 99999 ));
+
+	        $class_rec_no="ECRN-" . $rand5int;
+
+	        return $class_rec_no;
+	}     						
 		
 ?>

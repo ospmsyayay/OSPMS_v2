@@ -31,7 +31,7 @@
 								case 'tre':encode();break;
 								case 'tres':encode_spreadsheet();break;
 								case 'trp':progress();break;
-								case 'trce':exercise();break;
+								/*case 'trce':exercise();break;*/
 								case 's':studentpage();break;
 								case 'acc':account();break;
 
@@ -49,12 +49,6 @@
 	    						</li>
 								<li>
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -68,12 +62,6 @@
 	    						</li>
 								<li>
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -87,12 +75,6 @@
 	    						</li>
 								<li>
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -106,33 +88,10 @@
 	    						</li>
 								<li class="active">
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
-						function exercise()
-						{
-							echo '<li>
-									<a href="index.php?r=lss"><i class="fa fa-home fa-2x"></i><h2 class="visible-xs-inline"> Home</h2></a>
-								</li>
-								<li>
-	    							<a href="index.php?r=lss&tr=tre"><i class="fa fa-calculator fa-2x"></i><h2 class="visible-xs-inline"> Encode</h2></a>
-	    						</li>
-								<li>
-									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li class="active">
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
-								</li>';
-						}
+
 
 						function studentpage()
 						{
@@ -144,12 +103,6 @@
 	    						</li>
 								<li class="active">
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -163,12 +116,6 @@
 	    						</li>
 								<li>
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&tr=trce"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Create Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}	
 					?>

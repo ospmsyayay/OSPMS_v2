@@ -84,7 +84,7 @@
 								</div>
 								<div class="form-group">
 									 <div class="col-xs-2 col-xs-offset-5 col-sm-2 col-sm-offset-8 col-md-2 col-md-offset-8 col-lg-2 col-lg-8">
-										<button type="submit" class="btn btn-fresh text-uppercase" id="submitbtn">Login</button>
+										<button type="submit" class="btn btn-success text-uppercase" id="submitbtn">Login</button>
 									 </div>
 								</div>
 							</form>

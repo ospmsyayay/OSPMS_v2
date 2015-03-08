@@ -4,8 +4,10 @@
         <meta charset="UTF-8">
         
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title>Admin</title>
             <link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
+            <link type="text/css" href="views/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet"/>
             <link href="views/css/exDesign.css" rel="stylesheet"/>
             <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 
@@ -140,13 +142,13 @@
         <div class="row">
 
                 <!--Start of left content-->
-                <div class="aside-left col-md-2">
+                <div class="left-content col-md-3">
                     <?php include "views/parts/side-bar-admin.php";?>
                 </div>
                 <!--End of left content-->
 
                 <!--Start of mid content-->
-                    <div class="main-content col-md-10 col-md-offset-2">
+                    <div class="main-content col-md-9">
                         <div class="row content_header"><!--//row for admin-content-header -->
                           
                         </div><!--//row for admin-content-header -->
@@ -166,8 +168,10 @@
         <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
         <!-- Load jQuery UI Main JS  -->
         <script src="views/plugins/jquery-ui/jquery-ui.js"></script>
-
         <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="views/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+       
+
 <script>
 $(function() 
 {
@@ -184,6 +188,15 @@ $(function()
                     /*showButtonPanel: true,*/
                     dateFormat: 'yy-mm-dd'
                 });
+            });
+            $(document.body).on('click','#sched_start_time',function()
+            {
+                $(this).timepicker();
+            });
+
+            $(document.body).on('click','#sched_end_time',function()
+            {
+               $(this).timepicker();
             });
 
             $('.side-menu').on('click', function () 
@@ -204,72 +217,157 @@ $(function()
                 }
  
             });
+
+function display_cs()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Add Class Schedule '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+    var display = $('<div class="admin-main-content">'+
+                        '<div class="row"><!--//row for form -->'+
+                            '<div class="col-md-4">'+
+                                '<form class="form-horizontal" method="post" role="form" id="add-class-sched">'+
+                                    '<div class="form-group" id="cs_sy">'+
+                                    '</div>'+
+
+                                    '<div class="form-group">'+
+                                        '<label for="level-name" class="col-md-4 control-label">Grade level:</label>'+
+                                        '<div class="col-md-8">'+
+                                            '<select class="form-control" id="level-name" name="level"  required="required">'+
+                                                '<option value="" selected disabled>Grade level</option>'+
+                                            '</select>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                        '<label for="section-name" class="col-md-4 control-label">Section</label>'+
+                                        '<div class="col-md-8">'+
+                                            '<select class="form-control" id="section-name" name="section"  required="required">'+
+                                                '<option value="" selected disabled>Section</option>'+
+                                            '</select>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                        '<label for="section-name" class="col-md-4 control-label">Subject</label>'+
+                                        '<div class="col-md-8">'+
+                                            '<select class="form-control" id="subject-name" name="subject"  required="required">'+
+                                                '<option value="" selected disabled>Subject</option>'+
+                                            '</select>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                        '<label for="teacher-name" class="col-md-4 control-label">Teacher</label>'+
+                                        '<div class="col-md-8">'+
+                                            '<select class="form-control" id="teacher-name" name="teacher" required="required">'+
+                                                '<option value="" selected disabled>Teacher</option>'+
+                                            '</select>'+
+                                        '</div>'+
+                                    '</div>'+
+
+                                    '<div class="form-group">'+
+                                        '<label for="sched-day" class="col-md-4 control-label">Sched Days</label>'+
+                                        '<div class="col-md-6">'+
+                                            '<select class="form-control" id="sched-day" name="schedday" required="required">'+
+                                                '<option value="" selected disabled>Sched Days</option>'+
+                                                '<option value="MWF">MWF</option>'+
+                                                '<option value="TTH">TTH</option>'+
+                                                '<option value="M">M</option>'+
+                                                '<option value="T">T</option>'+
+                                                '<option value="W">W</option>'+
+                                                '<option value="TH">TH</option>'+
+                                                '<option value="F">F</option>'+
+                                                '<option value="Sat">Sat</option>'+
+                                                '<option value="MTWTHF">MTWTHF</option>'+
+                                                '<option value="MTWTHFSat">MTWTHFSat</option>'+
+                                            '</select>'+
+                                        '</div>'+
+                                    '</div>'+
+
+                                    '<div class="form-group">'+
+                                        '<label for="sched_start_time" class="col-md-4 control-label">Start Time</label>'+
+                                        '<div class="input-group bootstrap-timepicker col-md-5" >'+
+                                            '<input type="text" id="sched_start_time" name="schedstart" class="form-control" />'+
+                                            '<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>'+
+                                            '</span>'+
+                                        '</div>'+
+                                    '</div>'+
+
+                                    '<div class="form-group">'+
+                                        '<label for="sched_end_time" class="col-md-4 control-label">End Time</label>'+
+                                        '<div class="input-group bootstrap-timepicker col-md-5" >'+
+                                            '<input type="text" id="sched_end_time" name="schedend" class="form-control" />'+
+                                            '<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>'+
+                                            '</span>'+
+                                        '</div>'+
+                                    '</div>'+
+
+                                    '<div class="form-group">'+
+                                        '<div class="col-md-offset-4 col-md-8">'+
+                                            '<button type="reset" class="btn btn-sky text-uppercase" id="add-sched-clear">Clear</button>'+
+                                            '<button type="submit" class="btn btn-fresh text-uppercase">Submit</button>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</form>'+
+                            '</div><!--//form-->'+
+                            '<div class="col-md-8">'+
+                                '<form class="form-horizontal" role="form">'+
+                                    '<div class="form-group no-margin-bottom">'+
+                                        '<label class="col-md-7">Add Students-(Click Row to Add Existing Students)</label>'+
+                                    '</div>'+
+                                    '<div class="form-group">'+
+                                        '<div class="has-margin content">'+
+                                            '<div class="col-md-5">'+
+                                                '<div class="input-group">'+
+                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="cs_filter"/>'+
+                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div class="col-md-2">'+
+                                                '<button type="button" class="btn btn-success" id="select-all-ex-student">Select All</button>'+
+                                            '</div>'+
+                                            '<div class="col-md-2">'+
+                                                '<button type="button" class="btn btn-danger" id="deselect-all-ex-student">Deselect All</button>'+
+                                            '</div>'+    
+                                        '</div>'+   
+                                    '</div>'+
+                                '</form>'+
+
+                                '<div class="col-md-12 table-responsive result-table">'+
+                                    '<table class="table table-bordered table-hover table-condensed content" id="ex-student-table">'+
+                                        '<thead>'+
+                                            '<tr class="info">'+
+                                                '<th>No.</th>'+
+                                                '<th>Last Name</th>'+
+                                                '<th>First Name</th>'+
+                                                '<th>Middle Name</th>'+
+                                                '<th>Grade</th>'+
+                                                /*'<th>Add</th>'+*/
+                                            '</tr>'+
+                                        '<thead>'+
+                                        '<tbody id="ex-student-box">'+
+                                           
+                                            
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+
+
+                            '</div>'+
+                        '</div><!--//row for form -->'+ 
+                    '</div><!--admin-main-content-->');
+       
+    $('.content_').append(display);
+}
                 function cs()
                 {
                     display_cs();
 
-                    function display_cs()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Add Class Schedule '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                        var display = $('<div class="admin-main-content">'+
-                                            '<div class="row"><!--//row for form -->'+
-                                                '<div class="col-md-4">'+
-                                                    '<form class="form-horizontal" method="post" role="form">'+
-                                                        '<div class="form-group" id="cs_sy">'+
-                                                        '</div>'+
-                
-                                                        '<div class="form-group">'+
-                                                            '<label for="level-name" class="col-md-4 control-label">Grade level:</label>'+
-                                                            '<div class="col-md-8">'+
-                                                                '<select class="form-control" id="level-name" name="level"  required="required">'+
-                                                                    '<option value="" selected disabled>Grade level</option>'+
-                                                                '</select>'+
-                                                            '</div>'+
-                                                        '</div>'+
-                                                         '<div class="form-group">'+
-                                                            '<label for="section-name" class="col-md-4 control-label">Section</label>'+
-                                                            '<div class="col-md-8">'+
-                                                                '<select class="form-control" id="section-name" name="section"  required="required">'+
-                                                                    '<option value="" selected disabled>Section</option>'+
-                                                                '</select>'+
-                                                            '</div>'+
-                                                        '</div>'+
-                                                        '<div class="form-group">'+
-                                                            '<label for="teacher-name" class="col-md-4 control-label">Teacher</label>'+
-                                                            '<div class="col-md-8">'+
-                                                                '<select class="form-control" id="teacher-name" name="teacher" required="required">'+
-                                                                    '<option value="" selected disabled>Teacher</option>'+
-                                                                '</select>'+
-                                                            '</div>'+
-                                                        '</div>'+
-                                                        '<div class="form-group">'+
-                                                            '<div class="col-md-offset-4 col-md-8">'+
-                                                                '<button type="reset" class="btn btn-sky text-uppercase">Clear</button>'+
-                                                                '<button type="submit" class="btn btn-fresh text-uppercase">Submit</button>'+
-                                                            '</div>'+
-                                                        '</div>'+
-                                                    '</form>'+
-                                                '</div><!--//form-->'+
-                                                '<div class="col-md-8">'+
-                                                      '<div class="form-group">'+
-                                                            '<label class="col-md-5 control-label">Add Existing Students</label>'+
-                                                        '</div>'+
-                                                '</div>'+
-                                            '</div><!--//row for form -->'+ 
-                                        '</div><!--admin-main-content-->');
-                           
-                        $('.content_').append(display);
-                    }
 
                       $.ajax({
              
@@ -285,8 +383,9 @@ $(function()
                             /*alert(JSON.stringify(response['teacher']));*/
                             display_cs_school_year(response['cs']);
                             display_cs_level(response['level']);
-                            display_cs_section(response['section']);
+                            display_cs_subject(response['subject']);
                             display_cs_teacher(response['teacher']);
+                            display_cs_ex_students(response['ex_students']);
                             
                         },
 
@@ -311,7 +410,8 @@ $(function()
                         function display_school_year(row)
                         {
                            var display = $('<label class="col-md-4 control-label">School Year: </label>'+
-                                            '<label class="cold-md-8 control-label">'+row.school_year+'</label>');
+                                            '<label class="cold-md-8 control-label">'+row.school_year+'</label>'+
+                                            '<input type="hidden" name="schoolyear" value="'+row.school_year+'"/>');
                        
                             $('#cs_sy').append(display);
                         }
@@ -332,30 +432,35 @@ $(function()
                             $("#level-name").append(display); 
                         }
 
-                        function display_cs_section(data)
+                        function display_cs_subject(data)
                         {
+
                             for (var i = 0; i < data.length; i++) 
                             {
 
-                                    display_section(data[i]);
+                                    display_subject(data[i]);
                           
                             }
+
                         }
 
-                        function display_section(row)
+                        function display_subject(row)
                         {
-                            var display = $('<option value="' + row.sectionID + '">' + row.sectionNo + '-' + row.section_name +'</option>');
-                            $("#section-name").append(display); 
+
+                            var display = $('<option value="' + row.subjectID + '">' +row.subject_title +'</option>');
+                            $("#subject-name").append(display); 
                         }
 
                         function display_cs_teacher(data)
                         {
+
                             for (var i = 0; i < data.length; i++) 
                             {
 
                                     display_teacher(data[i]);
                           
                             }
+   
                         }
 
                         function display_teacher(row)
@@ -363,68 +468,374 @@ $(function()
                             var display = $('<option value="' + row.reg_id + '">' + row.reg_lname + ', ' + row.reg_fname +'</option>');
                             $("#teacher-name").append(display); 
                         }
+
+
+                        function display_cs_ex_students(data)
+                        {
+                            for (var i = 0; i < data.length; i++) 
+                            {
+
+                                    display_ex_students(i+1,data[i]);
+                          
+                            }
+                        }
+
+ 
+                        function display_ex_students(counter,row)
+                        {
+                            var tr;
+                            if(counter%2 != 0)
+                            {
+                                tr = '<tr id="'+row.reg_id+'" class="row_select tr-striped-orange">';
+                            }
+                            else
+                            {
+                                tr='<tr id="'+row.reg_id+'" class="row_select">'
+                            }
+
+                            var display = $(tr +
+                                                '<td class="data-hover">'+counter+'</td>'+
+                                                '<td class="data-hover">'+row.reg_lname+'</td>'+
+                                                '<td class="data-hover">'+row.reg_fname+'</td>'+
+                                                '<td class="data-hover">'+row.reg_mname+'</td>'+
+                                                '<td class="data-hover">'+row.grade+'</td>'+
+                                                /*'<td class="data-hover"></td>'+*/
+                                            '</tr>');
+                       
+                            $('#ex-student-box').append(display);
+                        }
+                        $('#deselect-all-ex-student').attr('disabled',true);
                 }
+                $(document.body).on('click', '#add-sched-clear', function()
+                { 
+                    $("#section-name").empty();
+                    var display = $('<option value="" selected disabled>Section</option>');
+
+                    $("#section-name").append(display); 
+                });
+                
+
+                $(document.body).on('click', '#level-name', function()
+                { 
+                    var id=$(this).val();
+
+                        $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php?cs-get-section',
+                        type: 'GET',
+                        data: {
+                            levelID:id
+                        },
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+
+                            display_cs_section(response['section']);
+                            
+                        },
+
+
+                        });
+
+                        function display_cs_section(data)
+                        {
+                            if(jQuery.isEmptyObject(data))
+                            {
+                                $("#section-name").empty();
+                                var display = $('<option value="" selected disabled>Section</option>');
+
+                                $("#section-name").append(display); 
+                            } 
+                            else
+                            {
+                                $("#section-name").empty();
+
+                                for (var i = 0; i < data.length; i++) 
+                                {
+
+                                        display_section(data[i]);
+                              
+                                }
+                            }   
+
+
+
+                        }
+
+                        function display_section(row)
+                        {
+
+                            var display = $('<option value="' + row.sectionID + '">' + row.sectionNo + '-' + row.section_name +'</option>');
+
+                            $("#section-name").append(display); 
+                        }
+
+                });
+
+
+                /*var glyphicon='<span class="glyphicon glyphicon-ok" style="display:block; text-align:center;" aria-hidden="true"></span>';*/
+                var addexistingstudents = {}; 
+                $(document.body).on('click', '.row_select', function()
+                {   
+                    
+                    var selected_id=$(this).attr('id');
+                    var no=$(this).children(':first').text();
+
+                     $(this).toggleClass("table-striped-green");
+
+
+                     if($(this).hasClass('table-striped-green'))
+                     {
+                       addexistingstudents["row"+no]=selected_id;
+                       /*console.log(addexistingstudents);*/
+
+/*                       if(jQuery.isEmptyObject(addexistingstudents))
+                       {
+                            alert('Empty Object');
+                       } */
+                     }
+                     else
+                     {
+                       delete addexistingstudents["row"+no];
+                       /*console.log(addexistingstudents);*/
+
+ /*                       if(jQuery.isEmptyObject(addexistingstudents))
+                       {
+                            alert('Empty Object');
+                       } */
+                     }   
+                     
+                     
+                     /*$(this).children(':last').toggleClass("has-success");
+                     
+                    if (glyphicon != '') 
+                    {
+
+                        $(this).children(':last').append(glyphicon);
+
+                        glyphicon = '';
+                    } 
+                    else 
+                    {
+                        $(this).children(':last').children(':last').toggle();
+                    }*/
+                     /*alert(selected_id);*/ 
+                });
+
+               
+                $(document.body).on('click', '#select-all-ex-student', function()
+                {
+                    $('#ex-student-table > tbody  > tr').each(function() 
+                    {
+                        var selected_id=$(this).attr('id');
+                        var no=$(this).children(':first').text();
+
+                        if(!$(this).hasClass('table-striped-green'))
+                        {
+                           $(this).addClass('table-striped-green'); 
+                           addexistingstudents["row"+no]=selected_id;
+                           /*console.log(addexistingstudents);*/
+                        }
+
+                    });
+
+                    $(this).attr('disabled',true);
+                    $('#deselect-all-ex-student').attr('disabled',false);
+                });
+
+                $(document.body).on('click', '#deselect-all-ex-student', function()
+                {
+                    $('#ex-student-table > tbody  > tr').each(function() 
+                    {
+                        var selected_id=$(this).attr('id');
+                        var no=$(this).children(':first').text();
+
+                        if($(this).hasClass('table-striped-green'))
+                        {
+                           $(this).removeClass('table-striped-green');
+                           delete addexistingstudents["row"+no];
+                           /*console.log(addexistingstudents);*/
+                        }
+                    });
+                    $(this).attr('disabled',true);
+                    $('#select-all-ex-student').attr('disabled',false);
+                });
+
+                $(document.body).on('submit', '#add-class-sched', submitAddClassSchedForm);
+
+                function submitAddClassSchedForm(event)
+                {
+                    event.stopPropagation();
+                    event.preventDefault();
+
+                    if(jQuery.isEmptyObject(addexistingstudents))
+                    {
+                        alert('Please Add Students');
+                        /*alert(JSON.stringify(addexistingstudents));*/
+                    }
+                    else
+                    {
+ 
+                            $.ajax({
+                                url: 'views/ajax/get_for_administrator.php?add-class-sched',
+                                type: 'POST',
+                                data: new FormData(this),
+                                contentType: false, 
+                                cache: false,
+                                processData: false,
+                                dataType: 'json',
+                                success: function(data, textStatus, jqXHR)
+                                {
+                                    
+                                    if(typeof data.error === 'undefined')
+                                    {
+                                      /*  alert(data.success);*/
+
+                                      add_student_to_schedule(data.class_rec_no,data.levelID);
+                                      
+                                    }
+                                    else
+                                    {
+                                        alert('Error: '+data.error);
+                                    }   
+
+                                    
+                                },
+                                error: function(jqXHR, textStatus, errorThrown)
+                                {
+                                    
+                                        alert('ERROR: ' + textStatus);
+                                    
+                                },
+                                complete: function()
+                                {
+                                    // Completed
+                                }
+                    
+                            });    
+                            
+                       /* alert(JSON.stringify(addexistingstudents));*/
+                        function add_student_to_schedule(class_rec_no,levelID)
+                        {
+                            var add_existing_student=JSON.stringify(addexistingstudents);
+
+                                $.ajax({
+                                    url: 'views/ajax/get_for_administrator.php?add-student-to-schedule',
+                                    type: 'POST',
+                                    data: {add_existing_student : add_existing_student, class_rec_no:class_rec_no, levelID:levelID },
+                                    dataType: 'json',
+                                    success: function(data, textStatus, jqXHR)
+                                    {
+                                        
+                                        if(typeof data.error === 'undefined')
+                                        {
+
+                                            if(typeof data.error === 'undefined')
+                                            {
+
+                                              cs();
+                                              alert(data.success);
+                                              /*console.log(JSON.stringify(data.success));*/
+
+                                            }
+                                            else
+                                            {
+                                                alert('Error: '+data.error);
+                                            }       
+
+                                            
+
+                                        }
+                                        else
+                                        {
+                                            alert('Error: '+data.error);
+                                        }   
+
+                                        
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown)
+                                    {
+                                        
+                                            alert('ERROR: ' + textStatus);
+                                        
+                                    },
+                                    complete: function()
+                                    {
+                                        // Completed
+                                    }
+                        
+                                });  
+                        }
+
+                    }//else    
+
+ 
+                }//end of submit add class schedule
+
+function display_ap()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Administrator Profile '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+    var display = $('<div class="admin-main-content">'+
+                        '<form class="form-horizontal" role="form">'+
+                            '<div class="form-group no-margin-bottom">'+
+                                '<div class="has-margin content">'+
+                                    '<div class="col-md-4 col-md-offset-1">'+
+                                        '<div class="input-group">'+
+                                            '<input type="text" name="q" class="form-control" placeholder="Search..." id="ap_filter"/>'+
+                                            '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                        '</div>'+
+                                    '</div>'+    
+                                    '<div class="col-md-4">'+
+                                        '<button type="button" class="btn btn-primary" id="add-admin">Add Administrator</button>'+
+                                    '</div>'+
+                                '</div>'+   
+                            '</div>'+
+                        '</form>'+
+
+                        '<div class="col-md-12 table-responsive result-table">'+
+                            '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                '<thead>'+
+                                    '<tr class="info">'+
+                                        '<th>ID</th>'+
+                                        '<th>Last Name</th>'+
+                                        '<th>First Name</th>'+
+                                        '<th>Middle Name</th>'+
+                                        '<th>Gender</th>'+
+                                        '<th>Status</th>'+
+                                        '<th>Birthday</th>'+
+                                        '<th>Address</th>'+
+                                        '<th>Image</th>'+
+                                        '<th></th>'+
+                                    '</tr>'+
+                                '<thead>'+
+                                '<tbody id="ap-box">'+
+                                   
+                                    
+                                '</tbody>'+
+                            '</table>'+
+                        '</div>'+
+                '</div><!--admin-main-content-->');
+       
+    $('.content_').append(display);
+}
+
+
 
                 function ap()
                 {
                     display_ap();
 
-                    function display_ap()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Administrator Profile '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                        var display = $('<div class="admin-main-content">'+
-                                            '<form class="form-horizontal" role="form">'+
-                                                '<div class="form-group no-margin-bottom">'+
-                                                    '<div class="has-margin content">'+
-                                                        '<div class="col-md-4 col-md-offset-1">'+
-                                                            '<div class="input-group">'+
-                                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="ap_filter"/>'+
-                                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                            '</div>'+
-                                                        '</div>'+    
-                                                        '<div class="col-md-4">'+
-                                                            '<button type="button" class="btn btn-primary" id="add-admin">Add Administrator</button>'+
-                                                        '</div>'+
-                                                    '</div>'+   
-                                                '</div>'+
-                                            '</form>'+
-
-                                            '<div class="col-md-12 table-responsive result-table">'+
-                                                '<table class="table table-bordered table-hover table-condensed content">'+
-                                                    '<thead>'+
-                                                        '<tr class="info">'+
-                                                            '<th>ID</th>'+
-                                                            '<th>Last Name</th>'+
-                                                            '<th>First Name</th>'+
-                                                            '<th>Middle Name</th>'+
-                                                            '<th>Gender</th>'+
-                                                            '<th>Status</th>'+
-                                                            '<th>Birthday</th>'+
-                                                            '<th>Address</th>'+
-                                                            '<th>Image</th>'+
-                                                            '<th></th>'+
-                                                        '</tr>'+
-                                                    '<thead>'+
-                                                    '<tbody id="ap-box">'+
-                                                       
-                                                        
-                                                    '</tbody>'+
-                                                '</table>'+
-                                            '</div>'+
-                                    '</div><!--admin-main-content-->');
-                           
-                        $('.content_').append(display);
-                    }
 
                       $.ajax({
              
@@ -477,68 +888,68 @@ $(function()
                         }
                 }
 
+function display_tp()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Teacher Profile '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
 
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+                                    '<div class="has-margin content">'+
+                                        '<div class="col-md-4 col-md-offset-1">'+
+                                            '<div class="input-group">'+
+                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="tp_filter"/>'+
+                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                            '</div>'+
+                                        '</div>'+    
+                                        '<div class="col-md-4">'+
+                                            '<button type="button" class="btn btn-primary" id="add-teacher">Add Teacher</button>'+
+                                        '</div>'+
+                                    '</div>'+   
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 table-responsive result-table">'+
+                                '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                    '<thead>'+
+                                        '<tr class="info">'+
+                                            '<th>ID</th>'+
+                                            '<th>Last Name</th>'+
+                                            '<th>First Name</th>'+
+                                            '<th>Middle Name</th>'+
+                                            '<th>Gender</th>'+
+                                            '<th>Status</th>'+
+                                            '<th>Birthday</th>'+
+                                            '<th>Address</th>'+
+                                            '<th>Position</th>'+
+                                            '<th>Image</th>'+
+                                            '<th></th>'+
+                                        '</tr>'+
+                                    '<thead>'+
+                                    '<tbody id="tp-box">'+
+                                      
+                                    '</tbody>'+
+                                '</table>'+
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+} 
 
                 function tp()
                 {
                     display_tp();
 
-                    function display_tp()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Teacher Profile '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                         var display = $('<div class="admin-main-content">'+
-                                                '<form class="form-horizontal" role="form">'+
-                                                    '<div class="form-group no-margin-bottom">'+
-                                                        '<div class="has-margin content">'+
-                                                            '<div class="col-md-4 col-md-offset-1">'+
-                                                                '<div class="input-group">'+
-                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="tp_filter"/>'+
-                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                                '</div>'+
-                                                            '</div>'+    
-                                                            '<div class="col-md-4">'+
-                                                                '<button type="button" class="btn btn-primary" id="add-teacher">Add Teacher</button>'+
-                                                            '</div>'+
-                                                        '</div>'+   
-                                                    '</div>'+
-                                                '</form>'+
-
-                                                '<div class="col-md-12 table-responsive result-table">'+
-                                                    '<table class="table table-bordered table-hover table-condensed content">'+
-                                                        '<thead>'+
-                                                            '<tr class="info">'+
-                                                                '<th>ID</th>'+
-                                                                '<th>Last Name</th>'+
-                                                                '<th>First Name</th>'+
-                                                                '<th>Middle Name</th>'+
-                                                                '<th>Gender</th>'+
-                                                                '<th>Status</th>'+
-                                                                '<th>Birthday</th>'+
-                                                                '<th>Address</th>'+
-                                                                '<th>Position</th>'+
-                                                                '<th>Image</th>'+
-                                                                '<th></th>'+
-                                                            '</tr>'+
-                                                        '<thead>'+
-                                                        '<tbody id="tp-box">'+
-                                                          
-                                                        '</tbody>'+
-                                                    '</table>'+
-                                                '</div>'+
-                                        '</div><!--admin-main-content-->');
-                               
-                            $('.content_').append(display);
-                    }    
+   
                      $.ajax({
              
                         url: 'views/ajax/get_for_administrator.php?tp',
@@ -590,67 +1001,69 @@ $(function()
                         }
                 }
 
+function display_sp()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Student Profile '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+                                    '<div class="has-margin content">'+
+                                        '<div class="col-md-4 col-md-offset-1">'+
+                                            '<div class="input-group">'+
+                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="sp_filter"/>'+
+                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                            '</div>'+
+                                        '</div>'+    
+                                        '<div class="col-md-5">'+
+                                            '<button type="button" class="btn btn-primary" id="add-student">Add Student</button>'+
+                                            '<button type="button" class="btn btn-success" id="add-student-excel">Add Student Spreadsheet</button>'+
+                                        '</div>'+
+                                    '</div>'+   
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 table-responsive result-table">'+
+                                '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                    '<thead>'+
+                                        '<tr class="info">'+
+                                            '<th>ID</th>'+
+                                            '<th>Last Name</th>'+
+                                            '<th>First Name</th>'+
+                                            '<th>Middle Name</th>'+
+                                            '<th>Gender</th>'+
+                                            '<th>Status</th>'+
+                                            '<th>Birthday</th>'+
+                                            '<th>Address</th>'+
+                                            '<th>Image</th>'+
+                                            '<th>Guardian</th>'+
+                                            '<th></th>'+
+                                        '</tr>'+
+                                    '<thead>'+
+                                    '<tbody id="sp-box">'+
+                                      
+                                    '</tbody>'+
+                                '</table>'+
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+} 
+
                 function sp()
                 {
                      display_sp();
 
-                    function display_sp()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Student Profile '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                         var display = $('<div class="admin-main-content">'+
-                                                '<form class="form-horizontal" role="form">'+
-                                                    '<div class="form-group no-margin-bottom">'+
-                                                        '<div class="has-margin content">'+
-                                                            '<div class="col-md-4 col-md-offset-1">'+
-                                                                '<div class="input-group">'+
-                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="sp_filter"/>'+
-                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                                '</div>'+
-                                                            '</div>'+    
-                                                            '<div class="col-md-4">'+
-                                                                '<button type="button" class="btn btn-primary" id="add-student">Add Student</button>'+
-                                                                '<button type="button" class="btn btn-success" id="add-student-excel">Add Student Spreadsheet</button>'+
-                                                            '</div>'+
-                                                        '</div>'+   
-                                                    '</div>'+
-                                                '</form>'+
-
-                                                '<div class="col-md-12 table-responsive result-table">'+
-                                                    '<table class="table table-bordered table-hover table-condensed content">'+
-                                                        '<thead>'+
-                                                            '<tr class="info">'+
-                                                                '<th>ID</th>'+
-                                                                '<th>Last Name</th>'+
-                                                                '<th>First Name</th>'+
-                                                                '<th>Middle Name</th>'+
-                                                                '<th>Gender</th>'+
-                                                                '<th>Status</th>'+
-                                                                '<th>Birthday</th>'+
-                                                                '<th>Address</th>'+
-                                                                '<th>Image</th>'+
-                                                                '<th>Guardian</th>'+
-                                                                '<th></th>'+
-                                                            '</tr>'+
-                                                        '<thead>'+
-                                                        '<tbody id="sp-box">'+
-                                                          
-                                                        '</tbody>'+
-                                                    '</table>'+
-                                                '</div>'+
-                                        '</div><!--admin-main-content-->');
-                               
-                            $('.content_').append(display);
-                    }    
+   
                      $.ajax({
              
                         url: 'views/ajax/get_for_administrator.php?sp',
@@ -703,60 +1116,63 @@ $(function()
 
                 }
 
+function display_scs()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Sections '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+                                    '<div class="has-margin content">'+
+                                        '<div class="col-md-4 col-md-offset-1">'+
+                                            '<div class="input-group">'+
+                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="scs_filter"/>'+
+                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                            '</div>'+
+                                        '</div>'+    
+                                        '<div class="col-md-4">'+
+                                            '<button type="button" class="btn btn-primary" id="add-section">Add Section</button>'+
+                                        '</div>'+
+                                    '</div>'+   
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 result-table">'+
+                                '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                    '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                        '<thead>'+
+                                            '<tr class="info">'+
+                                                '<th>Section No</th>'+
+                                                '<th>Section Name</th>'+
+                                                '<th>Grade level</th>'+
+                                                '<th></th>'+
+                                            '</tr>'+
+                                        '<thead>'+
+                                        '<tbody id="scs-box">'+
+                                          
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+    
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+} 
+
                 function scs()
                 {
                     display_scs();
 
-                    function display_scs()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Sections '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                         var display = $('<div class="admin-main-content">'+
-                                                '<form class="form-horizontal" role="form">'+
-                                                    '<div class="form-group no-margin-bottom">'+
-                                                        '<div class="has-margin content">'+
-                                                            '<div class="col-md-4 col-md-offset-1">'+
-                                                                '<div class="input-group">'+
-                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="scs_filter"/>'+
-                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                                '</div>'+
-                                                            '</div>'+    
-                                                            '<div class="col-md-4">'+
-                                                                '<button type="button" class="btn btn-primary" id="add-section">Add Section</button>'+
-                                                            '</div>'+
-                                                        '</div>'+   
-                                                    '</div>'+
-                                                '</form>'+
-
-                                                '<div class="col-md-12 result-table">'+
-                                                    '<div class="col-md-offset-1 col-md-10 table-responsive">'+
-                                                        '<table class="table table-bordered table-hover table-condensed content">'+
-                                                            '<thead>'+
-                                                                '<tr class="info">'+
-                                                                    '<th>Section No</th>'+
-                                                                    '<th>Section Name</th>'+
-                                                                    '<th></th>'+
-                                                                '</tr>'+
-                                                            '<thead>'+
-                                                            '<tbody id="scs-box">'+
-                                                              
-                                                            '</tbody>'+
-                                                        '</table>'+
-                                                    '</div>'+    
-                                                '</div>'+
-                                        '</div><!--admin-main-content-->');
-                               
-                            $('.content_').append(display);
-                    }    
+   
                      $.ajax({
              
                         url: 'views/ajax/get_for_administrator.php?scs',
@@ -793,7 +1209,8 @@ $(function()
                               var display = $('<tr>'+
                                                 '<td>'+rowData.sectionNo+'</td>'+
                                                 '<td>'+rowData.section_name+'</td>'+
-                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-danger section-id col-lg-11">Delete</button></td>'+
+                                                '<td>'+rowData.level_description+'</td>'+
+                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-danger delete-section-id col-lg-11">Delete</button></td>'+
                                             '</tr>');
                                
                             $('#scs-box').append(display);
@@ -801,59 +1218,61 @@ $(function()
 
                 }
 
+function display_sbs()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Subjects '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+                                    '<div class="has-margin content">'+
+                                        '<div class="col-md-4 col-md-offset-1">'+
+                                            '<div class="input-group">'+
+                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="sbs_filter"/>'+
+                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                            '</div>'+
+                                        '</div>'+    
+                                        '<div class="col-md-4">'+
+                                            '<button type="button" class="btn btn-primary" id="add-subject">Add Subject</button>'+
+                                        '</div>'+
+                                    '</div>'+   
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 result-table">'+
+                                '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                    '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                        '<thead>'+
+                                            '<tr class="info">'+
+                                                '<th>Subject</th>'+
+                                                '<th></th>'+
+                                            '</tr>'+
+                                        '<thead>'+
+                                        '<tbody id="sbs-box">'+
+                                          
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+    
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+}  
+
                 function sbs()
                 {
                     display_sbs();
 
-                    function display_sbs()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Subjects '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                         var display = $('<div class="admin-main-content">'+
-                                                '<form class="form-horizontal" role="form">'+
-                                                    '<div class="form-group no-margin-bottom">'+
-                                                        '<div class="has-margin content">'+
-                                                            '<div class="col-md-4 col-md-offset-1">'+
-                                                                '<div class="input-group">'+
-                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="sbs_filter"/>'+
-                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                                '</div>'+
-                                                            '</div>'+    
-                                                            '<div class="col-md-4">'+
-                                                                '<button type="button" class="btn btn-primary" id="add-subject">Add Subject</button>'+
-                                                            '</div>'+
-                                                        '</div>'+   
-                                                    '</div>'+
-                                                '</form>'+
-
-                                                '<div class="col-md-12 result-table">'+
-                                                    '<div class="col-md-offset-1 col-md-10 table-responsive">'+
-                                                        '<table class="table table-bordered table-hover table-condensed content">'+
-                                                            '<thead>'+
-                                                                '<tr class="info">'+
-                                                                    '<th>Subject</th>'+
-                                                                    '<th></th>'+
-                                                                '</tr>'+
-                                                            '<thead>'+
-                                                            '<tbody id="sbs-box">'+
-                                                              
-                                                            '</tbody>'+
-                                                        '</table>'+
-                                                    '</div>'+    
-                                                '</div>'+
-                                        '</div><!--admin-main-content-->');
-                               
-                            $('.content_').append(display);
-                    }    
+  
                      $.ajax({
              
                         url: 'views/ajax/get_for_administrator.php?sbs',
@@ -890,66 +1309,68 @@ $(function()
 
                             var display = $('<tr>'+
                                             '<td>'+rowData.subject_title+'</td>'+
-                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-danger col-lg-11 subject-id">Delete</button></td>'+
+                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-danger col-lg-11 delete-subject-id">Delete</button></td>'+
                                         '</tr>');
                            
                             $('#sbs-box').append(display);
                         }
                 }
 
+function display_gl()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Grade Levels '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+                                    '<div class="has-margin content">'+
+                                        '<div class="col-md-4 col-md-offset-1">'+
+                                            '<div class="input-group">'+
+                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="gl_filter"/>'+
+                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                            '</div>'+
+                                        '</div>'+    
+                                        '<div class="col-md-4">'+
+                                            '<button type="button" class="btn btn-primary" id="add-grade">Add Grade Level</button>'+
+                                        '</div>'+
+                                    '</div>'+   
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 result-table">'+
+                                '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                    '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                        '<thead>'+
+                                            '<tr class="info">'+
+                                                '<th>Grade Level</th>'+
+                                                '<th></th>'+
+                                            '</tr>'+
+                                        '<thead>'+
+                                        '<tbody id="gl-box">'+
+                                          
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+    
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+}  
+
                 function gl()
                 {
                     display_gl();
 
-                    function display_gl()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'Grade Levels '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                         var display = $('<div class="admin-main-content">'+
-                                                '<form class="form-horizontal" role="form">'+
-                                                    '<div class="form-group no-margin-bottom">'+
-                                                        '<div class="has-margin content">'+
-                                                            '<div class="col-md-4 col-md-offset-1">'+
-                                                                '<div class="input-group">'+
-                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="gl_filter"/>'+
-                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                                '</div>'+
-                                                            '</div>'+    
-                                                            '<div class="col-md-4">'+
-                                                                '<button type="button" class="btn btn-primary" id="add-grade">Add Grade Level</button>'+
-                                                            '</div>'+
-                                                        '</div>'+   
-                                                    '</div>'+
-                                                '</form>'+
-
-                                                '<div class="col-md-12 result-table">'+
-                                                    '<div class="col-md-offset-1 col-md-10 table-responsive">'+
-                                                        '<table class="table table-bordered table-hover table-condensed content">'+
-                                                            '<thead>'+
-                                                                '<tr class="info">'+
-                                                                    '<th>Grade Level</th>'+
-                                                                    '<th></th>'+
-                                                                '</tr>'+
-                                                            '<thead>'+
-                                                            '<tbody id="gl-box">'+
-                                                              
-                                                            '</tbody>'+
-                                                        '</table>'+
-                                                    '</div>'+    
-                                                '</div>'+
-                                        '</div><!--admin-main-content-->');
-                               
-                            $('.content_').append(display);
-                    }    
+  
                      $.ajax({
              
                         url: 'views/ajax/get_for_administrator.php?gl',
@@ -986,70 +1407,71 @@ $(function()
 
                             var display = $('<tr>'+
                                                 '<td>'+rowData.level_description+'</td>'+
-                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-danger grade-id col-lg-11">Delete</button></td>'+
+                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-danger delete-grade-id col-lg-11">Delete</button></td>'+
                                             '</tr>');
                                
                             $('#gl-box').append(display);
                         }
                 }
 
+function display_ua()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'User Accounts '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+                                    '<div class="has-margin content">'+
+                                        '<div class="col-md-4 col-md-offset-1">'+
+                                            '<div class="input-group">'+
+                                                '<input type="text" name="q" class="form-control" placeholder="Search..." id="ua_filter"/>'+
+                                                '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
+                                            '</div>'+
+                                        '</div>'+    
+                                    '</div>'+   
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 result-table">'+
+                                '<div class="col-md-12 table-responsive">'+
+                                    '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                        '<thead>'+
+                                            '<tr class="info">'+
+                                                '<th>Username</th>'+
+                                                '<th>Password</th>'+
+                                                '<th>Secret Question</th>'+
+                                                '<th>Secret Answer</th>'+
+                                                '<th>User type</th>'+
+                                                '<th>Account Id</th>'+
+                                                '<th>First Name</th>'+
+                                                '<th>Last Name</th>'+
+                                                
+                                            '</tr>'+
+                                        '<thead>'+
+                                        '<tbody id="ua-box">'+
+                                          
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+    
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+}
                 function ua()
                 {
                     display_ua();
 
-                    function display_ua()
-                    {
-                        $('.content_header').empty();
-                        $('.content_').empty();
-                        
-                         var header = $('<div class="admin-content-header">'+
-                                            '<h1>'+
-                                                'User Accounts '+
-                                                '<small>Control panel</small>'+
-                                            '</h1>'+
-                                        '</div>');
-
-                        $('.content_header').append(header);
-                         var display = $('<div class="admin-main-content">'+
-                                                '<form class="form-horizontal" role="form">'+
-                                                    '<div class="form-group no-margin-bottom">'+
-                                                        '<div class="has-margin content">'+
-                                                            '<div class="col-md-4 col-md-offset-1">'+
-                                                                '<div class="input-group">'+
-                                                                    '<input type="text" name="q" class="form-control" placeholder="Search..." id="ua_filter"/>'+
-                                                                    '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'+
-                                                                '</div>'+
-                                                            '</div>'+    
-                                                        '</div>'+   
-                                                    '</div>'+
-                                                '</form>'+
-
-                                                '<div class="col-md-12 result-table">'+
-                                                    '<div class="col-md-12 table-responsive">'+
-                                                        '<table class="table table-bordered table-hover table-condensed content">'+
-                                                            '<thead>'+
-                                                                '<tr class="info">'+
-                                                                    '<th>Username</th>'+
-                                                                    '<th>Password</th>'+
-                                                                    '<th>Secret Question</th>'+
-                                                                    '<th>Secret Answer</th>'+
-                                                                    '<th>User type</th>'+
-                                                                    '<th>Account Id</th>'+
-                                                                    '<th>First Name</th>'+
-                                                                    '<th>Last Name</th>'+
-                                                                    
-                                                                '</tr>'+
-                                                            '<thead>'+
-                                                            '<tbody id="ua-box">'+
-                                                              
-                                                            '</tbody>'+
-                                                        '</table>'+
-                                                    '</div>'+    
-                                                '</div>'+
-                                        '</div><!--admin-main-content-->');
-                               
-                            $('.content_').append(display);
-                    }    
+    
                      $.ajax({
              
                         url: 'views/ajax/get_for_administrator.php?ua',
@@ -1098,7 +1520,7 @@ $(function()
                             $('#ua-box').append(display);
                         }
                 }
-                
+                $(document.body).on('keyup', '#cs_filter', cs_filter);
                 $(document.body).on('keyup', '#ap_filter', ap_filter);
                 $(document.body).on('keyup', '#tp_filter', tp_filter);
                 $(document.body).on('keyup', '#sp_filter', sp_filter);
@@ -1106,6 +1528,77 @@ $(function()
                 $(document.body).on('keyup', '#scs_filter', scs_filter);
                 $(document.body).on('keyup', '#gl_filter', gl_filter);
                 $(document.body).on('keyup', '#ua_filter', ua_filter);
+
+                function cs_filter() 
+                {
+                    
+                    var filter=$('#cs_filter').val();
+                    /*alert(filter);*/
+                    
+                    
+                    $.ajax({
+             
+                        url: 'views/ajax/get_for_administrator.php',
+                        type: 'GET',
+                        data: {
+                            cs_filter:filter
+                        },
+                       dataType: 'json',
+
+                       success: function(response) 
+                       {
+                            
+                             /*alert(JSON.stringify(response['cs_filter']));*/
+
+                             display_cs_ex_students(response['cs_filter']);
+                                
+                             
+                        },
+
+
+                        });
+
+
+                    function display_cs_ex_students(data)
+                    {
+                        $('#ex-student-box').empty();
+
+                        for (var i = 0; i < data.length; i++) 
+                        {
+
+                                display_ex_students(i+1,data[i]);
+                      
+                        }
+                    }
+
+                    function display_ex_students(counter,row)
+                    {
+                        
+                         var tr;
+                            if(counter%2 != 0)
+                            {
+                                tr = '<tr id="'+row.reg_id+'" class="row_select tr-striped-orange">';
+                            }
+                            else
+                            {
+                                tr='<tr id="'+row.reg_id+'" class="row_select">'
+                            }
+
+                            var display = $(tr +
+                                                '<td class="data-hover">'+counter+'</td>'+
+                                                '<td class="data-hover">'+row.reg_lname+'</td>'+
+                                                '<td class="data-hover">'+row.reg_fname+'</td>'+
+                                                '<td class="data-hover">'+row.reg_mname+'</td>'+
+                                                '<td class="data-hover">'+row.grade+'</td>'+
+                                                /*'<td class="data-hover"></td>'+*/
+                                            '</tr>');
+                       
+                            $('#ex-student-box').append(display);
+                        
+                    }
+                     
+
+                }
 
                 function ap_filter() 
                 {
@@ -1343,7 +1836,7 @@ $(function()
 
                          var display = $('<tr>'+
                                             '<td>'+rowData.subject_title+'</td>'+
-                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-danger col-lg-11 subject-id">Delete</button></td>'+
+                                            '<td><button type="button" id="'+rowData.subjectID+'" class="btn btn-danger col-lg-11 delete-subject-id">Delete</button></td>'+
                                         '</tr>');
                            
                         $('#sbs-box').append(display);
@@ -1396,7 +1889,8 @@ $(function()
                              var display = $('<tr>'+
                                                 '<td>'+rowData.sectionNo+'</td>'+
                                                 '<td>'+rowData.section_name+'</td>'+
-                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-danger section-id col-lg-11">Delete</button></td>'+
+                                                '<td>'+rowData.level_description+'</td>'+
+                                                '<td><button type="button" id="'+rowData.sectionID+'" class="btn btn-danger delete-section-id col-lg-11">Delete</button></td>'+
                                             '</tr>');
                                
                             $('#scs-box').append(display);
@@ -1450,7 +1944,7 @@ $(function()
 
                             var display = $('<tr>'+
                                                 '<td>'+rowData.level_description+'</td>'+
-                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-danger grade-id col-lg-11">Delete</button></td>'+
+                                                '<td><button type="button" id="'+rowData.levelID+'" class="btn btn-danger delete-grade-id col-lg-11">Delete</button></td>'+
                                             '</tr>');
                                
                             $('#gl-box').append(display);
@@ -2357,6 +2851,7 @@ $(function()
                                             {
                                                /* alert(JSON.stringify(data));*/
                                               /* window.location.href="index.php?r=lss&ap&aap";*/
+                                              ap();
                                               alert(data.success);
 
                                               
@@ -2540,6 +3035,7 @@ $(function()
                                             {
                                                /* alert(JSON.stringify(data));*/
                                               /*window.location.href="index.php?r=lss&tp&atp";*/
+                                              tp();
                                               alert(data.success);
                                               
                                             }
@@ -2735,6 +3231,7 @@ $(function()
                                             {
                                                /*alert(JSON.stringify(data));*/
                                               /*window.location.href="index.php?r=lss&sp&asp";*/
+                                              sp();
                                               alert(data.success);
                                               
                                             }
@@ -2852,6 +3349,7 @@ $(function()
                                             {
                                                /*alert(JSON.stringify(data));*/
                                               /*window.location.href="index.php?r=lss&sbs&asbs";*/
+                                              sbs();
                                               alert(data.success);
                                               
                                             }
@@ -2888,7 +3386,7 @@ $(function()
                                    {
                                         /*alert(JSON.stringify(response.create_section_id));*/     
                                          display_form_section(response['create_section_id']);
-
+                                         display_form_section_grade_level(response['level']);
 
                                     },
 
@@ -2925,20 +3423,43 @@ $(function()
                                                     '<div class="has-padding-top">'+
                                                         '<form class="form-horizontal" role="form" id="add-section-form" method="post">'+
                                                             '<input type="hidden" name="addsecid" class="form-control" value="'+row.section_id+'">'+
+
+                                                            '<div class="form-group">'+
+                                                                '<label for="level-name" class="col-md-4 control-label">Grade level:</label>'+
+                                                                '<div class="col-md-2">'+
+                                                                    '<select class="form-control" id="level-name" name="level"  required="required">'+
+                                                                        '<option value="" selected disabled></option>'+
+                                                                    '</select>'+
+                                                                '</div>'+
+                                                            '</div>'+
                                                             '<div class="form-group">'+
                                                                 '<label class="col-sm-4 control-label">Section No</label>'+
-                                                                '<div class="col-sm-4">'+
-                                                                    '<input type="text" name="addsecno" class="form-control add_section">'+
+                                                                '<div class="col-sm-1">'+
+            
+                                                                    '<select class="form-control" name="addsecno" required="required">'+
+                                                                        '<option value="" selected disabled></option>'+
+                                                                        '<option value="1">1</option>'+
+                                                                        '<option value="2">2</option>'+
+                                                                        '<option value="3">3</option>'+
+                                                                        '<option value="4">4</option>'+
+                                                                        '<option value="5">5</option>'+
+                                                                        '<option value="6">6</option>'+
+                                                                        '<option value="7">7</option>'+
+                                                                        '<option value="8">8</option>'+
+                                                                        '<option value="9">9</option>'+
+                                                                        '<option value="10">10</option>'+
+
+                                                                    '</select>'+
                                                                 '</div>'+
                                                             '</div>'+
                                                             '<div class="form-group">'+
                                                                 '<label class="col-sm-4 control-label">Section Name</label>'+
-                                                                '<div class="col-sm-4">'+
+                                                                '<div class="col-sm-2">'+
                                                                     '<input type="text" name="addsecname" class="form-control add_section">'+
                                                                 '</div>'+
                                                             '</div>'+
                                                             '<div class="form-group">'+
-                                                                '<div class="col-md-offset-7 col-md-2">'+
+                                                                '<div class="col-md-offset-5 col-md-2">'+
                                                                     '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="section-add-submit">'+
                                                                         'Submit'+
                                                                     '</button>'+
@@ -2950,6 +3471,22 @@ $(function()
                                            
                                         $('.content_').append(content);
                             }
+                            function display_form_section_grade_level(data)
+                            {
+                                for (var i = 0; i < data.length; i++) 
+                                {
+
+                                        display_level(data[i]);
+                              
+                                }
+                            }
+
+                            function display_level(row)
+                            {
+                                var display = $('<option value="' + row.levelID + '">' + row.level_description + '</option>');
+                                $("#level-name").append(display); 
+                            }
+
                         });//add-section
                         
                         $(document.body).on('submit', '#add-section-form', submitAddSectionForm);
@@ -2974,6 +3511,7 @@ $(function()
                                             {
                                                /*alert(JSON.stringify(data));*/
                                               /*window.location.href="index.php?r=lss&scs&ascs";*/
+                                              scs();
                                               alert(data.success);
                                               
                                             }
@@ -3047,18 +3585,27 @@ $(function()
                                                         '<form class="form-horizontal" role="form" id="add-grade-form" method="post">'+
                                                             '<input type="hidden" name="addgradeid" class="form-control" value="'+row.grade_id+'">'+
                                                             '<div class="form-group">'+
-                                                                '<label class="col-sm-4 control-label">Grade Level</label>'+
-                                                                '<div class="col-sm-4">'+
-                                                                    '<input type="text" name="addgradedesc" class="form-control add_grade">'+
+                                                                '<label class="col-sm-2 control-label">Grade Level</label>'+
+
+                                                                '<div class="col-md-1">'+
+                                                                    '<select class="form-control" name="addgradedesc"  required="required">'+
+                                                                        '<option value="" selected disabled></option>'+
+                                                                        '<option value="1">1</option>'+
+                                                                        '<option value="2">2</option>'+
+                                                                        '<option value="3">3</option>'+
+                                                                        '<option value="4">4</option>'+
+                                                                        '<option value="5">5</option>'+
+                                                                        '<option value="6">6</option>'+
+                                                                    '</select>'+
                                                                 '</div>'+
-                                                            '</div>'+
-                                                            '<div class="form-group">'+
-                                                                '<div class="col-md-offset-7 col-md-2">'+
+
+                                                                '<div class="col-md-2">'+
                                                                     '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="grade-add-submit">'+
                                                                         'Submit'+
                                                                     '</button>'+
                                                                 '</div>'+
                                                             '</div>'+
+
                                                         '</form>'+
                                                     '</div>'+    
                                                 '</div><!--admin-main-content-->');
@@ -3089,6 +3636,7 @@ $(function()
                                             {
                                                /*alert(JSON.stringify(data));*/
                                               /*window.location.href="index.php?r=lss&gl&agl";*/
+                                              gl();
                                                alert(data.success);
                                               
                                             }
@@ -3316,10 +3864,12 @@ $(function()
                                                 {
                                                     if (data.success !== undefined)
                                                     {
+                                                        sp();
                                                         alert(data.success + "\n" +data.skipped);
                                                     }
                                                     else
                                                     {
+                                                        sp();
                                                         alert(data.skipped);
                                                     }    
                                                    
@@ -3328,6 +3878,7 @@ $(function()
                                                 {
                                                     if (data.success !== undefined)
                                                     {
+                                                        sp();
                                                         alert(data.success);
                                                     }
                                                     
@@ -3346,7 +3897,7 @@ $(function()
                                         error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
-                                                alert('ERROR: ' + textStatus);
+                                                alert('ERROR: ' + textStatus +' '+ errorThrown);
                                             
                                         },
                                         complete: function()
@@ -3358,6 +3909,130 @@ $(function()
 
                             });
                         }
+
+                        $(document.body).on('click', '.delete-grade-id',function()
+                        {
+                            var id=$(this).attr('id');
+                           /* alert(id);*/
+                           $.ajax({
+                                        url: 'views/ajax/get_for_administrator.php?delete-grade',
+                                        type: 'POST',
+                                        data: {grade_id : id},
+                                        dataType: 'json',
+                                        success: function(data, textStatus, jqXHR)
+                                        {
+                                            
+                                            if(typeof data.error === 'undefined')
+                                            {
+                                               
+                                                /*console.log(JSON.stringify(data.success));*/
+                                                gl();
+                                                 alert(data.success);
+                                               
+                                            }
+                                            else
+                                            {
+                                                alert('Error: '+data.error);
+                                            }   
+
+                                            
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown)
+                                        {
+                                            
+                                                alert('ERROR: ' + textStatus +' '+ errorThrown);
+                                            
+                                        },
+                                        complete: function()
+                                        {
+                                            // Completed
+                                        }
+                            
+                                    });  
+                        });
+
+                        $(document.body).on('click', '.delete-section-id',function()
+                        {
+                            var id=$(this).attr('id');
+                            /*alert(id);*/
+                            $.ajax({
+                                        url: 'views/ajax/get_for_administrator.php?delete-section',
+                                        type: 'POST',
+                                        data: {section_id : id},
+                                        dataType: 'json',
+                                        success: function(data, textStatus, jqXHR)
+                                        {
+                                            
+                                            if(typeof data.error === 'undefined')
+                                            {
+                                               
+                                                /*console.log(JSON.stringify(data.success));*/
+                                                scs();
+                                                alert(data.success);
+                                               
+                                            }
+                                            else
+                                            {
+                                                alert('Error: '+data.error);
+                                            }   
+
+                                            
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown)
+                                        {
+                                            
+                                                alert('ERROR: ' + textStatus +' '+ errorThrown);
+                                            
+                                        },
+                                        complete: function()
+                                        {
+                                            // Completed
+                                        }
+                            
+                                    });  
+                        });
+
+                        $(document.body).on('click', '.delete-subject-id',function()
+                        {
+                            var id=$(this).attr('id');
+                            /*alert(id);*/
+                            $.ajax({
+                                        url: 'views/ajax/get_for_administrator.php?delete-subject',
+                                        type: 'POST',
+                                        data: {subject_id : id},
+                                        dataType: 'json',
+                                        success: function(data, textStatus, jqXHR)
+                                        {
+                                            
+                                            if(typeof data.error === 'undefined')
+                                            {
+                                               
+                                                /*console.log(JSON.stringify(data.success));*/
+                                                sbs();
+                                                alert(data.success);
+                                               
+                                            }
+                                            else
+                                            {
+                                                alert('Error: '+data.error);
+                                            }   
+
+                                            
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown)
+                                        {
+                                            
+                                                alert('ERROR: ' + textStatus +' '+ errorThrown);
+                                            
+                                        },
+                                        complete: function()
+                                        {
+                                            // Completed
+                                        }
+                            
+                                    });  
+                        });
+
 
 
                   

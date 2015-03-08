@@ -38,9 +38,6 @@
 						{
 							echo '<li class="active">
 									<a href="index.php?r=lss"><i class="fa fa-home fa-2x"></i><h2 class="visible-xs-inline"> Home</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -48,9 +45,6 @@
 						{
 							echo '<li>
 									<a href="index.php?r=lss"><i class="fa fa-home fa-2x"></i><h2 class="visible-xs-inline"> Home</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -58,9 +52,6 @@
 						{
 							echo '<li>
 									<a href="index.php?r=lss"><i class="fa fa-home fa-2x"></i><h2 class="visible-xs-inline"> Home</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 

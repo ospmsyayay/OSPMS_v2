@@ -23,13 +23,13 @@ else
 				{
 					switch($_SESSION['user_type'])
 					{
-						case 'admin':if(!isset($GET['an']))
+						case 'Admin':if(!isset($GET['an']))
 										{
 											admin();break;
 										}
 										
 										break;
-						case 'teacher': 
+						case 'Teacher': 
 										if(!isset($_GET['tr']))
 										{
 											tpage();break;
@@ -42,13 +42,13 @@ else
 												case 'tre':tpage_encode();break;
 												case 'tres':tpage_encode_spreadsheet();break;
 												/*case 'trce':tpage_createexer(); break;*/
-												case 'trce':createexer();break;
-												case 's':t_spage_progress();break;
+												/*case 'trce':createexer();break;*/
+												/*case 's':t_spage_progress();break;*/
 												case 'acc':taccount_settings();break;
 											}
 										}
 										break;
-						case 'student': 
+						case 'Student': 
 										if(!isset($_GET['st']))
 										{
 											spage();break;
@@ -57,12 +57,12 @@ else
 											switch($_GET['st'])
 											{
 												case 'stp':spage_progress();break;
-												case 'sep':spage_exercise();break;
+												/*case 'sep':spage_exercise();break;*/
 												case 'acc':saccount_settings();break;
 											}
 										}
 										break;
-						case 'parent': 
+						case 'Parent': 
 										if(!isset($_GET['pt']))
 										{
 											ppage();break;
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                             {
 					           $_SESSION['username'] = $username;
 					           $_SESSION['password'] = $password;
-							   $_SESSION['user_type'] = $user_type;
+							   $_SESSION['user_type'] = ucwords(strtolower($user_type));
 							   $_SESSION['account_id'] = $account_id;
 							   
 									$profile=get_profile($_SESSION['account_id']);
@@ -346,7 +346,7 @@ function tpage()
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 		{
 		
-			if(isset($_POST['message']))
+/*			if(isset($_POST['message']))
 		    {
 		   	
 				$message=clean($_POST['message']);
@@ -360,9 +360,9 @@ function tpage()
 					header("Location: index.php?r=lss&w");
 				}
 
-			}
+			}*/
 			
-			if(isset($_POST['lecture-caption']))
+/*			if(isset($_POST['lecture-caption']))
 		   	{
 				$file_caption=clean($_POST['lecture-caption']);
 					
@@ -382,7 +382,7 @@ function tpage()
 					}
 
 				}	
-			}
+			}*/
 			
 			if(isset($_POST['file_name']))
 			{
@@ -410,56 +410,26 @@ function tpage()
 			}
 			
 		}
+
+		$_SESSION['school_year']=get_school_year();
 		
 		$_SESSION['TeacherLoad']=array();
 		
-		$subjects=get_subjectByTeacherID($_SESSION['account_id']);
-	
-		while($travsubjects = mysqli_fetch_array($subjects))
+		$teacherload=get_subjectsBySchoolYear($_SESSION['account_id'],$_SESSION['school_year']);
+		while($travload = mysqli_fetch_array($teacherload))
 		{
-			
-			$subjectIdPasser=array();
-		
-			$subjectIdPasser['subjectID']=$travsubjects['subjectID'];
-			
-			$subject_title = $travsubjects['subject_title'];
-					
-			$_SESSION['TeacherLoad'][$subject_title ]=null;
-			
-	
-					$grades=get_gradeByTeacherIDSubjectID($_SESSION['account_id'],$subjectIdPasser['subjectID']);
-								
-						while($travgrades = mysqli_fetch_array($grades))
-						{
-							$levelIdPasser=array();
-							
-							$levelIdPasser['levelID']=$travgrades['levelID'];
-							
-							$level_description=$travgrades ['level_description'];
-												
-								$_SESSION['TeacherLoad'][$subject_title][$level_description]=null;
-							
-								
-									$section=get_sectionByTeacherIDSubjectIDLevelID($_SESSION['account_id'],$subjectIdPasser['subjectID'],$levelIdPasser['levelID']);
-											
-											while($travsectionNo=mysqli_fetch_array($section))
-											{
-											
-												$sectionNo=$travsectionNo['sectionNo'];
-												$sectionName=$travsectionNo['section_name'];
-												
-												$_SESSION['TeacherLoad'][$subject_title][$level_description][$sectionNo][$sectionName]=null;
-									
-											
-												
-											}
-					
-						}
-						
-			
-		
-					
+			$passer=array();
 
+			$passer['class_rec_no']=$travload['class_rec_no'];
+			$passer['level_description']=$travload['level_description'];
+			$passer['sectionNo']=$travload['sectionNo'];
+			$passer['section_name']=$travload['section_name'];
+			$passer['subject_title']=$travload['subject_title'];
+			$passer['sched_days']=$travload['sched_days'];
+			$passer['sched_start_time']=convert_time_to_12hr($travload['sched_start_time']);
+			$passer['sched_end_time']=convert_time_to_12hr($travload['sched_end_time']);
+
+			$_SESSION['TeacherLoad'][]=$passer;
 	
 		}
 
@@ -473,15 +443,43 @@ function tpage()
 
 				$passer=array();
 
-				$passer['date_created']=$display['date_created'];
-				$passer['timespan']=get_time_difference_php($passer['date_created']);
+				$passer['date_created']=convert_datetime_to_12hr($display['date_created']);
+				$passer['timespan']=get_time_difference_php($display['date_created']);
 				$passer['messageorfile_caption']=$display['messageorfile_caption'];
 				$passer['file_path']=$display['file_path'];
 				$passer['file_name']=$display['file_name'];
+				$passer['level_description']=$display['level_description'];
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
 				$passer['subject_title']=$display['subject_title'];
-				$passer['level_description']=$display['level_description'];
+				$passer['announcement_id']=$display['date_created'];
+
+				$comments="";
+                //select comments
+				$select_comments=post_comments($display['date_created']);
+				while($comment = mysqli_fetch_array($select_comments))
+                {
+                    $comments=$comments .   '<div class="row has-padding-top-5">
+                                                <div class="col-md-12">
+                                                    <div class="">
+                                                        <img src="views/res/'.$comment['image'].'" class="shadow post-comment-img img-thumbnail pull-left img-responsive" />
+                                                    </div>
+
+                                                    <div class="input-group col-md-11 col-md-offset-1">
+                                                        <div class="comment"><a class="comment-author">'.$comment['reg_fname'].' '.$comment['reg_lname'].' </a>'.$comment['comment_message'].'
+                                                        </div>
+                                                        <div><small class="comment-timespan"><strong>'.convert_datetime_to_12hr($comment['comment_date_created']).'</strong></small></div>
+                                                        <div><small class="comment-timespan">'.get_time_difference_php($comment['comment_date_created']).'</small></div>
+                                                    </div>
+                                                </div>
+                                            </div><!--//row-->';
+                }
+
+                $passer['comments']=$comments;
+                $passer['message_id']=createMessageId();
+
+
+				
 
 				$display_box[]=$passer;
 				
@@ -496,7 +494,7 @@ function lecture_uploaded($caption)
 {
 	$name = $_FILES['upload_lecture']['name'];
 	$tmp_name = $_FILES['upload_lecture']['tmp_name'];
-	$allowedextension = array('gif', 'jpeg', 'jpg','png',
+	$allowedextension = array('gif', 'jpeg', 'jpg','JPG','png',
 							  'doc','docx','docm','docb','pdf','dotm','dotx',
 							  'xls','xlsx','xlsm','xltx','xltm','xlsb',
 							  'ppt','pptx','pptm','potx','potm','ppam','ppsx','ppsm','sldx','sldm',
@@ -586,6 +584,7 @@ function get_mime ($filename)
 		case 'swf':$mime='application/x-shockwave-flash';break;
 		case 'zip':$mime='application/zip';break;
 		case 'jpeg':
+		case 'JPG':
 		case 'jpg':$mime='image/jpeg';break;
 		case 'gif':$mime='image/gif';break;
 		case 'png':$mime='image/png';break;
@@ -645,23 +644,23 @@ function tpage_progress()
 	
 }
 
-function t_spage_progress()
+/*function t_spage_progress()
 {
 	include "views/Teacher_Student_Page_Progress.php";
-}
+}*/
 
 
 function tpage_encode()
 {
-	include 'model/students.php';
+/*	include 'model/students.php';
     include 'model/utility.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") 
     {
         $grading_id=createGradingId();
-        $student_lrn = $_POST['studentName'];
-        $class_rec_no =$_POST['sectionName'];
-        $grading_period = $_POST['gradingPeriod'];
+        $student_lrn = $_POST['studentName'];*/
+        /*$class_rec_no =$_POST['sectionName'];*/
+   /*     $grading_period = $_POST['gradingPeriod'];
         $week_number = $_POST['weekNumber'];
         $knowledge = $_POST['knowledge'];
         $processskills = $_POST['processskills'];
@@ -683,7 +682,7 @@ function tpage_encode()
         }
 
 
-    }
+    }*/
 
 	include "views/Teachers_Page_Encoding.php";
 }
@@ -1345,6 +1344,7 @@ function spage()
 {
 	include "model/student_schedule_line.php";
 	include "model/announcement_lecture.php";
+	include "model/utility.php";
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 		{
@@ -1376,56 +1376,31 @@ function spage()
 
 		}	
 
+		$_SESSION['student_school_year']=get_school_year();
 
 		$_SESSION['Student_Schedule_Line']=array();
 		
-		$subjects=get_subjectByStudentID($_SESSION['account_id']);
+		$studentload=get_sectionBySchoolYear($_SESSION['account_id'],$_SESSION['student_school_year']);
 	
-		while($travsubjects = mysqli_fetch_array($subjects))
+		while($travload = mysqli_fetch_array($studentload))
 		{
-			
-			$subjectIdPasser=array();
-		
-			$subjectIdPasser['subjectID']=$travsubjects['subjectID'];
-			
-			$subject_title = $travsubjects['subject_title'];
-					
-			$_SESSION['Student_Schedule_Line'][$subject_title ]=null;
-			
-	
-					$grades=get_gradeByStudentIDSubjectID($_SESSION['account_id'],$subjectIdPasser['subjectID']);
-								
-						while($travgrades = mysqli_fetch_array($grades))
-						{
-							$levelIdPasser=array();
-							
-							$levelIdPasser['levelID']=$travgrades['levelID'];
-							
-							$level_description=$travgrades ['level_description'];
-												
-								$_SESSION['Student_Schedule_Line'][$subject_title][$level_description]=null;
-							
-								
-									$section=get_sectionByStudentIDSubjectIDLevelID($_SESSION['account_id'],$subjectIdPasser['subjectID'],$levelIdPasser['levelID']);
-											
-											while($travsectionNo=mysqli_fetch_array($section))
-											{
-											
-												$sectionNo=$travsectionNo['sectionNo'];
-												$sectionName=$travsectionNo['section_name'];
-												
-												$_SESSION['Student_Schedule_Line'][$subject_title][$level_description][$sectionNo][$sectionName]=null;
-									
-											
-												
-											}
-					
-						}
-						
-			
-		
-					
+			$passer=array();
 
+			$passer['class_rec_no']=$travload['class_rec_no'];
+			$passer['teacher_id']=$travload['reg_id'];
+			$passer['teacher_lname']=$travload['reg_lname'];
+			$passer['teacher_fname']=$travload['reg_fname'];
+			$passer['teacher_mname']=$travload['reg_mname'];
+			$passer['teacher_image']=$travload['image'];
+			$passer['level_description']=$travload['level_description'];
+			$passer['sectionNo']=$travload['sectionNo'];
+			$passer['section_name']=$travload['section_name'];
+			$passer['subject_title']=$travload['subject_title'];
+			$passer['sched_days']=$travload['sched_days'];
+			$passer['sched_start_time']=convert_time_to_12hr($travload['sched_start_time']);
+			$passer['sched_end_time']=convert_time_to_12hr($travload['sched_end_time']);
+
+			$_SESSION['Student_Schedule_Line'][]=$passer;
 	
 		}
 
@@ -1439,19 +1414,49 @@ function spage()
 
 				$passer=array();
 
-				$passer['date_created']=$display['date_created'];
-				$passer['timespan']=get_time_difference_php($passer['date_created']);
+        		$passer['teacher_id']=$display['reg_id'];
+        		$passer['teacher_lname']=$display['reg_lname'];
+        		$passer['teacher_fname']=$display['reg_fname'];
+        		$passer['teacher_mname']=$display['reg_mname'];
+        		$passer['teacher_image']=$display['image'];
+				$passer['date_created']=convert_datetime_to_12hr($display['date_created']);
+				$passer['timespan']=get_time_difference_php($display['date_created']);
 				$passer['messageorfile_caption']=$display['messageorfile_caption'];
 				$passer['file_path']=$display['file_path'];
 				$passer['file_name']=$display['file_name'];
+				$passer['level_description']=$display['level_description'];
 				$passer['sectionNo']=$display['sectionNo'];
 				$passer['section_name']=$display['section_name'];
 				$passer['subject_title']=$display['subject_title'];
-				$passer['level_description']=$display['level_description'];
-				$passer['teacher']=$display['reg_fname'] . " " . $display['reg_lname']; 
-				$passer['image']=$display['image']; 
+				$passer['announcement_id']=$display['date_created'];
+
+				$comments="";
+                //select comments
+				$select_comments=post_comments($display['date_created']);
+				while($comment = mysqli_fetch_array($select_comments))
+                {
+                    $comments=$comments .   '<div class="row has-padding-top-5">
+                                                <div class="col-md-12">
+                                                    <div class="">
+                                                        <img src="views/res/'.$comment['image'].'" class="shadow student-post-comment-img img-thumbnail pull-left img-responsive" />
+                                                    </div>
+
+                                                    <div class="input-group col-md-11 col-md-offset-1">
+                                                        <div class="student-comment"><a class="student-comment-author">'.$comment['reg_fname'].' '.$comment['reg_lname'].' </a>'.$comment['comment_message'].'
+                                                        </div>
+                                                        <div><small class="student-comment-timespan"><strong>'.convert_datetime_to_12hr($comment['comment_date_created']).'</strong></small></div>
+                                                        <div><small class="student-comment-timespan">'.get_time_difference_php($comment['comment_date_created']).'</small></div>
+                                                    </div>
+                                                </div>
+                                            </div><!--//row-->';
+                }
+
+                $passer['comments']=$comments;
+                $passer['message_id']=createMessageId();
 
 				$display_box[]=$passer;
+
+
 				
 		}
 
@@ -1529,6 +1534,36 @@ function spage_exercise()
 function ppage()
 {
 	include "model/parent.php";
+	include "model/utility.php";
+
+	$display_box=array();
+	$announcements=get_announcements($_SESSION['account_id']);
+	
+	while($display = mysqli_fetch_array($announcements))
+	{
+
+
+			$passer=array();
+
+			$passer['class_rec_no']=$display['class_rec_no'];
+			$passer['feedback_date_created']=convert_datetime_to_12hr($display['feedback_date_created']);
+			$passer['timespan']=get_time_difference_php($display['feedback_date_created']);
+			$passer['parentID']=$display['parentID'];
+			$passer['teacher_lname']=$display['reg_lname'];
+			$passer['teacher_fname']=$display['reg_fname'];
+			$passer['teacher_mname']=$display['reg_mname'];
+			$passer['teacher_image']=$display['image'];
+			$passer['feedback_message']=$display['feedback_message'];
+			$passer['level_description']=$display['level_description'];
+			$passer['sectionNo']=$display['sectionNo'];
+			$passer['section_name']=$display['section_name'];
+			$passer['subject_title']=$display['subject_title'];
+			$passer['announcement_id']=$display['feedback_date_created'];
+
+			$display_box[]=$passer;
+
+	}		
+
 
 	$display_students=array();
 	$display_teachers=array();
@@ -1556,11 +1591,11 @@ function ppage()
 	{
 		$passer=array();
 			
-		$passer['reg_id']=$display['reg_id'];
-		$passer['reg_lname']=$display['reg_lname'];
-		$passer['reg_fname']=$display['reg_fname'];
-		$passer['reg_mname']=$display['reg_mname'];
-		$passer['image']=$display['image'];
+		$passer['teacher_id']=$display['reg_id'];
+		$passer['teacher_lname']=$display['reg_lname'];
+		$passer['teacher_fname']=$display['reg_fname'];
+		$passer['teacher_mname']=$display['reg_mname'];
+		$passer['teacher_image']=$display['image'];
 
 		$display_teachers[]=$passer;
 	}

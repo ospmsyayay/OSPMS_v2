@@ -190,6 +190,17 @@ function createGradeId()
         return $grade_id;
 }
 
+function createMessageId()
+{
+    $rand9int=$message_id="";
+        
+        $rand9int=strval(mt_rand ( 100000000 , 999999999 ));
+
+        $message_id="M" . $rand9int;
+
+        return $message_id;
+}
+
 
 
 function mark_proficiency($grade)
@@ -501,13 +512,13 @@ function get_week_of_grading()
             }    
             //April:Releasing of Final Grades
             
-            echo $weekOfGrading;
+            return $weekOfGrading;
 }
 
 function get_school_year()
 {
     $current_year = date("Y", strtotime("today"));
-    return 'School Year '.strval($current_year).'-'.strval($current_year+1);
+    return strval($current_year).'-'.strval($current_year+1);
                         
 }    
 
@@ -563,6 +574,33 @@ function get_grading_period()
     return $grading_period;
 
 
+}
+
+function createClassRecNo()
+{
+    $rand5int=$class_rec_no="";
+        
+        $rand5int=strval(mt_rand ( 10000 , 99999 ));
+
+        $class_rec_no="ECRN-" . $rand5int;
+
+        return $class_rec_no;
+}
+
+function convert_time_to_12hr($time)
+{
+    $new_time=date("h:i A", strtotime($time));
+
+    return $new_time;
 }     
+
+function convert_datetime_to_12hr($datetime)
+{
+    $new_time=date("Y-m-d h:i A", strtotime($datetime));
+
+    return $new_time;
+  
+}
+
 
 ?>

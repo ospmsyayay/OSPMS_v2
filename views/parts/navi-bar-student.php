@@ -29,7 +29,7 @@
 							switch($_GET['st'])
 							{
 								case 'stp':progress();break;
-								case 'sep':exercise();break;
+								/*case 'sep':exercise();break;*/
 								case 'acc':account();break;
 
 							}
@@ -42,12 +42,6 @@
 								</li>
 								<li>
 									<a href="index.php?r=lss&st=stp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&st=sep"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -58,28 +52,6 @@
 								</li>
 								<li class="active">
 									<a href="index.php?r=lss&st=stp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&st=sep"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
-								</li>';
-						}
-
-						function exercise()
-						{
-							echo '<li>
-									<a href="index.php?r=lss"><i class="fa fa-home fa-2x"></i><h2 class="visible-xs-inline"> Home</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&st=stp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li class="active">
-									<a href="index.php?r=lss&st=sep"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}
 
@@ -90,12 +62,6 @@
 								</li>
 								<li>
 									<a href="index.php?r=lss&st=stp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
-								</li>
-								<li>
-									<a href="index.php?r=lss&st=sep"><i class="fa fa-puzzle-piece fa-2x"></i><h2 class="visible-xs-inline"> Exercise</h2></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Reports</h2></a>
 								</li>';
 						}	
 					?>

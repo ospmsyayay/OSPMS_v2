@@ -302,12 +302,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: ' + textStatus);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -485,12 +485,12 @@ $(function ()
 								}
 								
 				          	},
-				          	error: function(jqXHR, textStatus, errorThrown)
+/*				          	error: function(jqXHR, textStatus, errorThrown)
 				          	{
 				            	
 				            		alert('ERROR: '+ textStatus+' '+errorThrown);
 				            	
-				          	},
+				          	},*/
 				          	complete: function()
 				            {
 				            	// Completed

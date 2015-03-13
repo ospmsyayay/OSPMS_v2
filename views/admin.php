@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title>Admin</title>
             <link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
-            <link type="text/css" href="views/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet"/>
+            <link type="text/css" href="views/plugins/jquery-timepicker/jquery.timepicker.css" rel="stylesheet"/>
             <link href="views/css/exDesign.css" rel="stylesheet"/>
             <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 
@@ -156,6 +156,31 @@
                         <div class="row content_"><!--row for admin-main-content-->
                              
                         </div><!--row for admin-main-content-->
+
+                            <!-- MODAL Announce-->
+                            <div class="modal fade" id="announce-message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-announce">
+                                    <div class="modal-content modal-content-announce">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title"><i class="fa fa-bullhorn"></i> School Announcement</h4>
+                                        </div>
+                                        <form method="post" id="announce-message">
+                                            <div class="modal-body">
+
+                                                <div class="form-group">
+                                                    <textarea name="announcement_message" id="announcement_message" class="form-control" placeholder="Write Announcement" style="height: 120px;"></textarea>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer clearfix">
+
+                                                <button type="button" class="btn btn-primary pull-right" id="submitAnnouncementMessage"><i class="fa fa-bullhorn"></i> Post Announcement</button>
+                                            </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
                         
                     </div>
                 <!--End of mid content-->
@@ -169,7 +194,7 @@
         <!-- Load jQuery UI Main JS  -->
         <script src="views/plugins/jquery-ui/jquery-ui.js"></script>
         <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="views/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+        <script type="text/javascript" src="views/plugins/jquery-timepicker/jquery.timepicker.js"></script>
        
 
 <script>
@@ -189,15 +214,60 @@ $(function()
                     dateFormat: 'yy-mm-dd'
                 });
             });
-            $(document.body).on('click','#sched_start_time',function()
-            {
-                $(this).timepicker();
+            $(document.body).on('focus','#sched_start_time',function()
+            {           
+                $(this).timepicker({
+                    'minTime': '5:45am',
+                    'maxTime': '6:30pm',
+                    'timeFormat': 'h:i A',
+                    useSelect: true
+                });
             });
 
-            $(document.body).on('click','#sched_end_time',function()
+            $(document.body).on('focus','#sched_end_time',function()
             {
-               $(this).timepicker();
+                $(this).timepicker({
+                    'minTime': '5:45am',
+                    'maxTime': '6:30pm',
+                    'timeFormat': 'h:i A',
+                    useSelect: true
+                });
             });
+
+            $(document.body).on('keyup','#sched_start_time',function()
+            {
+                var start_time=$(this).val();
+
+                 var converted=ConvertTimeformat("24", start_time);
+                alert(converted);                  
+
+            });
+
+            $(document.body).on('keyup','#sched_end_time',function()
+            {
+                var end_time=$(this).val();
+
+                var converted=ConvertTimeformat("24", end_time);
+                alert(converted);
+
+            });
+
+            function ConvertTimeformat(format, str) 
+            {
+                var time = $("#starttime").val();
+                var hours = Number(time.match(/^(\d+)/)[1]);
+                var minutes = Number(time.match(/:(\d+)/)[1]);
+                var AMPM = time.match(/\s(.*)$/)[1];
+                if (AMPM == "PM" && hours < 12) hours = hours + 12;
+                if (AMPM == "AM" && hours == 12) hours = hours - 12;
+                var sHours = hours.toString();
+                var sMinutes = minutes.toString();
+                if (hours < 10) sHours = "0" + sHours;
+                if (minutes < 10) sMinutes = "0" + sMinutes;
+                var new_time=sHours + ":" + sMinutes;
+                return new_time;
+            }
+
 
             $('.side-menu').on('click', function () 
             {
@@ -214,9 +284,15 @@ $(function()
                     case 'sbs':sbs();break;
                     case 'gl':gl();break;
                     case 'ua':ua();break;
+                    case 'ann':ann();break;
                 }
  
             });
+function ann()
+{
+    $('#announce-message-modal').modal('show')
+}
+
 
 function display_cs()
 {
@@ -2095,10 +2171,10 @@ function display_ua()
                                                                         '<input type="text" name="edadmlname" class="form-control edit_admin" value="'+row.reg_lname+'" readonly="true">'+
                                                                     '</div>'+
 
-                                                                    '<label class="col-md-1 control-label">Address</label>'+
+/*                                                                    '<label class="col-md-1 control-label">Address</label>'+
                                                                     '<div class="col-sm-4">'+
                                                                         '<input type="text" name="edadmaddress" class="form-control edit_admin" value="'+row.reg_address+'" readonly="true">'+
-                                                                    '</div>'+
+                                                                    '</div>'+*/
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-md-2 control-label">First name</label>'+
@@ -2317,21 +2393,21 @@ function display_ua()
                                                                         '<input type="text" name="edteachlname" class="form-control edit_teacher" value="'+row.reg_lname+'" readonly="true">'+
                                                                     '</div>'+
 
-                                                                    '<label class="col-sm-1 control-label">Address</label>'+
+/*                                                                    '<label class="col-sm-1 control-label">Address</label>'+
                                                                     '<div class="col-sm-4">'+
                                                                         '<input type="text" name="edteachaddress" class="form-control edit_teacher" value="'+row.reg_address+'" readonly="true">'+
-                                                                    '</div>'+
+                                                                    '</div>'+*/
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">First name</label>'+
                                                                     '<div class="col-sm-4">'+
                                                                         '<input type="text" name="edteachfname" class="form-control edit_teacher" value="'+row.reg_fname+'" readonly="true">'+
                                                                     '</div>'+
-
+/*
                                                                      '<label class="col-sm-1 control-label">Position</label>'+
                                                                     '<div class="col-sm-4">'+
                                                                         '<input type="text" name="edteachtposition" class="form-control edit_teacher" value="'+row.t_position+'" readonly="true">'+
-                                                                    '</div>'+
+                                                                    '</div>'+*/
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">Middle name</label>'+
@@ -2442,12 +2518,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -2540,10 +2616,10 @@ function display_ua()
                                                                         '<input type="text" name="edstudlname" class="form-control edit_student" value="'+row[1]+'" readonly="true">'+
                                                                     '</div>'+
 
-                                                                    '<label class="col-sm-1 control-label">Address</label>'+
+/*                                                                    '<label class="col-sm-1 control-label">Address</label>'+
                                                                     '<div class="col-sm-4">'+
                                                                         '<input type="text" name="edstudaddress" class="form-control edit_student" value="'+row[7]+'" readonly="true">'+
-                                                                    '</div>'+
+                                                                    '</div>'+*/
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">First name</label>'+
@@ -2679,12 +2755,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -2773,11 +2849,11 @@ function display_ua()
                                                             '<div class="col-sm-4">'+
                                                                 '<input type="text" name="addadmlname" class="form-control add_admin">'+
                                                             '</div>'+
-
+/*
                                                             '<label class="col-sm-1 control-label">Address</label>'+
                                                             '<div class="col-sm-4">'+
                                                                 '<input type="text" name="addadmaddress" class="form-control add_admin">'+
-                                                            '</div>'+
+                                                            '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">First name</label>'+
@@ -2863,12 +2939,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -2957,10 +3033,10 @@ function display_ua()
                                                                 '<input type="text" name="addteachlname" class="form-control add_teacher">'+
                                                             '</div>'+
 
-                                                            '<label class="col-sm-1 control-label">Address</label>'+
+/*                                                            '<label class="col-sm-1 control-label">Address</label>'+
                                                             '<div class="col-sm-4">'+
                                                                 '<input type="text" name="addteachaddress" class="form-control add_teacher">'+
-                                                            '</div>'+
+                                                            '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">First name</label>'+
@@ -2968,10 +3044,10 @@ function display_ua()
                                                                 '<input type="text" name="addteachfname" class="form-control add_teacher">'+
                                                             '</div>'+
 
-                                                             '<label class="col-sm-1 control-label">Position</label>'+
+/*                                                             '<label class="col-sm-1 control-label">Position</label>'+
                                                             '<div class="col-sm-4">'+
                                                                 '<input type="text" name="addteachtposition" class="form-control add_teacher">'+
-                                                            '</div>'+
+                                                            '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">Middle name</label>'+
@@ -3046,12 +3122,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -3138,11 +3214,11 @@ function display_ua()
                                                             '<div class="col-sm-4">'+
                                                                 '<input type="text" name="addstudlname" class="form-control add_student">'+
                                                             '</div>'+
-
+/*
                                                             '<label class="col-sm-1 control-label">Address</label>'+
                                                             '<div class="col-sm-4">'+
                                                                 '<input type="text" name="addstudaddress" class="form-control add_student">'+
-                                                            '</div>'+
+                                                            '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">First name</label>'+
@@ -3242,12 +3318,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -3267,12 +3343,15 @@ function display_ua()
                                    {
                                         /*alert(JSON.stringify(response.create_subject_id));*/     
                                          display_form_subject(response['create_subject_id']);
+                                         display_form_subject_list(response['subjectlist']);
+                                         display_learning_areas(response['subjectlist']);
 
 
                                     },
 
 
                                     });
+
 
                             function display_form_subject(data) 
                             {
@@ -3301,30 +3380,102 @@ function display_ua()
                                 $('.content_header').append(header);
 
                                 var content = $('<div class="admin-main-content">'+
-                                                    '<div class="has-padding-top">'+
-                                                        '<form class="form-horizontal" role="form" id="add-subject-form" method="post">'+
-                                                             '<input type="hidden" name="addsubid" class="form-control" value="'+row.subject_id+'">'+
-                                                            '<div class="form-group">'+
-                                                                '<label class="col-sm-4 control-label">Subject Title</label>'+
-                                                                '<div class="col-sm-4">'+
-                                                                    '<input type="text" name="addsubtitle" class="form-control add_subject">'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                            '<div class="form-group">'+
-                                                                '<div class="col-md-offset-7 col-md-2">'+
-                                                                    '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="subject-add-submit">'+
-                                                                        'Submit'+
-                                                                    '</button>'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                        '</form>'+
-                                                    '</div>'+    
+                                                    '<div class="row has-padding-top">'+
+                                                        '<div class="col-md-6">'+
+                                                                '<form class="form-horizontal" role="form" id="add-subject-form" method="post">'+
+                                                                     '<input type="hidden" name="addsubid" class="form-control" value="'+row.subject_id+'">'+
+                                                                    '<div class="form-group">'+
+                                                                        '<label class="col-md-4 control-label">Subject Title</label>'+
+                                                                        
+                                                                        '<div class="col-md-7">'+
+                                                                            '<select class="form-control" id="addsubtitle" name="addsubtitle"  required="required">'+
+                                                                                '<option value="" selected disabled></option>'+
+                                                                            '</select>'+
+                                                                        '</div>'+
+                                                            
+                                                                    '</div>'+
+                                                                    '<div class="form-group">'+
+                                                                        '<div class="col-md-offset-8 col-md-2">'+
+                                                                            '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="subject-add-submit">'+
+                                                                                'Submit'+
+                                                                            '</button>'+
+                                                                        '</div>'+
+                                                                    '</div>'+
+                                                                '</form>'+
+                                                        '</div><!--//has-padding-top-->'+ 
+
+                                                        '<div class="col-md-5 table-responsive no-padding">'+ 
+                                                            '<div class="panel panel-info">'+
+                                                                '<div class="panel-body">'+
+
+                                                                    '<div class="panel panel-default no-margin-bottom">'+
+                                                                      '<div class="panel-heading learning-areas-title">'+
+                                                                        '<div>K12 Learning Areas for Grade  1-3 </div>'+
+                                                                      '</div>'+
+                                                                    '</div>'+
+                                                                    '<div class="panel-body">'+
+
+                                                                        '<table class="table table-bordered table-hover table-striped-orange">'+
+                                                                            '<tbody id="learning-areas-table">'+
+                                                                                
+                                                                                
+                                                                            '</tbody>'+
+                                                                        '</table>'+
+                                                                    '</div>'+    
+
+                                                                '</div><!--panel-body-->'+
+                                                            '</div><!-panel-info-->'+    
+                                                        '</div>'+
+
+                                                    '</div>'+
                                                 '</div><!--admin-main-content-->');
                                            
                                         $('.content_').append(content);
 
                                 
                             }
+
+                            function display_form_subject_list(data)
+                            {
+                                for (var i = 0; i < data.length; i++) 
+                                {
+
+                                        display_subject_list(data[i]);
+                              
+                                }
+                            }
+
+                            function display_subject_list(row)
+                            {
+                                var display = $('<option value="' + row.subject_name + '">' + row.subject_name + '</option>');
+                                $("#addsubtitle").append(display); 
+                            }
+
+                            function display_learning_areas(data)
+                            {
+
+                                $("#learning-areas-table").empty();
+
+                                for (var i = 0; i < data.length; i++) 
+                                {
+
+                                        drawRow(data[i]);
+                                    
+                              
+                                }
+
+                                function drawRow(row) 
+                                {
+                                    var display = $('<tr>' +
+                                                        '<td>'+row.subject_name+'</td>'+
+                                                    '</tr>');
+                                   
+                                    $("#learning-areas-table").append(display);
+
+                                }
+                            }    
+
+
                         });//add-subject
 
                         $(document.body).on('submit', '#add-subject-form', submitAddSubjectForm);
@@ -3360,12 +3511,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -3425,14 +3576,15 @@ function display_ua()
                                                             '<input type="hidden" name="addsecid" class="form-control" value="'+row.section_id+'">'+
 
                                                             '<div class="form-group">'+
-                                                                '<label for="level-name" class="col-md-4 control-label">Grade level:</label>'+
+                                                                '<label for="addseclevelname" class="col-md-4 control-label">Grade level:</label>'+
                                                                 '<div class="col-md-2">'+
-                                                                    '<select class="form-control" id="level-name" name="level"  required="required">'+
+                                                                    '<select class="form-control" id="addseclevelname" name="addseclevelname"  required="required">'+
                                                                         '<option value="" selected disabled></option>'+
                                                                     '</select>'+
                                                                 '</div>'+
                                                             '</div>'+
-                                                            '<div class="form-group">'+
+
+/*                                                            '<div class="form-group">'+
                                                                 '<label class="col-sm-4 control-label">Section No</label>'+
                                                                 '<div class="col-sm-1">'+
             
@@ -3451,13 +3603,17 @@ function display_ua()
 
                                                                     '</select>'+
                                                                 '</div>'+
-                                                            '</div>'+
+                                                            '</div>'+*/
+
                                                             '<div class="form-group">'+
-                                                                '<label class="col-sm-4 control-label">Section Name</label>'+
-                                                                '<div class="col-sm-2">'+
-                                                                    '<input type="text" name="addsecname" class="form-control add_section">'+
+                                                                '<label for="addsecname" class="col-md-4 control-label">Section Name </label>'+
+                                                                '<div class="col-md-2">'+
+                                                                    '<select class="form-control" id="addsecname" name="addsecname"  required="required">'+
+                                                                        '<option value="" selected disabled></option>'+
+                                                                    '</select>'+
                                                                 '</div>'+
                                                             '</div>'+
+
                                                             '<div class="form-group">'+
                                                                 '<div class="col-md-offset-5 col-md-2">'+
                                                                     '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="section-add-submit">'+
@@ -3484,10 +3640,54 @@ function display_ua()
                             function display_level(row)
                             {
                                 var display = $('<option value="' + row.levelID + '">' + row.level_description + '</option>');
-                                $("#level-name").append(display); 
+                                $("#addseclevelname").append(display); 
                             }
 
                         });//add-section
+
+                        //get section names
+                        $(document.body).on('change','#addseclevelname', function(){
+                            var gradelevel=$(this).find('option:selected').text();
+                            /*alert(gradelevel);*/
+
+                            $.ajax({
+     
+                            url: 'views/ajax/get_for_administrator.php?get-section-list&gradelevel='+gradelevel,
+                            type: 'GET',
+                            dataType: 'json',
+
+                           success: function(response) 
+                           {
+                                /*alert(JSON.stringify(response['sectionlist'])); */    
+                              
+                                 display_form_section_list(response['sectionlist']);
+
+                            },
+
+
+                            });
+                            
+
+                            function display_form_section_list(data)
+                            {
+                                $("#addsecname").empty();
+                                for (var i = 0; i < data.length; i++) 
+                                {
+
+                                        display_section_list(data[i]);
+                              
+                                }
+                            }
+
+                            function display_section_list(row)
+                            {
+                                var display = $('<option value="' + row.section_name + '">' + row.section_name + '</option>');
+                                $("#addsecname").append(display); 
+                            }
+
+
+
+                        });
                         
                         $(document.body).on('submit', '#add-section-form', submitAddSectionForm);
 
@@ -3522,12 +3722,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -3647,12 +3847,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed
@@ -3794,12 +3994,12 @@ function display_ua()
 
                                             
                                         },
-                                        error: function(jqXHR, textStatus, errorThrown)
+/*                                        error: function(jqXHR, textStatus, errorThrown)
                                         {
                                             
                                                 alert('ERROR: ' + textStatus);
                                             
-                                        },
+                                        },*/
                                         complete: function()
                                         {
                                             // Completed

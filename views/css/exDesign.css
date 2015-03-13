@@ -151,6 +151,10 @@ hr
 {
 	padding-left: -15px !important;
 }
+.remove-right-padding
+{
+	padding-right: -15px !important;
+}
 .no-text-decoration
 {
 	text-decoration: none !important;
@@ -1064,12 +1068,12 @@ height:30px;
 /*Modal*/
 .modal-dialog-full {
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
   padding: 0 !important;
 }
 
 .modal-content-full {
-  height: 100% !important;
+  height: auto !important;
   border-radius: 0 !important;
 }
 
@@ -1084,6 +1088,25 @@ height:30px;
   border-radius: 0 !important;
 }
 
+.modal-dialog-narrow {
+  height: auto !important;
+  padding: 0 !important;
+}
+
+.modal-content-narrow {
+  height: auto !important;
+  border-radius: 0 !important;
+}
+
+.modal-dialog-announce{
+  height: auto !important;
+  padding: 0 !important;
+}
+
+.modal-content-announce{
+  height: auto !important;
+  border-radius: 0 !important;	
+}
 
 /**Student Page**/
 
@@ -1964,6 +1987,14 @@ float:left;
 {
 	margin-top: 20px !important;
 }
+.view-all-parent-msg
+{
+	margin-top: 20px !important;
+}
+.view-student-progress
+{
+	margin-top: 20px !important;
+}
 /*Admin Page*/
 /*Navbar*/
 .profile-admin-img
@@ -2654,5 +2685,23 @@ border-bottom-left-radius: 2px;
   font-family: "Montserrat",sans-serif;
   font-size: 18px;
   padding:3px;
+
+}
+
+.learning-areas-title{
+  font-family: "Montserrat",sans-serif;
+  font-size: 18px;
+  padding:3px;
+
+}
+
+#post-title-parent
+{
+font-family: 'Source Sans Pro', sans-serif;
+font-size: 18px;
+color: #333;
+padding: 0px;
+height:30px;
+
 
 }

@@ -26,7 +26,7 @@
   	<ul class="list-group" id="admin-side-menu">
 	    <li class="list-group-item side-menu admin-side-menu-heading" side-menu-id="gl">
             <h6 class="panel-title admin-side-menu-title">
-                  Add Grade 
+                  Add Grade Level
             </h6>
     	</li>
 	    <li class="list-group-item side-menu admin-side-menu-heading" side-menu-id="scs"> 
@@ -64,6 +64,11 @@
                     User Accounts
             </h6>
         </li>
+<!--         <li class="list-group-item side-menu admin-side-menu-heading" side-menu-id="ann">        
+        <h6 class="panel-title admin-side-menu-title">
+                    Add School Announcement
+            </h6>
+        </li> -->
   	</ul>	
 </div>
 <!--End of Side bar menu-->

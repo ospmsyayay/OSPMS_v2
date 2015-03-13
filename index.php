@@ -1560,6 +1560,30 @@ function ppage()
 			$passer['subject_title']=$display['subject_title'];
 			$passer['announcement_id']=$display['feedback_date_created'];
 
+			$comments="";
+            //select comments
+			$select_comments=post_feedback_comments($display['feedback_date_created']);
+			while($comment = mysqli_fetch_array($select_comments))
+            {
+                $comments=$comments .   '<div class="row has-padding-top-5">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <img src="views/res/'.$comment['image'].'" class="shadow post-comment-img img-thumbnail pull-left img-responsive" />
+                                                </div>
+
+                                                <div class="input-group col-md-11 col-md-offset-1">
+                                                    <div class="comment"><a class="comment-author">'.$comment['reg_fname'].' '.$comment['reg_lname'].' </a>'.$comment['feedback_comment_message'].'
+                                                    </div>
+                                                    <div><small class="comment-timespan"><strong>'.convert_datetime_to_12hr($comment['feedback_comment_date_created']).'</strong></small></div>
+                                                    <div><small class="comment-timespan">'.get_time_difference_php($comment['feedback_comment_date_created']).'</small></div>
+                                                </div>
+                                            </div>
+                                        </div><!--//row-->';
+            }
+
+            $passer['comments']=$comments;
+            $passer['message_id']=createMessageId();
+
 			$display_box[]=$passer;
 
 	}		

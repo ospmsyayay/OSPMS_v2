@@ -310,7 +310,7 @@ function get_allsection()
 	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
 	$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
-	FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID";
+	FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID order by grade_level.level_description, sectionNo ";
 
 	$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
@@ -687,7 +687,7 @@ function get_existing_students()
 			$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
 			FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID
 			where section_list.sectionID LIKE '%$scs_filter%' or section_list.sectionNo LIKE '%$scs_filter%' or section_list.section_name LIKE '%$scs_filter%' or
-			grade_level.level_description LIKE '%$scs_filter%'";
+			grade_level.level_description LIKE '%$scs_filter%' order by grade_level.level_description, sectionNo ";
 
 			$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
@@ -711,7 +711,7 @@ function get_existing_students()
 		else if(empty($scs_filter))
 		{
 			$sql="SELECT section_list.sectionID, section_list.sectionNo, section_list.section_name, grade_level.level_description 
-			FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID";
+			FROM section_list inner join grade_level on section_list.level_id=grade_level.levelID order by grade_level.level_description, sectionNo ";
 
 			$sql=mysqli_query($cxn,$sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 
@@ -897,7 +897,7 @@ function get_existing_students()
 		$reg_gender = clean($_POST['edadmgender']);
 		$reg_status = clean($_POST['edadmstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['edadmbirthday']));
-		$reg_address = clean($_POST['edadmaddress']);
+		/*$reg_address = clean($_POST['edadmaddress']);*/
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
@@ -910,7 +910,7 @@ function get_existing_students()
 			{
 				$sql="UPDATE registration SET reg_lname = '$reg_lname', reg_fname = '$reg_fname', reg_mname = '$reg_mname', 
 								  reg_gender = '$reg_gender', reg_status = '$reg_status', reg_birthday = '".$reg_birthday."',
-								  reg_address = '$reg_address', image = '".$result['file_name']."' where reg_id='$id'";
+								  image = '".$result['file_name']."' where reg_id='$id'";
 
 				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($successful)
@@ -928,7 +928,7 @@ function get_existing_students()
 			else if(isset($result['empty']) || array_key_exists('empty', $result))//without image update
 			{
 				$sql="UPDATE registration SET reg_lname = '$reg_lname', reg_fname = '$reg_fname', reg_mname = '$reg_mname', 
-								  reg_gender = '$reg_gender', reg_status = '$reg_status', reg_birthday = '".$reg_birthday."', reg_address = '$reg_address' where reg_id='$id'";
+								  reg_gender = '$reg_gender', reg_status = '$reg_status', reg_birthday = '".$reg_birthday."' where reg_id='$id'";
 
 				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($successful)
@@ -1064,8 +1064,8 @@ function get_existing_students()
 		$reg_gender = clean($_POST['edteachgender']);
 		$reg_status = clean($_POST['edteachstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['edteachbirthday']));
-		$reg_address = clean($_POST['edteachaddress']);
-		$t_position = clean($_POST['edteachtposition']);
+/*		$reg_address = clean($_POST['edteachaddress']);
+		$t_position = clean($_POST['edteachtposition']);*/
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
@@ -1080,8 +1080,7 @@ function get_existing_students()
 				$sql="UPDATE registration inner join teacher on registration.reg_id=teacher.teacherID 
 				SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
 					registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-					registration.reg_address = '$reg_address', registration.image = '".$result['file_name']."', 
-					teacher.t_position='$t_position' where registration.reg_id='$id'";			  
+				 	registration.image = '".$result['file_name']."' where registration.reg_id='$id'";			  
 
 				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($successful)
@@ -1100,8 +1099,8 @@ function get_existing_students()
 			{
 				$sql="UPDATE registration inner join teacher on registration.reg_id=teacher.teacherID 
 				SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
-					registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-					registration.reg_address = '$reg_address', teacher.t_position='$t_position' where registration.reg_id='$id'";
+					registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."'
+				    where registration.reg_id='$id'";
 
 				$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($successful)
@@ -1242,7 +1241,7 @@ function get_existing_students()
 		$reg_gender = clean($_POST['edstudgender']);
 		$reg_status = clean($_POST['edstudstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['edstudbirthday']));
-		$reg_address = clean($_POST['edstudaddress']);
+/*		$reg_address = clean($_POST['edstudaddress']);*/
 		$parentid = clean($_POST['edstudparentid']);
 		$parent_lname = clean($_POST['edstudparentlname']);
 		$parent_fname = clean($_POST['edstudparentfname']);
@@ -1272,7 +1271,7 @@ function get_existing_students()
 						$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn
 						SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
 							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-							registration.reg_address = '$reg_address', registration.image = '".$result['file_name']."' 
+						    registration.image = '".$result['file_name']."' 
 							where registration.reg_id='$id'";			  
 
 						$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
@@ -1320,7 +1319,7 @@ function get_existing_students()
 							$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn
 							SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
 								registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-								registration.reg_address = '$reg_address', registration.image = '".$result['file_name']."', student.parentID = '$parent_id' 
+								registration.image = '".$result['file_name']."', student.parentID = '$parent_id' 
 								where registration.reg_id='$id'";	
 
 							$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
@@ -1361,8 +1360,8 @@ function get_existing_students()
 					{
 						$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn 
 						SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
-							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-							registration.reg_address = '$reg_address' where registration.reg_id='$id'";
+							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."'
+							where registration.reg_id='$id'";
 
 						$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 						if($successful)
@@ -1407,7 +1406,7 @@ function get_existing_students()
 							$sql="UPDATE registration inner join student on registration.reg_id=student.student_lrn 
 							SET registration.reg_lname = '$reg_lname', registration.reg_fname = '$reg_fname', registration.reg_mname = '$reg_mname', 
 							registration.reg_gender = '$reg_gender', registration.reg_status = '$reg_status', registration.reg_birthday = '".$reg_birthday."',
-							registration.reg_address = '$reg_address', student.parentID = '$parent_id' where registration.reg_id='$id'";	
+							student.parentID = '$parent_id' where registration.reg_id='$id'";	
 
 							$successful = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 							if($successful)
@@ -1648,7 +1647,7 @@ function get_existing_students()
 		$reg_gender = clean($_POST['addadmgender']);
 		$reg_status = clean($_POST['addadmstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addadmbirthday']));
-		$reg_address = clean($_POST['addadmaddress']);
+		/*$reg_address = clean($_POST['addadmaddress']);*/
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
@@ -1660,8 +1659,8 @@ function get_existing_students()
 			if(isset($result['success']) || array_key_exists('success', $result))
 			{
 
-				$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, reg_address, image) 
-										VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','$reg_address','".$result['file_name']."')";
+				$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, image) 
+										VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','".$result['file_name']."')";
 
 				$registered = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($registered)
@@ -1812,8 +1811,8 @@ function get_existing_students()
 		$reg_gender = clean($_POST['addteachgender']);
 		$reg_status = clean($_POST['addteachstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addteachbirthday']));
-		$reg_address = clean($_POST['addteachaddress']);
-		$t_position = clean($_POST['addteachtposition']);
+/*		$reg_address = clean($_POST['addteachaddress']);
+		$t_position = clean($_POST['addteachtposition']);*/
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
@@ -1825,13 +1824,13 @@ function get_existing_students()
 			if(isset($result['success']) || array_key_exists('success', $result))
 			{
 
-				$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, reg_address, image) 
-										VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','$reg_address','".$result['file_name']."')";
+				$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, image) 
+										VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','".$result['file_name']."')";
 
 				$registered = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($registered)
 				{
-					$sql="INSERT INTO teacher (teacherID, t_position) VALUES ('$id', '$t_position')";
+					$sql="INSERT INTO teacher (teacherID) VALUES ('$id')";
 
 					$teacher_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 					if($teacher_created)
@@ -1973,7 +1972,7 @@ function get_existing_students()
 		$reg_gender = clean($_POST['addstudgender']);
 		$reg_status = clean($_POST['addstudstatus']);
 		$reg_birthday = date('Y-m-d',strtotime($_POST['addstudbirthday']));
-		$reg_address = clean($_POST['addstudaddress']);
+/*		$reg_address = clean($_POST['addstudaddress']);*/
 		$parent_lname = clean($_POST['addstudparentlname']);
 		$parent_fname = clean($_POST['addstudparentfname']);
 		$parent_mname = clean($_POST['addstudparentmname']);
@@ -2010,8 +2009,8 @@ function get_existing_students()
 
 					if($p_added)
 					{
-						$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, reg_address, image) 
-										VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','$reg_address','".$result['file_name']."')";
+						$sql="INSERT INTO registration (reg_id, reg_lname, reg_fname, reg_mname, reg_gender, reg_status, reg_birthday, image) 
+										VALUES ('$id','$reg_lname','$reg_fname','$reg_mname','$reg_gender','$reg_status','".$reg_birthday."','".$result['file_name']."')";
 
 						$s_registered = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 						if($s_registered)
@@ -2153,9 +2152,33 @@ function get_existing_students()
 	{
 		$subject_id=createSubjectId();
 
-		echo "{\"create_subject_id\": [{\"subject_id\":". json_encode($subject_id)."}]}";
+		echo "{\"create_subject_id\": [{\"subject_id\":". json_encode($subject_id)."}";
+
+		//get subject list
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		$sql="SELECT subject_name FROM curr_subject_list";
+
+		$subjectlist = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Get Subject List Failed'. mysqli_error($cxn));
+
+		$first = true;
+		echo "],\"subjectlist\": [";
+		while($display = mysqli_fetch_array($subjectlist))
+		{
+			if($first) 
+			{
+				echo json_encode($display);
+				$first = false;
+			}		 
+			else 
+			{
+				echo ',' . json_encode($display);
+			}
+		}
+		echo "]}";	
 
 	}
+
 
 	if(isset($_GET['add-subject-form']))
 	{
@@ -2170,8 +2193,16 @@ function get_existing_students()
 
 		if( !empty($subject_title) )
 		{
-		
-				$sql="INSERT INTO subject_ (subjectID, subject_title) VALUES ('$id', '$subject_title')";
+			
+			//Check if subject name already existing
+
+			$sql="SELECT subject_title FROM subject_ where subject_title='$subject_title'";
+			$check_subject_if_exist = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Check Subject If Exist Failed'. mysqli_error($cxn));
+			$num_rows = mysqli_num_rows($check_subject_if_exist);
+          
+         	if ($num_rows==0)
+            {
+            	$sql="INSERT INTO subject_ (subjectID, subject_title) VALUES ('$id', '$subject_title')";
 
 				$subject_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
 				if($subject_created)
@@ -2182,7 +2213,13 @@ function get_existing_students()
 				{
 					$response = array('error' => 'Add Subject Failed');
 				}
-					
+
+            }
+            else
+            {
+            	$response = array('error' => 'Subject Already Existing');
+            } 
+		
 		}
 		else
 		{
@@ -2217,33 +2254,114 @@ function get_existing_students()
 
 	}
 
+	//get section list
+	if(isset($_GET['get-section-list']))
+	{
+		$gradelevel=$_GET['gradelevel'];
+
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		$sql="SELECT section_name FROM curr_section_list where grade_level='$gradelevel'";
+
+		$sectionlist = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Get Section List Failed'. mysqli_error($cxn));
+
+		$first = true;
+		echo "{\"sectionlist\": [";
+		while($display = mysqli_fetch_array($sectionlist))
+		{
+			if($first) 
+			{
+				echo json_encode($display);
+				$first = false;
+			}		 
+			else 
+			{
+				echo ',' . json_encode($display);
+			}
+		}
+		echo "]}";	
+
+
+
+
+	}	
+
 	if(isset($_GET['add-section-form']))
 	{
 		
 		$response = array();
 
 		$id= $_POST['addsecid'];
-		$sectionNo = clean($_POST['addsecno']);
 		$section_name= clean($_POST['addsecname']);
-		$level=$_POST['level'];
+		$level=$_POST['addseclevelname'];
 		
 
 		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
-		if( !empty($sectionNo) and !empty($section_name) )
+		if( !empty($section_name) )
 		{
-		
-				$sql="INSERT INTO section_list(sectionID, sectionNo, section_name, level_id) VALUES ('$id','$sectionNo','$section_name','$level')";
+			//Check if section name already existing
 
-				$section_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. '. mysqli_error($cxn));
-				if($section_created)
-				{
-					$response = array('success' => 'New Section Added');
-				}	
-				else 
-				{
-					$response = array('error' => 'Add Section Failed');
-				}
+			$sql="SELECT section_name FROM section_list where section_name='$section_name'";
+			$check_section_if_exist = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Check Section If Exist Failed'. mysqli_error($cxn));
+			$num_rows = mysqli_num_rows($check_section_if_exist);
+          
+             	if ($num_rows==0)
+                {
+                	//Get the last section no
+                	$last_section_no;
+                	$sql="SELECT sectionNo FROM section_list where level_id='$level' order by sectionNo desc limit 1";
+                	$section_no = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Get Last Section No Failed'. mysqli_error($cxn));
+                	while($row = mysqli_fetch_array($section_no))
+					{
+						$last_section_no=$row['sectionNo'];
+					}
+
+					if(!empty($last_section_no))
+					{
+						//increment last section no
+
+							$sectionNo=$last_section_no+1;
+
+							$sql="INSERT INTO section_list(sectionID, sectionNo, section_name, level_id) VALUES ('$id','$sectionNo','$section_name','$level')";
+
+							$section_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Section Increment Failed'. mysqli_error($cxn));
+							if($section_created)
+							{
+								$response = array('success' => 'New Section Added');
+							}	
+							else 
+							{
+								$response = array('error' => 'Add Section Failed');
+							}
+
+					}
+					else
+					{
+						$last_section_no=1;
+						$sectionNo=$last_section_no;
+
+						$sql="INSERT INTO section_list(sectionID, sectionNo, section_name, level_id) VALUES ('$id','$sectionNo','$section_name','$level')";
+
+						$section_created = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Section Not Increment Failed'. mysqli_error($cxn));
+						if($section_created)
+						{
+							$response = array('success' => 'New Section Added');
+						}	
+						else 
+						{
+							$response = array('error' => 'Add Section Failed');
+						}
+						
+					}	
+					
+                }
+                else
+                {
+                	$response = array('error' => 'Section Already Existing');
+                } 
+
+
 					
 		}
 		else

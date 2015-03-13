@@ -87,7 +87,7 @@
 							<div class="row"><!--//row for post title-->
 
 								<div class="panel panel-default no-margin-bottom no-border">
-								  <div class="panel-heading" id="post-title">
+								  <div class="panel-heading" id="post-title-parent">
 								  	<div class="has-inline"><i class="fa fa-comments-o fa-lg"></i> Latest Posts</div>
 								  </div>
 								</div>
@@ -96,7 +96,7 @@
 						</div>
 					</div><!--//row for post title fixed-->
 
-					<div class="row post-container"><!--//row for post-box-->
+					<div class="row post-container-parent"><!--//row for post-box-->
 						<?php   
                         foreach($display_box as $display)
                         {
@@ -127,6 +127,24 @@
                      				</div><!--//box-->
                                     
                                 </div><!-- //panel-body -->
+
+                                <div class="panel-footer">
+                                	'.$display['comments'].'
+                                	<div class="row has-padding-top-5">
+                                		<div class="col-md-12">
+                                			<div class="">
+	                                			<img src="views/res/'.$_SESSION['profile_pic'].'" class="shadow post-comment-img img-thumbnail pull-left img-responsive" />
+	                                		</div>
+
+	                                		<div class="input-group col-md-11 col-md-offset-1">
+	                                			<input type="hidden" id="announcement_id" name="announcement_id" value="'.$display['announcement_id'].'"/>
+	                                        	<textarea class="form-control input-sm commentarea" name="comment_parent" id="comment_parent" placeholder="Write a comment..." rows="1" wrap="hard"></textarea>
+	                                        	<input type="hidden" id="classrecno" name="classrecno" value="'.$display['class_rec_no'].'"/>
+	                                    	</div>
+                                		</div>
+	                                </div><!--//row-->
+	                               
+                                </div><!--//panel-footer-->
 
                             </div><!-- //post box -->
                         </div><!--post-container-->';
@@ -291,6 +309,30 @@ $(function ()
 		        
 		    }
 		}, '#teacher-list-side-menu');
+
+	    $(document.body).on('keyup', '.commentarea', function () 
+        {
+        	AutoGrowTextArea(this);
+        });
+
+    	function isNullOrWhiteSpace(str) 
+		{
+		  return (!str || str.length === 0 || /^\s*$/.test(str))
+		}
+
+		function AutoGrowTextArea(textField)
+		{
+		  if (textField.clientHeight < textField.scrollHeight)
+		  {
+		    textField.style.height = textField.scrollHeight + "px";
+		    if (textField.clientHeight < textField.scrollHeight)
+		    {
+		      textField.style.height = 
+		        (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+		    }
+		  }
+		}
+
 
  	    	var chart_class_rec_no;
 			var lrn;
@@ -490,11 +532,11 @@ function reset_()
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge</h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding </h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge</h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding </h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="first-grading-table">'+
@@ -588,11 +630,11 @@ function reset_()
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="second-grading-table">'+
@@ -685,11 +727,11 @@ function reset_()
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="third-grading-table">'+
@@ -783,11 +825,11 @@ function reset_()
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="fourth-grading-table">'+
@@ -998,11 +1040,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge</h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding </h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge</h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding </h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="first-grading-table">'+
@@ -1095,11 +1137,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="second-grading-table">'+
@@ -1191,11 +1233,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="third-grading-table">'+
@@ -1288,11 +1330,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="fourth-grading-table">'+
@@ -1981,7 +2023,143 @@ function chart(class_rec_no,lrn)
                     
 			        return false;
 		        };
-}		
+}	
+
+
+            $(document.body).on("keypress", "#comment_parent", getCommentParent);
+
+			function getCommentParent(e)
+			{
+				var announcement_id;
+			    var code = (e.keyCode ? e.keyCode : e.which);
+			    if (code == 13) 
+			    {
+			        e.preventDefault();
+			        e.stopPropagation();
+			        var comment=$(this).val();
+			        var announcement_id=$(this).prev('input[name="announcement_id"]').val();
+			        var class_rec_no=$(this).next('input[name="classrecno"]').val();
+/*			        alert(announcement_id);
+			        alert(comment);
+			        alert(class_rec_no);*/
+			        if(!isNullOrWhiteSpace(comment))
+					{
+
+							$.ajax({
+				 
+				            url: 'views/ajax/get_for_parent.php?comment',
+				            type: 'POST',
+				            data: {
+				            	comment:comment, announcement_id:announcement_id, class_rec_no:class_rec_no
+				            },
+				           dataType: 'json',
+
+							success: function(response, textStatus, jqXHR)
+				            {
+								
+								if(typeof response.error === 'undefined')
+								{
+
+									display_parent_announcements(response['announcements']);
+
+								}
+								
+				          	},
+				          	error: function(jqXHR, textStatus, errorThrown)
+				          	{
+				            	
+				            		alert('ERROR: '+ textStatus+' '+errorThrown);
+				            	
+				          	},
+				          	complete: function()
+				            {
+				            	// Completed
+				            }
+
+
+				            });
+
+					}	
+
+
+
+
+			    }//if
+				
+
+
+			}	
+
+			function display_parent_announcements(data) 
+			{
+				$(".post-container-parent").empty();
+				
+
+				    for (var i = 0; i < data.length; i++) 
+				    {
+
+				    		drawRow(data[i]);
+				  
+				    }
+
+			}
+
+			function drawRow(row) 
+			{
+
+				var display = $('<div id="parent-post-container">'+
+									'<!-- post box -->'+
+		                            '<div class="panel parent-post-box no-margin-bottom">'+
+		                            	'<div class="parent-post-box-header panel-heading">'+
+		                            		'<div class="row"><!--//row for header-->'+
+			                            		'<div class="col-md-12">'+
+			                            			'<img src="views/res/'+row.teacher_image+'" class="shadow parent-post-message-img img-circle pull-left" />'+
+			                            			'<div><a class="parent-message-author"><small> '+row.teacher_lname+', '+row.teacher_fname+ ' '+row.teacher_mname+' <i class="fa fa-bullhorn"></i> '+row.level_description+'>>'+row.sectionNo+'-'+row.section_name+': '+row.subject_title+' Parents </small></a></div>'+
+			                            			'<strong><i class="parent-timespan fa fa-clock-o fa-fw"></i>'+row.feedback_date_created+'</strong>'+
+			                            			'<div><small class="timespan">'+row.timespan+'</small></div>'+
+			                            		'</div>'+
+
+					                        '</div><!--//row for header-->'+    
+		                        		'</div><!--panel-heading-->'+
+		    
+		                                '<div class="panel-body">'+
+		                                    '<!-- box -->'+
+		                                    '<div class="box">'+
+		                                        '<div class="parent-message">'+
+		                                            row.feedback_message+
+		                                        '</div>'+
+		                                
+		                     				'</div><!--//box-->'+
+		                                    
+		                                '</div><!-- //panel-body -->'+
+
+		                                '<div class="panel-footer">'+
+		                                	row.comments+
+		                                	'<div class="row has-padding-top-5">'+
+		                                		'<div class="col-md-12">'+
+		                                			'<div class="">'+
+			                                			'<img src="views/res/<?php echo $_SESSION["profile_pic"];?>" class="shadow post-comment-img img-thumbnail pull-left img-responsive" />'+
+			                                		'</div>'+
+
+			                                		'<div class="input-group col-md-11 col-md-offset-1">'+
+			                                			'<input type="hidden" id="announcement_id" name="announcement_id" value="'+row.announcement_id+'"/>'+
+			                                        	'<textarea class="form-control input-sm commentarea" name="comment_parent" id="comment_parent" placeholder="Write a comment..." rows="1" wrap="hard"></textarea>'+
+			                                        	'<input type="hidden" id="classrecno" name="classrecno" value="'+row.class_rec_no+'"/>'+
+			                                    	'</div>'+
+		                                		'</div>'+
+			                                '</div><!--//row-->'+
+			                               
+		                                '</div><!--//panel-footer-->'+
+
+		                            '</div><!-- //post box -->'+
+		                        '</div><!--post-container-->');
+
+
+
+				$(".post-container-parent").append(display);
+
+			}
+
 
 
 });//End of ready

@@ -432,8 +432,8 @@
 
 					<!--Modal for view all-->
 					<div class="modal fade view-all-parent-msg-lg" tabindex="-1" role="dialog" aria-labelledby="ViewAll" aria-hidden="true">
-					  <div class="modal-dialog modal-dialog-full modal-lg">
-					    <div class="modal-content modal-content-full">
+					  <div class="modal-dialog modal-dialog-narrow modal-lg">
+					    <div class="modal-content modal-content-narrow">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							  
 							    <!--Start of main -->
@@ -441,7 +441,39 @@
 									<div class="row">
 
 										<!--Start of mid content-->
-											<div class="main-content col-md-12 view-all-parent-msg-main-content"></div>
+											<div class="main-content col-md-12 view-all-parent-msg-main-content">
+
+												 <div class="row"><!--//row  -->
+							 						<div class="col-md-12">
+							 							<div class="row announcement-box-parent"><!--//row for announcement-box-parent -->
+							 								
+
+
+								 						</div><!--//row for announcement-box-parent-->	
+								 					</div><!--col-->
+								 				</div><!--//row -->
+
+								 				<div class="row"><!--//row -->
+													<div class="col-md-12 content">
+														<div class="row"><!--//row-->
+
+															<div class="panel panel-default no-margin-bottom no-border">
+															  <div class="panel-heading" id="post-title-parent">
+															  	
+															  </div>
+															</div>
+
+														</div><!--//row-->
+													</div>
+												</div><!--//row-->
+
+												<div class="row post-container-parent"><!--//row for post-container-parent-->
+
+												</div><!--//row for post-container-parent-->	
+
+
+
+											</div>
 										<!--End of mid content-->
 									
 									</div><!--row-->
@@ -478,29 +510,31 @@
 					</div>
 					<!--Modal for progress-->	
 
-					<!--Modal for message parent-->
-					<div class="modal fade message-parent-lg" tabindex="-1" role="dialog" aria-labelledby="MessageParent" aria-hidden="true">
-					  <div class="modal-dialog modal-dialog-full modal-lg">
-					    <div class="modal-content modal-content-full">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							  
-							    <!--Start of main -->
-								<div class="main container-fluid message-parent">
-									<div class="row">
+					<!-- Private Message MODAL -->
+			        <div class="modal fade" id="private-message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+			            <div class="modal-dialog">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                        <h4 class="modal-title"><i class="fa fa-envelope-o"></i> Private Message to Parent</h4>
+			                    </div>
+			                    <form method="post" id="private-message">
+			                        <div class="modal-body">
 
-										<!--Start of mid content-->
-											<div class="main-content col-md-12 message-parent-main-content"></div>
-										<!--End of mid content-->
-									
-									</div><!--row-->
-								</div><!--container-fluid-->
-								<!--End of main -->	
+			                            <div class="form-group">
+			                                <textarea name="private_message" id="private_message" class="form-control" placeholder="Private Message" style="height: 120px;"></textarea>
+			                            </div>
 
+			                        </div>
+			                        <div class="modal-footer clearfix">
 
-					    </div>
-					  </div>
-					</div>
-					<!--Modal for parent-->	
+			                            <button type="button" class="btn btn-primary pull-right" id="submitPrivateMessage"><i class="fa fa-envelope"></i> Send Message</button>
+			                        </div>
+			                    </form>
+			                </div><!-- /.modal-content -->
+			            </div><!-- /.modal-dialog -->
+			        </div><!-- /.modal -->
+
 				</div>
 				<!--End of mid content-->
 
@@ -553,6 +587,10 @@ $(function ()
 
 
 			var class_rec_no;
+		    var grade;
+            var sectionno;
+            var section;
+            var subject;
 
 			$(document.body).on('focus', '.textarea', function () 
             {
@@ -600,10 +638,10 @@ $(function ()
                 $('.side-menu').removeClass('teacher-side-menu-click');
                 $(this).addClass('teacher-side-menu-click');
 
-                var grade=$(this).attr('grade');
-                var sectionno=$(this).attr('sectionno');
-                var section=$(this).attr('section');
-                var subject=$(this).attr('subject');
+                 grade=$(this).attr('grade');
+                 sectionno=$(this).attr('sectionno');
+                 section=$(this).attr('section');
+                 subject=$(this).attr('subject');
 
                 $('#post-title').empty();
                 var display = $('<div class="has-inline"><i class="fa fa-comments-o fa-lg"></i> Post to '+grade+'::'+sectionno+'-'+section+':'+subject+'</div>');
@@ -734,8 +772,8 @@ $(function ()
 							                    '</div>'+
 							                '</div><!--panel-body-->'+
 							                '<div class="panel-footer post-parent-msg-footer">'+
-							                	'<a class="post-parent-msg-controls col-md-offset-9 control-anchor">'+
-							                		/*'<i class="fa fa-eye"></i> View All*/'</a>'+
+							                	'<a class="post-parent-msg-controls col-md-offset-9 control-anchor" id="viewall">'+
+							                		'<i class="fa fa-eye"></i> View All</a>'+
 							                '</div>'+	
 							            '</div>'+
 							        '</div>'+
@@ -787,12 +825,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: ' + textStatus);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -821,12 +859,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: '+ textStatus+' '+errorThrown);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -855,12 +893,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: ' + textStatus+' '+errorThrown);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -901,8 +939,8 @@ $(function ()
 					                        '<div class="panel-title student-list-side-menu-title col-md-offset-1">'+rowData.reg_lname+', '+rowData.reg_fname+' '+rowData.reg_mname+'</div>'+
 					                        '<div class="panel-title student-list-side-menu-title col-md-offset-1"><small><strong>'+rowData.student_lrn+'</strong><small></div>'+
 					                        '<div class="panel-title student-list-side-menu-title col-md-offset-1">'+
-												/*'<a class="student-list-controls"><i class="fa fa-line-chart"></i> Progress </a>'+
-												'<a class="student-list-controls"><i class="fa fa-bullhorn"></i> Message Parent </a>'+*/
+												/*'<a class="student-list-controls"><i class="fa fa-line-chart"></i> Progress </a>'+*/
+												'<a class="student-list-controls message-parent" student-lrn="'+rowData.student_lrn+'"><i class="fa fa-bullhorn"></i> Message Parent </a>'+
 											'</div>'+
 					                      '</div>'+
 					                     
@@ -913,6 +951,540 @@ $(function ()
 			    
 
 			}
+
+			$(document.body).on('click', '#viewall', function()
+			{
+				$('.view-all-parent-msg-lg').modal('show')
+				viewAllMsgParent();
+
+			});
+
+			function viewAllMsgParent()
+			{
+				$('#post-title-parent').empty();
+                var display = $('<div class="has-inline"><i class="fa fa-comments-o fa-lg"></i> Post to '+grade+'::'+sectionno+'-'+section+':'+subject+' Parents</div>');
+				$('#post-title-parent').append(display);
+
+				$('.announcement-box-parent').empty();
+				var box =$('<div class="col-md-12 content" id="postbox-container">'+
+										'<div class="row">'+
+											'<ul id="myTab" class="nav nav-tabs col-md-12">'+
+	                                                '<li class="active">'+
+	                                                	'<a href="#announcement" data-toggle="tab">'+
+	                                                		'<span class="glyphicon glyphicon-pencil"></span> Write Announcement'+
+	                                                	'</a>'+
+	                                                '</li>'+
+
+	                                        '</ul>'+
+
+	                                        '<div id="myTabContent" class="tab-content">'+
+	                                            '<div class="tab-pane fade in active" id="announcement">'+
+	                                                '<div class="col-md-12">'+
+	                                                    '<div class="panel-body" id="announce-box">'+                
+	                                                        '<form accept-charset="UTF-8" method="POST">'+
+	                                                            '<textarea class="form-control input-sm textarea" name="message_ajax_parent" id="message_ajax_parent" placeholder="Type in your announcement" rows="1" required="required"  wrap="hard"></textarea>'+
+	                                                            '<button type="button" class="pull-right btn btn-info btn-sm" id="getMessageParentModal">'+
+	                                                            	'<span class="glyphicon glyphicon-send"></span> Post'+
+	                                                            '</button>'+
+	                                                        '</form>'+
+	                                                    '</div>'+
+	                                                '</div>'+
+	                                            '</div>'+
+
+
+
+	                                        '</div>'+
+										'</div><!--row-->'+
+								'</div><!--postbox-container-->');
+				$('.announcement-box-parent').append(box);
+
+				/*alert(class_rec_no);*/
+					 $.ajax({
+		 
+		            url: 'views/ajax/get_right_side.php?get-parent-msg-modal',
+		            type: 'POST',
+		            data: {
+		            	class_rec_no:class_rec_no
+		            },
+		           dataType: 'json',
+
+					success: function(response, textStatus, jqXHR)
+		            {
+						
+						if(typeof response.error === 'undefined')
+						{
+							/*alert(JSON.stringify(response['teacher_feedback_modal']));*/
+		           			display_teacher_feedback_modal(response['teacher_feedback_modal']);
+		           			
+						}
+						
+		          	},
+/*		          	error: function(jqXHR, textStatus, errorThrown)
+		          	{
+		            	
+		            		alert('ERROR: ' + textStatus);
+		            	
+		          	},*/
+		          	complete: function()
+		            {
+		            	// Completed
+		            }
+
+
+		            });
+
+
+			}
+
+			function display_teacher_feedback_modal(data) 
+			{
+				$(".post-container-parent").empty();
+				
+
+				    for (var i = 0; i < data.length; i++) 
+				    {
+
+				    		drawRowModal(data[i]);
+				  
+				    }
+
+			}
+
+			function drawRowModal(row) 
+			{
+
+				var display = $('<div id="post-container">'+
+									'<!-- post box -->'+
+		                            '<div class="panel post-box no-margin-bottom">'+
+		                            	'<div class="post-box-header panel-heading">'+
+		                            		'<div class="row"><!--//row for header-->'+
+			                            		'<div class="col-md-12">'+
+			                            			'<img src="views/res/'+row.teacher_image+'" class="shadow post-message-img img-circle pull-left" />'+
+			                            			'<div><a class="parent-message-author"><small> '+row.teacher_lname+', '+row.teacher_fname+ ' '+row.teacher_mname+' <i class="fa fa-bullhorn"></i> '+row.level_description+'>>'+row.sectionNo+'-'+row.section_name+': '+row.subject_title+' Parents </small></a></div>'+
+			                            			'<strong><i class="timespan fa fa-clock-o fa-fw"></i>'+row.feedback_date_created+'</strong>'+
+			                            			'<div><small class="timespan">'+row.timespan+'</small></div>'+
+			                            		'</div>'+
+					                            '<div class="col-md-1 btn-group pull-right">'+
+					                                '<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">'+
+					                                    '<i class="fa fa-pencil-square-o fa-lg"></i>'+
+					                                '</button>'+
+					                                '<ul class="dropdown-menu slidedown">'+
+					                                '<input type="hidden" id="control_id_modal" value="'+row.feedback_message_id+'"/>'+
+					                                '<input type="hidden" id="edit_id_modal" value="'+row.announcement_id+'"/>'+
+					                                    '<li>'+
+					                                        '<a class="edit-post-modal">'+
+					                                            '<i class="fa fa-pencil fa-fw"></i>Edit Post'+
+					                                        '</a>'+
+					                                    '</li>'+
+					                                    '<li class="divider"></li>'+
+					                                    '<li>'+
+					                                        '<a class="delete-post-modal">'+
+					                                            '<i class="fa fa-trash-o fa-fw"></i>Delete Post'+
+					                                        '</a>'+
+					                                    '</li>'+
+					                                '</ul>'+
+					                            '</div>'+
+					                        '</div><!--//row for header-->'+    
+		                        		'</div><!--panel-heading-->'+
+		    
+		                                '<div class="panel-body">'+
+		                                    '<!-- box -->'+
+		                                    '<div class="box" id="'+row.feedback_message_id+'">'+
+		                                        '<div class="message">'+
+		                                            row.feedback_message+
+		                                        '</div>'+
+		                             
+
+		                            	    '</div><!--//box-->'+
+		                                    '<!-- chat item -->'+
+		                                '</div><!-- //panel-body -->'+
+
+		                                '<div class="panel-footer">'+
+		                                	row.comments+
+			                                '<div class="row has-padding-top-5">'+
+		                                		'<div class="col-md-12">'+
+		                                			'<div class="">'+
+			                                			'<img src="views/res/<?php echo $_SESSION["profile_pic"];?>" class="shadow post-comment-img img-thumbnail pull-left img-responsive" />'+
+			                                		'</div>'+
+
+			                                		'<div class="input-group col-md-11 col-md-offset-1">'+
+			                                			'<input type="hidden" id="announcement_id_modal" name="announcement_id_modal" value="'+row.announcement_id+'"/>'+
+			                                        	'<textarea class="form-control input-sm commentarea" name="comment_ajax_modal" id="comment_ajax_modal" placeholder="Write a comment..." rows="1"  wrap="hard"></textarea>'+
+			                                    	'</div>'+
+		                                		'</div>'+
+			                                '</div><!--//row-->'+
+			                               
+		                                '</div><!--//panel-footer-->'+
+		                            '</div><!-- //post box -->'+
+		                        '</div><!--post-container-->');
+
+
+
+				$(".post-container-parent").append(display);
+
+			}
+
+			$(document.body).on('click', '#getMessageParentModal',  getMessageParentModal);
+
+			function getMessageParentModal()
+			{
+				/*alert(class_rec_no);*/
+				var message_ajax_parent = $('#message_ajax_parent').val();
+
+
+
+				if(!isNullOrWhiteSpace(message_ajax_parent) )
+				{
+					/*alert(message_ajax_parent);*/
+
+					$.ajax({
+		 
+		            url: 'views/ajax/get_right_side.php?message_ajax_parent',
+		            type: 'POST',
+		            data: {
+		            	message_ajax_parent:message_ajax_parent, class_rec_no:class_rec_no
+		            },
+		           dataType: 'json',
+
+					success: function(response, textStatus, jqXHR)
+		            {
+						
+						if(typeof response.error === 'undefined')
+						{
+							$('#message_ajax_parent').val('');
+							$('.textarea').removeAttr('style');
+							$('.textarea').attr('rows', '1');
+							alert(response.success);
+
+							display_teacher_feedback_modal(response['teacher_feedback_modal']);
+
+						}
+						
+		          	},
+/*		          	error: function(jqXHR, textStatus, errorThrown)
+		          	{
+		            	
+		            		alert('ERROR: '+ textStatus+' '+errorThrown);
+		            	
+		          	},*/
+		          	complete: function()
+		            {
+		            	// Completed
+		            }
+
+
+		            });
+				}
+				else
+				{
+					alert('Empty Field');
+
+		           $('.textarea').attr('rows', '1');
+		      
+				}	
+	
+
+
+			}
+
+			$(document.body).on("keypress", "#comment_ajax_modal", getCommentModal);
+
+			function getCommentModal(e)
+			{
+				var announcement_id;
+			    var code = (e.keyCode ? e.keyCode : e.which);
+			    if (code == 13) 
+			    {
+			        e.preventDefault();
+			        e.stopPropagation();
+			        var comment=$(this).val();
+			        var announcement_id=$(this).prev('input[name="announcement_id_modal"]').val();
+			        /*alert(announcement_id);*/
+			        if(!isNullOrWhiteSpace(comment))
+					{
+
+							$.ajax({
+				 
+				            url: 'views/ajax/get_right_side.php?comment',
+				            type: 'POST',
+				            data: {
+				            	comment:comment, announcement_id:announcement_id, class_rec_no:class_rec_no
+				            },
+				           dataType: 'json',
+
+							success: function(response, textStatus, jqXHR)
+				            {
+								
+								if(typeof response.error === 'undefined')
+								{
+									/*alert(response.success);*/
+
+									display_teacher_feedback_modal(response['teacher_feedback_modal']);
+
+								}
+								
+				          	},
+				          	error: function(jqXHR, textStatus, errorThrown)
+				          	{
+				            	
+				            		alert('ERROR: '+ textStatus+' '+errorThrown);
+				            	
+				          	},
+				          	complete: function()
+				            {
+				            	// Completed
+				            }
+
+
+				            });
+
+					}	
+
+
+
+
+			    }//if
+				
+
+
+			}
+
+			$(document.body).on("click", ".edit-post-modal", editPostModal);
+
+			function editPostModal()
+			{
+
+				var control_id=$(this).parents("ul").find('input#control_id_modal').val();
+				/*alert('Control_id: '+control_id);*/
+				var message=$('#'+control_id).children('.message').text();
+				/*alert('Message: '+message);*/
+				var editarea=$('<textarea class="form-control input-sm textarea" name="message_edit" id="message_edit_'+control_id+'"'+ 
+								 'rows="1" required="required"  wrap="hard"></textarea>'+
+									'<div class="btn-group pull-right" role="group">'+
+										'<button type="button" class="btn btn-default btn-xs" id="message_edit_'+control_id+'_cancel">'+
+                        					'Cancel'+
+                        				'</button>'+
+                                    	'<button type="button" class="btn btn-primary btn-xs" id="message_edit_'+control_id+'_done">'+
+                        					'Done Editing'+
+                        				'</button>'+
+                        			'</div>');
+				
+				$('#'+control_id).children('.message').empty();
+				$('#'+control_id).children('.message').append(editarea);
+				$('#'+control_id).children('.message').css('padding-bottom','35px');
+
+				var editpost=$(this);
+
+				$("textarea#message_edit_"+control_id).val(message);
+
+				$(document.body).on("click", "#message_edit_"+control_id+"_cancel", function()
+				{
+
+				/*alert(class_rec_no);*/
+					 $.ajax({
+		 
+		            url: 'views/ajax/get_right_side.php?get-parent-msg-modal',
+		            type: 'POST',
+		            data: {
+		            	class_rec_no:class_rec_no
+		            },
+		           dataType: 'json',
+
+					success: function(response, textStatus, jqXHR)
+		            {
+						
+						if(typeof response.error === 'undefined')
+						{
+							/*alert(JSON.stringify(response['teacher_feedback_modal']));*/
+		           			display_teacher_feedback_modal(response['teacher_feedback_modal']);
+		           			
+						}
+						
+		          	},
+/*		          	error: function(jqXHR, textStatus, errorThrown)
+		          	{
+		            	
+		            		alert('ERROR: ' + textStatus);
+		            	
+		          	},*/
+		          	complete: function()
+		            {
+		            	// Completed
+		            }
+
+
+		            });
+
+
+					
+				});
+
+				$(document.body).on("click", "#message_edit_"+control_id+"_done", function()
+				{
+					var edit_id=$(editpost).parents("ul").find('input#edit_id_modal').val();
+					var edit_message=$("textarea#message_edit_"+control_id).val();
+/*					alert(edit_id);
+					alert(edit_message);
+					alert(class_rec_no);*/
+
+					    if(!isNullOrWhiteSpace(edit_message))
+						{				
+							$.ajax({
+			 
+				            url: 'views/ajax/get_right_side.php?edit_post',
+				            type: 'POST',
+				            data: {
+				            	edit_message:edit_message, edit_id:edit_id, class_rec_no:class_rec_no
+				            },
+				           dataType: 'json',
+
+							success: function(response, textStatus, jqXHR)
+				            {
+								
+								if(typeof response.error === 'undefined')
+								{
+									
+				           			/*alert(response.success);*/
+				           			display_teacher_feedback_modal(response['teacher_feedback_modal']);
+								}
+								
+				          	},
+/*				          	error: function(jqXHR, textStatus, errorThrown)
+				          	{
+				            	
+				            		alert('ERROR: ' + textStatus);
+				            	
+				          	},*/
+				          	complete: function()
+				            {
+				            	// Completed
+				            }
+
+
+				            });
+						}
+	
+
+					
+				});
+
+
+
+				
+
+
+			}
+
+			$(document.body).on("click", ".delete-post-modal", deletePostModal);
+			function deletePostModal()
+			{
+				var delete_id=$(this).parents("ul").find('input#edit_id_modal').val();
+				
+				$.ajax({
+ 
+	            url: 'views/ajax/get_right_side.php?delete_post',
+	            type: 'POST',
+	            data: {
+	            	 delete_id:delete_id, class_rec_no:class_rec_no
+	            },
+	            dataType: 'json',
+
+				success: function(response, textStatus, jqXHR)
+	            {
+					
+					if(typeof response.error === 'undefined')
+					{
+
+	           			display_teacher_feedback_modal(response['teacher_feedback_modal']);
+	           			
+					}
+					
+	          	},
+/*	          	error: function(jqXHR, textStatus, errorThrown)
+	          	{
+	            	
+	            		alert('ERROR: ' + textStatus);
+	            	
+	          	},*/
+	          	complete: function()
+	            {
+	            	// Completed
+	            }
+
+
+	            });
+				
+			
+			}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			var studentlrn;
+
+			$(document.body).on('click', '.message-parent', function()
+			{
+				$('#private-message-modal').modal('show')
+				studentlrn=$(this).attr('student-lrn');
+				
+			});
+
+			$(document.body).on('click', '#submitPrivateMessage',  getPrivateParent);
+
+			function getPrivateParent()
+			{
+
+				var private_message = $('#private_message').val();
+/*				alert(private_message);
+				alert(studentlrn);
+				alert(class_rec_no);*/
+
+
+					if(!isNullOrWhiteSpace(private_message) )
+					{
+						$.ajax({
+			 
+			            url: 'views/ajax/get_right_side.php?post_private_msg',
+			            type: 'POST',
+			            data: {
+			            	private_message:private_message, class_rec_no:class_rec_no, studentlrn:studentlrn
+			            },
+			           dataType: 'json',
+
+						success: function(response, textStatus, jqXHR)
+			            {
+							
+							if(typeof response.error === 'undefined')
+							{
+								$('#private_message').val('');
+								/*alert(response['success']);*/
+								reset_tf_box();
+								display_teacher_feedback(response['teacher_feedback']);
+								$('#private-message-modal').modal('hide')
+								alert('Message Sent');
+							}
+							
+			          	},
+/*			          	error: function(jqXHR, textStatus, errorThrown)
+			          	{
+			            	
+			            		alert('ERROR: '+ textStatus+' '+errorThrown);
+			            	
+			          	},*/
+			          	complete: function()
+			            {
+			            	// Completed
+			            }
+
+
+			            });
+					}
+					else
+					{
+						alert('Empty Field');
+			      
+					}
+
+			}		
 
 	        $(document.body).on('keyup', '#student-search', student_filter_class);
 						
@@ -1066,12 +1638,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: '+ textStatus+' '+errorThrown);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -1132,12 +1704,12 @@ $(function ()
 
                             
                         },
-                        error: function(jqXHR, textStatus, errorThrown)
+/*                        error: function(jqXHR, textStatus, errorThrown)
                         {
                             
                                 alert('ERROR: ' + textStatus+' '+errorThrown);
                             
-                        },
+                        },*/
                         complete: function()
                         {
                             // Completed
@@ -1252,12 +1824,12 @@ $(function ()
 								}
 								
 				          	},
-				          	error: function(jqXHR, textStatus, errorThrown)
+/*				          	error: function(jqXHR, textStatus, errorThrown)
 				          	{
 				            	
 				            		alert('ERROR: '+ textStatus+' '+errorThrown);
 				            	
-				          	},
+				          	},*/
 				          	complete: function()
 				            {
 				            	// Completed
@@ -1478,12 +2050,12 @@ $(function ()
 							}
 							
 			          	},
-			          	error: function(jqXHR, textStatus, errorThrown)
+/*			          	error: function(jqXHR, textStatus, errorThrown)
 			          	{
 			            	
 			            		alert('ERROR: ' + textStatus);
 			            	
-			          	},
+			          	},*/
 			          	complete: function()
 			            {
 			            	// Completed
@@ -1527,12 +2099,12 @@ $(function ()
 								}
 								
 				          	},
-				          	error: function(jqXHR, textStatus, errorThrown)
+/*				          	error: function(jqXHR, textStatus, errorThrown)
 				          	{
 				            	
 				            		alert('ERROR: ' + textStatus);
 				            	
-				          	},
+				          	},*/
 				          	complete: function()
 				            {
 				            	// Completed
@@ -1579,13 +2151,13 @@ $(function ()
 					}
 					
 	          	},
-	          	error: function(jqXHR, textStatus, errorThrown)
+/*	          	error: function(jqXHR, textStatus, errorThrown)
 	          	{
 	            	
 	            		alert('ERROR: ' + textStatus);
 	            	
 	          	},
-	          	complete: function()
+*/	          	complete: function()
 	            {
 	            	// Completed
 	            }
@@ -1632,12 +2204,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: '+ textStatus+' '+errorThrown);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -1707,7 +2279,7 @@ $(function ()
 							                    '</div>'+
 							                '</div><!--panel-body-->'+
 							                '<div class="panel-footer post-parent-msg-footer">'+
-							                	'<a class="post-parent-msg-controls col-md-offset-9 control-anchor">'+
+							                	'<a class="post-parent-msg-controls col-md-offset-9 control-anchor" id="viewall">'+
 							                		'<i class="fa fa-eye"></i> View All</a>'+
 							                '</div>')
 				$('.tf-box').append(right);
@@ -1815,12 +2387,12 @@ $(function ()
 						}
 						
 		          	},
-		          	error: function(jqXHR, textStatus, errorThrown)
+/*		          	error: function(jqXHR, textStatus, errorThrown)
 		          	{
 		            	
 		            		alert('ERROR: '+ textStatus+' '+errorThrown);
 		            	
-		          	},
+		          	},*/
 		          	complete: function()
 		            {
 		            	// Completed
@@ -1864,12 +2436,12 @@ $(function ()
 								}
 								
 				          	},
-				          	error: function(jqXHR, textStatus, errorThrown)
+/*				          	error: function(jqXHR, textStatus, errorThrown)
 				          	{
 				            	
 				            		alert('ERROR: ' + textStatus);
 				            	
-				          	},
+				          	},*/
 				          	complete: function()
 				            {
 				            	// Completed
@@ -1917,13 +2489,13 @@ $(function ()
 					}
 					
 	          	},
-	          	error: function(jqXHR, textStatus, errorThrown)
+/*	          	error: function(jqXHR, textStatus, errorThrown)
 	          	{
 	            	
 	            		alert('ERROR: ' + textStatus);
 	            	
 	          	},
-	          	complete: function()
+*/	          	complete: function()
 	            {
 	            	// Completed
 	            }
@@ -1979,9 +2551,6 @@ $(function ()
 				}	
 				
 			});*/
-
-
-
 
 
 			function isNullOrWhiteSpace(str) 

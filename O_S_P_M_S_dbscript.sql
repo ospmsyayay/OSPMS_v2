@@ -101,7 +101,7 @@ constraint PK_grade_level primary key (levelID)
 create table subject_(
 
 subjectID varchar(8) not null,
-subject_title varchar(20),
+subject_title varchar(30),
 constraint PK_subject primary key (subjectID)
 
 );
@@ -301,6 +301,18 @@ constraint PK_teacher_feedback_parent primary key (feedback_date_created)
 
 );
 
+create table teacher_feedback_parent_comments
+(
+feedback_comment_date_created datetime not null,
+feedback_account_id varchar(16) not null,
+feedback_comment_message longtext null,
+feedback_post_date_created datetime not null,
+
+constraint PK_teacher_feedback_parent_comments primary key (feedback_comment_date_created,feedback_account_id),
+constraint FK1_teacher_feedback_parent_comments foreign key (feedback_post_date_created) references teacher_feedback_parent(feedback_date_created),
+constraint FK2_teacher_feedback_parent_comments foreign key (feedback_account_id) references registration(reg_id)
+);
+
 /*drop table if exists post_teacher_feedback_parent;*/
 create table post_teacher_feedback_parent
 (
@@ -358,3 +370,16 @@ constraint FK2_student_rating foreign key (legend) references rating(legendID),
 constraint FK3_student_rating foreign key (class_rec_no) references section(class_rec_no)
 
 );
+
+create table curr_section_list
+(
+section_name varchar(20),
+grade_level varchar(10)
+
+);
+
+create table curr_subject_list
+(
+subject_name varchar(30)
+);
+

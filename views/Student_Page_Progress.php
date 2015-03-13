@@ -118,11 +118,11 @@
 																		<thead>
 																		    <tr>
 									                                       <th><h6>Week No.<h6></th>
-									                                       <th class="knowledge-title"><h6>Knowledge</h6></th>
-									                                       <th class="processskills-title"><h6>Process/skills</h6></th>
-									                                       <th class="understanding-title"><h6>Understanding </h6></th>
-									                                       <th class="performanceproducts-title"><h6>Performance/Products</h6></th>
-									                                       <th><h6>Grade</h6></th>
+									                                       <th class=""><h6>Knowledge</h6></th>
+									                                       <th class=""><h6>Process/skills</h6></th>
+									                                       <th class=""><h6>Understanding </h6></th>
+									                                       <th class=""><h6>Performance/Products</h6></th>
+									                                       <th><h6>Tentative</h6></th>
 									                                    </tr>
 																		<thead>
 																		<tbody id="first-grading-table">
@@ -216,11 +216,11 @@
 																		<thead>
 																		    <tr>
 									                                       <th><h6>Week No.<h6></th>
-									                                       <th class="knowledge-title"><h6>Knowledge </h6></th>
-									                                       <th class="processskills-title"><h6>Process/skills</h6></th>
-									                                       <th class="understanding-title"><h6>Understanding</h6></th>
-									                                       <th class="performanceproducts-title"><h6>Performance/Products</h6></th>
-									                                       <th><h6>Grade</h6></th>
+									                                       <th class=""><h6>Knowledge </h6></th>
+									                                       <th class=""><h6>Process/skills</h6></th>
+									                                       <th class=""><h6>Understanding</h6></th>
+									                                       <th class=""><h6>Performance/Products</h6></th>
+									                                       <th><h6>Tentative</h6></th>
 									                                    </tr>
 																		<thead>
 																		<tbody id="second-grading-table">
@@ -313,11 +313,11 @@
 																		<thead>
 																		    <tr>
 									                                       <th><h6>Week No.<h6></th>
-									                                       <th class="knowledge-title"><h6>Knowledge </h6></th>
-									                                       <th class="processskills-title"><h6>Process/skills</h6></th>
-									                                       <th class="understanding-title"><h6>Understanding</h6></th>
-									                                       <th class="performanceproducts-title"><h6>Performance/Products</h6></th>
-									                                       <th><h6>Grade</h6></th>
+									                                       <th class=""><h6>Knowledge </h6></th>
+									                                       <th class=""><h6>Process/skills</h6></th>
+									                                       <th class=""><h6>Understanding</h6></th>
+									                                       <th class=""><h6>Performance/Products</h6></th>
+									                                       <th><h6>Tentative</h6></th>
 									                                    </tr>
 																		<thead>
 																		<tbody id="third-grading-table">
@@ -411,11 +411,11 @@
 																		<thead>
 																		    <tr>
 									                                       <th><h6>Week No.<h6></th>
-									                                       <th class="knowledge-title"><h6>Knowledge </h6></th>
-									                                       <th class="processskills-title"><h6>Process/skills</h6></th>
-									                                       <th class="understanding-title"><h6>Understanding</h6></th>
-									                                       <th class="performanceproducts-title"><h6>Performance/Products</h6></th>
-									                                       <th><h6>Grade</h6></th>
+									                                       <th class=""><h6>Knowledge </h6></th>
+									                                       <th class=""><h6>Process/skills</h6></th>
+									                                       <th class=""><h6>Understanding</h6></th>
+									                                       <th class=""><h6>Performance/Products</h6></th>
+									                                       <th><h6>Tentative</h6></th>
 									                                    </tr>
 																		<thead>
 																		<tbody id="fourth-grading-table">
@@ -571,11 +571,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge</h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding </h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge</h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding </h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="first-grading-table">'+
@@ -668,11 +668,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="second-grading-table">'+
@@ -764,11 +764,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="third-grading-table">'+
@@ -861,11 +861,11 @@ function reset_container(grade,sectionno,section,subject)
 																'<thead>'+
 																    '<tr>'+
 							                                       '<th><h6>Week No.<h6></th>'+
-							                                       '<th class="knowledge-title"><h6>Knowledge </h6></th>'+
-							                                       '<th class="processskills-title"><h6>Process/skills</h6></th>'+
-							                                       '<th class="understanding-title"><h6>Understanding</h6></th>'+
-							                                       '<th class="performanceproducts-title"><h6>Performance/Products</h6></th>'+
-							                                       '<th><h6>Grade</h6></th>'+
+							                                       '<th class=""><h6>Knowledge </h6></th>'+
+							                                       '<th class=""><h6>Process/skills</h6></th>'+
+							                                       '<th class=""><h6>Understanding</h6></th>'+
+							                                       '<th class=""><h6>Performance/Products</h6></th>'+
+							                                       '<th><h6>Tentative</h6></th>'+
 							                                    '</tr>'+
 																'<thead>'+
 																'<tbody id="fourth-grading-table">'+

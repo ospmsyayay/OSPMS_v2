@@ -14,11 +14,24 @@ function get_announcements($parentID)
 	inner join subject_ on section.subjectID=subject_.subjectID 
 	inner join post_teacher_feedback_parent on section.class_rec_no=post_teacher_feedback_parent.class_rec_no 
 	inner join teacher_feedback_parent on post_teacher_feedback_parent.feedback_date_created=teacher_feedback_parent.feedback_date_created 
-	where parentID='$parentID'";
+	where parentID='$parentID' order by post_teacher_feedback_parent.feedback_date_created desc";
 
 	$join_result=mysqli_query($cxn,$join) or die('Unable to connect to Database.'. mysqli_error($cxn));
 
 	return $join_result;
+}
+
+function post_feedback_comments($feedback_post_date_created)
+{
+    include "config/conn.php";
+
+    $sql="SELECT teacher_feedback_parent_comments.*, registration.reg_lname, registration.reg_fname, registration.image 
+    FROM teacher_feedback_parent_comments inner join registration on teacher_feedback_parent_comments.feedback_account_id=registration.reg_id 
+    where teacher_feedback_parent_comments.feedback_post_date_created='".$feedback_post_date_created."'";
+
+    $result=mysqli_query($cxn,$sql);
+
+    return $result;
 }
 
 function get_students($parentID)

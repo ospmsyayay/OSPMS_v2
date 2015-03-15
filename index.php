@@ -45,6 +45,7 @@ else
 												/*case 'trce':createexer();break;*/
 												/*case 's':t_spage_progress();break;*/
 												case 'acc':taccount_settings();break;
+												/*case 'tprnt':tprint();break;*/
 											}
 										}
 										break;
@@ -410,6 +411,20 @@ function tpage()
 			}
 			
 		}
+		$sa_box=array();
+		$sa_announcement=get_school_announcement();
+		while($display = mysqli_fetch_array($sa_announcement))
+		{
+				$passer=array();
+
+				$passer['sa_date_created']=convert_datetime_to_12hr($display['sa_date_created']);
+				$passer['timespan']=get_time_difference_php($display['sa_date_created']);
+				$passer['sa_message']=$display['sa_message'];
+				
+				$sa_box[]=$passer;
+
+		}
+
 
 		$_SESSION['school_year']=get_school_year();
 		
@@ -1374,6 +1389,20 @@ function spage()
 				
 			}
 
+		}
+
+		$sa_box=array();
+		$sa_announcement=get_school_announcement();
+		while($display = mysqli_fetch_array($sa_announcement))
+		{
+				$passer=array();
+
+				$passer['sa_date_created']=convert_datetime_to_12hr($display['sa_date_created']);
+				$passer['timespan']=get_time_difference_php($display['sa_date_created']);
+				$passer['sa_message']=$display['sa_message'];
+				
+				$sa_box[]=$passer;
+
 		}	
 
 		$_SESSION['student_school_year']=get_school_year();
@@ -1535,6 +1564,21 @@ function ppage()
 {
 	include "model/parent.php";
 	include "model/utility.php";
+	include "model/announcement_lecture.php";
+
+	$sa_box=array();
+	$sa_announcement=get_school_announcement();
+	while($display = mysqli_fetch_array($sa_announcement))
+	{
+			$passer=array();
+
+			$passer['sa_date_created']=convert_datetime_to_12hr($display['sa_date_created']);
+			$passer['timespan']=get_time_difference_php($display['sa_date_created']);
+			$passer['sa_message']=$display['sa_message'];
+			
+			$sa_box[]=$passer;
+
+	}
 
 	$display_box=array();
 	$announcements=get_announcements($_SESSION['account_id']);
@@ -2352,6 +2396,11 @@ function paccount_settings()
 	include "views/Parent_Account_Settings.php";
 
 }
+
+/*function tprint()
+{
+	include "views/Teachers_Page_File.php";
+}*/
 
 function logout()
 {

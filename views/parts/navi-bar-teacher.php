@@ -34,6 +34,7 @@
 								/*case 'trce':exercise();break;*/
 								case 's':studentpage();break;
 								case 'acc':account();break;
+								/*case 'tprnt':fprint();break;*/
 
 
 							}
@@ -118,6 +119,22 @@
 									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
 								</li>';
 						}	
+
+/*						function fprint()
+						{
+							echo '<li>
+									<a href="index.php?r=lss"><i class="fa fa-home fa-2x"></i><h2 class="visible-xs-inline"> Home</h2></a>
+								</li>
+								<li>
+	    							<a href="index.php?r=lss&tr=tre"><i class="fa fa-calculator fa-2x"></i><h2 class="visible-xs-inline"> Encode</h2></a>
+	    						</li>
+								<li>
+									<a href="index.php?r=lss&tr=trp"><i class="fa fa-bar-chart fa-2x"></i><h2 class="visible-xs-inline"> Progress</h2></a>
+								</li>
+								<li class="active">
+									<a href="index.php?r=lss&tr=tprnt"><i class="fa fa-file-text-o fa-2x"></i><h2 class="visible-xs-inline"> Print File</h2></a>
+								</li>';
+						}*/	
 					?>
 					
 			</ul>

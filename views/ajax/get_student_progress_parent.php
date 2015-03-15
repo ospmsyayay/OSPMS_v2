@@ -138,6 +138,11 @@
             $chart_class_rec_no=$_GET['chart_class_rec_no'];
             $lrn=$_GET['chart_lrn'];
 
+            $grading_period=get_grading_period();
+            $week_of_grading=strval(get_week_of_grading());
+
+            echo "{\"grading_period\":[". json_encode($grading_period)."],\"week_of_grading\":[".json_encode($week_of_grading)."]";
+
             $cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
 
 
@@ -149,7 +154,7 @@
             $query = mysqli_query($cxn,$query) or die('Unable to connect to Database.');
 
             $first = true;
-            echo "{\"grading_week1_k\": [";
+            echo ",\"grading_week1_k\": [";
             while($row = mysqli_fetch_array($query)) 
             {
                 if($first) 
@@ -855,6 +860,345 @@ function get_school_year()
     $current_year = date("Y", strtotime("today"));
     return strval($current_year).'-'.strval($current_year+1);
                         
+} 
+
+function get_week_of_grading()
+{
+            $now = strtotime("today");
+            $month = date("M", strtotime("today"));
+            $weekOfGrading;
+            $weekOfMonth = (int) ceil((date("d", $now) - date("w", $now) - 1) / 7) + 1;
+            //Continuous numbering of weeks per Grading
+            if($month=='Jun')
+            {
+                //Exclude week 5 or 6 of June
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=4;
+                }
+                else
+                {
+                    $weekOfGrading=$weekOfMonth;
+                }    
+            }
+            if($month=='Jul')
+            {
+                //Weeks 5, 6, 7, 8
+                //If 1st week of July 
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=5;
+                }
+                //If 2nd week of July
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=6;
+                }    
+                //If 3rd week of July
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=7;
+                }    
+                //If 4th week of July
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=8;
+                }    
+
+                //Exclude week 5 or 6 of July
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=8;//excess
+                }    
+            }
+            if($month=='Aug')
+            {
+                //If 1st week of August: still week 8 of 1st Grading 
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=8;//excess
+                }
+                //If 2nd week of August: 1st Periodical exam
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=8;//excess
+                }    
+                //If 3rd week of August: start of 2nd Grading
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=1;
+                }    
+                //If 4th week of August
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=2;
+                }    
+
+                //Exclude week 5 or 6 of July
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=2;
+                }    
+            }     
+            if($month=='Sep')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=3;
+                }
+                
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=4;
+                }    
+                
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=5;
+                }    
+                
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=6;
+                }    
+
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=6;//excess
+                }    
+            }
+            if($month=='Oct')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=7;
+                }
+                //2nd Periodical Exam
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=8;
+                }    
+                //Start of 3rd Grading
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=1;
+                }    
+                //SemBreak
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=1;//retain
+                }    
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=1;//retain
+                }    
+            }          
+            if($month=='Nov')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=2;
+                }
+                
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=3;
+                }    
+                
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=4;
+                }    
+                
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=5;
+                }    
+
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=5;//excess
+                }    
+            }  
+            if($month=='Dec')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=6;
+                }
+                
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=7;
+                }    
+                
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=8;
+                }    
+                //Christmas Break
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=8;//retain
+                }    
+
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=8;//excess
+                }    
+            }
+            if($month=='Jan')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=8;//excess
+                }
+                //3rd Periodical Exam
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=8;//excess
+                }    
+                //Start of 4th Grading
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=1;
+                }    
+                
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=2;
+                }    
+
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=2;//excess
+                }    
+            }    
+            if($month=='Feb')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=3;
+                }
+                
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=4;
+                }    
+                
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=5;
+                }    
+                
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=6;
+                }    
+
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=6;//excess
+                }    
+            }
+            if($month=='Mar')
+            {
+                
+                if($weekOfMonth==1)
+                {
+                    $weekOfGrading=7;
+                }
+                //Estimated 4th Grading Examination of Graduating
+                if($weekOfMonth==2)
+                {
+                    $weekOfGrading=8;
+                }    
+                //Estimated 4th Grading Examination
+                if($weekOfMonth==3)
+                {
+                    $weekOfGrading=8;//retain
+                }    
+                
+                if($weekOfMonth==4)
+                {
+                    $weekOfGrading=8;//retain
+                }    
+
+                
+                if($weekOfMonth>4)
+                {
+                    $weekOfGrading=8;//retain
+                }    
+            }    
+            //April:Releasing of Final Grades
+            
+            return $weekOfGrading;
+}
+
+function get_grading_period()
+{
+    $grading_period="";
+    $now = strtotime("today");
+    //Get first date of June
+    $current_year = date("Y", $now);
+    $June = date("$current_year-06-01");
+    //Get second week of August
+    $first_saturday_of_August = date("Y-m-d",strtotime("first Saturday of August $current_year"));
+    $second_week_of_August = date("Y-m-d", strtotime($first_saturday_of_August . " +1 week"));
+    //Get second week of October
+    $first_saturday_of_October = date("Y-m-d",strtotime("first Saturday of October $current_year"));
+    $second_week_of_October = date("Y-m-d", strtotime($first_saturday_of_October . " +1 week"));
+    //Get second week of January 
+    $first_saturday_of_January = date("Y-m-d",strtotime("first Saturday of January $current_year"));
+    $second_week_of_January = date("Y-m-d", strtotime($first_saturday_of_January . " +1 week"));
+    //Get third week of March 
+    $first_saturday_of_March = date("Y-m-d",strtotime("first Saturday of March $current_year"));
+    $third_week_of_March = date("Y-m-d", strtotime($first_saturday_of_March . " +2 week"));
+    $today=date("Y-m-d",$now);
+
+
+    if($today >= $June and $today <= $second_week_of_August)
+    {
+        //1st Grading Period
+        //Estimated 1st Periodical Exam:2nd week of August
+        $grading_period="1st Grading Period";
+
+    }
+
+    if($today > $second_week_of_August and $today <= $second_week_of_October)
+    {
+        //2nd Grading Period
+        //Estimated 2nd Periodical Exam:2nd week of October
+        $grading_period="2nd Grading Period";
+    }
+    if($today > $second_week_of_October or $today <= $second_week_of_January)
+    {
+        //3rd Grading Period
+        //Estimated 3rd Periodical Exam:2nd week of January
+        $grading_period="3rd Grading Period";
+    }
+    if($today > $second_week_of_January and $today <= $third_week_of_March)
+    {
+        //4th Grading Period
+        //Estimated 4th Periodical Exam:3rd week of March
+         $grading_period="4th Grading Period";
+    }
+    
+    return $grading_period;
+
+
 } 
 
 function convert_time_to_12hr($time)

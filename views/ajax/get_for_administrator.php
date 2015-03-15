@@ -3388,6 +3388,125 @@ if(isset($_GET['add-scan-student']))
 	echo json_encode($response);
 }
 
+//get school announcement
+if(isset($_GET['ann']))
+{
+	display_school_announcement();
+}	
+
+if(isset($_GET['add-announcement']))
+{
+	$announcement=clean($_GET['announcement']);
+	create_school_announcement($announcement);
+}
+
+if(isset($_GET['delete-announcement']))
+{
+	$delete_id=$_GET['delete_id'];
+	delete_school_announcement($delete_id);
+
+}
+
+if(isset($_GET['set-announcement']))
+{
+	$edit_id=$_GET['edit_id'];
+	$is_active=$_GET['is_active'];
+	set_school_announcement($edit_id,$is_active);
+}
+
+function create_school_announcement($announcement)
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$announcement_date_created= date("Y-m-d H:i:s");  
+
+	$sql="INSERT INTO school_announcement (sa_date_created, sa_message, sa_active) 
+							VALUES ('".$announcement_date_created."', '$announcement', '1')";
+
+	$insert_announcement = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Insert School Announcement Failed'. mysqli_error($cxn));
+
+	display_school_announcement();
+
+}
+
+function set_school_announcement($edit_id,$is_active)
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+	$active;
+
+	if($is_active == 'yes')
+	{
+		$active='0';
+	}
+	else if($is_active == 'no')
+	{
+		$active='1';
+	}	
+
+	$sql="UPDATE school_announcement SET sa_active='$active' where sa_date_created='".$edit_id."'";
+	$edit_announcement = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Edit School Announcement Failed '. mysqli_error($cxn));
+	if($edit_announcement==true)
+	{
+		display_school_announcement();
+	}	
+}
+
+function delete_school_announcement($delete_id)
+{
+	$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+	$sql="DELETE FROM school_announcement where sa_date_created='".$delete_id."'";
+	$delete_announcement = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Delete School Announcement Failed'. mysqli_error($cxn));
+	if($delete_announcement==true)
+	{
+		display_school_announcement();
+	}	
+}
+
+function display_school_announcement()
+{
+		$cxn = mysqli_connect('localhost', 'root', 'unix', 'ospms');
+
+		$sql="SELECT * FROM school_announcement order by sa_date_created desc";
+
+		$school_announcement = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Get School Announcement Failed'. mysqli_error($cxn));
+
+		$first = true;
+		echo "{\"school_announcement\": [";
+		while($display = mysqli_fetch_array($school_announcement))
+		{
+			$passer=array();
+			$passer['sa_date_created']=$display['sa_date_created'];
+			$passer['sa_message']=$display['sa_message'];
+
+			$button='';
+            if($display['sa_active'] == 1)
+            {
+                $button = '<button type="button" id="'.$display['sa_date_created'].'" class="btn btn-success col-md-11 set-active" is-active="yes">Yes</button>';
+            }
+            
+            if($display['sa_active'] == 0)
+            {
+                $button = '<button type="button" id="'.$display['sa_date_created'].'" class="btn btn-warning col-md-11 set-active" is-active="no">No</button>';
+            }   
+
+			$passer['sa_active']=$button;
+
+			if($first) 
+			{
+				echo json_encode($passer);
+				$first = false;
+			}		 
+			else 
+			{
+				echo ',' . json_encode($passer);
+			}
+		}
+		echo "],\"success\": [".json_encode("Announcement Created")."],\"deleted\": [".json_encode("Announcement Deleted")."],\"set\":[".json_encode("Announcement Set")."]}";
+}
+
+
+
 	function clean($str)
 	{
 
@@ -3544,6 +3663,17 @@ if(isset($_GET['add-scan-student']))
 	        $class_rec_no="ECRN-" . $rand5int;
 
 	        return $class_rec_no;
-	}     						
+	} 
+
+	function buttonId()
+	{
+	    $rand9int=$button_id="";
+	        
+	        $rand9int=strval(mt_rand ( 100000000 , 999999999 ));
+
+	        $button_id="B" . $rand9int;
+
+	        return $button_id;
+	}    						
 		
 ?>

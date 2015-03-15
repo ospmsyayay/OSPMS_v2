@@ -280,15 +280,15 @@ function get_week_of_grading()
             }
             if($month=='Aug')
             {
-                //If 1st week of August: still week 4 of 1st Grading 
+                //If 1st week of August: still week 8 of 1st Grading 
                 if($weekOfMonth==1)
                 {
-                    $weekOfGrading=4;
+                    $weekOfGrading=8;
                 }
                 //If 2nd week of August: 1st Periodical exam
                 if($weekOfMonth==2)
                 {
-                    $weekOfGrading=4;
+                    $weekOfGrading=8;
                 }    
                 //If 3rd week of August: start of 2nd Grading
                 if($weekOfMonth==3)

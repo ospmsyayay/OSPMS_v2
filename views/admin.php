@@ -288,10 +288,199 @@ $(function()
                 }
  
             });
+
+function display_ann()
+{
+    $('.content_header').empty();
+    $('.content_').empty();
+    
+     var header = $('<div class="admin-content-header">'+
+                        '<h1>'+
+                            'Add School Announcement '+
+                            '<small>Control panel</small>'+
+                        '</h1>'+
+                    '</div>');
+
+    $('.content_header').append(header);
+     var display = $('<div class="admin-main-content">'+
+                            '<form class="form-horizontal" role="form">'+
+                                '<div class="form-group no-margin-bottom">'+
+
+                                    '<div class="has-margin content">'+   
+                                        '<div class="col-md-4">'+
+                                            '<button type="button" class="btn btn-primary" id="add-ann">Add School Announcement</button>'+
+                                        '</div>'+
+                                    '</div>'+   
+
+                                '</div>'+
+                            '</form>'+
+
+                            '<div class="col-md-12 result-table">'+
+                                '<div class="col-md-offset-1 col-md-10 table-responsive">'+
+                                    '<table class="table table-bordered table-hover table-condensed table-striped-orange content">'+
+                                        '<thead>'+
+                                            '<tr class="info">'+
+                                                '<th>Date Created</th>'+
+                                                '<th>Announcement</th>'+
+                                                '<th>Active</th>'+
+                                                '<th></th>'+
+                                            '</tr>'+
+                                        '<thead>'+
+                                        '<tbody id="ann-box">'+
+                                          
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</div>'+    
+                            '</div>'+
+                    '</div><!--admin-main-content-->');
+           
+        $('.content_').append(display);
+}
+
 function ann()
 {
-    $('#announce-message-modal').modal('show')
+       display_ann();
+
+
+     $.ajax({
+
+        url: 'views/ajax/get_for_administrator.php?ann',
+        type: 'GET',
+       dataType: 'json',
+
+       success: function(response) 
+       {
+             
+            display_school_announcement(response['school_announcement']);
+            
+        },
+
+
+        });
+
+
+   
 }
+
+function display_school_announcement(data) 
+{
+    $('#ann-box').empty()
+
+
+    for (var i = 0; i < data.length; i++) 
+    {
+
+            display_school_announcement_table(data[i]);
+  
+    }
+
+}
+
+function display_school_announcement_table(row)
+{
+
+    /*alert(row.sa_active);*/
+
+    var display = $('<tr>'+
+                        '<td>'+row.sa_date_created+'</td>'+
+                        '<td>'+row.sa_message+'</td>'+
+                        '<td>'+row.sa_active+'</td>'+
+                        '<td><button type="button" id="'+row.sa_date_created+'" class="btn btn-danger delete-ann-id col-lg-11">Delete</button></td>'+
+                    '</tr>');
+
+    $('#ann-box').append(display);
+}
+
+$(document.body).on('click', '#add-ann', function()
+{
+    $('#announce-message-modal').modal('show')
+});
+
+$(document.body).on('click', '#submitAnnouncementMessage', function()
+{
+    var announcement=$("#announcement_message").val();
+    /*alert(announcement);*/
+
+    $.ajax({
+
+    url: 'views/ajax/get_for_administrator.php?add-announcement',
+    type: 'GET',
+    data: {
+        announcement:announcement
+    },
+   dataType: 'json',
+
+   success: function(response) 
+   {
+        
+        display_school_announcement(response['school_announcement']);
+        alert(response.success); 
+        $("#announcement_message").val('');
+        $('#announce-message-modal').modal('hide')  
+         
+    },
+
+
+    });
+
+});
+
+$(document.body).on('click','.set-active', function(){
+    var edit_id=$(this).attr('id');
+    var is_active=$(this).attr('is-active');
+    /*alert(edit_id);*/
+    /*alert(is_active);*/
+
+    $.ajax({
+
+    url: 'views/ajax/get_for_administrator.php?set-announcement',
+    type: 'GET',
+    data: {
+        edit_id:edit_id,is_active:is_active
+    },
+   dataType: 'json',
+
+   success: function(response) 
+   {
+        
+        display_school_announcement(response['school_announcement']);  
+        alert(response.set);
+         
+    },
+
+
+    });
+
+});
+
+$(document.body).on('click', '.delete-ann-id', function()
+{
+    var delete_id=$(this).attr('id');
+    /*alert(delete_id);*/
+
+    $.ajax({
+
+    url: 'views/ajax/get_for_administrator.php?delete-announcement',
+    type: 'GET',
+    data: {
+        delete_id:delete_id
+    },
+   dataType: 'json',
+
+   success: function(response) 
+   {
+        
+        display_school_announcement(response['school_announcement']);  
+        alert(response.deleted);
+         
+    },
+
+
+    });
+});
+
+
+
 
 
 function display_cs()

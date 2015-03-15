@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2015 at 01:00 AM
+-- Generation Time: Mar 13, 2015 at 11:10 AM
 -- Server version: 5.6.22-log
 -- PHP Version: 5.5.12
 
@@ -67,7 +67,7 @@ INSERT INTO `announcement_lecture` (`date_created`, `messageorfile_caption`, `fi
 ('2015-03-12 19:18:03', 'Eto na', 'model/uploaded_files/', '10.JPG'),
 ('2015-03-13 00:01:05', 'jhkhkjjhk', NULL, NULL),
 ('2015-03-13 00:18:46', 'hey', NULL, NULL),
-('2015-03-13 01:37:20', 'Hello en', NULL, NULL);
+('2015-03-13 01:37:20', 'Hello', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -96,9 +96,7 @@ INSERT INTO `announcement_lecture_comments` (`comment_date_created`, `account_id
 ('2015-03-12 19:56:38', 'MS1503081-720647', 'latest comment', '2015-03-12 19:18:03'),
 ('2015-03-12 19:57:03', 'MS1503081-720647', 'oo', '2015-03-12 19:18:03'),
 ('2015-03-12 20:01:29', 'MS1503081-720647', 'hoy', '2015-03-12 19:18:03'),
-('2015-03-12 20:02:43', 'MS1503081-720647', 'bat ganun?', '2015-03-12 19:18:03'),
-('2015-03-16 00:52:57', 'MT1503087-807554', 'hello', '2015-03-13 01:37:20'),
-('2015-03-16 00:52:59', 'MT1503087-807554', 'hello', '2015-03-13 01:37:20');
+('2015-03-12 20:02:43', 'MS1503081-720647', 'bat ganun?', '2015-03-12 19:18:03');
 
 -- --------------------------------------------------------
 
@@ -492,29 +490,6 @@ CREATE TABLE IF NOT EXISTS `room` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `school_announcement`
---
-
-CREATE TABLE IF NOT EXISTS `school_announcement` (
-  `sa_date_created` datetime NOT NULL,
-  `sa_message` longtext,
-  `sa_active` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`sa_date_created`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `school_announcement`
---
-
-INSERT INTO `school_announcement` (`sa_date_created`, `sa_message`, `sa_active`) VALUES
-('2015-03-15 22:09:15', 'Welcome to Tunasan Elementary School!', 1),
-('2015-03-15 22:10:01', 'We''ll have a PTA General Meeting tomorrow', 1),
-('2015-03-15 22:55:18', 'To all students we''ll have NAT review tomorrow. Please kindly bring your sharpened pencils and erasers', 1),
-('2015-03-15 22:56:20', 'Classes are suspended due to tropical storm lucky', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `section`
 --
 
@@ -804,10 +779,7 @@ INSERT INTO `teacher_feedback_parent_comments` (`feedback_comment_date_created`,
 ('2015-03-13 09:03:00', 'MT1503087-807554', 'gumagana ka ba?', '2015-03-13 09:02:53'),
 ('2015-03-13 09:04:27', 'MT1503087-807554', 'yes!', '2015-03-13 09:02:53'),
 ('2015-03-13 09:04:50', 'MT1503087-807554', 'comment', '2015-03-13 02:23:39'),
-('2015-03-13 09:35:05', 'MT1503087-807554', 'nice working', '2015-03-13 09:10:30'),
-('2015-03-15 18:54:19', 'MP1503089-731527', 'ok po', '2015-03-13 09:06:13'),
-('2015-03-15 18:54:49', 'MT1503087-807554', 'ok sir', '2015-03-13 09:06:13'),
-('2015-03-15 23:08:30', 'MP1503089-731527', 'sige po', '2015-03-13 09:06:13');
+('2015-03-13 09:35:05', 'MT1503087-807554', 'nice working', '2015-03-13 09:10:30');
 
 --
 -- Constraints for dumped tables

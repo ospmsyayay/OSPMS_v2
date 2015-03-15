@@ -236,12 +236,57 @@
                       
                         }   
                         ?>    
-					</div><!--//row for post box-->	
-					
+					</div><!--//row for post box-->
 
-					
 				</div>
 			<!--End of mid content-->
+
+			<!--Start of right content-->
+					<div class="right-content col-md-3">
+
+						<div class="row">
+							<div class="col-md-12">
+					            <div class="panel panel-warning content has-margin-bottom-10 ">
+					                <div class="panel-heading">
+					                    <h3 class="panel-title"> School Announcement</h3>
+					                </div>
+					                <div class="panel-body post-ann-body">
+
+				                        <div id="postparents">
+				                        	<div class="post-ann-box">
+				                        		<div class="no-padding-top-bottom post-ann-box-container-box">
+
+				                        		<?php   
+						                        foreach($sa_box as $display)
+						                        {
+
+				                        		echo'<div class="post-ann-box-container content">
+														<img src="views/res/TES_logo.png"  class="post-ann-img img-circle pull-left">
+														<div class="has-margin-left-45">
+															<div class="post-ann-msg">
+																<a class="post-ann-msg-author">TES</a> 
+																<div class="post-ann-msg-container ">'.$display['sa_message'].'</div>
+															</div>
+															<div><small class="post-ann-msg-timespan"><strong>'.$display['sa_date_created'].'</strong></small></div>
+					                                    	<div><small class="post-ann-msg-timespan">'.$display['timespan'].'</small></div>
+
+														</div> <!-- //body -->
+													</div> <!-- //container -->';
+												}
+												?>
+																											
+												</div><!--no padding-->
+											</div><!--box-->
+				                        </div><!--tab-pane-->
+
+					                </div><!--panel-body-->
+		
+					            </div>
+					        </div>
+						</div><!--row-->
+
+					</div>
+					<!--End of right content-->	
 
 		</div><!--row-->
 	</div><!--container-fluid-->
@@ -250,6 +295,7 @@
 
 <script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
+<script src="views/plugins/jQuery-slimScroll/jquery.slimscroll.min.js"></script>
 
 <script>
 
@@ -262,6 +308,8 @@ $(function ()
             {
             	AutoGrowTextArea(this);
             });
+
+            $('.post-ann-box-container-box').slimScroll({ height: '300px'});
 
 
  			$('.side-menu').on('click', function () 

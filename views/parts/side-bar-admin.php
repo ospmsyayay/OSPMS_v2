@@ -64,11 +64,11 @@
                     User Accounts
             </h6>
         </li>
-<!--         <li class="list-group-item side-menu admin-side-menu-heading" side-menu-id="ann">        
+        <li class="list-group-item side-menu admin-side-menu-heading" side-menu-id="ann">        
         <h6 class="panel-title admin-side-menu-title">
                     Add School Announcement
             </h6>
-        </li> -->
+        </li>
   	</ul>	
 </div>
 <!--End of Side bar menu-->

@@ -76,6 +76,49 @@
 				<!--Start of left content-->
 				<div class="left-content col-md-3">
 					<?php include "views/parts/side-bar-parent-student.php";?>
+
+						<div class="row">
+							<div class="col-md-12">
+					            <div class="panel panel-danger content has-margin-bottom-10 ">
+					                <div class="panel-heading">
+					                    <h3 class="panel-title"> School Announcement</h3>
+					                </div>
+					                <div class="panel-body post-ann-body">
+
+				                        <div id="postparents">
+				                        	<div class="post-ann-box">
+				                        		<div class="no-padding-top-bottom post-ann-box-container-box">
+
+				                        		<?php   
+						                        foreach($sa_box as $display)
+						                        {
+
+				                        		echo'<div class="post-ann-box-container content">
+														<img src="views/res/TES_logo.png"  class="post-ann-img img-circle pull-left">
+														<div class="has-margin-left-45">
+															<div class="post-ann-msg">
+																<a class="post-ann-msg-author">TES</a> 
+																<div class="post-ann-msg-container ">'.$display['sa_message'].'</div>
+															</div>
+															<div><small class="post-ann-msg-timespan"><strong>'.$display['sa_date_created'].'</strong></small></div>
+					                                    	<div><small class="post-ann-msg-timespan">'.$display['timespan'].'</small></div>
+
+														</div> <!-- //body -->
+													</div> <!-- //container -->';
+												}
+												?>
+																											
+												</div><!--no padding-->
+											</div><!--box-->
+				                        </div><!--tab-pane-->
+
+					                </div><!--panel-body-->
+		
+					            </div>
+					        </div>
+						</div><!--row-->
+
+
 				</div>
 				<!--End of left content-->
 
@@ -309,6 +352,8 @@ $(function ()
 		        
 		    }
 		}, '#teacher-list-side-menu');
+
+		$('.post-ann-box-container-box').slimScroll({ height: '300px'});
 
 	    $(document.body).on('keyup', '.commentarea', function () 
         {
@@ -1055,6 +1100,10 @@ function reset_container(grade,sectionno,section,subject)
 													'</div>'+
 												'</div><!--//row for legend-->'+
 
+												'<div class="alert-first-grading content">'+
+
+												'</div>'+
+
 											
 											'</div><!--student-progress-table-->'+
 										'</div><!--row for progress space-->'+
@@ -1150,6 +1199,10 @@ function reset_container(grade,sectionno,section,subject)
 														'</table>'+
 													'</div>'+
 												'</div><!--//row for legend-->'+
+
+												'<div class="alert-second-grading content">'+
+
+												'</div>'+
 
 											
 											'</div><!--student-progress-table-->'+
@@ -1248,6 +1301,10 @@ function reset_container(grade,sectionno,section,subject)
 													'</div>'+
 												'</div><!--//row for legend-->'+
 
+												'<div class="alert-third-grading content">'+
+
+												'</div>'+
+
 											
 											'</div><!--student-progress-table-->'+
 										'</div><!--row for progress space-->'+
@@ -1345,6 +1402,10 @@ function reset_container(grade,sectionno,section,subject)
 													'</div>'+
 												'</div><!--//row for legend-->'+
 
+												'<div class="alert-fourth-grading content">'+
+
+												'</div>'+
+
 											
 											'</div><!--student-progress-table-->'+
 										'</div><!--row for progress space-->'+
@@ -1414,6 +1475,598 @@ function chart(class_rec_no,lrn)
 			            alert(JSON.stringify(response['grading_week6_pp']));
 			            alert(JSON.stringify(response['grading_week7_pp']));
 			            alert(JSON.stringify(response['grading_week8_pp']));*/
+
+			            var grading_period=response['grading_period'];
+			            var week_of_grading=response['week_of_grading'];
+
+/*			            alert(grading_period);
+			            alert(week_of_grading);*/
+
+			            var week_no="";
+
+			            //Week 1, 2, 3, 4, 5, 6, 7, 8
+
+			            if(grading_period == '1st Grading Period')
+			            {
+
+		            		if(week_of_grading == '2')
+			            	{
+
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1 ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+
+			            	}
+
+		            		if(week_of_grading == '3')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            					week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '4')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '5')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '6')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+			            	}
+
+		            		if(week_of_grading == '7')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            	}	
+
+			        		if(week_of_grading == '8')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+
+					            //7th Week
+					            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+					            {
+				            		week_no=week_no+"7, ";
+
+				            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+					            }
+			            	}			
+
+
+			            }
+			            else if(grading_period == '2nd Grading Period')
+			            {
+		            		//1st Week
+				            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+				            {
+				            	week_no=week_no+"1, ";
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+		            		//2nd Week
+				           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+				            {
+				            	week_no=week_no+"2, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+				            //3rd Week
+				            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+				            {
+				            	week_no=week_no+"3, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+				            //4th Week
+				            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+				            {
+				            	week_no=week_no+"4, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+
+				            //5th Week
+				            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+				            {
+				            	week_no=week_no+"5, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+				            //6th Week
+				            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+				            {
+				            	week_no=week_no+"6, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+				            //7th Week
+				            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+				            {
+			            		week_no=week_no+"7, ";
+
+			            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+				            //8th Week
+				            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+				            {
+				            	week_no=week_no+"8, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-first-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-first-grading").append(display);
+				            }
+
+
+			            }	
+
 
 
 
@@ -1579,6 +2232,598 @@ function chart(class_rec_no,lrn)
 			            alert(JSON.stringify(response['grading_week7_pp']));
 			            alert(JSON.stringify(response['grading_week8_pp']));*/
 
+			            var grading_period=response['grading_period'];
+			            var week_of_grading=response['week_of_grading'];
+
+/*			            alert(grading_period);
+			            alert(week_of_grading);*/
+
+			            var week_no="";
+
+			            //Week 1, 2, 3, 4, 5, 6, 7, 8
+
+			            if(grading_period == '2nd Grading Period')
+			            {
+
+		            		if(week_of_grading == '2')
+			            	{
+
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1 ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+
+			            	}
+
+		            		if(week_of_grading == '3')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            					week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '4')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '5')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '6')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+			            	}
+
+		            		if(week_of_grading == '7')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            	}	
+
+			        		if(week_of_grading == '8')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+
+					            //7th Week
+					            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+					            {
+				            		week_no=week_no+"7, ";
+
+				            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+					            }
+			            	}			
+
+
+			            }
+			            else if(grading_period == '3rd Grading Period')
+			            {
+		            		//1st Week
+				            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+				            {
+				            	week_no=week_no+"1, ";
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+		            		//2nd Week
+				           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+				            {
+				            	week_no=week_no+"2, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+				            //3rd Week
+				            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+				            {
+				            	week_no=week_no+"3, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+				            //4th Week
+				            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+				            {
+				            	week_no=week_no+"4, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+
+				            //5th Week
+				            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+				            {
+				            	week_no=week_no+"5, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+				            //6th Week
+				            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+				            {
+				            	week_no=week_no+"6, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+				            //7th Week
+				            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+				            {
+			            		week_no=week_no+"7, ";
+
+			            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+				            //8th Week
+				            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+				            {
+				            	week_no=week_no+"8, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-second-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-second-grading").append(display);
+				            }
+
+
+			            }	
+
+
 
 
 			                var chartData = {
@@ -1743,6 +2988,597 @@ function chart(class_rec_no,lrn)
 			            alert(JSON.stringify(response['grading_week7_pp']));
 			            alert(JSON.stringify(response['grading_week8_pp']));*/
 
+			            var grading_period=response['grading_period'];
+			            var week_of_grading=response['week_of_grading'];
+
+/*			            alert(grading_period);
+			            alert(week_of_grading);*/
+
+			            var week_no="";
+
+			            //Week 1, 2, 3, 4, 5, 6, 7, 8
+
+			            if(grading_period == '3rd Grading Period')
+			            {
+
+		            		if(week_of_grading == '2')
+			            	{
+
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1 ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+
+			            	}
+
+		            		if(week_of_grading == '3')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            					week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '4')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '5')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '6')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+			            	}
+
+		            		if(week_of_grading == '7')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            	}	
+
+			        		if(week_of_grading == '8')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+
+					            //7th Week
+					            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+					            {
+				            		week_no=week_no+"7, ";
+
+				            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+					            }
+			            	}			
+
+
+			            }
+			            else if(grading_period == '4th Grading Period')
+			            {
+		            		//1st Week
+				            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+				            {
+				            	week_no=week_no+"1, ";
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+		            		//2nd Week
+				           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+				            {
+				            	week_no=week_no+"2, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+				            //3rd Week
+				            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+				            {
+				            	week_no=week_no+"3, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+				            //4th Week
+				            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+				            {
+				            	week_no=week_no+"4, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+
+				            //5th Week
+				            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+				            {
+				            	week_no=week_no+"5, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+				            //6th Week
+				            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+				            {
+				            	week_no=week_no+"6, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+				            //7th Week
+				            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+				            {
+			            		week_no=week_no+"7, ";
+
+			            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+				            //8th Week
+				            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+				            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+				            {
+				            	week_no=week_no+"8, ";
+
+				            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-third-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-third-grading").append(display);
+				            }
+
+
+			            }	
+
 
 
 			                var chartData = {
@@ -1906,6 +3742,474 @@ function chart(class_rec_no,lrn)
 			            alert(JSON.stringify(response['grading_week6_pp']));
 			            alert(JSON.stringify(response['grading_week7_pp']));
 			            alert(JSON.stringify(response['grading_week8_pp']));*/
+
+			            			            var grading_period=response['grading_period'];
+			            var week_of_grading=response['week_of_grading'];
+
+/*			            alert(grading_period);
+			            alert(week_of_grading);*/
+
+			            var week_no="";
+
+			            //Week 1, 2, 3, 4, 5, 6, 7, 8
+
+			            if(grading_period == '4th Grading Period')
+			            {
+
+		            		if(week_of_grading == '2')
+			            	{
+
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1 ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+
+			            	}
+
+		            		if(week_of_grading == '3')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            					week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '4')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '5')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            	}
+
+		            		if(week_of_grading == '6')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+			            	}
+
+		            		if(week_of_grading == '7')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            	}	
+
+			        		if(week_of_grading == '8')
+			            	{
+			            		//1st Week
+					            if( jQuery.isEmptyObject(response['grading_week1_k']) && jQuery.isEmptyObject(response['grading_week1_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week1_u']) && jQuery.isEmptyObject(response['grading_week1_pp']) )
+					            {
+					            	week_no=week_no+"1, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+			            		//2nd Week
+					           	if( jQuery.isEmptyObject(response['grading_week2_k']) && jQuery.isEmptyObject(response['grading_week2_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week2_u']) && jQuery.isEmptyObject(response['grading_week2_pp']) )
+					            {
+					            	week_no=week_no+"2, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //3rd Week
+					            if( jQuery.isEmptyObject(response['grading_week3_k']) && jQuery.isEmptyObject(response['grading_week3_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week3_u']) && jQuery.isEmptyObject(response['grading_week3_pp']) )
+					            {
+					            	week_no=week_no+"3, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //4th Week
+					            if( jQuery.isEmptyObject(response['grading_week4_k']) && jQuery.isEmptyObject(response['grading_week4_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week4_u']) && jQuery.isEmptyObject(response['grading_week4_pp']) )
+					            {
+					            	week_no=week_no+"4, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+
+					            //5th Week
+					            if( jQuery.isEmptyObject(response['grading_week5_k']) && jQuery.isEmptyObject(response['grading_week5_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week5_u']) && jQuery.isEmptyObject(response['grading_week5_pp']) )
+					            {
+					            	week_no=week_no+"5, ";
+
+					            	var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //6th Week
+					            if( jQuery.isEmptyObject(response['grading_week6_k']) && jQuery.isEmptyObject(response['grading_week6_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week6_u']) && jQuery.isEmptyObject(response['grading_week6_pp']) )
+					            {
+					            	week_no=week_no+"6, ";
+
+					           		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+
+					            //7th Week
+					            if( jQuery.isEmptyObject(response['grading_week7_k']) && jQuery.isEmptyObject(response['grading_week7_ps']) 
+					            	&& jQuery.isEmptyObject(response['grading_week7_u']) && jQuery.isEmptyObject(response['grading_week7_pp']) )
+					            {
+				            		week_no=week_no+"7, ";
+
+				            		var alert_message="<strong>Please be informed</strong> that the <strong>teacher skipped </strong> Week <strong>"+
+					            						week_no+"</strong> due to some important matters.";
+
+				            		$(".alert-fourth-grading").empty();
+				            		var display=$('<div class="alert alert-danger">'+alert_message+'</div>');
+
+				            		$(".alert-fourth-grading").append(display);
+					            }
+			            	}			
+
+
+			            }
+
 
 
 

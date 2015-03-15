@@ -2,6 +2,17 @@
   <!--@copyright 2014-->
 <?php 
 
+function get_school_announcement()
+{
+    include "config/conn.php";
+
+    $sql="SELECT * FROM school_announcement where sa_active = '1' order by sa_date_created desc";
+    $sa_announcement = mysqli_query($cxn, $sql) or die('Unable to connect to Database. Get School Announcement Failed '. mysqli_error($cxn));
+
+    return $sa_announcement;
+
+}
+
 function write_announcement_to_all_subjects($teacherID,$message_date_created,$message)
 {
 

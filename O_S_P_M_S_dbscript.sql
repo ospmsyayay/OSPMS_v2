@@ -383,3 +383,13 @@ create table curr_subject_list
 subject_name varchar(30)
 );
 
+
+create table school_announcement
+(
+sa_date_created datetime not null,
+sa_message longtext null,
+sa_active boolean,
+
+constraint PK_school_announcement primary key (sa_date_created)
+
+);

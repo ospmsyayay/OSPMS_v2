@@ -1073,7 +1073,7 @@ height:30px;
 }
 
 .modal-content-full {
-  height: auto !important;
+  height: 2100px !important;
   border-radius: 0 !important;
 }
 
@@ -2703,5 +2703,39 @@ color: #333;
 padding: 0px;
 height:30px;
 
+
+}
+
+.post-ann-img
+{
+	margin: auto;
+	width: 32px;
+	height:32px;
+	border: 2px solid #59ABE3 !important;
+}
+
+.post-ann-msg
+{
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+
+.post-ann-msg-author
+{
+	/*display:inline-block;*/
+	vertical-align:top;
+	cursor: pointer;
+	text-decoration: none !important;
+	font-weight: bold;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+}
+.post-ann-msg-timespan
+{
+	/*display:inline;*/
+	padding-left:0px;
+	font-family: Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif;
+	font-size: 11px;
 
 }

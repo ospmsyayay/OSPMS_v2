@@ -205,8 +205,8 @@ $(function()
                 event.preventDefault();
                 $(this).datepicker({
         
-                /* minDate: new Date(1999, 10 - 1, 25),
-                    maxDate: '+30Y',*/
+                    /*minDate: new Date(1915, 10 - 1, 25),*/
+                    maxDate: '-20Y',
                     yearRange: "-100:+0", 
                     changeMonth: true,
                     changeYear: true,
@@ -214,6 +214,43 @@ $(function()
                     dateFormat: 'yy-mm-dd'
                 });
             });
+
+            $(document.body).on('keydown','.bday_datepicker',function(event)
+            {
+                event.preventDefault();
+
+                if (event.keyCode == 8 || event.keyCode == 46) {
+                   return false;
+                }
+
+            });
+
+            $(document.body).on('focus','.gbday_datepicker',function(event)
+            {
+                event.preventDefault();
+                $(this).datepicker({
+        
+                    /*minDate: new Date(1915, 10 - 1, 25),*/
+                    maxDate: '-5Y',
+                    yearRange: "-100:+0", 
+                    changeMonth: true,
+                    changeYear: true,
+                    /*showButtonPanel: true,*/
+                    dateFormat: 'yy-mm-dd'
+                });
+            });
+
+            $(document.body).on('keydown','.gbday_datepicker',function(event)
+            {
+                event.preventDefault();
+
+                if (event.keyCode == 8 || event.keyCode == 46) {
+                   return false;
+                }
+
+            });
+
+
             $(document.body).on('focus','#sched_start_time',function()
             {           
                 $(this).timepicker({
@@ -2351,13 +2388,13 @@ function display_ua()
 
                                                                     '<label class="col-md-1 control-label">Birthday</label>'+
                                                                     '<div class="col-md-4">'+
-                                                                        '<input type="text" name="edadmbirthday" class="form-control edit_admin" value="'+row.reg_birthday+'" readonly="true" id="edadbday">'+
+                                                                        '<input type="text" name="edadmbirthday" class="form-control edit_admin required-bday" value="'+row.reg_birthday+'" readonly="true" id="edadbday"  required="required">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-md-2 control-label">Last name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edadmlname" class="form-control edit_admin" value="'+row.reg_lname+'" readonly="true">'+
+                                                                        '<input type="text" name="edadmlname" class="form-control edit_admin required-lname alphaonly" value="'+row.reg_lname+'" readonly="true"  required="required">'+
                                                                     '</div>'+
 
 /*                                                                    '<label class="col-md-1 control-label">Address</label>'+
@@ -2368,13 +2405,13 @@ function display_ua()
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-md-2 control-label">First name</label>'+
                                                                     '<div class="col-md-4">'+
-                                                                        '<input type="text" name="edadmfname" class="form-control edit_admin" value="'+row.reg_fname+'" readonly="true">'+
+                                                                        '<input type="text" name="edadmfname" class="form-control edit_admin required-fname alphaonly" value="'+row.reg_fname+'" readonly="true"  required="required">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-md-2 control-label">Middle name</label>'+
                                                                     '<div class="col-md-4">'+
-                                                                        '<input type="text" name="edadmmname" class="form-control edit_admin" value="'+row.reg_mname+'" readonly="true">'+
+                                                                        '<input type="text" name="edadmmname" class="form-control edit_admin alphaonly" value="'+row.reg_mname+'" readonly="true">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
@@ -2404,7 +2441,7 @@ function display_ua()
                                                                         '</button>'+
                                                                     '</div>'+
                                                                     '<div class="col-md-2">'+
-                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="admin-edit-submit">'+
+                                                                        '<button type="submit" class="btn btn-primary btn-label-left submit" id="admin-edit-submit">'+
                                                                             'Save Changes'+
                                                                         '</button>'+
                                                                     '</div>'+
@@ -2445,8 +2482,8 @@ function display_ua()
                         $(document.body).on('click', '#admin-edit-update',function(){
                             $('.edit_admin').removeProp("readonly");
                             $('#upload-edit-admin-image').removeAttr("style");
-                            $('#edadbday').addClass('bday_datepicker');
-                            $('.bday_datepicker').datepicker('enable');
+                            $('#edadbday').addClass('gbday_datepicker');
+                            $('.gbday_datepicker').datepicker('enable');
                             $('.edit_admin_select').removeAttr('disabled');
                             $('#admin-edit-submit').attr('disabled',false);
                         });
@@ -2573,13 +2610,13 @@ function display_ua()
 
                                                                     '<label class="col-sm-1 control-label">Birthday</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edteachbirthday" class="form-control edit_teacher" value="'+row.reg_birthday+'" readonly="true" id="edteachbday">'+
+                                                                        '<input type="text" name="edteachbirthday" class="form-control edit_teacher required-bday" value="'+row.reg_birthday+'" readonly="true" id="edteachbday"  required="required">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">Last name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edteachlname" class="form-control edit_teacher" value="'+row.reg_lname+'" readonly="true">'+
+                                                                        '<input type="text" name="edteachlname" class="form-control edit_teacher required-lname alphaonly" value="'+row.reg_lname+'" readonly="true"  required="required">'+
                                                                     '</div>'+
 
 /*                                                                    '<label class="col-sm-1 control-label">Address</label>'+
@@ -2590,7 +2627,7 @@ function display_ua()
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">First name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edteachfname" class="form-control edit_teacher" value="'+row.reg_fname+'" readonly="true">'+
+                                                                        '<input type="text" name="edteachfname" class="form-control edit_teacher required-fname alphaonly" value="'+row.reg_fname+'" readonly="true"  required="required">'+
                                                                     '</div>'+
 /*
                                                                      '<label class="col-sm-1 control-label">Position</label>'+
@@ -2601,7 +2638,7 @@ function display_ua()
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">Middle name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edteachmname" class="form-control edit_teacher" value="'+row.reg_mname+'" readonly="true">'+
+                                                                        '<input type="text" name="edteachmname" class="form-control edit_teacher alphaonly" value="'+row.reg_mname+'" readonly="true">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
@@ -2630,7 +2667,7 @@ function display_ua()
                                                                         '</button>'+
                                                                     '</div>'+
                                                                     '<div class="col-sm-2">'+
-                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="teacher-edit-submit">'+
+                                                                        '<button type="submit" class="btn btn-primary btn-label-left submit" id="teacher-edit-submit">'+
                                                                             'Save Changes'+
                                                                         '</button>'+
                                                                     '</div>'+
@@ -2796,13 +2833,13 @@ function display_ua()
 
                                                                     '<label class="col-sm-1 control-label">Birthday</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edstudbirthday" class="form-control edit_student" value="'+row[6]+'" readonly="true" id="edstudbday">'+
+                                                                        '<input type="text" name="edstudbirthday" class="form-control edit_student required-bday" value="'+row[6]+'" readonly="true" id="edstudbday"  required="required">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">Last name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edstudlname" class="form-control edit_student" value="'+row[1]+'" readonly="true">'+
+                                                                        '<input type="text" name="edstudlname" class="form-control edit_student required-lname alphaonly" value="'+row[1]+'" readonly="true"  required="required">'+
                                                                     '</div>'+
 
 /*                                                                    '<label class="col-sm-1 control-label">Address</label>'+
@@ -2813,7 +2850,7 @@ function display_ua()
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">First name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edstudfname" class="form-control edit_student" value="'+row[2]+'" readonly="true">'+
+                                                                        '<input type="text" name="edstudfname" class="form-control edit_student required-fname alphaonly" value="'+row[2]+'" readonly="true"  required="required">'+
                                                                     '</div>'+
                                                                     '<label class="col-sm-1 control-label">Guardian:</label>'+
                                                                     '<input type="hidden" name="edstudparentid" value="'+row[9]+'"/>'+ 
@@ -2822,12 +2859,12 @@ function display_ua()
                                                                 '<div class="form-group">'+
                                                                     '<label class="col-sm-2 control-label">Middle name</label>'+
                                                                     '<div class="col-sm-3">'+
-                                                                        '<input type="text" name="edstudmname" class="form-control edit_student" value="'+row[3]+'" readonly="true">'+
+                                                                        '<input type="text" name="edstudmname" class="form-control edit_student alphaonly" value="'+row[3]+'" readonly="true">'+
                                                                     '</div>'+
 
                                                                     '<label class="col-sm-2 control-label">Last Name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edstudparentlname" class="form-control edit_student" value="'+row[10]+'" readonly="true">'+
+                                                                        '<input type="text" name="edstudparentlname" class="form-control edit_student required-plname alphaonly" value="'+row[10]+'" readonly="true"  required="required">'+
                                                                     '</div>'+
 
                                                                 '</div>'+
@@ -2842,7 +2879,7 @@ function display_ua()
 
                                                                     '<label class="col-md-offset-1 col-sm-2 control-label">First Name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edstudparentfname" class="form-control edit_student"  value="'+row[11]+'" readonly="true">'+
+                                                                        '<input type="text" name="edstudparentfname" class="form-control edit_student required-pfname alphaonly"  value="'+row[11]+'" readonly="true"  required="required">'+
                                                                     '</div>'+
        
                                                                 '</div>'+
@@ -2857,7 +2894,7 @@ function display_ua()
                                                                     '</div>'+
                                                                     '<label class="col-md-offset-1 col-sm-2 control-label">Middle Name</label>'+
                                                                     '<div class="col-sm-4">'+
-                                                                        '<input type="text" name="edstudparentmname" class="form-control edit_student"  value="'+row[12]+'" readonly="true">'+
+                                                                        '<input type="text" name="edstudparentmname" class="form-control edit_student alphaonly"  value="'+row[12]+'" readonly="true">'+
                                                                     '</div>'+
                                                                 '</div>'+
                                                                 '<div class="form-group">'+
@@ -2867,7 +2904,7 @@ function display_ua()
                                                                         '</button>'+
                                                                     '</div>'+
                                                                     '<div class="col-md-2">'+
-                                                                        '<button type="submit" class="btn btn-primary btn-label-left" id="student-edit-submit">'+
+                                                                        '<button type="submit" class="btn btn-primary btn-label-left submit" id="student-edit-submit">'+
                                                                             'Save Changes'+
                                                                         '</button>'+
                                                                     '</div>'+
@@ -2907,8 +2944,8 @@ function display_ua()
                         $(document.body).on('click', '#student-edit-update',function(){
                             $('.edit_student').removeProp("readonly");
                             $('#upload-edit-student-image').removeAttr("style");
-                            $('#edstudbday').addClass('bday_datepicker');
-                            $('.bday_datepicker').datepicker('enable');
+                            $('#edstudbday').addClass('gbday_datepicker');
+                            $('.gbday_datepicker').datepicker('enable');
                             $('.edit_student_select').removeAttr('disabled');
                             $('#student-edit-submit').attr('disabled',false);
                         });
@@ -3028,15 +3065,15 @@ function display_ua()
                                                                 '<input type="text" name="addadmid" class="form-control" value="'+row.admin_id+'" readonly="true">'+
                                                             '</div>'+
 
-                                                            '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                            '<label class="col-sm-1 control-label">Birthday<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addadmbirthday" class="form-control add_admin bday_datepicker" id="addadbday">'+
+                                                                '<input type="text" name="addadmbirthday" class="form-control add_admin gbday_datepicker required-bday" id="addadbday" required="required">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
-                                                            '<label class="col-sm-2 control-label">Last name</label>'+
+                                                            '<label class="col-sm-2 control-label">Last name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addadmlname" class="form-control add_admin">'+
+                                                                '<input type="text" name="addadmlname" class="form-control add_admin alphaonly required-lname" required="required">'+
                                                             '</div>'+
 /*
                                                             '<label class="col-sm-1 control-label">Address</label>'+
@@ -3045,9 +3082,9 @@ function display_ua()
                                                             '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
-                                                            '<label class="col-sm-2 control-label">First name</label>'+
+                                                            '<label class="col-sm-2 control-label">First name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addadmfname" class="form-control add_admin">'+
+                                                                '<input type="text" name="addadmfname" class="form-control add_admin alphaonly required-fname" required="required">'+
                                                             '</div>'+
                                                             
 
@@ -3055,7 +3092,7 @@ function display_ua()
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">Middle name</label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addadmmname" class="form-control add_admin">'+
+                                                                '<input type="text" name="addadmmname" class="form-control add_admin alphaonly">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
@@ -3079,7 +3116,7 @@ function display_ua()
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<div class="col-md-offset-10 col-md-4">'+
-                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="admin-add-submit">'+
+                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase submit" id="admin-add-submit">'+
                                                                     'Submit'+
                                                                 '</button>'+
                                                             '</div>'+
@@ -3211,15 +3248,15 @@ function display_ua()
                                                                 '<input type="text" name="addteachid" class="form-control" value="'+row.teacher_id+'" readonly="true">'+
                                                             '</div>'+
 
-                                                            '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                            '<label class="col-sm-1 control-label">Birthday<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addteachbirthday" class="form-control add_teacher bday_datepicker" id="addteachbday">'+
+                                                                '<input type="text" name="addteachbirthday" class="form-control add_teacher bday_datepicker required-bday" id="addteachbday" required="required">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
-                                                            '<label class="col-sm-2 control-label">Last name</label>'+
+                                                            '<label class="col-sm-2 control-label">Last name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addteachlname" class="form-control add_teacher">'+
+                                                                '<input type="text" name="addteachlname" class="form-control add_teacher alphaonly required-lname" required="required">'+
                                                             '</div>'+
 
 /*                                                            '<label class="col-sm-1 control-label">Address</label>'+
@@ -3228,9 +3265,9 @@ function display_ua()
                                                             '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
-                                                            '<label class="col-sm-2 control-label">First name</label>'+
+                                                            '<label class="col-sm-2 control-label">First name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addteachfname" class="form-control add_teacher">'+
+                                                                '<input type="text" name="addteachfname" class="form-control add_teacher alphaonly required-fname" required="required">'+
                                                             '</div>'+
 
 /*                                                             '<label class="col-sm-1 control-label">Position</label>'+
@@ -3241,7 +3278,7 @@ function display_ua()
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">Middle name</label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addteachmname" class="form-control add_teacher">'+
+                                                                '<input type="text" name="addteachmname" class="form-control add_teacher alphaonly">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
@@ -3265,7 +3302,7 @@ function display_ua()
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<div class="col-md-offset-10 col-md-2">'+
-                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="teacher-add-submit">'+
+                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase submit" id="teacher-add-submit">'+
                                                                     'Submit'+
                                                                 '</button>'+
                                                             '</div>'+
@@ -3383,6 +3420,7 @@ function display_ua()
                                                                 '<img class="add-student-image pull-left" alt="" src="views/res/default_profile_pic.jpg"/>'+
                                                             '</div>'+
                                                             '<div class="col-sm-12">'+
+                                                            
                                                                 '<input type="file" name="addstudimg" id="upload-add-student-image" class="pull-left student-add-image-browse"/>'+
                                                             '</div>'+
                                                              
@@ -3393,15 +3431,15 @@ function display_ua()
                                                                 '<input type="text" name="addstudid" class="form-control" value="'+row.student_id+'" readonly="true">'+
                                                             '</div>'+
 
-                                                            '<label class="col-sm-1 control-label">Birthday</label>'+
+                                                            '<label class="col-sm-1 control-label">Birthday<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addstudbirthday" class="form-control add_student bday_datepicker" id="addstudbday">'+
+                                                                '<input type="text" name="addstudbirthday" class="form-control add_student gbday_datepicker required-bday" id="addstudbday" required="required">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
-                                                            '<label class="col-sm-2 control-label">Last name</label>'+
+                                                            '<label class="col-sm-2 control-label">Last name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addstudlname" class="form-control add_student">'+
+                                                                '<input type="text" name="addstudlname" class="form-control add_student alphaonly required-lname" required="required">'+
                                                             '</div>'+
 /*
                                                             '<label class="col-sm-1 control-label">Address</label>'+
@@ -3410,9 +3448,9 @@ function display_ua()
                                                             '</div>'+*/
                                                         '</div>'+
                                                         '<div class="form-group">'+
-                                                            '<label class="col-sm-2 control-label">First name</label>'+
+                                                            '<label class="col-sm-2 control-label">First name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addstudfname" class="form-control add_student">'+
+                                                                '<input type="text" name="addstudfname" class="form-control add_student alphaonly required-fname" required="required">'+
                                                             '</div>'+
 
                                                              '<label class="col-sm-1 control-label">Guardian:</label>'+
@@ -3421,12 +3459,12 @@ function display_ua()
                                                         '<div class="form-group">'+
                                                             '<label class="col-sm-2 control-label">Middle name</label>'+
                                                             '<div class="col-sm-3">'+
-                                                                '<input type="text" name="addstudmname" class="form-control add_student">'+
+                                                                '<input type="text" name="addstudmname" class="form-control add_student alphaonly">'+
                                                             '</div>'+
 
-                                                            '<label class="col-sm-2 control-label">Last Name</label>'+
+                                                            '<label class="col-sm-2 control-label">Last Name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addstudparentlname" class="form-control add_student">'+
+                                                                '<input type="text" name="addstudparentlname" class="form-control add_student alphaonly required-plname" required="required">'+
                                                             '</div>'+
 
                                                         '</div>'+
@@ -3440,9 +3478,9 @@ function display_ua()
                                                                 '</select>'+
                                                             '</div>'+       
 
-                                                            '<label class="col-md-offset-1 col-sm-2 control-label">First Name</label>'+
+                                                            '<label class="col-md-offset-1 col-sm-2 control-label">First Name<font color="red">*</font></label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addstudparentfname" class="form-control add_student">'+
+                                                                '<input type="text" name="addstudparentfname" class="form-control add_student alphaonly required-pfname" required="required">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
@@ -3457,12 +3495,12 @@ function display_ua()
 
                                                             '<label class="col-md-offset-1 col-sm-2 control-label">Middle Name</label>'+
                                                             '<div class="col-sm-4">'+
-                                                                '<input type="text" name="addstudparentmname" class="form-control add_student">'+
+                                                                '<input type="text" name="addstudparentmname" class="form-control add_student alphaonly">'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="form-group">'+
                                                             '<div class="col-md-offset-10 col-md-2">'+
-                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase" id="student-add-submit">'+
+                                                                '<button type="submit" class="btn btn-primary btn-label-left text-uppercase submit" id="student-add-submit">'+
                                                                     'Submit'+
                                                                 '</button>'+
                                                             '</div>'+
@@ -4421,6 +4459,182 @@ function display_ua()
                             
                                     });  
                         });
+                        
+                        $(document.body).on('click','.submit',function(){
+                            /*alert('submit');*/
+                            var bday= $('.required-bday').val();
+                            var lname= $('.required-lname').val();
+                            var fname= $('.required-fname').val();
+                            var plname=$('.required-plname').val();
+                            var pfname=$('.required-pfname').val();
+
+                            if(isNullOrWhiteSpace(bday))
+                            {
+                                /*alert('empty bday');*/
+                                $('.required-bday').removeClass("has-success-input");
+                                $('.required-bday').addClass("has-error-input");
+                            }  
+                            else
+                            {
+                                $('.required-bday').addClass("has-success-input");
+                                $('.required-bday').removeClass("has-error-input");
+                            }    
+
+                            if(isNullOrWhiteSpace(lname))
+                            {
+                                /*alert('empty lname');*/
+                                $('.required-lname').removeClass("has-success-input");
+                                $('.required-lname').addClass("has-error-input");
+                            } 
+                            else
+                            {
+                                $('.required-lname').addClass("has-success-input");
+                                $('.required-lname').removeClass("has-error-input");
+                            }  
+
+                            if(isNullOrWhiteSpace(fname))
+                            {
+                                /*alert('empty fname');*/
+                                $('.required-fname').removeClass("has-success-input");
+                                $('.required-fname').addClass("has-error-input");
+                            } 
+                            else
+                            {
+                                $('.required-fname').addClass("has-success-input");
+                                $('.required-fname').removeClass("has-error-input");
+                            }  
+////////////////////////////
+                             if(isNullOrWhiteSpace(plname))
+                            {
+                                /*alert('empty lname');*/
+                                $('.required-plname').removeClass("has-success-input");
+                                $('.required-plname').addClass("has-error-input");
+                            } 
+                            else
+                            {
+                                $('.required-plname').addClass("has-success-input");
+                                $('.required-plname').removeClass("has-error-input");
+                            }  
+
+                            if(isNullOrWhiteSpace(pfname))
+                            {
+                                /*alert('empty fname');*/
+                                $('.required-pfname').removeClass("has-success-input");
+                                $('.required-pfname').addClass("has-error-input");
+                            } 
+                            else
+                            {
+                                $('.required-pfname').addClass("has-success-input");
+                                $('.required-pfname').removeClass("has-error-input");
+                            }  
+
+
+
+
+                        });
+
+                        $(document.body).on('change','.required-bday',function(){
+                            var bday= $(this).val();
+
+                            if(isNullOrWhiteSpace(bday))
+                            {
+  
+                                $(this).removeClass("has-success-input");
+                                $(this).addClass("has-error-input");
+                            }  
+                            else
+                            {
+                                $(this).addClass("has-success-input");
+                                $(this).removeClass("has-error-input");
+                            }    
+                        });
+
+
+                        $(document.body).on('change','.required-lname',function(){
+                            var lname= $(this).val();
+
+                            if(isNullOrWhiteSpace(lname))
+                            {
+  
+                                $(this).removeClass("has-success-input");
+                                $(this).addClass("has-error-input");
+
+                            }  
+                            else
+                            {
+                                $(this).addClass("has-success-input");
+                                $(this).removeClass("has-error-input");
+                            } 
+                        });
+
+
+                        $(document.body).on('change','.required-fname',function(){
+                            var fname= $(this).val();
+
+                            if(isNullOrWhiteSpace(fname))
+                            {
+  
+                                $(this).removeClass("has-success-input");
+                                $(this).addClass("has-error-input");
+                            }  
+                            else
+                            {
+                                $(this).addClass("has-success-input");
+                                $(this).removeClass("has-error-input");
+                            } 
+                        });
+
+                        $(document.body).on('change','.required-plname',function(){
+                            var plname= $(this).val();
+
+                            if(isNullOrWhiteSpace(plname))
+                            {
+  
+                                $(this).removeClass("has-success-input");
+                                $(this).addClass("has-error-input");
+
+                            }  
+                            else
+                            {
+                                $(this).addClass("has-success-input");
+                                $(this).removeClass("has-error-input");
+                            } 
+                        });
+
+
+                        $(document.body).on('change','.required-pfname',function(){
+                            var pfname= $(this).val();
+
+                            if(isNullOrWhiteSpace(pfname))
+                            {
+  
+                                $(this).removeClass("has-success-input");
+                                $(this).addClass("has-error-input");
+                            }  
+                            else
+                            {
+                                $(this).addClass("has-success-input");
+                                $(this).removeClass("has-error-input");
+                            } 
+                        });
+
+
+
+                        function isNullOrWhiteSpace(str) 
+                        {
+                          return (!str || str.length === 0 || /^\s*$/.test(str))
+                        }
+
+                        $(document.body).on('keyup','.alphaonly',function()
+                        {
+                                 if (this.value.match(/[^a-zA-Z]/g)) {
+                                    this.value = this.value.replace(/[^a-zA-Z]/g, '');
+                                }
+                        });
+
+
+
+
 
 
 

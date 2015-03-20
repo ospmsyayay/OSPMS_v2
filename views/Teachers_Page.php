@@ -9,8 +9,7 @@
         <link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
         <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
-        <link href="colorbox.css" rel="stylesheet"/>
-		<script src="../jquery.colorbox.js"></script>
+
 	</head>
     
 		<body onload="check()">
@@ -593,7 +592,7 @@
 <script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 <script src="views/plugins/jQuery-slimScroll/jquery.slimscroll.min.js"></script>
 <script src="views/plugins/chartjs/Chart.js"></script>
-<script src="views/plugins/colorbox/jquery.colorbox.js"></script>
+
 
 <script>
 $(function () 

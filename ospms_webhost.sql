@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2015 at 01:00 AM
+-- Generation Time: Mar 27, 2015 at 07:44 PM
 -- Server version: 5.6.22-log
 -- PHP Version: 5.5.12
 
@@ -36,8 +36,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`) VALUES
-('MA1411302-545985'),
-('MA1503125-210159');
+('MA1411302-545985');
 
 -- --------------------------------------------------------
 
@@ -52,22 +51,6 @@ CREATE TABLE IF NOT EXISTS `announcement_lecture` (
   `file_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`date_created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `announcement_lecture`
---
-
-INSERT INTO `announcement_lecture` (`date_created`, `messageorfile_caption`, `file_path`, `file_name`) VALUES
-('2015-03-08 07:07:20', 'Hi Mathematics!', NULL, NULL),
-('2015-03-08 07:08:06', 'Please Review We have Quiz tomorrow..', 'model/uploaded_files/', 'Master Verb tenses.pdf'),
-('2015-03-08 18:23:46', 'lkwejrkljwer', NULL, NULL),
-('2015-03-08 18:25:14', 'sdhkjfaaaaaaaaaaaaa', NULL, NULL),
-('2015-03-12 18:52:45', 'hi', NULL, NULL),
-('2015-03-12 19:17:51', 'Hello', NULL, NULL),
-('2015-03-12 19:18:03', 'Eto na', 'model/uploaded_files/', '10.JPG'),
-('2015-03-13 00:01:05', 'jhkhkjjhk', NULL, NULL),
-('2015-03-13 00:18:46', 'hey', NULL, NULL),
-('2015-03-13 01:37:20', 'Hello en', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -84,21 +67,6 @@ CREATE TABLE IF NOT EXISTS `announcement_lecture_comments` (
   KEY `FK1_announcement_lecture_comments` (`post_date_created`),
   KEY `FK2_announcement_lecture_comments` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `announcement_lecture_comments`
---
-
-INSERT INTO `announcement_lecture_comments` (`comment_date_created`, `account_id`, `comment_message`, `post_date_created`) VALUES
-('2015-03-08 07:22:26', 'MS1503081-720647', 'Thanks Mam!!', '2015-03-08 07:08:06'),
-('2015-03-12 19:56:04', 'MS1503081-720647', 'testing 1', '2015-03-12 19:18:03'),
-('2015-03-12 19:56:09', 'MS1503081-720647', 'testing 2', '2015-03-12 19:18:03'),
-('2015-03-12 19:56:38', 'MS1503081-720647', 'latest comment', '2015-03-12 19:18:03'),
-('2015-03-12 19:57:03', 'MS1503081-720647', 'oo', '2015-03-12 19:18:03'),
-('2015-03-12 20:01:29', 'MS1503081-720647', 'hoy', '2015-03-12 19:18:03'),
-('2015-03-12 20:02:43', 'MS1503081-720647', 'bat ganun?', '2015-03-12 19:18:03'),
-('2015-03-16 00:52:57', 'MT1503087-807554', 'hello', '2015-03-13 01:37:20'),
-('2015-03-16 00:52:59', 'MT1503087-807554', 'hello', '2015-03-13 01:37:20');
 
 -- --------------------------------------------------------
 
@@ -122,59 +90,15 @@ CREATE TABLE IF NOT EXISTS `create_account` (
 --
 
 INSERT INTO `create_account` (`username_`, `password_`, `secret_question`, `secret_answer`, `user_type`, `account_id`) VALUES
-('admin', 'admin', 'admin', 'admin', 'admin', 'MA1411302-545985'),
-('MASSA10159', 'LeLYs7iU', NULL, NULL, 'admin', 'MA1503125-210159'),
-('MPAAA19614', 'MJZSVYtE', NULL, NULL, 'parent', 'MP1503081-319614'),
-('MPAAB15002', 'CA9Qms3B', NULL, NULL, 'parent', 'MP1503084-915002'),
-('MPCMC45392', 'IeC2CEE6', NULL, NULL, 'parent', 'MP1503081-545392'),
-('MPDAB77713', 'BtDRO1IR', NULL, NULL, 'parent', 'MP1503082-977713'),
-('MPDDD86763', 'R9akas7F', NULL, NULL, 'parent', 'MP1503120-886763'),
-('MPDFD28488', 'cI9KTXOo', NULL, NULL, 'parent', 'MP1503088-828488'),
-('MPDMO49105', 'oTTKBNQn', NULL, NULL, 'parent', 'MP1503088-249105'),
-('MPEAH47513', 'jLYq3t94', NULL, NULL, 'parent', 'MP1503083-747513'),
-('MPGGI02949', 'Vhu7Lkbt', NULL, NULL, 'parent', 'MP1503081-402949'),
-('MPJMB76912', 'M4PNRgxK', NULL, NULL, 'parent', 'MP1503082-776912'),
-('MPMBB92937', 'ScevSfjY', NULL, NULL, 'parent', 'MP1503082-492937'),
-('MPMY82358', 'YyNFSufN', NULL, NULL, 'parent', 'MP1503086-182358'),
-('MPNNN91873', '1H1eepNm', NULL, NULL, 'parent', 'MP1503124-591873'),
-('MPPZC96999', 'imClzhHC', NULL, NULL, 'parent', 'MP1503088-296999'),
-('MPRBN93125', 'mRe6cwtB', NULL, NULL, 'parent', 'MP1503088-193125'),
-('MPRDB08695', 'psComfgq', NULL, NULL, 'parent', 'MP1503089-308695'),
-('MPRFH52461', 'HJGgYVmw', NULL, NULL, 'parent', 'MP1503082-152461'),
-('MPRQA40531', 'RWt7tZYc', NULL, NULL, 'parent', 'MP1503083-440531'),
-('MPSAL73302', 'v4nRSROW', NULL, NULL, 'parent', 'MP1503084-273302'),
-('MPSGA98283', 'FCSi2FQf', NULL, NULL, 'parent', 'MP1503082-698283'),
-('MPSSF70616', 'PSi5s2Sl', NULL, NULL, 'parent', 'MP1503123-970616'),
-('MPVML26825', 'ea3bsQzR', NULL, NULL, 'parent', 'MP1503085-226825'),
-('MPVTA60601', 'ZLI31WUW', NULL, NULL, 'parent', 'MP1503086-860601'),
-('MSAAS19340', 'guRcoRQy', NULL, NULL, 'student', 'MS1503120-419340'),
-('MSACB54874', 'WaHU43l7', NULL, NULL, 'student', 'MS1503080-254874'),
-('MSADA60360', 'r1mJhwUb', NULL, NULL, 'student', 'MS1503084-960360'),
-('MSAMA50585', 'tWOSgwKs', NULL, NULL, 'student', 'MS1503087-750585'),
-('MSCRC50973', '5ZL2SwDZ', NULL, NULL, 'student', 'MS1503084-650973'),
-('MSDAA65965', '4J4zjYI2', NULL, NULL, 'student', 'MS1503082-465965'),
-('MSDAO41080', 'pYbWCwDI', NULL, NULL, 'student', 'MS1503083-141080'),
-('MSDB52804', 'dWWwBuf2', NULL, NULL, 'student', 'MS1503089-752804'),
-('MSEGA19963', 'NfkvAvbY', NULL, NULL, 'student', 'MS1503082-419963'),
-('MSJCB41366', 'FysSbh4p', NULL, NULL, 'student', 'MS1503082-641366'),
-('MSMCH22671', 'HMgUSxO3', NULL, NULL, 'student', 'MS1503087-722671'),
-('MSMHI18376', 'RPmr2rjn', NULL, NULL, 'student', 'MS1503086-318376'),
-('MSMPB60208', 'daqCf4uf', NULL, NULL, 'student', 'MS1503080-660208'),
-('MSMTY59035', 'HF6yhWL4', NULL, NULL, 'student', 'MS1503080-959035'),
-('MSPVL88224', 'M9ReIrAR', NULL, NULL, 'student', 'MS1503085-788224'),
-('MSRBH82978', 'dVTHoUfd', NULL, NULL, 'student', 'MS1503082-682978'),
-('MSRCB74208', 'LUhKnDjf', NULL, NULL, 'student', 'MS1503083-674208'),
-('MSREN61020', 'axIxSh6E', NULL, NULL, 'student', 'MS1503084-461020'),
-('MSRPD40782', 'kvQb2yEt', NULL, NULL, 'student', 'MS1503088-840782'),
-('MSSAL77988', '6Y2360Jz', NULL, NULL, 'student', 'MS1503089-277988'),
-('MSSSD21836', 'He07OlBh', NULL, NULL, 'student', 'MS1503123-521836'),
-('MSTSC51223', 'Ude3pLZ2', NULL, NULL, 'student', 'MS1503080-551223'),
-('MSVCA92368', 'b3V4x6fJ', NULL, NULL, 'student', 'MS1503084-492368'),
-('MTAAA47968', 'nOZPvt9A', NULL, NULL, 'teacher', 'MT1503125-347968'),
-('MTSSS88020', 'LUx9RaYW', NULL, NULL, 'teacher', 'MT1503128-488020'),
-('parent', 'parent', NULL, NULL, 'parent', 'MP1503089-731527'),
-('student', 'student', NULL, NULL, 'student', 'MS1503081-720647'),
-('teacher', 'teacher', NULL, NULL, 'teacher', 'MT1503087-807554');
+('admin ', 'admin', '', NULL, 'admin', 'MA1411302-545985'),
+('parent1', 'parent1', NULL, NULL, 'parent', 'MP1411302-855215'),
+('parent2', 'parent2', NULL, NULL, 'parent', 'MP1411302-855165'),
+('student1', 'student1', NULL, NULL, 'student', 'MS1411302-876551'),
+('student2', 'student2', NULL, NULL, 'student', 'MS1411302-858415'),
+('student3', 'student3', NULL, NULL, 'student', 'MS1411302-855151'),
+('student4', 'student4', NULL, NULL, 'student', 'MS1411302-851212'),
+('teacher1', 'teacher1', NULL, NULL, 'teacher', 'MT1411302-897964'),
+('teacher2', 'teacher2', NULL, NULL, 'teacher', 'MT1411302-879455');
 
 -- --------------------------------------------------------
 
@@ -281,30 +205,8 @@ CREATE TABLE IF NOT EXISTS `parent` (
 --
 
 INSERT INTO `parent` (`parentID`) VALUES
-('MP1503081-319614'),
-('MP1503081-402949'),
-('MP1503081-545392'),
-('MP1503082-152461'),
-('MP1503082-492937'),
-('MP1503082-698283'),
-('MP1503082-776912'),
-('MP1503082-977713'),
-('MP1503083-440531'),
-('MP1503083-747513'),
-('MP1503084-273302'),
-('MP1503084-915002'),
-('MP1503085-226825'),
-('MP1503086-182358'),
-('MP1503086-860601'),
-('MP1503088-193125'),
-('MP1503088-249105'),
-('MP1503088-296999'),
-('MP1503088-828488'),
-('MP1503089-308695'),
-('MP1503089-731527'),
-('MP1503120-886763'),
-('MP1503123-970616'),
-('MP1503124-591873');
+('MP1411302-855165'),
+('MP1411302-855215');
 
 -- --------------------------------------------------------
 
@@ -318,21 +220,6 @@ CREATE TABLE IF NOT EXISTS `post_announcement_lecture` (
   PRIMARY KEY (`class_rec_no`,`date_created`),
   KEY `FK2_post_announcement_lecture` (`date_created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `post_announcement_lecture`
---
-
-INSERT INTO `post_announcement_lecture` (`class_rec_no`, `date_created`) VALUES
-('ECRN-84307', '2015-03-08 07:07:20'),
-('ECRN-84307', '2015-03-08 07:08:06'),
-('ECRN-84307', '2015-03-08 18:23:46'),
-('ECRN-84307', '2015-03-08 18:25:14'),
-('ECRN-84307', '2015-03-12 18:52:45'),
-('ECRN-84307', '2015-03-12 19:17:51'),
-('ECRN-84307', '2015-03-12 19:18:03'),
-('ECRN-84307', '2015-03-13 00:01:05'),
-('ECRN-10247', '2015-03-13 01:37:20');
 
 -- --------------------------------------------------------
 
@@ -348,31 +235,6 @@ CREATE TABLE IF NOT EXISTS `post_teacher_feedback_parent` (
   KEY `FK2_post_teacher_feedback_parent` (`feedback_date_created`),
   KEY `FK3_post_teacher_feedback_parent` (`parentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `post_teacher_feedback_parent`
---
-
-INSERT INTO `post_teacher_feedback_parent` (`class_rec_no`, `feedback_date_created`, `parentID`) VALUES
-('ECRN-84307', '2015-03-08 07:08:22', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-08 07:46:20', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-08 18:24:02', 'MP1503089-731527'),
-('ECRN-10247', '2015-03-13 01:37:35', 'MP1503081-545392'),
-('ECRN-10247', '2015-03-13 01:37:35', 'MP1503088-828488'),
-('ECRN-10247', '2015-03-13 01:37:35', 'MP1503089-731527'),
-('ECRN-10247', '2015-03-13 01:37:35', 'MP1503123-970616'),
-('ECRN-10247', '2015-03-13 02:05:02', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 02:06:56', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 02:07:12', 'MP1503089-731527'),
-('ECRN-10247', '2015-03-13 02:08:24', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 02:08:35', 'MP1503089-731527'),
-('ECRN-10247', '2015-03-13 02:23:39', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 07:36:20', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 08:46:53', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 08:47:54', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 08:48:31', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 09:02:53', 'MP1503089-731527'),
-('ECRN-84307', '2015-03-13 09:06:13', 'MP1503089-731527');
 
 -- --------------------------------------------------------
 
@@ -422,59 +284,15 @@ CREATE TABLE IF NOT EXISTS `registration` (
 --
 
 INSERT INTO `registration` (`reg_id`, `reg_lname`, `reg_fname`, `reg_mname`, `reg_gender`, `reg_status`, `reg_birthday`, `reg_address`, `image`) VALUES
-('MA1411302-545985', 'Arandia', 'Darryl', 'Eda', 'Male', 'Single', '1993-12-05', '299 Arandia Tunasan Muntinlupa City', 'avatar04.png'),
-('MA1503125-210159', 'asdf', 'sdf', 'sdf', 'Male', 'Single', '2015-03-17', NULL, 'student26.jpg'),
-('MP1503081-319614', 'Argame', 'Althea', 'Mallari', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503081-402949', 'Ilisan', 'Maryse Gianne', 'Hernan', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503081-545392', 'Calderon', 'Christian Reden', 'Rivera', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503082-152461', 'Huab', 'Russel', 'Ballano', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503082-492937', 'Bermejo', 'Mariel', 'Panes', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503082-698283', 'Alcantara', 'Erica Jane', 'Gervacio', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503082-776912', 'Bombase', 'James', 'Cruz', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503082-977713', 'Borra', 'Dave Cyril', '', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503083-440531', 'Abubacar', 'Amira', 'Domen', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503083-747513', 'Hallera', 'Ma Jane', 'Cambaya', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503084-273302', 'Lopez', 'Samantha Nicole', 'Abelligos', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503084-915002', 'Bularda', 'Angelo', 'Cuadero', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503085-226825', 'Lamberte', 'Princess Mariet', 'Victoria', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503086-182358', 'Yasumi', 'Mika', 'Tanaka', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503086-860601', 'Arciaga', 'Val Nino', 'Cabajar', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503088-193125', 'Nuylan', 'Rhealyn', 'Escote', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503088-249105', 'Orogo', 'Dianne', 'Abarientos', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503088-296999', 'Cruz', 'Timothy Patrick', 'Suerte', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503088-828488', 'De Mesa', 'Reniel', 'Paloma', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503089-308695', 'Bondalo', 'Richmon', 'Cadenas', NULL, NULL, '2015-03-08', NULL, NULL),
-('MP1503089-731527', 'Aquino', 'Ninoy', 'Luna', NULL, NULL, '2015-03-08', NULL, 'avatar.png'),
-('MP1503120-886763', 'de', 'd', 'd', NULL, NULL, '2015-03-12', NULL, NULL),
-('MP1503123-970616', 'fg', 's', 's', NULL, NULL, '2015-03-12', NULL, NULL),
-('MP1503124-591873', 'null', 'null', 'null', NULL, NULL, '2015-03-12', NULL, NULL),
-('MS1503080-254874', 'Bularda', 'Angelo', 'Cuadero', 'Male', 'Single', '2006-11-29', 'Bularda Compound', NULL),
-('MS1503080-551223', 'Cruz', 'Timothy Patrick', 'Suerte', 'Male', 'Single', '2006-12-01', 'Cruz Compound', NULL),
-('MS1503080-660208', 'Bermejo', 'Mariel', 'Panes', 'Female', 'Single', '2007-01-26', 'Bermejo Compound', NULL),
-('MS1503080-959035', 'Yasumi', 'Mika', 'Tanaka', 'Female', 'Single', '2007-04-01', 'Ishikawa Compound', NULL),
-('MS1503081-720647', 'Aquino', 'Benigno', 'Simeon', 'Male', 'Single', '2007-03-20', 'Alabang Zapote', 'student5.jpg'),
-('MS1503082-419963', 'Alcantara', 'Erica Jane', 'Gervacio', 'Female', 'Single', '2007-01-24', 'Alcantara Compound', NULL),
-('MS1503082-465965', 'Azores', 'Darrel', 'Acudesin', 'Male', 'Single', '2015-03-08', '', 'student35.jpg'),
-('MS1503082-641366', 'Bombase', 'James', 'Cruz', 'Male', 'Single', '2006-11-26', 'Bombase Compound', NULL),
-('MS1503082-682978', 'Huab', 'Russel', 'Ballano', 'Male', 'Single', '2006-12-03', 'Huab Compound', NULL),
-('MS1503083-141080', 'Orogo', 'Dianne', 'Abarientos', 'Female', 'Single', '2007-02-01', 'Orogo Compound', NULL),
-('MS1503083-674208', 'Bondalo', 'Richmon', 'Cadenas', 'Male', 'Single', '2006-11-27', 'Bondalo Compound', NULL),
-('MS1503084-461020', 'Nuylan', 'Rhealyn', 'Escote', 'Female', 'Single', '2007-01-31', 'Nuylan Compound', NULL),
-('MS1503084-492368', 'Arciaga', 'Val Nino', 'Cabajar', 'Male', 'Single', '2006-11-24', 'Arciaga Compound', NULL),
-('MS1503084-650973', 'Calderon', 'Christian Reden', 'Rivera', 'Male', 'Single', '2006-11-30', 'Calderon Compound', NULL),
-('MS1503084-960360', 'Abubacar', 'Amira', 'Domen', 'Female', 'Single', '2007-01-23', 'Abubacar Compound', NULL),
-('MS1503085-788224', 'Lamberte', 'Princess Mariet', 'Victoria', 'Female', 'Single', '2007-01-29', 'Lamberte Compound', NULL),
-('MS1503086-318376', 'Ilisan', 'Maryse Gianne', 'Hernan', 'Female', 'Single', '2007-01-28', 'Ilisan Compound', NULL),
-('MS1503087-722671', 'Hallera', 'Ma Jane', 'Cambaya', 'Female', 'Single', '2007-01-27', 'Hallera Compound', NULL),
-('MS1503087-750585', 'Argame', 'Althea', 'Mallari', 'Female', 'Single', '2007-01-25', 'Argame Compound', NULL),
-('MS1503088-840782', 'De Mesa', 'Reniel', 'Paloma', 'Male', 'Single', '2006-12-02', 'De Mesa Compound', NULL),
-('MS1503089-277988', 'Lopez', 'Samantha Nicole', 'Abelligos', 'Female', 'Single', '2007-01-30', 'Lopez Compound', NULL),
-('MS1503089-752804', 'Borra', 'Dave Cyril', '', 'Male', 'Single', '2006-11-28', 'Borra Compound', NULL),
-('MS1503120-419340', 'sadfasdf', 'asdfasdf', 'asdf', 'Female', 'Single', '2015-03-17', NULL, 'student15.jpg'),
-('MS1503123-521836', 'dfsdf', 'sdfg', 'sdfb', 'Female', 'Single', '2015-03-24', NULL, 'student33.jpg'),
-('MT1503087-807554', 'De Padua', 'Joan Claire', 'Almoro', 'Female', 'Single', '1974-09-09', 'Sto Nino', 'avatar2.png'),
-('MT1503125-347968', 'Ako', 'Ako', 'Ako', 'Male', 'Single', '1973-03-14', NULL, 'teacher.jpg'),
-('MT1503128-488020', 'she', 'she', 'she', 'Male', 'Single', '1981-03-17', NULL, 'avatar3.png');
+('MA1411302-545985', 'admin', 'admin', 'admin', 'male', 'single', '1993-12-05', NULL, 'avatar.png'),
+('MP1411302-855165', 'parent2', 'parent2', 'parent2', 'female', NULL, '1981-12-15', NULL, 'parent2.jpg'),
+('MP1411302-855215', 'parent1', 'parent1', 'parent1', 'female', NULL, '1981-12-15', NULL, 'parent1.jpg'),
+('MS1411302-851212', 'student4', 'student4', 'student4', 'male', NULL, '2007-12-05', NULL, 'student4.jpg'),
+('MS1411302-855151', 'student3', 'student3', 'student3', 'male', NULL, '2007-12-05', NULL, 'student3.jpg'),
+('MS1411302-858415', 'student2', 'student2', 'student2', 'male', NULL, '2007-12-05', NULL, 'student2.jpg'),
+('MS1411302-876551', 'student1', 'student1', 'student1', 'male', NULL, '2007-12-05', NULL, 'student1.jpg'),
+('MT1411302-879455', 'teacher2', 'teacher2', 'teacher2', 'female', NULL, '1981-12-15', NULL, 'teacher2.jpg'),
+('MT1411302-897964', 'teacher1', 'teacher1', 'teacher1', 'female', NULL, '1981-12-05', NULL, 'teacher1.jpg');
 
 -- --------------------------------------------------------
 
@@ -502,16 +320,6 @@ CREATE TABLE IF NOT EXISTS `school_announcement` (
   PRIMARY KEY (`sa_date_created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `school_announcement`
---
-
-INSERT INTO `school_announcement` (`sa_date_created`, `sa_message`, `sa_active`) VALUES
-('2015-03-15 22:09:15', 'Welcome to Tunasan Elementary School!', 1),
-('2015-03-15 22:10:01', 'We''ll have a PTA General Meeting tomorrow', 1),
-('2015-03-15 22:55:18', 'To all students we''ll have NAT review tomorrow. Please kindly bring your sharpened pencils and erasers', 1),
-('2015-03-15 22:56:20', 'Classes are suspended due to tropical storm lucky', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -536,15 +344,6 @@ CREATE TABLE IF NOT EXISTS `section` (
   KEY `FK_section5` (`levelID`),
   KEY `FK_section6` (`roomNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `section`
---
-
-INSERT INTO `section` (`class_rec_no`, `sectionID`, `sched_days`, `sched_start_time`, `sched_end_time`, `subjectID`, `teacherID`, `levelID`, `roomNo`, `school_year`) VALUES
-('ECRN-10247', 'S14166', 'MWF', '05:45:00', '06:45:00', 'EAS-1738', 'MT1503087-807554', 'G2024', NULL, '2015-2016'),
-('ECRN-58351', 'S63172', 'MWF', '05:45:00', '06:45:00', 'EAS-2815', 'MT1503087-807554', 'G1217', NULL, '2015-2016'),
-('ECRN-84307', 'S95866', 'MWF', '07:15:00', '08:15:00', 'EAS-1738', 'MT1503087-807554', 'G2024', NULL, '2015-2016');
 
 -- --------------------------------------------------------
 
@@ -591,30 +390,10 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 INSERT INTO `student` (`student_lrn`, `parentID`) VALUES
-('MS1503087-750585', 'MP1503081-319614'),
-('MS1503086-318376', 'MP1503081-402949'),
-('MS1503084-650973', 'MP1503081-545392'),
-('MS1503082-682978', 'MP1503082-152461'),
-('MS1503080-660208', 'MP1503082-492937'),
-('MS1503082-419963', 'MP1503082-698283'),
-('MS1503082-641366', 'MP1503082-776912'),
-('MS1503089-752804', 'MP1503082-977713'),
-('MS1503084-960360', 'MP1503083-440531'),
-('MS1503087-722671', 'MP1503083-747513'),
-('MS1503089-277988', 'MP1503084-273302'),
-('MS1503080-254874', 'MP1503084-915002'),
-('MS1503085-788224', 'MP1503085-226825'),
-('MS1503080-959035', 'MP1503086-182358'),
-('MS1503084-492368', 'MP1503086-860601'),
-('MS1503084-461020', 'MP1503088-193125'),
-('MS1503083-141080', 'MP1503088-249105'),
-('MS1503080-551223', 'MP1503088-296999'),
-('MS1503088-840782', 'MP1503088-828488'),
-('MS1503083-674208', 'MP1503089-308695'),
-('MS1503081-720647', 'MP1503089-731527'),
-('MS1503120-419340', 'MP1503120-886763'),
-('MS1503123-521836', 'MP1503123-970616'),
-('MS1503082-465965', 'MP1503124-591873');
+('MS1411302-858415', 'MP1411302-855165'),
+('MS1411302-876551', 'MP1411302-855165'),
+('MS1411302-851212', 'MP1411302-855215'),
+('MS1411302-855151', 'MP1411302-855215');
 
 -- --------------------------------------------------------
 
@@ -640,18 +419,6 @@ CREATE TABLE IF NOT EXISTS `student_rating` (
   KEY `FK3_student_rating` (`class_rec_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `student_rating`
---
-
-INSERT INTO `student_rating` (`grading_id`, `student_lrn`, `class_rec_no`, `grading_period`, `week_number`, `knowledge`, `processskills`, `understanding`, `performanceproducts`, `tentative_grade`, `legend`) VALUES
-('GR-1096665', 'MS1503081-720647', 'ECRN-84307', '2nd', 3, 66, 66, 77, 87, 75.6, 'D'),
-('GR-1778855', 'MS1503081-720647', 'ECRN-84307', '1st', 1, 84, 85, 89, 88, 86.95, 'P'),
-('GR-6438860', 'MS1503081-720647', 'ECRN-84307', '3rd', 5, 87, 84, 90, 62, 79.65, 'AP'),
-('GR-7205413', 'MS1503081-720647', 'ECRN-84307', '4th', 8, 100, 100, 100, 100, 100, 'A'),
-('GR-7463874', 'MS1503081-720647', 'ECRN-84307', '1st', 6, 94, 86, 93, 85, 89, 'P'),
-('GR-8674436', 'MS1503081-720647', 'ECRN-84307', '1st', 2, 87, 87, 87, 87, 87, 'P');
-
 -- --------------------------------------------------------
 
 --
@@ -665,18 +432,6 @@ CREATE TABLE IF NOT EXISTS `student_schedule_line` (
   PRIMARY KEY (`class_rec_no`,`student_lrn`),
   KEY `FK2_student_schedule_line` (`student_lrn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `student_schedule_line`
---
-
-INSERT INTO `student_schedule_line` (`class_rec_no`, `student_lrn`, `grade`) VALUES
-('ECRN-10247', 'MS1503081-720647', 'Grade 3'),
-('ECRN-10247', 'MS1503084-650973', 'Grade 3'),
-('ECRN-10247', 'MS1503088-840782', 'Grade 3'),
-('ECRN-10247', 'MS1503123-521836', 'Grade 3'),
-('ECRN-58351', 'MS1503084-650973', 'Grade 1'),
-('ECRN-84307', 'MS1503081-720647', 'Grade 3');
 
 -- --------------------------------------------------------
 
@@ -717,9 +472,8 @@ CREATE TABLE IF NOT EXISTS `teacher` (
 --
 
 INSERT INTO `teacher` (`teacherID`, `t_position`) VALUES
-('MT1503087-807554', 'Master Teacher'),
-('MT1503125-347968', NULL),
-('MT1503128-488020', NULL);
+('MT1411302-879455', NULL),
+('MT1411302-897964', NULL);
 
 -- --------------------------------------------------------
 
@@ -732,30 +486,6 @@ CREATE TABLE IF NOT EXISTS `teacher_feedback_parent` (
   `feedback_message` longtext,
   PRIMARY KEY (`feedback_date_created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `teacher_feedback_parent`
---
-
-INSERT INTO `teacher_feedback_parent` (`feedback_date_created`, `feedback_message`) VALUES
-('2015-03-08 07:08:22', 'Hello Parents!'),
-('2015-03-08 07:46:20', 'Hello Parents'),
-('2015-03-08 18:24:02', 'hello'),
-('2015-03-13 01:37:35', 'Hi Parents'),
-('2015-03-13 02:05:02', 'Magaling po ang anak nyo po'),
-('2015-03-13 02:06:56', 'Mahusay po ang anak nyo'),
-('2015-03-13 02:07:12', 'Magaling po sya sa Math!'),
-('2015-03-13 02:08:24', 'Private Message: Testing'),
-('2015-03-13 02:08:35', 'Private Message: Testing'),
-('2015-03-13 02:23:39', 'Private Message: Dear Parent'),
-('2015-03-13 07:36:20', 'hey'),
-('2015-03-13 08:46:53', 'Test Insert at Modal'),
-('2015-03-13 08:47:54', 'Test Insert at Modal 2'),
-('2015-03-13 08:48:31', 'Test insert modal 3'),
-('2015-03-13 09:02:53', 'insert 4'),
-('2015-03-13 09:06:13', 'insert5'),
-('2015-03-13 09:08:17', 'Hey'),
-('2015-03-13 09:10:30', 'Hey yhou');
 
 -- --------------------------------------------------------
 
@@ -772,42 +502,6 @@ CREATE TABLE IF NOT EXISTS `teacher_feedback_parent_comments` (
   KEY `FK1_teacher_feedback_parent_comments` (`feedback_post_date_created`),
   KEY `FK2_teacher_feedback_parent_comments` (`feedback_account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `teacher_feedback_parent_comments`
---
-
-INSERT INTO `teacher_feedback_parent_comments` (`feedback_comment_date_created`, `feedback_account_id`, `feedback_comment_message`, `feedback_post_date_created`) VALUES
-('2015-03-13 03:44:01', 'MP1503089-731527', 'comment', '2015-03-08 07:08:22'),
-('2015-03-13 03:44:02', 'MP1503089-731527', 'comment', '2015-03-08 07:46:20'),
-('2015-03-13 03:44:03', 'MP1503089-731527', 'comment', '2015-03-08 18:24:02'),
-('2015-03-13 03:44:04', 'MP1503089-731527', 'comment', '2015-03-13 01:37:35'),
-('2015-03-13 03:44:05', 'MP1503089-731527', 'comment', '2015-03-13 02:05:02'),
-('2015-03-13 03:44:06', 'MP1503089-731527', 'comment', '2015-03-13 02:06:56'),
-('2015-03-13 03:44:07', 'MP1503089-731527', 'comment', '2015-03-13 02:07:12'),
-('2015-03-13 03:44:08', 'MP1503089-731527', 'comment', '2015-03-13 02:08:24'),
-('2015-03-13 03:44:09', 'MP1503089-731527', 'comment', '2015-03-13 02:08:35'),
-('2015-03-13 03:44:10', 'MP1503089-731527', 'comment', '2015-03-13 02:23:39'),
-('2015-03-13 06:15:34', 'MP1503089-731527', 'fddf', '2015-03-13 01:37:35'),
-('2015-03-13 06:15:52', 'MP1503089-731527', 'pumasok na?', '2015-03-13 01:37:35'),
-('2015-03-13 06:18:40', 'MP1503089-731527', 'yeah', '2015-03-13 01:37:35'),
-('2015-03-13 06:21:38', 'MP1503089-731527', 'nye', '2015-03-13 01:37:35'),
-('2015-03-13 06:23:33', 'MP1503089-731527', 'nako', '2015-03-13 01:37:35'),
-('2015-03-13 06:31:09', 'MP1503089-731527', 'oo', '2015-03-13 02:05:02'),
-('2015-03-13 06:31:19', 'MP1503089-731527', 'ok na?', '2015-03-13 02:08:24'),
-('2015-03-13 06:31:34', 'MP1503089-731527', 'gets?', '2015-03-08 07:08:22'),
-('2015-03-13 06:32:44', 'MP1503089-731527', 'good', '2015-03-13 01:37:35'),
-('2015-03-13 07:39:55', 'MP1503089-731527', 'hi po', '2015-03-13 07:36:20'),
-('2015-03-13 07:40:04', 'MP1503089-731527', 'kumusta na po?', '2015-03-13 07:36:20'),
-('2015-03-13 09:02:13', 'MT1503087-807554', 'insert it', '2015-03-13 08:48:31'),
-('2015-03-13 09:02:25', 'MT1503087-807554', 'insert it 2', '2015-03-13 08:47:54'),
-('2015-03-13 09:03:00', 'MT1503087-807554', 'gumagana ka ba?', '2015-03-13 09:02:53'),
-('2015-03-13 09:04:27', 'MT1503087-807554', 'yes!', '2015-03-13 09:02:53'),
-('2015-03-13 09:04:50', 'MT1503087-807554', 'comment', '2015-03-13 02:23:39'),
-('2015-03-13 09:35:05', 'MT1503087-807554', 'nice working', '2015-03-13 09:10:30'),
-('2015-03-15 18:54:19', 'MP1503089-731527', 'ok po', '2015-03-13 09:06:13'),
-('2015-03-15 18:54:49', 'MT1503087-807554', 'ok sir', '2015-03-13 09:06:13'),
-('2015-03-15 23:08:30', 'MP1503089-731527', 'sige po', '2015-03-13 09:06:13');
 
 --
 -- Constraints for dumped tables

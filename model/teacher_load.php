@@ -52,4 +52,20 @@ function get_sectionByTeacherIDSubjectIDLevelID($teacherID,$subjectID,$levelID)
 	return $join_result;
 }
 
+function get_subjectsBySchoolYear($teacherID,$schoolyear)
+{
+	include "config/conn.php";
+
+	$join="SELECT section.class_rec_no, grade_level.level_description, section_list.sectionNo, section_list.section_name, subject_.subject_title, 
+					sched_days, sched_start_time, sched_end_time, school_year FROM section 
+					inner join grade_level on section.levelID=grade_level.levelID 
+					inner join section_list on section.sectionID=section_list.sectionID 
+					inner join subject_ on section.subjectID=subject_.subjectID 
+					where section.teacherID='$teacherID' and section.school_year='$schoolyear' order by grade_level.level_description";
+					
+	$join_result=mysqli_query($cxn,$join);
+	
+	return $join_result;
+}
+
 ?>

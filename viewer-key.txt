@@ -1,0 +1,21 @@
+7qwiic97RQQGXua9HS1HPW7odHaZskSunkYJ9fxj-gKwn7ynQ3jmRMWD7JvsgQP4
+
+url: http://www.ospmsTES.com/
+
+spreadsheet:
+<iframe class="viewer" id="viewerBox" allowfullscreen="true" height="600" width="800" frameborder="0" src="http://api.accusoft.com/v1/viewer/?key=K6022015030538&viewertype=html5&document=http://www.ospmsTES.com/spreadsheet.xlsx&viewerheight=600&viewerwidth=800&printButton=Yes&toolbarColor=CCCCCC" allowtransparency="true"></iframe>
+
+word:
+<iframe class="viewer" id="viewerBox" allowfullscreen="true" height="600" width="800" frameborder="0" src="http://api.accusoft.com/v1/viewer/?key=K6022015031742&viewertype=html5&document=http://www.ospmsTES.com/word.docx&viewerheight=600&viewerwidth=800&printButton=Yes&toolbarColor=CCCCCC" allowtransparency="true"></iframe>
+
+powerpoint:
+<iframe class="viewer" id="viewerBox" allowfullscreen="true" height="600" width="800" frameborder="0" src="http://api.accusoft.com/v1/viewer/?key=K6022015032216&viewertype=html5&document=http://www.ospmsTES.com/powerpoint.pptx&viewerheight=600&viewerwidth=800&printButton=Yes&toolbarColor=CCCCCC" allowtransparency="true"></iframe>
+
+pdf:
+<iframe class="viewer" id="viewerBox" allowfullscreen="true" height="600" width="800" frameborder="0" src="http://api.accusoft.com/v1/viewer/?key=K6022015032523&viewertype=html5&document=http://www.ospmsTES.com/adobe.pdf&viewerheight=600&viewerwidth=800&printButton=Yes&toolbarColor=CCCCCC" allowtransparency="true"></iframe>
+
+image:
+<iframe class="viewer" id="viewerBox" allowfullscreen="true" height="600" width="800" frameborder="0" src="http://api.accusoft.com/v1/viewer/?key=K6022015032727&viewertype=html5&document=http://www.ospmsTES.com/image&viewerheight=600&viewerwidth=800&printButton=Yes&toolbarColor=CCCCCC" allowtransparency="true"></iframe>
+
+archive:
+<iframe class="viewer" id="viewerBox" allowfullscreen="true" height="600" width="800" frameborder="0" src="http://api.accusoft.com/v1/viewer/?key=K6032015002111&viewertype=html5&document=http://www.ospmsTES.com/archive&viewerheight=600&viewerwidth=800&printButton=Yes&toolbarColor=CCCCCC" allowtransparency="true"></iframe>

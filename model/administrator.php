@@ -87,55 +87,18 @@ function get_allgradelevel()
 
 }
 
-function get_allannouncement_lecture()
-{
 
+function get_allaccounts()
+{
 	include "config/conn.php";
-	
-	$sql="SELECT announcement_lecture.date_created, announcement_lecture.messageorfile_caption,announcement_lecture.file_path, announcement_lecture.file_name, section_list.sectionNo, section_list.section_name 
-	from section_list inner join section on section_list.sectionID=section.sectionID 
-	inner join post_announcement_lecture on section.class_rec_no=post_announcement_lecture.class_rec_no 
-	inner join announcement_lecture on post_announcement_lecture.date_created=announcement_lecture.date_created order by date_created desc";
-	
-	$sql= mysqli_query($cxn,$sql);
-	
+
+	$sql="SELECT create_account.*, registration.reg_fname, registration.reg_lname FROM create_account 
+	inner join registration on create_account.account_id=registration.reg_id";
+
+	$sql=mysqli_query($cxn,$sql);
+
 	return $sql;
-
 }
-
-/*function edit_administrator($id)
-{
-	include "config/conn.php";
-
-	$sql="SELECT * FROM registration inner join admin on registration.reg_id=admin.admin_id where reg_id='$id'";
-
-	$result=mysqli_query($cxn,$sql);
-
-	return $result;
-}*/
-
-/*function update_administrator_with_image($id, $reg_lname, $reg_fname, $reg_mname, $reg_gender, $reg_status, $reg_address, $image)
-{
-	include "config/conn.php";
-
-	$sql="UPDATE registration SET reg_lname = '$reg_lname', reg_fname = '$reg_fname', reg_mname = '$reg_mname', 
-								  reg_gender = '$reg_gender', reg_status = '$reg_status',
-								  reg_address = '$reg_address', image = 'avatar5.png' where reg_id='$id'";
-	$result = mysqli_query($cxn, $sql);
-	
-	return $result;							  
-}
-
-function update_administrator($id, $reg_lname, $reg_fname, $reg_mname, $reg_gender, $reg_status, $reg_address)
-{
-	include "config/conn.php";
-
-	$sql="UPDATE registration SET reg_lname = '$reg_lname', reg_fname = '$reg_fname', reg_mname = '$reg_mname', 
-								  reg_gender = '$reg_gender', reg_status = '$reg_status', reg_address = '$reg_address' where reg_id='$id'";
-	$result = mysqli_query($cxn, $sql);
-	
-	return $result;							  
-}*/
 
 
 ?>

@@ -5,119 +5,145 @@
 <html lang="en">
 	<head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
 		<title>Online Student Performance Monitoring System</title>
-        
-        <link href="views/plugins/bootstrap/carousel.css" rel="stylesheet"/>
-		<link href="views/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+		<link href="views/plugins/bootstrap-3.3.2/dist/css/bootstrap.css" rel="stylesheet"/>
         <link href="views/css/exDesign.css" rel="stylesheet"/>
+        <link href="views/plugins/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet"/>
 	</head>
     
-	<body>
-	
-<div class="header-wrapper">
-	<?php include "views/parts/navi-bar-home.php";?>
-</div><!--header-wrapper-->
+	<body onload="check()" id="homepage-body">
+        <script>
+        function check()
+        {
+        <?php
+            if(isset($_GET['ue']))
+            {   
+        ?>      
+            alert('Username doesnt exist!');
+            window.location.href='index.php?';
+        <?php 
+            }
+            else if(isset($_GET['ip']))
+            {   
+        ?>
+            alert('Incorrect Password!');
+            window.location.href='index.php?';
+        <?php
+            }
+            else if(isset($_GET['peup']))
+            {
+        ?>
+            alert('Please enter username and password!');
+            window.location.href='index.php?';
 
-<div class="viewport">
-	<div class="content">
-			<div class="container">
-					<div id="login-banner" class=" col-md-7 ">     
-						<div id="logo-container">
-							<img alt="logo" src="views/res/logo_TES1946.png"/>
-						</div>
-						<div id="login-title-container">
-							<h3 id="login-title">Tunasan Elementary School</h3>
-							<h4 id="login-title2">Welcome to TES Online Student Performance Monitoring System</h4>
-						</div>	
-					</div>
-					
-				 <div id="home-container">   
-					<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						  
-								  <div class="carousel-inner">
-									<div class="item active">
-									  <img src="views/res/carousel_5.jpg" alt="First slide"/>
-									  <div class="container">
-										<div class="carousel-caption">
-										  
-										</div>
-									  </div>
-									</div>
-									
-									<div class="item">
-									  <img src="views/res/carousel_1.jpg" alt="Second slide"/>
-									  <div class="container">
-										<div class="carousel-caption">
-										  
-										</div>
-									  </div>
-									</div>
-									
-									<div class="item">
-									  <img src="views/res/carousel_2.jpg" alt="Third slide"/>
-									  <div class="container">
-										<div class="carousel-caption">
-										 
-										</div>
-									  </div>
-									</div>
-									
-									 <div class="item">
-									  <img src="views/res/carousel_3.jpg" alt="Fourth slide"/>
-									  <div class="container">
-										<div class="carousel-caption">
-										 
-										</div>
-									  </div>
-									</div>
-									
-									 <div class="item">
-									  <img src="views/res/carousel_4.jpg" alt="Fifth slide"/>
-									  <div class="container">
-										<div class="carousel-caption">
-										 
-										</div>
-									  </div>
-									</div>
-						</div>
-					</div>
-				  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-				  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-				</div><!-- /.carousel -->
-					
-					<div id="login-set" class=" col-md-7 ">
-						<div id="login" class="col-md-offset-3">
-								<fieldset id="fs_border">
-									<legend class="panel-title">Login</legend>
-									<form method="post" class="form-horizontal" role="form">
-									<div class="form-group">
-										<label for="username" class="title">Username:</label>
-										<input type="text" id="username" name="user" class="form-control" placeholder="Enter username" required="required"/>
-									</div>
-									<div class="form-group">
-										<label for="password" class="title">Password:</label>
-										<input type="password" id="password" name="pass" class="form-control" placeholder="Enter password" required="required"/>
-									</div>
-									<div class="home_btn">
-										
-											<button type="submit" class="btn btn-fresh text-uppercase" id="submit">Login</button>
-											<button type="reset" class="btn btn-sky text-uppercase" >Clear</button>
+        <?php
+            }
+           
+        ?>       
+        }  
+         </script>       
+<!--Start of page header-->
+<div class="page-header no-margin no-padding" id="homepage-banner">
+	<div class="container-fluid">
+		<div>
+	   		<h4 class="text-center">Online Student Performance Monitoring System</h4>
+	    </div>
+	</div>   	
+</div>				
+<!--End of page header-->
+
+<!--Start of login--> 
+<div class="container">
+
+	<div id="login-container" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+		<div id="login-set" class="panel">
+
+				<div class="col-xs-12 col-sm-2 col-md-2  col-lg-2 login-banner">
+					<img src="views/res/TES_logo.png" class="img-responsive center-block"/>
+				</div>
+
+				<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 login-banner">
+					<small><h3 id="login-title" class="text-center"> Welcome to Tunasan Elementary School</h3></small>
+				</div>
 				
+				<div class="panel-body">
+	
+						<fieldset id="fs_border">
+							<form method="post" class="form-horizontal" role="form" id="login-form">
+								<div class="form-group">
+									<div class="input-group col-xs-8 col-xs-offset-2 col-sm-8 co-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+										<input type="text" id="username" name="user" class="form-control" placeholder="Username" required="required"/>
 									</div>
-									</form>
-								</fieldset>
-						</div>						
-					</div> 
-			</div>
-	</div>	
-</div><!--viewport-->
+								</div>
+								<div class="form-group">
+									<div class="input-group col-xs-8 col-xs-offset-2 col-sm-8 co-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input type="password" id="password" name="pass" class="form-control" placeholder="Password" required="required"/>
+									</div>
+								</div>
+								<div class="form-group">
+									 <div class="col-xs-2 col-xs-offset-5 col-sm-2 col-sm-offset-8 col-md-2 col-md-offset-8 col-lg-2 col-lg-8">
+										<button type="submit" class="btn btn-success text-uppercase" id="submitbtn">Login</button>
+									 </div>
+								</div>
+							</form>
+						</fieldset>
+				</div>	
 
-       
-        <script src="views/plugins/bootstrap/jquery.min.js"></script>
-        <script src="views/plugins/bootstrap/transition.js"></script>
-        <script src="views/plugins/bootstrap/carousel.js"></script>
-        <script src="views/plugins/bootstrap/bootstrap.min.js"></script>
-		
-	</body>
+		</div>	
+	</div> 
+</div><!--container-->
+<!--End of login-->
+ 
+<script src="views/plugins/jquery/jquery-1.11.2.min.js"></script>
+<script src="views/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
+
+<script>
+
+$(function(){
+
+		function validateText(id)
+		{
+			if($('#'+id).val()==null || $('#'+id).val()=="")
+			{
+				var div = $("#"+id).closest("div");
+				div.removeClass("has-success");
+				$("#glypcn"+id).remove();
+				div.addClass("has-error has-feedback");
+				div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+				return false;
+			}
+			else
+			{
+				var div = $("#"+id).closest("div");
+				div.removeClass("has-error");
+				$("#glypcn"+id).remove();
+				div.addClass("has-success")
+				return true;
+			}	
+
+			
+		}
+	
+		$('#submitbtn').click(function()
+		{
+			 event.preventDefault();
+			 
+			if(!validateText("username"))
+			{
+				return false;
+			}
+
+			if(!validateText("password"))
+			{
+				return false;
+			}	
+
+			$("form#login-form").submit();	
+		});
+
+});
+</script>		
+</body>
 </html>

@@ -2,7 +2,7 @@
 html,
 body {
   background-color : RGB(30, 30, 30);
-  background-image : url('../res/TES_BACKGROUND.jpg');
+  background-image : url('../res/BG_OSPMS.jpg');
   background-size : 100% 100%;
   background-attachment : fixed;
   
@@ -112,7 +112,7 @@ body.fixed .wrapper {
 .welcome-content
 {
   background-color : RGB(30, 30, 30);
-  background-image : url('../res/TES_BACKGROUND.jpg');
+  background-image : url('../res/BG_OSPMS.jpg');
   background-size : 100% 100%;
   background-attachment : fixed;
   
@@ -3704,6 +3704,67 @@ color: #666;
 }
 /*Edit Post*/
 .post-edit-file-browse
+{
+  position: relative;
+  top:10px;
+  left:180px;
+}
+/*Add Admin*/
+.add-admin-image
+{
+  margin: auto auto;
+  height:120px;
+  width:120px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-top:20px;
+  margin-left:30px;
+}
+.admin-add-image-browse
+{
+  margin-top:8px;
+  margin-left:30px;
+}
+/*Add Teacher*/
+.add-teacher-image
+{
+  margin: auto auto;
+  height:120px;
+  width:120px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-top:20px;
+  margin-left:30px;
+}
+.teacher-add-image-browse
+{
+  margin-top:8px;
+  margin-left:30px;
+}
+/*Add Student*/
+.add-student-image
+{
+  margin: auto auto;
+  height:120px;
+  width:120px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  margin-top:20px;
+  margin-left:30px;
+}
+.student-add-image-browse
+{
+  margin-top:8px;
+  margin-left:30px;
+}
+/*Add Post*/
+.post-add-file-browse
 {
   position: relative;
   top:10px;
